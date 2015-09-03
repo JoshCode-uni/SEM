@@ -8,10 +8,10 @@
 *.classpath
 
 # Ignore NetBeans files and folders
-*/nbproject
+**/nbproject
 
 # Ignore Maven files and folders
-*/target
+**/target
 
 **/Thumbs.db
 /build/
