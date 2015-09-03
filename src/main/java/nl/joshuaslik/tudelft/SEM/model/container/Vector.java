@@ -3,23 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.model.container;
-
-import java.util.Objects;
+package nl.joshuaslik.tudelft.SEM.model.container;
 
 /**
- *
  * @author faris
  */
 public class Vector {
-
+	
 	private double x, y;
-
+	
 	public Vector(double x, double y) {
 		this.x = x;
 		this.y = y;
 	}
-
+	
 	/**
 	 * Calculate intersection point of 2 vectors. (null if no intersection)
 	 *
@@ -31,32 +28,32 @@ public class Vector {
 		
 		Vector vec2 = new Vector(to.getxPos() - from.getxPos(), to.getyPos() - from.getyPos());
 		// a * vec2 + <from> = b * this
-
+		
 		if (this.y != 0) {
 			double divider = vec2.x - this.x / this.y * vec2.y;
-
+			
 			if (Math.abs(divider) < 0.01) {
 				return null;
 			}
-
+			
 			double a = -(from.getxPos() - this.x / this.y * from.getyPos()) / divider;
-
+			
 			return new Point(vec2.x * a + from.getxPos(), vec2.y * a + from.getyPos());
 		} else if (vec2.y != 0) {
 			double divider = this.x - vec2.x / vec2.y * this.y;
-
+			
 			if (Math.abs(divider) < 0.01) {
 				return null;
 			}
-
+			
 			double a = (from.getxPos() - vec2.x / vec2.y * from.getyPos()) / divider;
-
+			
 			return new Point(this.x * a, this.y * a);
 		}
-
+		
 		return null;
 	}
-
+	
 	/**
 	 * Check if point p is in front of the vector (== check if the vector will
 	 * have positive length if it intersects with point p). This method doesn't
@@ -73,24 +70,25 @@ public class Vector {
 		Point moveDelta = new Point(from.getxPos() + 0.001 * this.x, from.getyPos() + 0.001 * this.y);
 		return moveDelta.distanceTo(intersect) < dist;
 	}
-
+	
 	/**
 	 * +1 if positive direction, otherwise -1.
-	 * @return 
+	 *
+	 * @return
 	 */
 	public double getXdirection() {
-//		return x / (Math.abs(y) + Math.abs(x)); --> % direction
+		//		return x / (Math.abs(y) + Math.abs(x)); --> % direction
 		return x < 0 ? -1 : 1;
 	}
-
+	
 	public Vector normal() {
 		return new Vector(y, -x);
 	}
-
+	
 	public double getX() {
 		return x;
 	}
-
+	
 	public double getY() {
 		return y;
 	}
@@ -99,7 +97,7 @@ public class Vector {
 	public String toString() {
 		return "Vector{" + "x=" + x + ", y=" + y + '}';
 	}
-
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {

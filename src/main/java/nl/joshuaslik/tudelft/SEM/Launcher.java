@@ -3,24 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app;
+package nl.joshuaslik.tudelft.SEM;
 
-import app.control.Bubble;
-import app.control.CurrentSceneObjects;
-import app.control.Line;
-import app.model.container.Point;
-import app.model.container.Vector;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import nl.joshuaslik.tudelft.SEM.control.Bubble;
+import nl.joshuaslik.tudelft.SEM.control.CurrentSceneObjects;
+import nl.joshuaslik.tudelft.SEM.control.Line;
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
 /**
- *
  * @author faris
  */
 public class Launcher extends Application {
-	
 	
 	public static final int SCREEN_WIDTH = 600;
 	public static final int SCREEN_HEIGHT = 600;
@@ -39,7 +37,7 @@ public class Launcher extends Application {
 		Point topLeft = new Point(30, 30);
 		Point topRight = new Point(scene.getWidth() - 30, 30);
 		Point bottomLeft = new Point(30, scene.getHeight() - 30);
-		Point bottomRight = new Point(scene.getWidth() - 30,  scene.getHeight() - 30);
+		Point bottomRight = new Point(scene.getWidth() - 30, scene.getHeight() - 30);
 		
 		Line top = new Line(topLeft, topRight);
 		pane.getChildren().add(top.getNode());
@@ -64,15 +62,14 @@ public class Launcher extends Application {
 		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
 		pane.getChildren().add(bubble.getNode());
 		
-		
 		primaryStage.setTitle("Physics test");
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
 		bubble.startAnimation();
-//		timeline.play();
+		//		timeline.play();
 	}
-
+	
 	/**
 	 * @param args the command line arguments
 	 */

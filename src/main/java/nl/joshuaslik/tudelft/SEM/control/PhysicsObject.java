@@ -3,19 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.control;
+package nl.joshuaslik.tudelft.SEM.control;
 
-import app.model.container.IntersectionPoint;
-import app.model.container.Point;
 import javafx.scene.Node;
+import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
- *
  * @author faris
  */
 public interface PhysicsObject {
 	
 	public Node getNode();
+	
 	public IntersectionPoint getClosestIntersection(Point p);
 	
 }

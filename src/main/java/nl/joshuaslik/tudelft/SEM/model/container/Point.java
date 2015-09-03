@@ -3,17 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package app.model.container;
+package nl.joshuaslik.tudelft.SEM.model.container;
 
 /**
- *
  * @author faris
  */
 public class Point {
 	
 	private final double xPos; // stores x position
-    private final double yPos; // stores y position
-
+	private final double yPos; // stores y position
+	
 	public Point(double xPos, double yPos) {
 		this.xPos = xPos;
 		this.yPos = yPos;
@@ -30,20 +29,20 @@ public class Point {
 	public Point translate(Point p) {
 		return translate(p.xPos, p.yPos);
 	}
-
+	
 	public double getxPos() {
 		return xPos;
 	}
-
+	
 	public double getyPos() {
 		return yPos;
 	}
 	
 	@Override
-    public String toString() {
-        return "Position: (x: " + xPos + ", y: " + yPos + ")";
-    }
-
+	public String toString() {
+		return "Position: (x: " + xPos + ", y: " + yPos + ")";
+	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -61,6 +60,5 @@ public class Point {
 		}
 		return true;
 	}
-	
 	
 }
