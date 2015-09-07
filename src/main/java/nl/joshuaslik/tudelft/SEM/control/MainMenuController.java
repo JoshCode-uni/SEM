@@ -34,7 +34,8 @@ public class MainMenuController {
 	 */
 	@FXML
 	protected void handleOptionsButton(ActionEvent event) throws IOException {
-		//OptionsController.start();
+		//Stage stage = (Stage) optionsButton.getScene().getWindow();
+		//OptionsController.start(stage);
 	}
 	
 	/**
