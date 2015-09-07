@@ -5,6 +5,9 @@
  */
 package nl.joshuaslik.tudelft.SEM.control;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -12,6 +15,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import nl.joshuaslik.tudelft.SEM.Launcher;
@@ -38,6 +42,9 @@ public class Bubble implements PhysicsObject, DynamicObject {
 	
 	@Override
 	public Node getNode() {
+		return circle;
+	}
+	public Circle getCircle() {
 		return circle;
 	}
 	
@@ -138,5 +145,32 @@ public class Bubble implements PhysicsObject, DynamicObject {
 	@Override
 	public IntersectionPoint getClosestIntersection(Point p) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+	
+	/**
+	 * Splits a bubble if you pushed the button.
+	 * @param pane the pane in which the bubbles should spawn
+	 * @return the bubbles which are spawned by the splitbubble function
+	 */
+	public List<Bubble> splitBubble(Pane pane){
+		if(pane.getChildren().contains(this.circle)){
+			double newRadius = circle.getRadius();
+			double xPos = circle.getCenterX();
+			double yPos = circle.getCenterY();
+			pane.getChildren().remove(this.getNode());
+			this.timeline.stop();
+			Bubble bubble = new Bubble(new Point(xPos-newRadius/2,yPos),newRadius/2,new Vector(-2,-5));
+			Bubble bubble2 = new Bubble(new Point(xPos+newRadius/2,yPos),newRadius/2,new Vector(2,5));
+			pane.getChildren().add(bubble.getNode());
+			pane.getChildren().add(bubble2.getNode());
+			bubble.startAnimation();
+			bubble2.startAnimation();
+			List<Bubble> bubbles = new ArrayList<>();
+			bubbles.add(bubble);
+			bubbles.add(bubble2);
+			return bubbles;
+	
+		}
+		return new ArrayList<>();
 	}
 }

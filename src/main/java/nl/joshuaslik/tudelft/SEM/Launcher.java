@@ -5,8 +5,15 @@
  */
 package nl.joshuaslik.tudelft.SEM;
 
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import nl.joshuaslik.tudelft.SEM.control.Bubble;
@@ -25,7 +32,7 @@ public class Launcher extends Application {
 	public static final double GRAVITY = 900;
 	public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
 	public static final int ANIMATE_DELAY = 10; // milliseconds
-	
+	private List<Bubble> bubbles = new ArrayList<>();
 	public static Pane pane; // <<< temporary to draw lines along the circle path, should be replaced
 	
 	@Override
@@ -60,6 +67,7 @@ public class Launcher extends Application {
 		double bubbleRadius = 50;
 		Vector bubbleDirection = new Vector(-2, -5);
 		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
+		bubbles.add(bubble);
 		pane.getChildren().add(bubble.getNode());
 		
 		primaryStage.setTitle("Physics test");
@@ -67,7 +75,27 @@ public class Launcher extends Application {
 		primaryStage.show();
 		
 		bubble.startAnimation();
-		//		timeline.play();
+		
+		
+		//Used for splitting bubbles using a button
+		Button btn = new Button();
+	   	btn.setText("Split the bubbles");
+	   	btn.setOnAction(new EventHandler<ActionEvent>() {
+	   		@Override	
+	   		public void handle(ActionEvent event) {
+	           	List<Bubble> newBubbles = new ArrayList<>();
+	           	List<Bubble> oldBubbles = new ArrayList<>();
+	           	for(int i=0;i<bubbles.size();i++){
+	           		if(bubbles.get(i).getCircle().getRadius()>20){
+	           			newBubbles.addAll(bubbles.get(i).splitBubble(pane));
+	           			oldBubbles.add(bubbles.get(i));
+	           		}
+	           	}
+	           	bubbles.addAll(newBubbles);
+	           	bubbles.removeAll(oldBubbles);
+	   		}
+	   	});
+	   	pane.getChildren().add(btn);
 	}
 	
 	/**
