@@ -2,6 +2,8 @@ package nl.joshuaslik.tudelft.SEM.control;
 
 import java.io.IOException;
 
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -40,6 +42,36 @@ public class GameController {
 		stage.setFullScreen(true);
 		stage.setFullScreenExitHint("");
 		stage.show();
+		
+		Point topLeft = new Point(0, 0);
+		Point topRight = new Point(1920, 0);
+		Point bottomLeft = new Point(0, 880);
+		Point bottomRight = new Point(1920, 880);
+		
+		Line top = new Line(topLeft, topRight);
+		pane.getChildren().add(top.getNode());
+		CurrentSceneObjects.addObject(top);
+		
+		Line left = new Line(topLeft, bottomLeft);
+		pane.getChildren().add(left.getNode());
+		CurrentSceneObjects.addObject(left);
+		
+		Line right = new Line(topRight, bottomRight);
+		pane.getChildren().add(right.getNode());
+		CurrentSceneObjects.addObject(right);
+		
+		Line bottom = new Line(bottomLeft, bottomRight);
+		pane.getChildren().add(bottom.getNode());
+		CurrentSceneObjects.addObject(bottom);
+		
+		// create 1 bubble
+		//Point bubbleCenter = new Point(200, 300);
+		//double bubbleRadius = 50;
+		//Vector bubbleDirection = new Vector(-2, -5);
+		//Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
+		//pane.getChildren().add(bubble.getNode());
+		
+		//bubble.startAnimation();
 	}
 	
 	/**
