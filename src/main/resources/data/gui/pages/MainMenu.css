@@ -1,0 +1,17 @@
+.button {
+	-fx-padding: 0;
+	-fx-margin: 0;
+	-fx-background-color: #101010;
+	-fx-text-fill: white;
+	-fx-font-size: 400%;
+	-fx-opacity: 80%;
+	-fx-border-width: 1px;
+	-fx-border-color: #cecece;
+	-fx-border-style: solid;
+}
+
+.button: hover{
+	-fx-background-color: #000000;
+	-fx-opacity: 90%;
+	-fx-cursor: hand;
+}
