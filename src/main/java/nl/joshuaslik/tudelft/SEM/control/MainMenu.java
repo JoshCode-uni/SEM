@@ -12,12 +12,5 @@ public class MainMenu {
 	 */
 	public static void start() throws IOException {
 		Pane scene = (Pane) FXMLLoader.load(Class.class.getResource("/data/gui/pages/MainMenu.fxml"));
-		/*Main.setCenter(scene);
-		Main.setBottom(null);
-		Main.setTop(null);
-		
-		Main.rootLayout.getStyleClass().removeAll("maingame");
-		
-		Main.rootLayout.getStyleClass().add("mainmenu");*/
 	}
 }
