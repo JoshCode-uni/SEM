@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="200.0" fitWidth="1920.0" layoutY="880.0" opacity="0.5">
+         <image>
+            <Image url="@../img/BrickWall.jpg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7c7c7c" height="50.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1920.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="RED" height="50.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1800.0" />
+      <Text fill="RED" layoutX="960.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level" wrappingWidth="117.6708984375">
+         <font>
+            <Font size="42.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="1460.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score">
+         <font>
+            <Font size="42.0" />
+         </font>
+      </Text>
+      <Text fill="RED" layoutX="460.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives:">
+         <font>
+            <Font size="42.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>
