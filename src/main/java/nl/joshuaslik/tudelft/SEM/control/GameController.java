@@ -65,13 +65,13 @@ public class GameController {
 		CurrentSceneObjects.addObject(bottom);
 		
 		// create 1 bubble
-		//Point bubbleCenter = new Point(200, 300);
-		//double bubbleRadius = 50;
-		//Vector bubbleDirection = new Vector(-2, -5);
-		//Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
-		//pane.getChildren().add(bubble.getNode());
+		Point bubbleCenter = new Point(200, 300);
+		double bubbleRadius = 50;
+		Vector bubbleDirection = new Vector(-2, -5);
+		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
+		pane.getChildren().add(bubble.getNode());
 		
-		//bubble.startAnimation();
+		bubble.startAnimation();
 	}
 	
 	/**
