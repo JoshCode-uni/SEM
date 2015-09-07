@@ -3,9 +3,9 @@
 	-fx-margin: 0;
 	-fx-background-color: #101010;
 	-fx-text-fill: white;
-	-fx-font-size: 400%;
-	-fx-opacity: 80%;
-	-fx-border-width: 1px;
+	-fx-font-size: 300%;
+	-fx-opacity: 85%;
+	-fx-border-width: 2px;
 	-fx-border-color: #cecece;
 	-fx-border-style: solid;
 }
