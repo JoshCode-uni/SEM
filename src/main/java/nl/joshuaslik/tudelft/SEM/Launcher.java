@@ -79,6 +79,7 @@ public class Launcher extends Application {
 		Scene scene = new Scene(pane);
 		primaryStage.setScene(scene);
 		primaryStage.setFullScreen(true);
+		primaryStage.setFullScreenExitHint("");
 		primaryStage.show();
 		
 		}
