@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
+import javafx.stage.Stage;
 
 
 /**
@@ -22,7 +23,8 @@ public class MainMenuController {
 	 */
 	@FXML
 	protected void handlePlayButton(ActionEvent event) throws IOException {
-		GameController.start();
+		Stage stage = (Stage) playButton.getScene().getWindow();
+		GameController.start(stage);
 	}
 	
 	/**

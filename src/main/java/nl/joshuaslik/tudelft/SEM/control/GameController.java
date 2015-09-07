@@ -15,16 +15,14 @@ public class GameController {
 	
 	private static Pane pane;
 	
-	public static void start() throws IOException {
+	public static void start(Stage stage) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Class.class.getResource("/data/gui/pages/GameGUI.fxml"));
 		pane = loader.load();
 		Scene scene = new Scene(pane);
 		
-		Stage primaryStage = new Stage();
-		primaryStage.setScene(scene);
-		primaryStage.setFullScreen(true);
-		primaryStage.show();
-		
+		stage.setScene(scene);
+		stage.setFullScreen(true);
+		stage.show();
 	}
 }
