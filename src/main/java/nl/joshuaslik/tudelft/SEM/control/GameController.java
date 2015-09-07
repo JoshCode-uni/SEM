@@ -23,6 +23,7 @@ public class GameController {
 		
 		stage.setScene(scene);
 		stage.setFullScreen(true);
+		stage.setFullScreenExitHint("");
 		stage.show();
 	}
 }
