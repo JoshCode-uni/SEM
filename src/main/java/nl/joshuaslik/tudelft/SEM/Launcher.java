@@ -5,10 +5,13 @@
  */
 package nl.joshuaslik.tudelft.SEM;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import nl.joshuaslik.tudelft.SEM.control.Bubble;
 import nl.joshuaslik.tudelft.SEM.control.CurrentSceneObjects;
 import nl.joshuaslik.tudelft.SEM.control.Line;
@@ -29,8 +32,8 @@ public class Launcher extends Application {
 	public static Pane pane; // <<< temporary to draw lines along the circle path, should be replaced
 	
 	@Override
-	public void start(Stage primaryStage) {
-		pane = new Pane();
+	public void start(Stage primaryStage) throws IOException {
+		/*pane = new Pane();
 		Scene scene = new Scene(pane, SCREEN_WIDTH, SCREEN_HEIGHT);
 		
 		// create 4 lines (bounds of the scene)
@@ -68,7 +71,17 @@ public class Launcher extends Application {
 		
 		bubble.startAnimation();
 		//		timeline.play();
-	}
+		 */	
+		
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
+		Pane pane = loader.load();
+		Scene scene = new Scene(pane);
+		primaryStage.setScene(scene);
+		primaryStage.setFullScreen(true);
+		primaryStage.show();
+		
+		}
 	
 	/**
 	 * @param args the command line arguments

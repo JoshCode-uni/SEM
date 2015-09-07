@@ -3,7 +3,7 @@ package nl.joshuaslik.tudelft.SEM.control;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyEvent;
+import javafx.event.ActionEvent;
 
 
 /**
@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
 public class MainMenuController {
 	
 	@FXML
-	private Button startButton, optionsButton, quitButton;
+	private Button playButton, optionsButton, quitButton;
 
 	/**
 	 * Handles clicking of the start button
@@ -21,8 +21,8 @@ public class MainMenuController {
 	 * @throws IOException thrown when FXML file could not be parsed
 	 */
 	@FXML
-	protected void handleStartButton(KeyEvent event) throws IOException {
-		//GameController.start();
+	protected void handlePlayButton(ActionEvent event) throws IOException {
+		GameController.start();
 	}
 	
 	/**
@@ -31,8 +31,8 @@ public class MainMenuController {
 	 * @throws IOException thrown when FXML file could not be parsed
 	 */
 	@FXML
-	protected void handleOptionsButton(KeyEvent event) throws IOException {
-	//	OptionsController.start();
+	protected void handleOptionsButton(ActionEvent event) throws IOException {
+		//OptionsController.start();
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class MainMenuController {
 	 * @throws IOException thrown when FXML file could not be parsed
 	 */
 	@FXML
-	protected void handleQuitButton(KeyEvent event) throws IOException {
+	protected void handleQuitButton(ActionEvent event) throws IOException {
 		System.exit(0);
 	}
 }
