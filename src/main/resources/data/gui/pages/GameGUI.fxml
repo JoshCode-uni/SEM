@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
@@ -35,5 +36,10 @@
             <Image url="@../img/BackgroundForLevel1.jpg" />
          </image>
       </ImageView>
+      <Button fx:id="quitButton" layoutX="40.0" layoutY="980.0" mnemonicParsing="false" onAction="#handleQuitButton" text="Quit">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

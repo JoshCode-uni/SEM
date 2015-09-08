@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.control.Button;
 
 /**
  * Controller for the game UI.
@@ -26,6 +28,9 @@ public class GameController {
 	
 	@FXML
 	private static Text livesText, levelText, scoreText;
+	
+	@FXML
+	private static Button quitButton;
 	
 	/**
 	 * Starts the Game GUI scene.
@@ -72,6 +77,17 @@ public class GameController {
 		pane.getChildren().add(bubble.getNode());
 		
 		bubble.startAnimation();
+	}
+	
+	/**
+	 * Handles clicking of the quit button
+	 * @param event the click of the button
+	 * @throws IOException thrown when FXML file could not be parsed
+	 */
+	@FXML
+	protected void handleQuitButton(ActionEvent event) throws IOException {
+		System.out.println("Quit button pressed!");
+		System.exit(0);
 	}
 	
 	/**
