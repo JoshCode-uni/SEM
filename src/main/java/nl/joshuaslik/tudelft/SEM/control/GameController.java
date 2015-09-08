@@ -2,6 +2,7 @@ package nl.joshuaslik.tudelft.SEM.control;
 
 import java.io.IOException;
 
+import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import javafx.event.ActionEvent;
@@ -41,12 +42,7 @@ public class GameController {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Class.class.getResource("/data/gui/pages/GameGUI.fxml"));
 		pane = loader.load();
-		Scene scene = new Scene(pane);
-		
-		stage.setScene(scene);
-		stage.setFullScreen(true);
-		stage.setFullScreenExitHint("");
-		stage.show();
+		Launcher.getBorderPane().setCenter(pane);
 		
 		Point topLeft = new Point(0, 0);
 		Point topRight = new Point(1920, 0);

@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +29,7 @@ public class Launcher extends Application {
 	public static final double GRAVITY = 900;
 	public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
 	public static final int ANIMATE_DELAY = 10; // milliseconds
+	private static BorderPane bp = new BorderPane();
 	
 	public static Pane pane; // <<< temporary to draw lines along the circle path, should be replaced
 	
@@ -76,13 +78,18 @@ public class Launcher extends Application {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
 		Pane pane = loader.load();
-		Scene scene = new Scene(pane);
+		bp.setCenter(pane);
+		Scene scene = new Scene(bp);
 		primaryStage.setScene(scene);
 		primaryStage.setFullScreen(true);
 		primaryStage.setFullScreenExitHint("");
 		primaryStage.show();
 		
 		}
+	
+	public static BorderPane getBorderPane(){
+		return bp;
+	}
 	
 	/**
 	 * @param args the command line arguments
