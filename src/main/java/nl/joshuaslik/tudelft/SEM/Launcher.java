@@ -8,6 +8,8 @@ package nl.joshuaslik.tudelft.SEM;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -29,6 +31,7 @@ public class Launcher extends Application {
 	public static final double GRAVITY = 900;
 	public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
 	public static final int ANIMATE_DELAY = 10; // milliseconds
+
 	private static BorderPane bp = new BorderPane();
 	
 	public static Pane pane; // <<< temporary to draw lines along the circle path, should be replaced
@@ -65,6 +68,7 @@ public class Launcher extends Application {
 		double bubbleRadius = 50;
 		Vector bubbleDirection = new Vector(-2, -5);
 		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
+		bubbles.add(bubble);
 		pane.getChildren().add(bubble.getNode());
 		
 		primaryStage.setTitle("Physics test");
@@ -72,6 +76,7 @@ public class Launcher extends Application {
 		primaryStage.show();
 		
 		bubble.startAnimation();
+
 		//		timeline.play();
 		 */	
 		

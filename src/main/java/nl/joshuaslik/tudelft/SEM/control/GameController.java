@@ -1,11 +1,14 @@
 package nl.joshuaslik.tudelft.SEM.control;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -32,6 +35,9 @@ public class GameController {
 	
 	@FXML
 	private Button quitButton, mainMenuButton;
+	
+
+	private static List<Bubble> bubbles = new ArrayList<>();
 	
 	/**
 	 * Starts the Game GUI scene.
@@ -73,6 +79,23 @@ public class GameController {
 		pane.getChildren().add(bubble.getNode());
 		
 		bubble.startAnimation();
+		bubbles.add(bubble);
+		//Used for splitting bubbles using a button
+		Button btn = new Button();
+		   	btn.setText("Split the bubbles");
+		   	btn.setOnAction(new EventHandler<ActionEvent>() {
+		   		@Override	
+		   		public void handle(ActionEvent event) {
+		           	List<Bubble> newBubbles = new ArrayList<>();
+			           	for(int i=0;i<bubbles.size();i++){
+			           		if(bubbles.get(i).getCircle().getRadius()>12){
+			           			newBubbles.add(bubbles.get(i).splitBubble(pane));
+			           		}
+			           	}
+			           	bubbles.addAll(newBubbles);
+			   		}
+			   	});
+			   	pane.getChildren().add(btn);
 	}
 	
 	/**
