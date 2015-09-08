@@ -1,9 +1,8 @@
 .button {
-	-fx-padding: 0;
-	-fx-margin: 0;
 	-fx-background-color: #101010;
 	-fx-text-fill: white;
-	-fx-font-size: 300%;
+	-fx-font-size: 400%;
+	-fx-font-family: 'Buxton Sketch';
 	-fx-opacity: 85%;
 	-fx-border-width: 2px;
 	-fx-border-color: #cecece;
