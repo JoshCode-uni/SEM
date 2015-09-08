@@ -13,25 +13,29 @@
             <Image url="@../img/BackgroundForMainMenu.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="playButton" layoutX="290.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePlayButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Play">
-         <font>
-            <Font size="42.0" />
-         </font>
-      </Button>
-      <Button fx:id="optionsButton" layoutX="290.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleOptionsButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Options">
-         <font>
-            <Font size="42.0" />
-         </font>
-      </Button>
-      <Button fx:id="quitButton" layoutX="290.0" layoutY="590.0" mnemonicParsing="false" onAction="#handleQuitButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Quit">
-         <font>
-            <Font size="42.0" />
-         </font>
-      </Button>
-      <Button layoutX="290.0" layoutY="320.0" mnemonicParsing="false" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Choose Level">
-         <font>
-            <Font size="42.0" />
-         </font>
-      </Button>
+      <VBox layoutX="290.0" layoutY="185.0" spacing="2.0">
+         <children>
+            <Button fx:id="playButton" layoutX="290.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePlayButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Play">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Button>
+            <Button layoutX="290.0" layoutY="320.0" mnemonicParsing="false" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Choose Level">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Button>
+            <Button fx:id="optionsButton" layoutX="290.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleOptionsButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Options">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Button>
+            <Button fx:id="quitButton" layoutX="290.0" layoutY="590.0" mnemonicParsing="false" onAction="#handleQuitButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Quit">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Button>
+         </children>
+      </VBox>
    </children>
 </Pane>

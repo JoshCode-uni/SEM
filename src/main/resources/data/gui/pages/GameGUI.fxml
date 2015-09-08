@@ -30,5 +30,10 @@
             <Font size="42.0" />
          </font>
       </Text>
+      <ImageView fitHeight="880.0" fitWidth="1920.0">
+         <image>
+            <Image url="@../img/BackgroundForLevel1.jpg" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
