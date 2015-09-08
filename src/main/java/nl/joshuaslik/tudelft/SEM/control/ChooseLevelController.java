@@ -16,7 +16,7 @@ public class ChooseLevelController {
 	private static Pane pane;
 	
 	@FXML
-	private static Button level1Button, level2Button, level3Button, level4Button, level5Button;
+	private static Button level1Button, level2Button, level3Button, level4Button, level5Button, mainMenuButton;
 	
 	/**
 	 * Starts the Game GUI scene.
@@ -91,5 +91,17 @@ public class ChooseLevelController {
 	protected void handleLevel5Button(ActionEvent event) throws IOException {
 		System.out.println("Level 5 button pressed!");
 		//Stage stage = (Stage) level5Button.getScene().getWindow();
+	}
+	
+	/**
+	 * Handles clicking of the main menu button
+	 * @param event the click of the button
+	 * @throws IOException thrown when FXML file could not be parsed
+	 */
+	@FXML
+	protected void handleMainMenuButton(ActionEvent event) throws IOException {
+		System.out.println("Main Menu button pressed!");
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		MainMenuController.start(stage);
 	}
 }

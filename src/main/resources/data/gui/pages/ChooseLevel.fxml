@@ -42,5 +42,10 @@
             </Button>
          </children>
       </HBox>
+      <Button fx:id="mainMenuButton" layoutX="100.0" layoutY="900.0" mnemonicParsing="false" onAction="#handleMainMenuButton" stylesheets="@MainMenu.css" text="Main Menu">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

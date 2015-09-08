@@ -1,10 +1,16 @@
 package nl.joshuaslik.tudelft.SEM.control;
 
 import java.io.IOException;
+
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.stage.Stage;
+import javafx.scene.layout.Pane;
 
 
 /**
@@ -14,8 +20,29 @@ import javafx.stage.Stage;
 public class MainMenuController {
 	
 	@FXML
+	private static Pane pane;
+	
+	@FXML
 	private Button playButton, chooseLevelButton, optionsButton, quitButton;
 
+	/**
+	 * Starts the Main Menu scene.
+	 * @param stage the current stage
+	 * @throws IOException thrown when FXML is not parsed
+	 */
+	public static void start(Stage stage) throws IOException {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Class.class.getResource("/data/gui/pages/MainMenu.fxml"));
+		pane = loader.load();
+		Scene scene = new Scene(pane);
+		
+		stage.setScene(scene);
+		stage.setFullScreen(true);
+		stage.setFullScreenExitHint("");
+		stage.show();
+	}
+	
+	
 	/**
 	 * Handles clicking of the start button
 	 * @param event the click of the button
