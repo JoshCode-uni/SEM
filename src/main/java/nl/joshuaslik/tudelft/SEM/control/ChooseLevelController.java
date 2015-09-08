@@ -17,6 +17,9 @@ public class ChooseLevelController {
 	private static Pane pane;
 	
 	@FXML
+	private Button playButton, chooseLevelButton, optionsButton, quitButton;
+	
+	@FXML
 	private Button level1Button, level2Button, level3Button, level4Button, level5Button, mainMenuButton;
 	
 	/**
@@ -99,5 +102,52 @@ public class ChooseLevelController {
 		System.out.println("Main Menu button pressed!");
 		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
 		MainMenuController.start(stage);
+	}
+	
+	/**
+	 * Handles clicking of the start button
+	 * @param event the click of the button
+	 * @throws IOException thrown when FXML file could not be parsed
+	 */
+	@FXML
+	protected void handlePlayButton(ActionEvent event) throws IOException {
+		System.out.println("Play button pressed!");
+		Stage stage = (Stage) playButton.getScene().getWindow();
+		GameController.start(stage);
+	}
+	
+	/**
+	 * Handles clicking of the choose level button
+	 * @param event the click of the button
+	 * @throws IOException thrown when FXML file could not be parsed
+	 */
+	@FXML
+	protected void handleChooseLevelButton(ActionEvent event) throws IOException {
+		System.out.println("Choose Level button pressed!");
+		Stage stage = (Stage) chooseLevelButton.getScene().getWindow();
+		ChooseLevelController.start(stage);
+	}
+	
+	/**
+	 * Handles clicking of the options button
+	 * @param event the click of the button
+	 * @throws IOException thrown when FXML file could not be parsed
+	 */
+	@FXML
+	protected void handleOptionsButton(ActionEvent event) throws IOException {
+		System.out.println("Options button pressed!");
+		Stage stage = (Stage) optionsButton.getScene().getWindow();
+		OptionsController.start(stage);
+	}
+	
+	/**
+	 * Handles clicking of the quit button
+	 * @param event the click of the button
+	 * @throws IOException thrown when FXML file could not be parsed
+	 */
+	@FXML
+	protected void handleQuitButton(ActionEvent event) throws IOException {
+		System.out.println("Quit button pressed!");
+		System.exit(0);
 	}
 }
