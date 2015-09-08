@@ -2,23 +2,16 @@ package nl.joshuaslik.tudelft.SEM.control;
 
 import java.io.IOException;
 
-import nl.joshuaslik.tudelft.SEM.model.container.Point;
-import nl.joshuaslik.tudelft.SEM.model.container.Vector;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.event.ActionEvent;
-import javafx.stage.Stage;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
+public class OptionsController {
 
-/**
- * Controller for the main menu UI.
- * @author Bastijn
- */
-public class MainMenuController {
-	
 	@FXML
 	private static Pane pane;
 	
@@ -26,13 +19,13 @@ public class MainMenuController {
 	private Button playButton, chooseLevelButton, optionsButton, quitButton;
 
 	/**
-	 * Starts the Main Menu scene.
+	 * Starts the Options scene within Main Menu.
 	 * @param stage the current stage
 	 * @throws IOException thrown when FXML is not parsed
 	 */
 	public static void start(Stage stage) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Class.class.getResource("/data/gui/pages/MainMenu.fxml"));
+		loader.setLocation(Class.class.getResource("/data/gui/pages/Options.fxml"));
 		pane = loader.load();
 		Scene scene = new Scene(pane);
 		
