@@ -36,7 +36,12 @@
             <Image url="@../img/BackgroundForLevel1.jpg" />
          </image>
       </ImageView>
-      <Button fx:id="quitButton" layoutX="40.0" layoutY="980.0" mnemonicParsing="false" onAction="#handleQuitButton" text="Quit">
+      <Button fx:id="quitButton" layoutX="50.0" layoutY="960.0" mnemonicParsing="false" onAction="#handleQuitButton" prefWidth="200.0" text="Quit">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="mainMenuButton" layoutX="50.0" layoutY="1010.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefWidth="200.0" text="Main Menu">
          <font>
             <Font size="24.0" />
          </font>

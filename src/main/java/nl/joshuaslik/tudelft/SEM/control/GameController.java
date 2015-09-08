@@ -30,7 +30,7 @@ public class GameController {
 	private static Text livesText, levelText, scoreText;
 	
 	@FXML
-	private Button quitButton;
+	private Button quitButton, mainMenuButton;
 	
 	/**
 	 * Starts the Game GUI scene.
@@ -88,6 +88,18 @@ public class GameController {
 	protected void handleQuitButton(ActionEvent event) throws IOException {
 		System.out.println("Quit button pressed!");
 		System.exit(0);
+	}
+	
+	/**
+	 * Handles clicking of the main menu button
+	 * @param event the click of the button
+	 * @throws IOException thrown when FXML file could not be parsed
+	 */
+	@FXML
+	protected void handleMainMenuButton(ActionEvent event) throws IOException {
+		System.out.println("Main Menu button pressed!");
+		Stage stage = (Stage) mainMenuButton.getScene().getWindow();
+		MainMenuController.start(stage);
 	}
 	
 	/**
