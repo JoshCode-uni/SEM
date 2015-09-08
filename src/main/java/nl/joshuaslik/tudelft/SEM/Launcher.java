@@ -5,17 +5,16 @@
  */
 package nl.joshuaslik.tudelft.SEM;
 
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import nl.joshuaslik.tudelft.SEM.control.Bubble;
 import nl.joshuaslik.tudelft.SEM.control.CurrentSceneObjects;
 import nl.joshuaslik.tudelft.SEM.control.Line;
@@ -32,12 +31,14 @@ public class Launcher extends Application {
 	public static final double GRAVITY = 900;
 	public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
 	public static final int ANIMATE_DELAY = 10; // milliseconds
-	private List<Bubble> bubbles = new ArrayList<>();
+
+	private static BorderPane bp = new BorderPane();
+	
 	public static Pane pane; // <<< temporary to draw lines along the circle path, should be replaced
 	
 	@Override
-	public void start(Stage primaryStage) {
-		pane = new Pane();
+	public void start(Stage primaryStage) throws IOException {
+		/*pane = new Pane();
 		Scene scene = new Scene(pane, SCREEN_WIDTH, SCREEN_HEIGHT);
 		
 		// create 4 lines (bounds of the scene)
@@ -75,24 +76,24 @@ public class Launcher extends Application {
 		primaryStage.show();
 		
 		bubble.startAnimation();
+
+		//		timeline.play();
+		 */	
 		
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
+		Pane pane = loader.load();
+		bp.setCenter(pane);
+		Scene scene = new Scene(bp);
+		primaryStage.setScene(scene);
+		primaryStage.setFullScreen(true);
+		primaryStage.setFullScreenExitHint("");
+		primaryStage.show();
 		
-		//Used for splitting bubbles using a button
-		Button btn = new Button();
-	   	btn.setText("Split the bubbles");
-	   	btn.setOnAction(new EventHandler<ActionEvent>() {
-	   		@Override	
-	   		public void handle(ActionEvent event) {
-	           	List<Bubble> newBubbles = new ArrayList<>();
-	           	for(int i=0;i<bubbles.size();i++){
-	           		if(bubbles.get(i).getCircle().getRadius()>20){
-	           			newBubbles.add(bubbles.get(i).splitBubble(pane));
-	           		}
-	           	}
-	           	bubbles.addAll(newBubbles);
-	   		}
-	   	});
-	   	pane.getChildren().add(btn);
+		}
+	
+	public static BorderPane getBorderPane(){
+		return bp;
 	}
 	
 	/**

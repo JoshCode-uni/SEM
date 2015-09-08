@@ -129,8 +129,9 @@ public class Bubble implements PhysicsObject, DynamicObject {
 			}
 			
 			// TEMPORARY CODE TO SHOW PATH OF THE BALL :
-		//	javafx.scene.shape.Line fxLine = new javafx.scene.shape.Line(circle.getCenterX(), circle.getCenterY(), circleX, circleY);
-		//	Launcher.pane.getChildren().add(fxLine);
+
+			//javafx.scene.shape.Line fxLine = new javafx.scene.shape.Line(circle.getCenterX(), circle.getCenterY(), circleX, circleY);
+			//Launcher.pane.getChildren().add(fxLine);
 			// END OF TEMPORARY CODE
 			
 			// move + animate circle

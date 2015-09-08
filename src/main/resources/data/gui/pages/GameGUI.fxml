@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.joshuaslik.tudelft.SEM.control.GameController">
    <children>
       <ImageView fitHeight="200.0" fitWidth="1920.0" layoutY="880.0" opacity="0.5">
          <image>
@@ -30,5 +31,20 @@
             <Font size="42.0" />
          </font>
       </Text>
+      <ImageView fitHeight="880.0" fitWidth="1920.0">
+         <image>
+            <Image url="@../img/BackgroundForLevel1.jpg" />
+         </image>
+      </ImageView>
+      <Button fx:id="quitButton" layoutX="50.0" layoutY="960.0" mnemonicParsing="false" onAction="#handleQuitButton" prefWidth="200.0" text="Quit">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button fx:id="mainMenuButton" layoutX="50.0" layoutY="1010.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefWidth="200.0" text="Main Menu">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
    </children>
 </Pane>
