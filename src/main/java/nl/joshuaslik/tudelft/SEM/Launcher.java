@@ -84,15 +84,12 @@ public class Launcher extends Application {
 	   		@Override	
 	   		public void handle(ActionEvent event) {
 	           	List<Bubble> newBubbles = new ArrayList<>();
-	           	List<Bubble> oldBubbles = new ArrayList<>();
 	           	for(int i=0;i<bubbles.size();i++){
 	           		if(bubbles.get(i).getCircle().getRadius()>20){
-	           			newBubbles.addAll(bubbles.get(i).splitBubble(pane));
-	           			oldBubbles.add(bubbles.get(i));
+	           			newBubbles.add(bubbles.get(i).splitBubble(pane));
 	           		}
 	           	}
 	           	bubbles.addAll(newBubbles);
-	           	bubbles.removeAll(oldBubbles);
 	   		}
 	   	});
 	   	pane.getChildren().add(btn);

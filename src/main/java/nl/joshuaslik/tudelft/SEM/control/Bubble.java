@@ -129,8 +129,8 @@ public class Bubble implements PhysicsObject, DynamicObject {
 			}
 			
 			// TEMPORARY CODE TO SHOW PATH OF THE BALL :
-			javafx.scene.shape.Line fxLine = new javafx.scene.shape.Line(circle.getCenterX(), circle.getCenterY(), circleX, circleY);
-			Launcher.pane.getChildren().add(fxLine);
+		//	javafx.scene.shape.Line fxLine = new javafx.scene.shape.Line(circle.getCenterX(), circle.getCenterY(), circleX, circleY);
+		//	Launcher.pane.getChildren().add(fxLine);
 			// END OF TEMPORARY CODE
 			
 			// move + animate circle
@@ -152,25 +152,20 @@ public class Bubble implements PhysicsObject, DynamicObject {
 	 * @param pane the pane in which the bubbles should spawn
 	 * @return the bubbles which are spawned by the splitbubble function
 	 */
-	public List<Bubble> splitBubble(Pane pane){
-		if(pane.getChildren().contains(this.circle)){
-			double newRadius = circle.getRadius();
-			double xPos = circle.getCenterX();
-			double yPos = circle.getCenterY();
-			pane.getChildren().remove(this.getNode());
-			this.timeline.stop();
-			Bubble bubble = new Bubble(new Point(xPos-newRadius/2,yPos),newRadius/2,new Vector(-2,-5));
-			Bubble bubble2 = new Bubble(new Point(xPos+newRadius/2,yPos),newRadius/2,new Vector(2,5));
-			pane.getChildren().add(bubble.getNode());
-			pane.getChildren().add(bubble2.getNode());
-			bubble.startAnimation();
-			bubble2.startAnimation();
-			List<Bubble> bubbles = new ArrayList<>();
-			bubbles.add(bubble);
-			bubbles.add(bubble2);
-			return bubbles;
-	
-		}
-		return new ArrayList<>();
+	public Bubble splitBubble(Pane pane){
+		double newRadius = circle.getRadius();
+		double xPos = circle.getCenterX();
+		double yPos = circle.getCenterY();
+		Bubble bubble2 = new Bubble(new Point(xPos+newRadius/2,yPos),newRadius/2,new Vector(2,5));
+		pane.getChildren().add(bubble2.getNode());
+		circle.setCenterX(xPos-newRadius/2);
+		circle.setRadius(newRadius/2);
+		circle.setCenterY(yPos);
+		this.dir = new Vector(-2,-5);
+		bubble2.startAnimation();
+		bubble2.yVelocity=-200+this.yVelocity/4;
+		this.yVelocity=-200+this.yVelocity/4;
+		
+		return bubble2;
 	}
 }
