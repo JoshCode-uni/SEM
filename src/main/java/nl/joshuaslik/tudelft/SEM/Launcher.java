@@ -5,10 +5,16 @@
  */
 package nl.joshuaslik.tudelft.SEM;
 
+import java.io.IOException;
+
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.fxml.FXMLLoader;
 import nl.joshuaslik.tudelft.SEM.control.Bubble;
 import nl.joshuaslik.tudelft.SEM.control.CurrentSceneObjects;
 import nl.joshuaslik.tudelft.SEM.control.Line;
@@ -25,12 +31,14 @@ public class Launcher extends Application {
 	public static final double GRAVITY = 900;
 	public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
 	public static final int ANIMATE_DELAY = 10; // milliseconds
+
+	private static BorderPane bp = new BorderPane();
 	
 	public static Pane pane; // <<< temporary to draw lines along the circle path, should be replaced
 	
 	@Override
-	public void start(Stage primaryStage) {
-		pane = new Pane();
+	public void start(Stage primaryStage) throws IOException {
+		/*pane = new Pane();
 		Scene scene = new Scene(pane, SCREEN_WIDTH, SCREEN_HEIGHT);
 		
 		// create 4 lines (bounds of the scene)
@@ -60,6 +68,7 @@ public class Launcher extends Application {
 		double bubbleRadius = 50;
 		Vector bubbleDirection = new Vector(-2, -5);
 		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
+		bubbles.add(bubble);
 		pane.getChildren().add(bubble.getNode());
 		
 		primaryStage.setTitle("Physics test");
@@ -67,7 +76,24 @@ public class Launcher extends Application {
 		primaryStage.show();
 		
 		bubble.startAnimation();
+
 		//		timeline.play();
+		 */	
+		
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
+		Pane pane = loader.load();
+		bp.setCenter(pane);
+		Scene scene = new Scene(bp);
+		primaryStage.setScene(scene);
+		primaryStage.setFullScreen(true);
+		primaryStage.setFullScreenExitHint("");
+		primaryStage.show();
+		
+		}
+	
+	public static BorderPane getBorderPane(){
+		return bp;
 	}
 	
 	/**
