@@ -36,8 +36,8 @@ public class MainMenuController {
 	@FXML
 	protected void handleChooseLevelButton(ActionEvent event) throws IOException {
 		System.out.println("Choose Level button pressed!");
-		//Stage stage = (Stage) chooseLevelButton.getScene().getWindow();
-		//ChooseLevelController.start(stage);
+		Stage stage = (Stage) chooseLevelButton.getScene().getWindow();
+		ChooseLevelController.start(stage);
 	}
 	
 	/**

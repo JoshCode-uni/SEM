@@ -20,7 +20,7 @@
                   <Font size="42.0" />
                </font>
             </Button>
-            <Button layoutX="290.0" layoutY="320.0" mnemonicParsing="false" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Choose Level">
+            <Button fx:id="chooseLevelButton" layoutX="290.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleChooseLevelButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Choose Level">
                <font>
                   <Font size="42.0" />
                </font>
