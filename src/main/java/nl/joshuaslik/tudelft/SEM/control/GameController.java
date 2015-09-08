@@ -30,7 +30,7 @@ public class GameController {
 	private static Text livesText, levelText, scoreText;
 	
 	@FXML
-	private static Button quitButton;
+	private Button quitButton;
 	
 	/**
 	 * Starts the Game GUI scene.

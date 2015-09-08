@@ -16,7 +16,7 @@ public class ChooseLevelController {
 	private static Pane pane;
 	
 	@FXML
-	private static Button level1Button, level2Button, level3Button, level4Button, level5Button, mainMenuButton;
+	private Button level1Button, level2Button, level3Button, level4Button, level5Button, mainMenuButton;
 	
 	/**
 	 * Starts the Game GUI scene.
