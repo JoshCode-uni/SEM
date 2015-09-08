@@ -14,8 +14,8 @@
             <Image url="@../img/BrickWall.jpg" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7c7c7c" height="50.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1920.0" />
-      <Rectangle fx:id="timeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#d00d0d" height="50.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1800.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7c7c7c" height="50.0" layoutX="20.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1880.0" />
+      <Rectangle fx:id="timeRectangle" arcHeight="5.0" arcWidth="5.0" fill="MAROON" height="50.0" layoutX="20.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1800.0" />
       <Text fx:id="levelText" layoutX="960.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level" wrappingWidth="117.6708984375">
          <font>
             <Font size="42.0" />
