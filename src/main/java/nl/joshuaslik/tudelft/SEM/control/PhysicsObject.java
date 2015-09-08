@@ -15,7 +15,6 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 public interface PhysicsObject {
 	
 	public Node getNode();
-	
-	public IntersectionPoint getClosestIntersection(Point p);
+	public IntersectionPoint getClosestIntersection(final Point p);
 	
 }

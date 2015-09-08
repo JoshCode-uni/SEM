@@ -5,15 +5,8 @@
  */
 package nl.joshuaslik.tudelft.SEM.control;
 
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
-import javafx.util.Duration;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
@@ -22,121 +15,199 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 /**
  * @author faris
  */
-public class Bubble implements PhysicsObject, DynamicObject {
-	
+public class Bubble extends DynamicObject {
+
 	private final Circle circle;
 	private Vector dir;
-	private Timeline timeline;
-	private static final double MAX_Y_VELOCITY = 700;
-	private static final double X_SPEED = 250;
-	private double yVelocity = 0;
-	
+	private Vector newDir;
+	private static final double MAX_X_SPEED = 150;
+	private static final double Y_MAX_SPEED = 600;
+
+	private double vX = 0;
+	private double vY = 0;
+	private double nextX;
+	private double nextY;
+
+	private int previousCollisionFrame = Integer.MIN_VALUE;
+	private int frame = 0;
+
 	public Bubble(Point p, double radius, Vector dir) {
 		this.circle = new Circle(p.getxPos(), p.getyPos(), radius);
 		this.dir = dir;
+		this.newDir = dir;
 	}
-	
+
 	@Override
 	public Node getNode() {
 		return circle;
 	}
-	
+
 	@Override
-	public void startAnimation() {
-		
-		// initialize timeline
-		timeline = new Timeline();
-		timeline.setOnFinished(onFinished);
-		
-		// calculate new speed in x and y directions
-		double height = Launcher.SCREEN_HEIGHT - circle.getCenterY() - 30;
-		double vX = X_SPEED * dir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
-		double vY = yVelocity;
-		
-		// calculate new positions of the cirecles
-		double circleX = circle.getCenterX() + vX * Launcher.ANIMATE_DELAY / 1000.0;
-		double circleY = circle.getCenterY() + vY * Launcher.ANIMATE_DELAY / 1000.0;
-		
-		// move + animate circle
-		KeyValue kvX = new KeyValue(circle.centerXProperty(), circleX, Interpolator.LINEAR);
-		KeyValue kvY = new KeyValue(circle.centerYProperty(), circleY, Interpolator.LINEAR);
-		KeyFrame kf = new KeyFrame(Duration.millis(Launcher.ANIMATE_DELAY), kvX, kvY);
-		timeline.getKeyFrames().add(kf);
-		timeline.play();
+	public IntersectionPoint getClosestIntersection(final Point p) {
+		Point thisCircle = new Point(nextX, nextY);
+		double radDdist = circle.getRadius() / p.distanceTo(thisCircle);
+		double deltaX = nextX - p.getxPos();
+		double deltaY = nextY - p.getyPos();
+		double x = nextX - radDdist * deltaX;
+		double y = nextY - radDdist * deltaY;
+
+		Point xy = new Point(x, y);
+		Vector normal = new Vector(x - nextX, y - nextY);
+//		System.out.println("\ndeltaX = " + deltaX);
+//		System.out.println("deltaY = " + deltaY);
+//		System.out.println("radDdist = " + radDdist);
+//		System.out.println("point = " + p);
+//		System.out.println("IP: x, y = " + x + ", " + y);
+//		System.out.println("normal = " + normal);
+//		System.out.println("xy.distanceTo(p) = " + xy.distanceTo(p));
+//		System.out.println("nextX = " + nextX);
+//		System.out.println("nextY = " + nextY);
+		return new IntersectionPoint(x, y, normal, xy.distanceTo(p));
 	}
-	
-	// Event handler, will be activated when a frame is done playing
-	private final EventHandler onFinished = (EventHandler<ActionEvent>) new EventHandler<ActionEvent>() {
-		@Override
-		public void handle(ActionEvent t) {
-			
-			// apply gravity
-			yVelocity += Launcher.GRAVITY * Launcher.ANIMATE_DELAY / 1000.0;
-			
-			// reinitialize timeline
-			timeline = new Timeline();
-			timeline.setOnFinished(onFinished);
-			
-			// calculate new speed in x and y directions
-			double height = Launcher.SCREEN_HEIGHT - circle.getCenterY() - 30;
-			double vX = X_SPEED * dir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
-			double vY = yVelocity;
-			
-			// calculate new positions of the cirecles
-			double circleX = circle.getCenterX() + vX * Launcher.ANIMATE_DELAY / 1000.0;
-			double circleY = circle.getCenterY() + vY * Launcher.ANIMATE_DELAY / 1000.0;
-			
-			// change direction vector according to current direction
-			dir = new Vector(vX, vY);
-			
-			// get the closest object to the circle (which we might hit)
-			Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
-			Point nextPos = new Point(circleX, circleY);
-			IntersectionPoint closest = CurrentSceneObjects.getClosestPoint(nextPos);
-			
-			double curDist = currentPos.distanceTo(closest);
-			double newDist = nextPos.distanceTo(closest);
-			
-			// if are close enough to hit, and going toward it
-			if (newDist < circle.getRadius() * 0.9 && newDist < curDist) {
-				// bounce off of the object by changing the direction
-				
-				// calculate new direction vector
-				Vector normal = closest.getNormal();
-				if (normal.getX() != 0) {
-					normal = new Vector(dir.getX(), normal.getY() * dir.getX() / normal.getX()); // translate to the same x as dir
-					double deltaY = normal.getY() - dir.getY();
-					dir = new Vector(-dir.getX(), -(dir.getY() + 2 * deltaY));
-				} else {
-					// hit ground
-					dir = new Vector(dir.getX(), -dir.getY());
-					yVelocity = -MAX_Y_VELOCITY;
-				}
-				
-				// recalculate new circle position (with new directions
-				vX = X_SPEED * dir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
-				vY = yVelocity;
-				
-				circleX = circle.getCenterX() + vX * Launcher.ANIMATE_DELAY / 1000.0;
-				circleY = circle.getCenterY() + vY * Launcher.ANIMATE_DELAY / 1000.0;
-			}
-			
-			// TEMPORARY CODE TO SHOW PATH OF THE BALL :
-			javafx.scene.shape.Line fxLine = new javafx.scene.shape.Line(circle.getCenterX(), circle.getCenterY(), circleX, circleY);
-			Launcher.pane.getChildren().add(fxLine);
-			// END OF TEMPORARY CODE
-			
-			// move + animate circle
-			KeyValue kvX = new KeyValue(circle.centerXProperty(), circleX, Interpolator.LINEAR);
-			KeyValue kvY = new KeyValue(circle.centerYProperty(), circleY, Interpolator.LINEAR);
-			KeyFrame kf = new KeyFrame(Duration.millis(Launcher.ANIMATE_DELAY), kvX, kvY);
-			timeline.getKeyFrames().add(kf);
-			timeline.play();
-		}
-	};
-	
+
+	private PhysicsObject getThisPhysicsObject() {
+		return this;
+	}
+
 	@Override
-	public IntersectionPoint getClosestIntersection(Point p) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	public void update(final long nanoFrameTime) {
+
+		// TEMPORARY CODE TO SHOW PATH OF THE BALL :
+//			javafx.scene.shape.Line fxLine = new javafx.scene.shape.Line(circle.getCenterX(), circle.getCenterY(), circleX, circleY);
+//			fxLine.setStroke(circle.getFill());
+//			Launcher.pane.getChildren().add(fxLine);
+		// END OF TEMPORARY CODE
+		
+		// move circle
+		circle.setCenterX(nextX);
+		circle.setCenterY(nextY);
+	}
+
+	@Override
+	public void checkCollision(final PhysicsObject obj2, final long nanoFrameTime) {
+		// get the closest object to the circle (which we might hit)
+		Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
+		Point nextPos = new Point(nextX, nextY);
+		IntersectionPoint closest = obj2.getClosestIntersection(nextPos);
+
+		double curDist = currentPos.distanceTo(closest);
+		double newDist = nextPos.distanceTo(closest);
+
+		// if are close enough to hit, and going toward it
+		if (newDist < circle.getRadius() * 0.9 && newDist < curDist) {
+				// bounce off of the object by changing the direction
+
+			// calculate new direction vector
+			Vector normal = closest.getNormal();
+			if (normal.getX() != 0) {
+				newDir = dir;
+				double dotProduct = -2 * (newDir.getX() * normal.getX() + newDir.getY() + normal.getY());
+				newDir = new Vector(dotProduct * normal.getX() + newDir.getX(), dotProduct * normal.getY() + newDir.getY());
+
+				// multiply y with -1 if we change y directions
+				if (dir.getY() * newDir.getY() < 0) {
+					vY *= -1;
+					newDir = new Vector(-newDir.getX(), newDir.getY());
+				}
+			} else {
+				// hit ground or ceiling !!!
+				newDir = new Vector(newDir.getX(), -newDir.getY());
+				vY *= -.99;
+//					yVelocity = yVelocity > 0 ? -MAX_Y_VELOCITY : MAX_Y_VELOCITY / 2.0;
+			}
+
+			// recalculate new circle position (with new directions)
+			vX = MAX_X_SPEED * newDir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
+
+			if (closest.hasSpeedVec()) {
+				Vector speedVecOtherObj = closest.getSpeedVec();
+				double xSpeedOtherObj = speedVecOtherObj.getX();
+				double ySpeedOtherObj = speedVecOtherObj.getY();
+				xSpeedOtherObj *= xSpeedOtherObj * vX < 0 ? -1 : 1;
+				ySpeedOtherObj *= ySpeedOtherObj * vY < 0 ? -1 : 1;
+				vX = (vX + xSpeedOtherObj) / 2.0;
+				vY = (vY + ySpeedOtherObj) / 2.0;
+			}
+			calculateNextPosition(nanoFrameTime);
+		}
+
+//		// don't collide if you collided in one of the last 2 frames
+//		if(!(previousCollisionFrame + 2 < frame || frame == previousCollisionFrame))
+//			return;
+//		previousCollisionFrame = frame;
+//		
+//		// calculate next position if direction doesn't change and we move for 1ms
+////		double nextX = circle.getCenterX() + vX * 0.001;
+////		double nextY = circle.getCenterY() + vY * 0.001;
+//		Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
+//		Point nextPos = new Point(nextX, nextY);
+//		IntersectionPoint ip = obj2.getClosestIntersection(nextPos);
+//
+//		double curDist = currentPos.distanceTo(ip);
+//		double newDist = nextPos.distanceTo(ip);
+//
+//		// if are close enough to hit
+//		if (newDist < circle.getRadius()) {
+//			collide(ip, nanoFrameTime);
+//			if (obj2 instanceof DynamicObject) {
+//				((DynamicObject) obj2).collide(this, nanoFrameTime);
+//			}
+//		}
+	}
+//
+//	private void collide(final IntersectionPoint ip, final long nanoFrameTime) {
+//		// bounce off of the object by changing the direction
+//
+//		// calculate new direction vector
+//		Vector normal = ip.getNormal();
+//		if (normal.getX() != 0) {
+//			double oldDirY = dir.getY();
+//			double dotProduct = -2 * (dir.getX() * normal.getX() + dir.getY() + normal.getY());
+//			newDir = new Vector(dotProduct * normal.getX() + dir.getX(), dotProduct * normal.getY() + dir.getY());
+//
+//			// multiply y with -1 if we change y directions
+//			if (oldDirY * newDir.getY() < 0) {
+//				vY *= -1;
+//				newDir = new Vector(-newDir.getX(), newDir.getY());
+//			}
+//		} else {
+//			// hit ground or ceiling !!!
+//			newDir = new Vector(newDir.getX(), -newDir.getY());
+//			vY *= -1;
+//		}
+//		recalculateNextPosition(nanoFrameTime);
+//	}
+//
+//	@Override
+//	public void collide(final DynamicObject obj2, final long nanoFrameTime) {
+//		Point thisCirclePoint = new Point(circle.getCenterX(), circle.getCenterY());
+//		IntersectionPoint ip = obj2.getClosestIntersection(thisCirclePoint);
+//		collide(ip, nanoFrameTime);
+//	}
+
+	@Override
+	public void prepareUpdate(final long nanoFrameTime) {
+
+		dir = newDir;
+
+		// apply gravity
+		vY += Launcher.GRAVITY * (nanoFrameTime / 1_000_000_000.0);
+		vX = MAX_X_SPEED * dir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
+
+		// calculate new positions of the cirecles
+		calculateNextPosition(nanoFrameTime);
+
+		// change direction vector according to current direction
+		dir = new Vector(vX, vY);
+	}
+
+	private void calculateNextPosition(final long nanoFrameTime) {
+		nextX = circle.getCenterX() + vX * (nanoFrameTime / 1_000_000_000.0);
+		nextY = circle.getCenterY() + vY * (nanoFrameTime / 1_000_000_000.0);
+	}
+
+	@Override
+	public Vector getSpeedVector() {
+		return new Vector(vX, vY);
 	}
 }

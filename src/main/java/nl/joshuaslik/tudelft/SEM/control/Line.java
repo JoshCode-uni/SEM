@@ -33,10 +33,9 @@ public class Line implements PhysicsObject {
 	}
 	
 	@Override
-	public IntersectionPoint getClosestIntersection(Point p) {
+	public IntersectionPoint getClosestIntersection(final Point p) {
 		Vector normal = dir.normal();
 		Point intersection = normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
 		return new IntersectionPoint(intersection.getxPos() + p.getxPos(), intersection.getyPos() + p.getyPos(), normal, intersection.distanceTo(new Point(0, 0)));
 	}
-	
 }
