@@ -16,7 +16,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 /**
  * @author faris
  */
-public class Bubble extends DynamicObject {
+public class Bubble implements PhysicsObject, DynamicObject {
 
 	private final Circle circle;
 	private Vector dir;

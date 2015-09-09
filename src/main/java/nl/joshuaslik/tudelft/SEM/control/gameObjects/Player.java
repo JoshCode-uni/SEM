@@ -17,7 +17,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
  *
  * @author faris
  */
-public class Player extends DynamicObject {
+public class Player implements PhysicsObject, DynamicObject {
 	
 	private ImageView image;
 	private Keyboard keyboard;

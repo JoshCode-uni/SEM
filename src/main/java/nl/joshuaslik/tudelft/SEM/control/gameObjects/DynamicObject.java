@@ -10,7 +10,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 /**
  * @author faris
  */
-public abstract class DynamicObject implements PhysicsObject {
+public interface DynamicObject extends PhysicsObject {
 	
 	public abstract void prepareUpdate(final long nanoFrameTime);
 	public abstract void checkCollision(final PhysicsObject obj2, final long nanoFrameTime);
