@@ -6,6 +6,7 @@
 package nl.joshuaslik.tudelft.SEM.control;
 
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
@@ -77,7 +78,6 @@ public class Bubble extends DynamicObject {
 //			fxLine.setStroke(circle.getFill());
 //			Launcher.pane.getChildren().add(fxLine);
 		// END OF TEMPORARY CODE
-		
 		// move circle
 		circle.setCenterX(nextX);
 		circle.setCenterY(nextY);
@@ -209,5 +209,27 @@ public class Bubble extends DynamicObject {
 	@Override
 	public Vector getSpeedVector() {
 		return new Vector(vX, vY);
+	}
+
+	/**
+	 * Splits a bubble if you pushed the button.
+	 *
+	 * @param pane the pane in which the bubbles should spawn
+	 * @return the bubbles which are spawned by the splitbubble function
+	 */
+	public Bubble splitBubble(Pane pane) {
+		double newRadius = circle.getRadius();
+		double xPos = circle.getCenterX();
+		double yPos = circle.getCenterY();
+		Bubble bubble2 = new Bubble(new Point(xPos + newRadius / 2, yPos), newRadius / 2, new Vector(2, 5));
+		pane.getChildren().add(bubble2.getNode());
+		circle.setCenterX(xPos - newRadius / 2);
+		circle.setRadius(newRadius / 2);
+		circle.setCenterY(yPos);
+		this.dir = new Vector(-2, -5);
+		bubble2.vY = -200 + this.vY / 4;
+		this.vY = -200 + this.vY / 4;
+
+		return bubble2;
 	}
 }
