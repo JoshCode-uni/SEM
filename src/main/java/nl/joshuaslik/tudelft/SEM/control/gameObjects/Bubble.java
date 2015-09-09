@@ -25,7 +25,7 @@ public class Bubble implements PhysicsObject, DynamicObject {
 	private Vector dir;
 	private Vector newDir;
 	private static final double MAX_X_SPEED = 150;
-	private static final double Y_MAX_SPEED = 1000;
+	private static final double Y_MAX_SPEED = 900;
 
 	private double vX = 0;
 	private double vY = 0;

@@ -19,8 +19,9 @@ public class Projectile extends Line implements IUpdateable {
 
 	public Projectile(double startX, double startY) {
 		super(new Point(startX, startY), new Point(startX, startY - 1));
-		fxLine.setStrokeWidth(3);
+		fxLine.setStrokeWidth(7);
 		fxLine.setStroke(Color.FUCHSIA);
+		fxLine.setOpacity(0.3);
 	}
 
 	public void collisionCheck(DynamicObject dobj) {
