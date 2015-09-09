@@ -14,6 +14,7 @@ public class IntersectionPoint extends Point {
 	
 	private final Vector normal;
 	private final double distance;
+	private Vector speedVec = null;
 	
 	public IntersectionPoint(double xPos, double yPos, Vector normal, double distance) {
 		super(xPos, yPos);
@@ -29,6 +30,18 @@ public class IntersectionPoint extends Point {
 		return distance;
 	}
 	
+	public boolean hasSpeedVec() {
+		return speedVec != null;
+	}
+
+	public Vector getSpeedVec() {
+		return speedVec;
+	}
+
+	public void setSpeedVec(Vector speedVec) {
+		this.speedVec = speedVec;
+	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
