@@ -1,4 +1,4 @@
-package nl.joshuaslik.tudelft.SEM.control;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.util.BitSet;
 

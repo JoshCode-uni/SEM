@@ -5,6 +5,8 @@
  */
 package nl.joshuaslik.tudelft.SEM.control;
 
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.DynamicObject;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.PhysicsObject;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
@@ -116,7 +118,7 @@ public class GameLoop extends AnimationTimer {
 		player = pl;
 	}
 	
-	public static void setGameBounds(double top, double right, double bottom, double left) {
+	public void setGameBounds(double top, double right, double bottom, double left) {
 		GameLoop.topBorder = top;
 		GameLoop.rightBorder = right;
 		GameLoop.bottomBorder = bottom;

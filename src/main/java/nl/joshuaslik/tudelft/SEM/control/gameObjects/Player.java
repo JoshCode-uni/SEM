@@ -3,17 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main.java.nl.joshuaslik.tudelft.SEM.control;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
-import nl.joshuaslik.tudelft.SEM.control.DynamicObject;
 import nl.joshuaslik.tudelft.SEM.control.GameLoop;
-import nl.joshuaslik.tudelft.SEM.control.Keyboard;
-import nl.joshuaslik.tudelft.SEM.control.PhysicsObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
+
 
 /**
  *
