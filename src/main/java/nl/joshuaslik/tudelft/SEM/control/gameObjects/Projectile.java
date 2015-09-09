@@ -5,36 +5,52 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
+import javafx.scene.paint.Color;
+import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
-import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
 /**
  *
  * @author faris
  */
-public class Projectile extends Line implements DynamicObject {
-	
+public class Projectile extends Line implements IUpdateable {
+
+	private final static double GROW_RATE = 750;
+
 	public Projectile(double startX, double startY) {
-		super(new Point(startX, startY), new Point(startX, startY));
+		super(new Point(startX, startY), new Point(startX, startY - 1));
+		fxLine.setStrokeWidth(3);
+		fxLine.setStroke(Color.FUCHSIA);
 	}
 
-	@Override
-	public void prepareUpdate(long nanoFrameTime) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
+	public void collisionCheck(DynamicObject dobj) {
+		if (dobj instanceof Bubble) {
+			Bubble bubble = (Bubble) dobj;
 
-	@Override
-	public void checkCollision(PhysicsObject obj2, long nanoFrameTime) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+			// don't split circles which are too small
+			if (bubble.getRadius() < 10) {
+				return;
+			}
+
+			Point bubblePoint = bubble.getPoint();
+			Point ip = getClosestIntersection(bubblePoint);
+			if (ip.distanceTo(bubblePoint) < bubble.getRadius()) {
+				bubble.splitBubble();
+				GameLoop.removeProjectile(fxLine);
+			}
+		}
 	}
 
 	@Override
 	public void update(long nanoFrameTime) {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-	}
+		// make line longer
+		double endY = fxLine.getEndY() - GROW_RATE * (nanoFrameTime / 1_000_000_000.0);
+		fxLine.setEndY(endY);
+		updatePoints();
 
-	@Override
-	public Vector getSpeedVector() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+		// destroy line if line hits the ceiling
+		if (endY < GameLoop.getTopBorder()) {
+			GameLoop.removeProjectile(getNode());
+		}
 	}
 }
