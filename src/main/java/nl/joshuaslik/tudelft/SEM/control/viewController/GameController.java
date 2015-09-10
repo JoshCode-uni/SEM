@@ -1,6 +1,7 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,8 +22,8 @@ import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Keyboard;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
+import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
-import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
 /**
  * Controller for the game UI.
@@ -49,6 +50,8 @@ public class GameController implements IviewController {
 	private Group gameObjects;
 
 	private GameLoop gl;
+
+	private static int currentLevel = 0;
 
 	/**
 	 * Handles clicking of the quit button
@@ -107,12 +110,6 @@ public class GameController implements IviewController {
 		gl.addObject(new nl.joshuaslik.tudelft.SEM.control.gameObjects.Line(topRight, bottomRight));
 		gl.addObject(new nl.joshuaslik.tudelft.SEM.control.gameObjects.Line(bottomLeft, bottomRight));
 
-		// create 1 bubble
-		Point bubbleCenter = new Point(200, 300);
-		double bubbleRadius = 50;
-		Vector bubbleDirection = new Vector(-2, -5);
-		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
-
 		//draw player
 		Image playerImage = null;
 		try {
@@ -131,8 +128,13 @@ public class GameController implements IviewController {
 		kb.addListeners();
 		Player player = new Player(playrImg, kb);
 
-		gl.addObject(bubble);
 		gl.addPlayer(player);
+
+		//draw the bubbles of the current level
+		ArrayList<Bubble> bubbles = Levels.getLevel(currentLevel);
+		for (Bubble e : bubbles) {
+			gl.addObject(e);
+		}
 
 		gl.start();
 	}
@@ -153,6 +155,12 @@ public class GameController implements IviewController {
 		System.out.println("Level completed!");
 		gl.stop();
 		gl = null;
+		if(currentLevel + 1 < Levels.amountOfLevels())
+			currentLevel++;
 		MainMenuController.loadView();
+	}
+
+	public static void setLevel(int level) {
+		GameController.currentLevel = level;
 	}
 }

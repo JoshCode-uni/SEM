@@ -175,12 +175,13 @@ public class GameLoop extends AnimationTimer {
 	}
 
 	public static void removeObject(DynamicObject object) {
-		dynamicObjects.remove(object);
-		allObjects.remove(object);
 
-		if (object instanceof Bubble) {
+		if (object instanceof Bubble && dynamicObjects.contains(object)) {
 			--bubbleCount;
 		}
+
+		dynamicObjects.remove(object);
+		allObjects.remove(object);
 
 		// remove the dynamic object from the view
 		gameController.removeNode(object.getNode());
