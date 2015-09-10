@@ -24,7 +24,7 @@ public class ChooseLevelController implements IviewController {
 	@FXML
 	protected void handleLevel1Button(ActionEvent event) {
 		System.out.println("Level 1 button pressed!");
-		//Stage stage = (Stage) level1Button.getScene().getWindow();
+		GameController.loadView();
 
 	}
 
