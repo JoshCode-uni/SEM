@@ -12,17 +12,16 @@ import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
-
 /**
  *
  * @author faris
  */
-public class Player extends DynamicObject {
-	
+public class Player implements PhysicsObject, DynamicObject {
+
 	private ImageView image;
 	private Keyboard keyboard;
 	private static final double MAX_SPEED = 200;
-	
+
 	public Player(ImageView img, Keyboard kb) {
 		image = img;
 		keyboard = kb;
@@ -40,18 +39,19 @@ public class Player extends DynamicObject {
 
 	@Override
 	public void update(long nanoFrameTime) {
-		if(keyboard.isMoveLeft() && GameLoop.getLeftBorder() < image.getLayoutBounds().getMinX()) {
+		if (keyboard.isMoveLeft() && GameLoop.getLeftBorder() < image.getLayoutBounds().getMinX()) {
 			// move left
-				image.setX(image.getX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000);
-				image.setScaleX(1);
-		} else if(keyboard.isMoveRight() && GameLoop.getRightBorder() > image.getLayoutBounds().getMaxX()) {
+			image.setX(image.getX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000);
+			image.setScaleX(1);
+		} else if (keyboard.isMoveRight() && GameLoop.getRightBorder() > image.getLayoutBounds().getMaxX()) {
 			// move right
 			image.setX(image.getX() + MAX_SPEED * nanoFrameTime / 1_000_000_000);
 			image.setScaleX(-1);
 		}
-		if(keyboard.isShoot())
+		if (keyboard.isShoot() && !GameLoop.hasProjectile()) {
 			//shoot
-			;
+			GameLoop.setProjectile(new Projectile((image.getX() + image.getLayoutBounds().getMaxX()) / 2.0, image.getY()));
+		}
 	}
 
 	@Override

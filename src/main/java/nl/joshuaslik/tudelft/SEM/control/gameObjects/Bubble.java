@@ -5,10 +5,13 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Circle;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
@@ -16,13 +19,13 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 /**
  * @author faris
  */
-public class Bubble extends DynamicObject {
+public class Bubble implements PhysicsObject, DynamicObject {
 
 	private final Circle circle;
 	private Vector dir;
 	private Vector newDir;
 	private static final double MAX_X_SPEED = 150;
-	private static final double Y_MAX_SPEED = 600;
+	private static final double Y_MAX_SPEED = 900;
 
 	private double vX = 0;
 	private double vY = 0;
@@ -36,6 +39,10 @@ public class Bubble extends DynamicObject {
 		this.circle = new Circle(p.getxPos(), p.getyPos(), radius);
 		this.dir = dir;
 		this.newDir = dir;
+		
+		SceneSizeChangeListener changeListener = new SceneSizeChangeListener();
+		circle.centerXProperty().addListener(changeListener);
+		circle.centerYProperty().addListener(changeListener);
 	}
 
 	@Override
@@ -85,6 +92,10 @@ public class Bubble extends DynamicObject {
 
 	@Override
 	public void checkCollision(final PhysicsObject obj2, final long nanoFrameTime) {
+		
+		if(circle.getRadius() < 10)
+			return;
+		
 		// get the closest object to the circle (which we might hit)
 		Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
 		Point nextPos = new Point(nextX, nextY);
@@ -95,7 +106,7 @@ public class Bubble extends DynamicObject {
 
 		// if are close enough to hit, and going toward it
 		if (newDist < circle.getRadius() * 0.9 && newDist < curDist) {
-				// bounce off of the object by changing the direction
+			// bounce off of the object by changing the direction
 
 			// calculate new direction vector
 			Vector normal = closest.getNormal();
@@ -130,7 +141,7 @@ public class Bubble extends DynamicObject {
 			}
 			calculateNextPosition(nanoFrameTime);
 		}
-
+		
 //		// don't collide if you collided in one of the last 2 frames
 //		if(!(previousCollisionFrame + 2 < frame || frame == previousCollisionFrame))
 //			return;
@@ -202,6 +213,10 @@ public class Bubble extends DynamicObject {
 	}
 
 	private void calculateNextPosition(final long nanoFrameTime) {
+		if(vY > Y_MAX_SPEED)
+			vY = Y_MAX_SPEED;
+		else if(vY < -Y_MAX_SPEED)
+			vY = - Y_MAX_SPEED;
 		nextX = circle.getCenterX() + vX * (nanoFrameTime / 1_000_000_000.0);
 		nextY = circle.getCenterY() + vY * (nanoFrameTime / 1_000_000_000.0);
 	}
@@ -217,19 +232,72 @@ public class Bubble extends DynamicObject {
 	 * @param pane the pane in which the bubbles should spawn
 	 * @return the bubbles which are spawned by the splitbubble function
 	 */
-	public Bubble splitBubble(Pane pane) {
+	public void splitBubble() {
+		
 		double newRadius = circle.getRadius();
 		double xPos = circle.getCenterX();
 		double yPos = circle.getCenterY();
-		Bubble bubble2 = new Bubble(new Point(xPos + newRadius / 2, yPos), newRadius / 2, new Vector(2, 5));
-		pane.getChildren().add(bubble2.getNode());
+		Bubble bubble2 = new Bubble(new Point(xPos + 1.1 * newRadius / 2, yPos), newRadius / 2, new Vector(2, -5));
 		circle.setCenterX(xPos - newRadius / 2);
 		circle.setRadius(newRadius / 2);
 		circle.setCenterY(yPos);
-		this.dir = new Vector(-2, -5);
-		bubble2.vY = -200 + this.vY / 4;
+		
+		this.newDir = new Vector(-2, -5);
+		this.vX = -MAX_X_SPEED;
 		this.vY = -200 + this.vY / 4;
+		
+		bubble2.vY = -200 + this.vY / 4;
+		bubble2.vX = MAX_X_SPEED;
+		bubble2.vY = this.vY;
+		
+		GameLoop.addObject(bubble2);
+	}
+	
+	public Point getPoint() {
+		return new Point(circle.getCenterX(), circle.getCenterY());
+	}
+	
+	public double getRadius() {
+		return circle.getRadius();
+	}
+	
+	private class SceneSizeChangeListener implements ChangeListener<Number> {
 
-		return bubble2;
+		@Override
+		public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+			double circleX = circle.getCenterX();
+			double circleY = circle.getCenterY();
+			double radius = circle.getRadius();
+			
+			// ensure the bubble never goes outside of the screen (if it has a radius > 10)
+			if(radius > 10) {
+				if(circleX - radius + 10 < GameLoop.getLeftBorder())
+					circle.setCenterX(GameLoop.getLeftBorder() + radius - 10);
+				if(circleX + radius - 10 > GameLoop.getRightBorder())
+					circle.setCenterX(GameLoop.getRightBorder() - radius + 10);
+				if(circleY - radius + 10 < GameLoop.getTopBorder())
+					// hit ceiling
+					GameLoop.removeObject(getThis());
+				if(circleY + radius - 10 > GameLoop.getBottomBorder())
+					circle.setCenterY(GameLoop.getBottomBorder() - radius + 10);
+			} else {
+				// radius < 10 :
+				// if outside of screen, destroy circle
+				if(circleX < GameLoop.getLeftBorder())
+					GameLoop.removeObject(getThis());
+				if(circleX > GameLoop.getRightBorder())
+					GameLoop.removeObject(getThis());
+				if(circleY < GameLoop.getTopBorder())
+					GameLoop.removeObject(getThis());
+				if(circleY > GameLoop.getBottomBorder())
+					GameLoop.removeObject(getThis());
+			}
+			
+		}
+		
+	}
+	
+	private Bubble getThis() {
+		return this;
 	}
 }

@@ -8,6 +8,7 @@ import nl.joshuaslik.tudelft.SEM.Launcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -47,68 +48,15 @@ public class GameController implements IviewController {
 	@FXML
 	private Group gameObjects;
 
-	/**
-	 * Initialize the Game GUI scene and GameLoop. Automatically called when
-	 * loading the fxml file.
-	 */
-	@FXML
-	private void initialize() {
-//		GameLoop gl = new GameLoop();
-
-//		Point topLeft = new Point(0, 0);
-//		Point topRight = new Point(1920, 0);
-//		Point bottomLeft = new Point(0, 880);
-//		Point bottomRight = new Point(1920, 880);
-//
-//		Line top = new Line(topLeft, topRight);
-//		pane.getChildren().add(top.getNode());
-//		gl.addObject(top);
-//
-//		Line left = new Line(topLeft, bottomLeft);
-//		pane.getChildren().add(left.getNode());
-//		gl.addObject(left);
-//
-//		Line right = new Line(topRight, bottomRight);
-//		pane.getChildren().add(right.getNode());
-//		gl.addObject(right);
-//
-//		Line bottom = new Line(bottomLeft, bottomRight);
-//		pane.getChildren().add(bottom.getNode());
-//		gl.addObject(bottom);
-		// create 1 bubble
-//		Point bubbleCenter = new Point(200, 300);
-//		double bubbleRadius = 50;
-//		Vector bubbleDirection = new Vector(-2, -5);
-//		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
-//		pane.getChildren().add(bubble.getNode());
-//		bubbles.add(bubble);
-//		//Used for splitting bubbles using a button
-//		Button btn = new Button();
-//		btn.setText("Split the bubbles");
-//		btn.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent event) {
-//				List<Bubble> newBubbles = new ArrayList<>();
-//				for (int i = 0; i < bubbles.size(); i++) {
-//					if (((Circle) bubbles.get(i).getNode()).getRadius() > 12) {
-//						newBubbles.add(bubbles.get(i).splitBubble(pane));
-//					}
-//				}
-//				bubbles.addAll(newBubbles);
-//			}
-//		});
-//		pane.getChildren().add(btn);
-//		gl.start();
-	}
+	private GameLoop gl;
 
 	/**
 	 * Handles clicking of the quit button
 	 *
 	 * @param event the click of the button
-	 * @throws IOException thrown when FXML file could not be parsed
 	 */
 	@FXML
-	protected void handleQuitButton(ActionEvent event) throws IOException {
+	private void handleQuitButton(ActionEvent event) {
 		System.out.println("Quit button pressed!");
 		System.exit(0);
 	}
@@ -117,11 +65,12 @@ public class GameController implements IviewController {
 	 * Handles clicking of the main menu button
 	 *
 	 * @param event the click of the button
-	 * @throws IOException thrown when FXML file could not be parsed
 	 */
 	@FXML
-	protected void handleMainMenuButton(ActionEvent event) throws IOException {
+	private void handleMainMenuButton(ActionEvent event) {
 		System.out.println("Main Menu button pressed!");
+		gl.stop();
+		gl = null;
 		MainMenuController.loadView();
 	}
 
@@ -143,8 +92,9 @@ public class GameController implements IviewController {
 
 	@Override
 	public void start(Scene scene) {
-		GameLoop gl = new GameLoop();
+		gl = new GameLoop();
 		gl.setGameBounds(top.getStartY(), top.getEndX(), bottom.getStartY(), top.getStartX());
+		gl.setViewController(this);
 
 		Point topLeft = new Point(top.getStartX(), top.getStartY());
 		Point topRight = new Point(top.getEndX(), top.getEndY());
@@ -162,12 +112,11 @@ public class GameController implements IviewController {
 		double bubbleRadius = 50;
 		Vector bubbleDirection = new Vector(-2, -5);
 		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
-		gameObjects.getChildren().add(bubble.getNode());
 
 		//draw player
 		Image playerImage = null;
 		try {
-			playerImage = new Image(getClass().getResource("/data/gui/img/penguin.png").openStream(), 
+			playerImage = new Image(getClass().getResource("/data/gui/img/penguin.png").openStream(),
 					100, 100, true, true);
 		} catch (IOException ex) {
 			Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
@@ -184,6 +133,26 @@ public class GameController implements IviewController {
 
 		gl.addObject(bubble);
 		gl.addPlayer(player);
+
 		gl.start();
+	}
+
+	public void drawNode(Node n) {
+		gameObjects.getChildren().add(n);
+	}
+
+	public void removeNode(Node n) {
+		gameObjects.getChildren().remove(n);
+	}
+
+	/**
+	 * Called when a level is completed
+	 */
+	public void levelCompleted() {
+		// !!!!!!!! Needs to be changed !!!!!!!!!
+		System.out.println("Level completed!");
+		gl.stop();
+		gl = null;
+		MainMenuController.loadView();
 	}
 }
