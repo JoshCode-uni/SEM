@@ -36,7 +36,7 @@ public class GameController implements IviewController {
 	private Pane pane;
 
 	@FXML
-	private Rectangle timeRectangle;
+	private Rectangle timeRectangle, negativeTimeRectangle;
 
 	@FXML
 	private Text livesText, levelText, scoreText;
@@ -52,6 +52,8 @@ public class GameController implements IviewController {
 	private GameLoop gl;
 
 	private static int currentLevel = 0;
+	private static final long MAX_TIME = 30_000_000_000l; // 30 seconds in ns
+	private long timeLeft;
 
 	/**
 	 * Handles clicking of the quit button
@@ -95,6 +97,8 @@ public class GameController implements IviewController {
 
 	@Override
 	public void start(Scene scene) {
+		timeLeft = MAX_TIME;
+
 		gl = new GameLoop();
 		gl.setGameBounds(top.getStartY(), top.getEndX(), bottom.getStartY(), top.getStartX());
 		gl.setViewController(this);
@@ -147,6 +151,15 @@ public class GameController implements IviewController {
 		gameObjects.getChildren().remove(n);
 	}
 
+	public void updateTime(Long nanoTimePassed) {
+		timeLeft -= nanoTimePassed;
+		if (timeLeft <= 0) {
+			died();
+			return;
+		}
+		timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double)timeLeft / (double)MAX_TIME));
+	}
+
 	/**
 	 * Called when a level is completed
 	 */
@@ -155,8 +168,17 @@ public class GameController implements IviewController {
 		System.out.println("Level completed!");
 		gl.stop();
 		gl = null;
-		if(currentLevel + 1 < Levels.amountOfLevels())
+		if (currentLevel + 1 < Levels.amountOfLevels()) {
 			currentLevel++;
+		}
+		MainMenuController.loadView();
+	}
+
+	public void died() {
+		// !!!!!!!! Needs to be changed !!!!!!!!!
+		System.out.println("Player died");
+		gl.stop();
+		gl = null;
 		MainMenuController.loadView();
 	}
 

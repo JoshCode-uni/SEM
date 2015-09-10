@@ -26,8 +26,8 @@
       </VBox>
       <StackPane alignment="TOP_LEFT" layoutX="20.0" layoutY="900.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#7c7c7c" height="50.0" layoutX="20.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1880.0" />
-            <Rectangle fx:id="timeRectangle" arcHeight="5.0" arcWidth="5.0" fill="MAROON" height="50.0" layoutX="20.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1800.0" />
+            <Rectangle fx:id="negativeTimeRectangle" arcHeight="5.0" arcWidth="5.0" fill="#7c7c7c" height="50.0" layoutX="20.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1880.0" />
+            <Rectangle fx:id="timeRectangle" arcHeight="5.0" arcWidth="5.0" fill="MAROON" height="50.0" layoutX="20.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1880.0" />
          </children>
       </StackPane>
       <HBox layoutX="460.0" layoutY="954.677734375" spacing="400.0">
