@@ -97,6 +97,7 @@ public class GameController implements IviewController {
 
 	@Override
 	public void start(Scene scene) {
+		levelText.setText(Integer.toString(currentLevel + 1));
 		timeLeft = MAX_TIME;
 
 		gl = new GameLoop();
@@ -157,6 +158,7 @@ public class GameController implements IviewController {
 			died();
 			return;
 		}
+		scoreText.setText("Score: " + GameLoop.getScore());
 		timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double)timeLeft / (double)MAX_TIME));
 	}
 
@@ -166,6 +168,9 @@ public class GameController implements IviewController {
 	public void levelCompleted() {
 		// !!!!!!!! Needs to be changed !!!!!!!!!
 		System.out.println("Level completed!");
+		int totalScore = GameLoop.getScore() + (int) (timeLeft / 100_000_000.0);
+		System.out.println("level score = " + totalScore);
+		MainMenuController.setScore(totalScore, currentLevel);
 		gl.stop();
 		gl = null;
 		if (currentLevel + 1 < Levels.amountOfLevels()) {

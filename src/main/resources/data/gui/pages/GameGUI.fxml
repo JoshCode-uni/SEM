@@ -30,19 +30,19 @@
             <Rectangle fx:id="timeRectangle" arcHeight="5.0" arcWidth="5.0" fill="MAROON" height="50.0" layoutX="20.0" layoutY="900.0" stroke="BLACK" strokeType="INSIDE" width="1880.0" />
          </children>
       </StackPane>
-      <HBox layoutX="460.0" layoutY="954.677734375" spacing="400.0">
+      <HBox layoutX="460.0" layoutY="954.677734375" spacing="300.0">
          <children>
-            <Text fx:id="livesText" layoutX="460.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives:">
+            <Text fx:id="livesText" layoutX="460.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lives:" wrappingWidth="166.9501953125">
                <font>
                   <Font size="42.0" />
                </font>
             </Text>
-            <Text fx:id="levelText" layoutX="960.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level" wrappingWidth="117.6708984375">
+            <Text fx:id="levelText" layoutX="960.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Level: 0" wrappingWidth="201.6708984375">
                <font>
                   <Font size="42.0" />
                </font>
             </Text>
-            <Text fx:id="scoreText" layoutX="1460.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score">
+            <Text fx:id="scoreText" layoutX="1460.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" wrappingWidth="217.138671875">
                <font>
                   <Font size="42.0" />
                </font>

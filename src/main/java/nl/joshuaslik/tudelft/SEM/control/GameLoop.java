@@ -37,6 +37,7 @@ public class GameLoop extends AnimationTimer {
 	private static double topBorder, rightBorder, bottomBorder, leftBorder;
 
 	private static int bubbleCount = 0;
+	private static int score = 0;
 
 	private static long time = 0;
 
@@ -53,6 +54,7 @@ public class GameLoop extends AnimationTimer {
 		allObjects.clear();
 		dynamicObjects.clear();
 		bubbleCount = 0;
+		score = 0;
 	}
 
 	@Override
@@ -60,7 +62,9 @@ public class GameLoop extends AnimationTimer {
 
 		if (bubbleCount <= 0) {
 			gameController.levelCompleted();
+			return;
 		}
+		
 		try {
 			// update time
 			long frametime = this.time != 0 ? time - this.time : 165_000_000;
@@ -177,6 +181,7 @@ public class GameLoop extends AnimationTimer {
 	public static void removeObject(DynamicObject object) {
 
 		if (object instanceof Bubble && dynamicObjects.contains(object)) {
+			score += 10;
 			--bubbleCount;
 		}
 
@@ -232,4 +237,7 @@ public class GameLoop extends AnimationTimer {
 		GameLoop.gameController = gameController;
 	}
 
+	public static int getScore() {
+		return score;
+	}
 }
