@@ -37,6 +37,7 @@ public class GameLoop extends AnimationTimer {
 	private static double topBorder, rightBorder, bottomBorder, leftBorder;
 
 	private static int bubbleCount = 0;
+	private static int score = 0;
 
 	private static long time = 0;
 
@@ -53,6 +54,7 @@ public class GameLoop extends AnimationTimer {
 		allObjects.clear();
 		dynamicObjects.clear();
 		bubbleCount = 0;
+		score = 0;
 	}
 
 	@Override
@@ -60,13 +62,15 @@ public class GameLoop extends AnimationTimer {
 
 		if (bubbleCount <= 0) {
 			gameController.levelCompleted();
+			return;
 		}
-
+		
 		try {
-
 			// update time
 			long frametime = this.time != 0 ? time - this.time : 165_000_000;
 			this.time = time;
+
+			gameController.updateTime(frametime);
 
 //		System.out.println("framerate:  = " + 1.0 / frametime * 1_000_000_000 + "fps");
 			// check if there are any collisions (for dynamic objects)
@@ -88,14 +92,6 @@ public class GameLoop extends AnimationTimer {
 //		for (DynamicObject e : dynamicObjects) {
 //			e.update(frametime);
 //		}
-			player.update(frametime);
-			if (projectile != null) {
-				projectile.update(frametime);
-				for (int i = 0; i < dynamicObjects.size() && projectile != null; i++) {
-					projectile.collisionCheck(dynamicObjects.get(i));
-				}
-			}
-
 			for (IUpdateable e : updateable) {
 				e.update(frametime);
 			}
@@ -118,6 +114,14 @@ public class GameLoop extends AnimationTimer {
 
 			for (int i = 0; i < dynamicObjects.size(); i++) {
 				dynamicObjects.get(i).update(frametime);
+			}
+
+			player.update(frametime);
+			if (projectile != null) {
+				projectile.update(frametime);
+				for (int i = 0; i < dynamicObjects.size() && projectile != null; i++) {
+					projectile.collisionCheck(dynamicObjects.get(i));
+				}
 			}
 
 		} catch (Exception ex) {
@@ -175,12 +179,14 @@ public class GameLoop extends AnimationTimer {
 	}
 
 	public static void removeObject(DynamicObject object) {
-		dynamicObjects.remove(object);
-		allObjects.remove(object);
 
-		if (object instanceof Bubble) {
+		if (object instanceof Bubble && dynamicObjects.contains(object)) {
+			score += 10;
 			--bubbleCount;
 		}
+
+		dynamicObjects.remove(object);
+		allObjects.remove(object);
 
 		// remove the dynamic object from the view
 		gameController.removeNode(object.getNode());
@@ -231,4 +237,7 @@ public class GameLoop extends AnimationTimer {
 		GameLoop.gameController = gameController;
 	}
 
+	public static int getScore() {
+		return score;
+	}
 }

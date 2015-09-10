@@ -1,6 +1,7 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,8 +22,8 @@ import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Keyboard;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
+import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
-import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
 /**
  * Controller for the game UI.
@@ -35,7 +36,7 @@ public class GameController implements IviewController {
 	private Pane pane;
 
 	@FXML
-	private Rectangle timeRectangle;
+	private Rectangle timeRectangle, negativeTimeRectangle;
 
 	@FXML
 	private Text livesText, levelText, scoreText;
@@ -49,6 +50,10 @@ public class GameController implements IviewController {
 	private Group gameObjects;
 
 	private GameLoop gl;
+
+	private static int currentLevel = 0;
+	private static final long MAX_TIME = 30_000_000_000l; // 30 seconds in ns
+	private long timeLeft;
 
 	/**
 	 * Handles clicking of the quit button
@@ -92,6 +97,9 @@ public class GameController implements IviewController {
 
 	@Override
 	public void start(Scene scene) {
+		levelText.setText(Integer.toString(currentLevel + 1));
+		timeLeft = MAX_TIME;
+
 		gl = new GameLoop();
 		gl.setGameBounds(top.getStartY(), top.getEndX(), bottom.getStartY(), top.getStartX());
 		gl.setViewController(this);
@@ -106,12 +114,6 @@ public class GameController implements IviewController {
 		gl.addObject(new nl.joshuaslik.tudelft.SEM.control.gameObjects.Line(topLeft, bottomLeft));
 		gl.addObject(new nl.joshuaslik.tudelft.SEM.control.gameObjects.Line(topRight, bottomRight));
 		gl.addObject(new nl.joshuaslik.tudelft.SEM.control.gameObjects.Line(bottomLeft, bottomRight));
-
-		// create 1 bubble
-		Point bubbleCenter = new Point(200, 300);
-		double bubbleRadius = 50;
-		Vector bubbleDirection = new Vector(-2, -5);
-		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
 
 		//draw player
 		Image playerImage = null;
@@ -131,8 +133,13 @@ public class GameController implements IviewController {
 		kb.addListeners();
 		Player player = new Player(playrImg, kb);
 
-		gl.addObject(bubble);
 		gl.addPlayer(player);
+
+		//draw the bubbles of the current level
+		ArrayList<Bubble> bubbles = Levels.getLevel(currentLevel);
+		for (Bubble e : bubbles) {
+			gl.addObject(e);
+		}
 
 		gl.start();
 	}
@@ -145,14 +152,42 @@ public class GameController implements IviewController {
 		gameObjects.getChildren().remove(n);
 	}
 
+	public void updateTime(Long nanoTimePassed) {
+		timeLeft -= nanoTimePassed;
+		if (timeLeft <= 0) {
+			died();
+			return;
+		}
+		scoreText.setText("Score: " + GameLoop.getScore());
+		timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double)timeLeft / (double)MAX_TIME));
+	}
+
 	/**
 	 * Called when a level is completed
 	 */
 	public void levelCompleted() {
 		// !!!!!!!! Needs to be changed !!!!!!!!!
 		System.out.println("Level completed!");
+		int totalScore = GameLoop.getScore() + (int) (timeLeft / 100_000_000.0);
+		System.out.println("level score = " + totalScore);
+		MainMenuController.setScore(totalScore, currentLevel);
+		gl.stop();
+		gl = null;
+		if (currentLevel + 1 < Levels.amountOfLevels()) {
+			currentLevel++;
+		}
+		MainMenuController.loadView();
+	}
+
+	public void died() {
+		// !!!!!!!! Needs to be changed !!!!!!!!!
+		System.out.println("Player died");
 		gl.stop();
 		gl = null;
 		MainMenuController.loadView();
+	}
+
+	public static void setLevel(int level) {
+		GameController.currentLevel = level;
 	}
 }
