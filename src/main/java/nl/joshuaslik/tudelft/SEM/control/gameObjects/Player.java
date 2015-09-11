@@ -26,7 +26,7 @@ public class Player implements PhysicsObject, DynamicObject {
 	private static final double MAX_SPEED = 200;
 	
 	// TODO Temporary dirty static
-	private static int lives;
+	private int lives;
 
 	/**
 	 * Create a player.
@@ -37,7 +37,7 @@ public class Player implements PhysicsObject, DynamicObject {
 		image = img;
 		keyboard = kb;
 		
-		lives = 3;
+		lives = 1;
 	}
 
 	/**
