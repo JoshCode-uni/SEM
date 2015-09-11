@@ -5,9 +5,9 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.joshuaslik.tudelft.SEM.control.viewController.YouWonController">
    <children>
-      <Pane prefHeight="540.0" prefWidth="960.0">
+      <Pane fx:id="pane" prefHeight="540.0" prefWidth="960.0">
          <children>
             <Text layoutX="380.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You Won!">
                <font>
