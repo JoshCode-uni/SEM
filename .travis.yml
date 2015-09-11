@@ -14,8 +14,8 @@ before_deploy:
 
 deploy:
   provider: releases
-  api-key: "84c3bc84a9c15a6b4e4449fd503c9f92e7dde4e6"
-  file: "./build/SEM.zip"
+  api-key: "b033f3c3969c9de2c137a3874281b8b1434d690a"
+  file: "./target/SEM.zip"
   skip_cleanup: true
   on:
     tags: true
