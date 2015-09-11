@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.input.KeyCombination;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
 
 /**
@@ -40,7 +41,7 @@ public class Launcher extends Application {
 		Scene scene = new Scene(bp);
 		primaryStage.setScene(scene);
 		primaryStage.setFullScreen(true);
-		primaryStage.setFullScreenExitHint("");
+		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		primaryStage.show();
 		stage = primaryStage;
 	}
