@@ -133,10 +133,17 @@ public class ChooseLevelController implements IviewController {
 		System.exit(0);
 	}
 
+	/**
+	 * Load this view.
+	 */
 	public static void loadView() {
 		Launcher.loadView(Class.class.getResource("/data/gui/pages/ChooseLevel.fxml"));
 	}
 	
+	/**
+	 * Initialize.
+	 * @param scene the scene of this view.
+	 */
 	@Override
 	public void start(Scene scene) {
 		

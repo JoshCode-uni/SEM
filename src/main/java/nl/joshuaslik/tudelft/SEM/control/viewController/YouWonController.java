@@ -1,20 +1,14 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
-import javafx.stage.Popup;
 import javafx.event.ActionEvent;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.PopupControl;
-import javafx.stage.Stage;
 
 /**
  * Controller for the You Won screen.
@@ -72,36 +66,6 @@ public class YouWonController implements IpopupController{
 	public static void loadPopup(IviewController controller) {
 		Launcher.loadPopup(controller, Class.class.getResource("/data/gui/pages/YouWon.fxml"));
 	}
-
-//	@Override
-//	public void start(Scene scene) {
-//		try {
-//			FXMLLoader loader = new FXMLLoader();
-//			loader.setLocation(Class.class.getResource("/data/gui/pages/YouWon.fxml"));
-//			Pane page = loader.load();
-//			PopupControl popup = new PopupControl();
-//			popup.getScene().setRoot(page);
-//			popup.show(scene.getWindow());
-////		try {
-////			Stage stage = new Stage();
-////			FXMLLoader loader = new FXMLLoader();
-////			loader.setLocation(Class.class.getResource("/data/gui/pages/YouWon.fxml"));
-////			Pane page = loader.load();
-////			page.setOpacity(0.85);
-////			
-//////			Popup popup = new Popup();
-//////			popup.setAutoHide(true);
-//////			popup.getContent().add(page);
-////			newScene = new Scene(page);
-////			stage.setScene(newScene);
-////			stage.showAndWait();//popup.show(Launcher.stage);
-////		} catch (IOException ex) {
-////			Logger.getLogger(YouWonController.class.getName()).log(Level.SEVERE, null, ex);
-////		}
-//		} catch (IOException ex) {
-//			Logger.getLogger(YouWonController.class.getName()).log(Level.SEVERE, null, ex);
-//		}
-//	}
 
 	@Override
 	public void setMainViewController(IviewController controller) {

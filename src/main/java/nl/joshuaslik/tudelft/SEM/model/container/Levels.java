@@ -22,6 +22,11 @@ public class Levels {
 		return AMOUNT_OF_IMPLEMENTED_LEVELS;
 	}
 
+	/**
+	 * Get level of [index].
+	 * @param index the index of the level.
+	 * @return the level.
+	 */
 	public static ArrayList<Bubble> getLevel(int index) {
 		switch (index) {
 			case 0:
@@ -39,6 +44,10 @@ public class Levels {
 		}
 	}
 
+	/**
+	 * Create level 1.
+	 * @return level 1.
+	 */
 	private static ArrayList<Bubble> createLevel0() {
 		ArrayList<Bubble> level0 = new ArrayList<>();
 
@@ -52,6 +61,10 @@ public class Levels {
 		return level0;
 	}
 
+	/**
+	 * Create level 2.
+	 * @return level 2.
+	 */
 	private static ArrayList<Bubble> createLevel1() {
 		ArrayList<Bubble> level1 = new ArrayList<>();
 
@@ -72,6 +85,10 @@ public class Levels {
 		return level1;
 	}
 
+	/**
+	 * Create level 3.
+	 * @return level 3.
+	 */
 	private static ArrayList<Bubble> createLevel2() {
 		ArrayList<Bubble> level2 = new ArrayList<>();
 
@@ -99,6 +116,10 @@ public class Levels {
 		return level2;
 	}
 
+	/**
+	 * Create level 4.
+	 * @return level 4.
+	 */
 	private static ArrayList<Bubble> createLevel3() {
 		ArrayList<Bubble> level3 = new ArrayList<>();
 
@@ -126,6 +147,10 @@ public class Levels {
 		return level3;
 	}
 
+	/**
+	 * Create level 5.
+	 * @return level 5.
+	 */
 	private static ArrayList<Bubble> createLevel4() {
 		ArrayList<Bubble> level4 = new ArrayList<>();
 

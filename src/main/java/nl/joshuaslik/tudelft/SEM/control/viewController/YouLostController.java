@@ -40,15 +40,27 @@ public class YouLostController implements IpopupController {
 		GameController.loadView();
 	}
 	
+	/**
+	 * Load this popup.
+	 * @param controller the controller class of the currently loaded view.
+	 */
 	public static void loadPopup(IviewController controller) {
 		Launcher.loadPopup(controller, Class.class.getResource("/data/gui/pages/YouLost.fxml"));
 	}
 	
+	/**
+	 * Set the controller of the main view.
+	 * @param controller the main view controller.
+	 */
 	@Override
 	public void setMainViewController(IviewController controller) {
 		mainController = controller;
 	}
 
+	/**
+	 * Set the popupControl of this popup.
+	 * @param popupControl PopupControl.
+	 */
 	@Override
 	public void setPopupControl(PopupControl popupControl) {
 		this.popupControl = popupControl;

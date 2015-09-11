@@ -86,17 +86,21 @@ public class GameController implements IviewController {
 	 *
 	 * @return Rectangle timeRectangle
 	 */
-	//I created this method because i thought it would come in handy with the changing the length
-	//Of this rectangle. I don't really know if this method is in the right place though.
-	//To alter the length of this rectangle, we can use timeRectangle.setWidth(X);
 	public Rectangle getTimeRectangle() {
 		return timeRectangle;
 	}
 
+	/**
+	 * Load this view.
+	 */
 	public static void loadView() {
 		Launcher.loadView(Class.class.getResource("/data/gui/pages/GameGUI.fxml"));
 	}
 
+	/**
+	 * Initialize stuff of this view.
+	 * @param scene the scene which this view is loaded into.
+	 */
 	@Override
 	public void start(Scene scene) {
 		levelText.setText(Integer.toString(currentLevel + 1));
@@ -147,14 +151,26 @@ public class GameController implements IviewController {
 		gl.start();
 	}
 
+	/**
+	 * Draw a node in the game view.
+	 * @param n node to draw.
+	 */
 	public void drawNode(Node n) {
 		gameObjects.getChildren().add(n);
 	}
 
+	/**
+	 * Remove a node from the game view.
+	 * @param n node to remove.
+	 */
 	public void removeNode(Node n) {
 		gameObjects.getChildren().remove(n);
 	}
 
+	/**
+	 * Update the length of the "time left" rectangle.
+	 * @param nanoTimePassed the framerate (nanoseconds/frame)
+	 */
 	public void updateTime(Long nanoTimePassed) {
 		timeLeft -= nanoTimePassed;
 		if (timeLeft <= 0) {
@@ -184,21 +200,30 @@ public class GameController implements IviewController {
 		YouWonController.loadPopup(contr);
 	}
 
+	/**
+	 * The player died, end level.
+	 */
 	public void died() {
-		// !!!!!!!! Needs to be changed !!!!!!!!!
 		System.out.println("Player died");
 		gl.stop();
 		gl = null;
-//		MainMenuController.loadView();
 		
 		IviewController contr = MainMenuController.loadView();
 		YouLostController.loadPopup(contr);
 	}
 
+	/**
+	 * Select the level which should be played.
+	 * @param level 
+	 */
 	public static void setLevel(int level) {
 		GameController.currentLevel = level;
 	}
 
+	/**
+	 * Disable all butons.
+	 * @param disabled if the buttons should be disabled.
+	 */
 	@Override
 	public void setButtonsDisiabled(boolean disabled) {
 		//unnecesairy, no popup will occur in this view
