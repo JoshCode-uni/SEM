@@ -38,7 +38,6 @@ public class Launcher extends Application {
 		primaryStage.setFullScreen(true);
 		primaryStage.setFullScreenExitHint("");
 		primaryStage.show();
-
 	}
 	
 	public static void loadView(URL fxmlURL) {

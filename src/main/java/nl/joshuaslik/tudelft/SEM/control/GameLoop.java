@@ -191,6 +191,10 @@ public class GameLoop extends AnimationTimer {
 		// remove the dynamic object from the view
 		gameController.removeNode(object.getNode());
 	}
+	
+	public static ArrayList<PhysicsObject> getAllObjects() {
+		return allObjects;
+	}
 
 	public void addPlayer(DynamicObject pl) {
 		player = pl;
@@ -235,6 +239,10 @@ public class GameLoop extends AnimationTimer {
 
 	public void setViewController(GameController gameController) {
 		GameLoop.gameController = gameController;
+	}
+	
+	public static GameController getGameController() {
+		return gameController;
 	}
 
 	public static int getScore() {

@@ -5,6 +5,8 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
+import java.util.ArrayList;
+
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.control.GameLoop;
@@ -21,10 +23,14 @@ public class Player implements PhysicsObject, DynamicObject {
 	private ImageView image;
 	private Keyboard keyboard;
 	private static final double MAX_SPEED = 200;
+	
+	private int lives;
 
 	public Player(ImageView img, Keyboard kb) {
 		image = img;
 		keyboard = kb;
+		
+		lives = 3;
 	}
 
 	@Override
@@ -48,10 +54,43 @@ public class Player implements PhysicsObject, DynamicObject {
 			image.setX(image.getX() + MAX_SPEED * nanoFrameTime / 1_000_000_000);
 			image.setScaleX(-1);
 		}
+		
+		if (checkBubbleCollision()) {
+			if (lives > 0) {
+				System.out.println("Player loses life");
+				lives--;
+				// Reset level
+			}
+			else {
+				System.out.println("Player dies");
+				GameLoop.getGameController().died();
+			}
+		}
+		
 		if (keyboard.isShoot() && !GameLoop.hasProjectile()) {
 			//shoot
 			GameLoop.setProjectile(new Projectile((image.getX() + image.getLayoutBounds().getMaxX()) / 2.0, image.getY()));
 		}
+	}
+	
+	public boolean checkBubbleCollision() {
+		ArrayList<PhysicsObject> objects = GameLoop.getAllObjects();
+		
+		Point leftcorner = new Point(image.getX(), image.getY());
+		Point rightcorner = new Point(image.getX() + image.getFitWidth(), image.getY());
+		
+		for (PhysicsObject o : objects) {
+			if (o instanceof Bubble) {
+				Bubble b = (Bubble) o;
+				
+				IntersectionPoint closest = b.getClosestIntersection(leftcorner);
+				if (leftcorner.distanceTo(closest) <= b.getRadius()) return true;
+				
+				closest = b.getClosestIntersection(rightcorner);
+				if (rightcorner.distanceTo(closest) <= b.getRadius()) return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
