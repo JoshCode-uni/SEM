@@ -1,39 +1,19 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import java.io.IOException;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.AnchorPane;
-import javafx.stage.Popup;
+import javafx.scene.control.PopupControl;
 
-public class YouLostController {
-
-	private static Popup popup;
-	private static AnchorPane page;
+public class YouLostController implements IpopupController {
 	
 	@FXML
 	private Button mainMenuButton;
 	
-	/**
-	 * Start the pop-up when player lost
-	 * @throws IOException is thrown if the FXML file cannot be parsed.
-	 */
-	public static void start() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Class.class
-				.getResource("/data/gui/pages/YouLost.fxml"));
-		page = (AnchorPane) loader.load();
-		page.setOpacity(0.85);
-		popup = new Popup();
-		popup.setAutoHide(true);
-		popup.getContent().add(page);
-		popup.show(Launcher.stage);
-	}
+	private IviewController mainController;
+	private PopupControl popupControl;
 	
 	/**
 	 * Handles clicking of the main menu button
@@ -42,8 +22,9 @@ public class YouLostController {
 	 */
 	@FXML
 	private void handleMainMenuButton(ActionEvent event) {
-		System.out.println("Main Menu button pressed!");
-		MainMenuController.loadView();
+		System.out.println("Retry button pressed!");
+		popupControl.hide();
+		mainController.setButtonsDisiabled(false);
 	}
 	
 	/**
@@ -54,11 +35,22 @@ public class YouLostController {
 	@FXML
 	private void handleTryAgainButton(ActionEvent event) {
 		System.out.println("Main Menu button pressed!");
-		popup.hide();
+		popupControl.hide();
+		mainController.setButtonsDisiabled(false);
 		GameController.loadView();
 	}
 	
-	public static void loadView() {
-		Launcher.loadView(Class.class.getResource("/data/gui/pages/YouLost.fxml"));
+	public static void loadPopup(IviewController controller) {
+		Launcher.loadPopup(controller, Class.class.getResource("/data/gui/pages/YouLost.fxml"));
+	}
+	
+	@Override
+	public void setMainViewController(IviewController controller) {
+		mainController = controller;
+	}
+
+	@Override
+	public void setPopupControl(PopupControl popupControl) {
+		this.popupControl = popupControl;
 	}
 }
