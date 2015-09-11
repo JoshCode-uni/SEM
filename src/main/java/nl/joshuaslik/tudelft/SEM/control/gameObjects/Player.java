@@ -82,12 +82,8 @@ public class Player implements PhysicsObject, DynamicObject {
 		for (PhysicsObject o : objects) {
 			if (o instanceof Bubble) {
 				Bubble b = (Bubble) o;
-				
-				IntersectionPoint closest = b.getClosestIntersection(leftcorner);
-				if (leftcorner.distanceTo(closest) <= b.getRadius()) return true;
-				
-				closest = b.getClosestIntersection(rightcorner);
-				if (rightcorner.distanceTo(closest) <= b.getRadius()) return true;
+				if(image.intersects(o.getNode().getLayoutBounds()))
+					return true;
 			}
 		}
 		return false;
