@@ -1,7 +1,6 @@
-package nl.joshuaslik.tudelft.SEM.model.container;
-
 import static org.junit.Assert.*;
 
+import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import org.junit.Before;
 import org.junit.Test;
 

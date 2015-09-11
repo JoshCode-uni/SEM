@@ -1,7 +1,8 @@
-package nl.joshuaslik.tudelft.SEM.model.container;
-
 import static org.junit.Assert.*;
 
+import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import org.junit.Before;
 import org.junit.Test;
 
