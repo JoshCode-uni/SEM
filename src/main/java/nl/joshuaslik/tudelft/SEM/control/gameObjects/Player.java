@@ -24,7 +24,8 @@ public class Player implements PhysicsObject, DynamicObject {
 	private Keyboard keyboard;
 	private static final double MAX_SPEED = 200;
 	
-	private int lives;
+	// TODO Temporary dirty static
+	private static int lives;
 
 	public Player(ImageView img, Keyboard kb) {
 		image = img;

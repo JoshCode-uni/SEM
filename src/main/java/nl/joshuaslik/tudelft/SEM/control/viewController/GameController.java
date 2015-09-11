@@ -48,6 +48,8 @@ public class GameController implements IviewController {
 	private Line top, right, bottom, left;
 	@FXML
 	private Group gameObjects;
+	
+	private Player player;
 
 	private GameLoop gl;
 
@@ -131,7 +133,8 @@ public class GameController implements IviewController {
 		//listen to player controls
 		Keyboard kb = new Keyboard(scene);
 		kb.addListeners();
-		Player player = new Player(playrImg, kb);
+		
+		player = new Player(playrImg, kb);
 
 		gl.addPlayer(player);
 

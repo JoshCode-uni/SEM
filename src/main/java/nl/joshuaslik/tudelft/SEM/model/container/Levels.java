@@ -7,6 +7,7 @@ package nl.joshuaslik.tudelft.SEM.model.container;
 
 import java.util.ArrayList;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 
 /**
  * Contains all of the levels
@@ -16,7 +17,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
 public class Levels {
 
 	private final static int AMOUNT_OF_IMPLEMENTED_LEVELS = 5;
-
+	
 	public static int amountOfLevels() {
 		return AMOUNT_OF_IMPLEMENTED_LEVELS;
 	}
