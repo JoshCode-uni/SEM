@@ -7,7 +7,7 @@ install:
 
 before_deploy:
   - mvn package
-  - cd build
+  - cd target
   - zip -r SEM ./* -x ./maven-archiver\* ./maven-status\* ./classes\* ./surefire-reports\* ./test-classes\* ./generated-sources\* ./generated-test-sources\* ./generated-classes\* ./cobertura\* ./testtarget\*
   - ls
   - cd ..
