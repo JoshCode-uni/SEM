@@ -24,6 +24,7 @@ public class ChooseLevelController implements IviewController {
 	@FXML
 	protected void handleLevel1Button(ActionEvent event) {
 		System.out.println("Level 1 button pressed!");
+		GameController.setLevel(0);
 		GameController.loadView();
 
 	}
@@ -36,8 +37,8 @@ public class ChooseLevelController implements IviewController {
 	@FXML
 	protected void handleLevel2Button(ActionEvent event) {
 		System.out.println("Level 2 button pressed!");
-		//Stage stage = (Stage) level2Button.getScene().getWindow();
-
+		GameController.setLevel(1);
+		GameController.loadView();
 	}
 
 	/**
@@ -48,7 +49,8 @@ public class ChooseLevelController implements IviewController {
 	@FXML
 	protected void handleLevel3Button(ActionEvent event) {
 		System.out.println("Level 3 button pressed!");
-		//Stage stage = (Stage) level3Button.getScene().getWindow();
+		GameController.setLevel(2);
+		GameController.loadView();
 
 	}
 
@@ -60,8 +62,8 @@ public class ChooseLevelController implements IviewController {
 	@FXML
 	protected void handleLevel4Button(ActionEvent event) {
 		System.out.println("Level 4 button pressed!");
-		//Stage stage = (Stage) level4Button.getScene().getWindow();
-
+		GameController.setLevel(3);
+		GameController.loadView();
 	}
 
 	/**
@@ -72,7 +74,8 @@ public class ChooseLevelController implements IviewController {
 	@FXML
 	protected void handleLevel5Button(ActionEvent event) {
 		System.out.println("Level 5 button pressed!");
-		//Stage stage = (Stage) level5Button.getScene().getWindow();
+		GameController.setLevel(4);
+		GameController.loadView();
 	}
 
 	/**
