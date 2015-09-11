@@ -33,15 +33,7 @@ public class YouWonController {
 	 * @throws IOException is thrown if the FXML file cannot be parsed.
 	 */
 	public static void start() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Class.class
-				.getResource("/data/gui/pages/YouWon.fxml"));
-		page = (AnchorPane) loader.load();
-		page.setOpacity(0.85);
-		popup = new Popup();
-		popup.setAutoHide(true);
-		popup.getContent().add(page);
-		popup.show(Launcher.stage);
+
 	}
 	
 	/**
@@ -52,7 +44,8 @@ public class YouWonController {
 	@FXML
 	private void handleMainMenuButton(ActionEvent event) {
 		System.out.println("Main Menu button pressed!");
-		MainMenuController.loadView();
+		popup.hide();
+		//MainMenuController.loadView();
 	}
 	
 	/**
@@ -64,10 +57,20 @@ public class YouWonController {
 	@FXML
 	private void handleNextLevelButton(ActionEvent event) {
 		System.out.println("Next level button pressed!");
+		popup.hide();
+		GameController.loadView();
 	}
 	
-	//public static void loadView() {
-	//	Launcher.loadView(Class.class.getResource("/data/gui/pages/YouWon.fxml"));
-	//}
+	public static void loadView() throws IOException {
+		//Launcher.loadView(Class.class.getResource("/data/gui/pages/YouWon.fxml"));
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Class.class.getResource("/data/gui/pages/YouWon.fxml"));
+		page = (AnchorPane) loader.load();
+		page.setOpacity(0.85);
+		popup = new Popup();
+		popup.setAutoHide(true);
+		popup.getContent().add(page);
+		popup.show(Launcher.stage);
+	}
 	
 }

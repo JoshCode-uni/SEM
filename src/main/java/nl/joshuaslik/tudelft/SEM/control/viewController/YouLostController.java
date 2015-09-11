@@ -45,7 +45,19 @@ public class YouLostController {
 		MainMenuController.loadView();
 	}
 	
+	/**
+	 * Handles clicking of the try again button
+	 *
+	 * @param event the click of the button
+	 */
+	@FXML
+	private void handleTryAgainButton(ActionEvent event) {
+		System.out.println("Main Menu button pressed!");
+		popup.hide();
+		GameController.loadView();
+	}
+	
 	public static void loadView() {
-		Launcher.loadView(Class.class.getResource("/data/gui/pages/YouLost.fxml"));
+		//Launcher.loadView(Class.class.getResource("/data/gui/pages/YouLost.fxml"));
 	}
 }

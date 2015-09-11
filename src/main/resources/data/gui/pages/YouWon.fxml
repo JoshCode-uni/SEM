@@ -1,27 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="540.0" prefWidth="960.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.joshuaslik.tudelft.SEM.control.viewController.YouWonController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="362.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.joshuaslik.tudelft.SEM.control.viewController.YouWonController">
    <children>
-      <Pane fx:id="pane" prefHeight="540.0" prefWidth="960.0">
+      <ImageView fitHeight="362.0" fitWidth="649.0" style="-fx-border-width: 1px; -fx-border-color: #CECECE;">
+         <image>
+            <Image url="@../img/BackgroundYouWon.jpg" />
+         </image>
+      </ImageView>
+      <Pane fx:id="pane" prefHeight="362.0" prefWidth="649.0" style="-fx-border-width: 1px; -fx-border-color: #000000;" stylesheets="@YouWon.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text layoutX="380.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You Won!">
+            <Text layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You Won!" textAlignment="CENTER" wrappingWidth="649.0">
                <font>
-                  <Font size="48.0" />
+                  <Font name="Buxton Sketch" size="96.0" />
                </font>
             </Text>
-            <Button fx:id="mainMenuButton" layoutX="100.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="100.0" prefWidth="200.0" text="Main Menu">
+            <Button fx:id="mainMenuButton" layoutX="85.0" layoutY="181.0" mnemonicParsing="false" onAction="#handleMainMenuButton" prefHeight="100.0" prefWidth="230.0" text="Main Menu">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Buxton Sketch" size="40.0" />
                </font>
+               <padding>
+                  <Insets top="5.0" />
+               </padding>
             </Button>
-            <Button fx:id="nextLevelButton" layoutX="660.0" layoutY="400.0" mnemonicParsing="false" onAction="#handleNextLevelButton" prefHeight="100.0" prefWidth="200.0" text="Next Level">
+            <Button fx:id="nextLevelButton" layoutX="329.0" layoutY="181.0" mnemonicParsing="false" onAction="#handleNextLevelButton" prefHeight="100.0" prefWidth="230.0" text="Next Level">
                <font>
-                  <Font size="24.0" />
+                  <Font name="Buxton Sketch" size="66.0" />
                </font>
             </Button>
          </children>
