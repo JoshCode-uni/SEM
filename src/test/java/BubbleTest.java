@@ -46,16 +46,19 @@ public class BubbleTest extends TestCase {
 	@Test
 	public void testUpdate() {
 		//fail("Not yet implemented");
+		// TODO Implement test
 	}
 	
 	@Test
 	public void testCheckCollision() {
 		//fail("Not yet implemented");
+		// TODO Implement test
 	}
 	
 	@Test
 	public void testPrepareUpdate() {
 		//fail("Not yet implemented");
+		// TODO Implement test
 	}
 	
 	@Test
@@ -68,6 +71,7 @@ public class BubbleTest extends TestCase {
 	@Test
 	public void testSplitBubble() {
 		//fail("Not yet implemented");
+		// TODO Implement test
 	}
 	
 	@Test
