@@ -86,8 +86,8 @@ public class MainMenuController implements IviewController {
 		System.exit(0);
 	}
 
-	public static void loadView() {
-		Launcher.loadView(Class.class.getResource("/data/gui/pages/MainMenu.fxml"));
+	public static IviewController loadView() {
+		return Launcher.loadView(Class.class.getResource("/data/gui/pages/MainMenu.fxml"));
 	}
 
 	@Override
@@ -99,5 +99,12 @@ public class MainMenuController implements IviewController {
 		if (scoresPerLevel.get(level) < score) {
 			MainMenuController.scoresPerLevel.set(level, score);
 		}
+	}
+
+	public void setButtonsDisiabled(boolean disabled) {
+		playButton.setDisable(disabled);
+		chooseLevelButton.setDisable(disabled);
+		optionsButton.setDisable(disabled);
+		quitButton.setDisable(disabled);
 	}
 }

@@ -6,6 +6,7 @@ import nl.joshuaslik.tudelft.SEM.Launcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Popup;
@@ -58,6 +59,6 @@ public class YouLostController {
 	}
 	
 	public static void loadView() {
-		//Launcher.loadView(Class.class.getResource("/data/gui/pages/YouLost.fxml"));
+		Launcher.loadView(Class.class.getResource("/data/gui/pages/YouLost.fxml"));
 	}
 }

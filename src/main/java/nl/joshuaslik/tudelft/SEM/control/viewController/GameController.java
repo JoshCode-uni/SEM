@@ -176,7 +176,9 @@ public class GameController implements IviewController {
 		if (currentLevel + 1 < Levels.amountOfLevels()) {
 			currentLevel++;
 		}
-		MainMenuController.loadView();
+//		MainMenuController.loadView();
+		IviewController contr = MainMenuController.loadView();
+		YouWonController.loadPopup(contr);
 	}
 
 	public void died() {
@@ -189,5 +191,10 @@ public class GameController implements IviewController {
 
 	public static void setLevel(int level) {
 		GameController.currentLevel = level;
+	}
+
+	@Override
+	public void setButtonsDisiabled(boolean disabled) {
+		//unnecesairy, no popup will occur in this view
 	}
 }
