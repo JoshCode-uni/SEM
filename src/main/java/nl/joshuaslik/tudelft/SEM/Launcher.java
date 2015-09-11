@@ -27,7 +27,11 @@ public class Launcher extends Application {
 	public static final double GRAVITY = 700;
 	public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
 	private static final BorderPane bp = new BorderPane();
+	public static Stage stage;
 
+	/**
+	 * Start up the game
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		
@@ -38,8 +42,21 @@ public class Launcher extends Application {
 		primaryStage.setFullScreen(true);
 		primaryStage.setFullScreenExitHint("");
 		primaryStage.show();
+		stage = primaryStage;
 	}
 	
+	/**
+	 * getStage
+	 * @return stage
+	 */
+	public static Stage getStage() {
+		return stage;
+	}
+	
+	/**
+	 * Load the fxml file for the screen
+	 * @param fxmlURL
+	 */
 	public static void loadView(URL fxmlURL) {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(fxmlURL);
