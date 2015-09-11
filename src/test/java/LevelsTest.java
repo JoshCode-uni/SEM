@@ -1,29 +1,34 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
-import org.junit.Before;
 import org.junit.Test;
 
 public class LevelsTest {
 	
-	Levels levels;
-	
-	@Before
-	public void setUp() throws Exception {
-		levels = new Levels();
-	}
-	
 	@Test
 	public void testAmountOfLevels() {
-		assertEquals(levels.amountOfLevels(), 5);
-		assertNotEquals(levels.amountOfLevels(), 7);
+		assertEquals(Levels.amountOfLevels(), 5);
+		assertNotEquals(Levels.amountOfLevels(), 7);
 	}
 	
 	@Test
 	public void testGetLevel() {
-		fail("Not yet implemented");
+		ArrayList<Bubble> bubbles = Levels.getLevel(0);
+		assertEquals(bubbles.size(),1);
+		bubbles = Levels.getLevel(1);
+		assertEquals(bubbles.size(),2);
+		bubbles = Levels.getLevel(2);
+		assertEquals(bubbles.size(),3);
+		assertEquals(bubbles.get(1).getRadius(),20d,0);
+		bubbles = Levels.getLevel(3);
+		assertEquals(bubbles.size(),3);
+		assertEquals(bubbles.get(1).getRadius(),70d,0);
+		bubbles = Levels.getLevel(4);
+		assertEquals(bubbles.size(),4);
 	}
 	
 }
