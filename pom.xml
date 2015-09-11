@@ -43,57 +43,7 @@
             <!-- Cobertura Test Coverage Plugin -->
             <!--  Clarification: Yes, this was copied from another project
                   And yes, this configuration was written in full by one of our group members in that project as well, so it's not plagiarism -->
-            <!-- <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.7</version>
-                <configuration>
-                    <check>
-                        <!-- Temporary, REMEMBER TO REMOVE THIS -->
-                        <haltOnFailure>false</haltOnFailure>
-                        <branchRate>85</branchRate>
-                        <lineRate>85</lineRate>
-                        <totalBranchRate>0</totalBranchRate>
-                        <totalLineRate>80</totalLineRate>
-                        <packageLineRate>80</packageLineRate>
-                        <packageBranchRate>0</packageBranchRate>
-                        <!-- <regexes>
-                            <regex>
-                                <pattern>nl.joshuaslik.UFMReckoning.gui.*</pattern>
-                                <branchRate>0</branchRate>
-                                <lineRate>0</lineRate>
-                            </regex>
-                        </regexes> -->
-                    </check>
-                    <instrumentation>
-                        <ignoreTrivial>true</ignoreTrivial>
-                        <!-- <ignores>
-                          <ignore>nl.joshuaslik.tudelft.UFMGame.gui.*</ignore>
-                          <ignore>nl.joshuaslik.tudelft.UFMGame.util.*.class</ignore>
-                        </ignores>
-                        <excludes>
-                          <exclude>nl/joshuaslik/tudelft/UFMGame/gui/**/*.class</exclude>
-                          <exclude>nl/joshuaslik/tudelft/UFMGame/util/*.class</exclude>
-                        </excludes> -->
-                    </instrumentation>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>clean</goal>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.ow2.asm</groupId>
-                        <artifactId>asm</artifactId>
-                        <version>5.0.3</version>
-                    </dependency>
-                </dependencies>
-            </plugin> -->
-        </plugins>
+            </plugins>
     </build>
 
     <dependencies>
