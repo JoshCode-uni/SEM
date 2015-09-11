@@ -10,13 +10,18 @@ import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
- *
+ * A class which holds the information of a projectile which is shot by the palyer.
  * @author faris
  */
 public class Projectile extends Line implements IUpdateable {
 
 	private final static double GROW_RATE = 750;
 
+	/**
+	 * Create a projectile.
+	 * @param startX start x coordinate of the projectile.
+	 * @param startY start y coordinate of the projectile.
+	 */
 	public Projectile(double startX, double startY) {
 		super(new Point(startX, startY), new Point(startX, startY - 1));
 		fxLine.setStrokeWidth(7);
@@ -24,6 +29,10 @@ public class Projectile extends Line implements IUpdateable {
 		fxLine.setOpacity(0.3);
 	}
 
+	/**
+	 * Check if we collide with object dobj.
+	 * @param dobj a dynamic object.
+	 */
 	public void collisionCheck(DynamicObject dobj) {
 		if (dobj instanceof Bubble) {
 			Bubble bubble = (Bubble) dobj;
@@ -42,6 +51,10 @@ public class Projectile extends Line implements IUpdateable {
 		}
 	}
 
+	/**
+	 * Update the length of the projectile.
+	 * @param nanoFrameTime the framerate (nanoseconds/frame).
+	 */
 	@Override
 	public void update(long nanoFrameTime) {
 		// make line longer

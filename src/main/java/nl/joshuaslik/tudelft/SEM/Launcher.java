@@ -21,6 +21,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
 
 /**
+ * The launcher of the application.
  * @author faris
  */
 public class Launcher extends Application {
@@ -33,7 +34,7 @@ public class Launcher extends Application {
 	public static Stage stage;
 
 	/**
-	 * Start up the game
+	 * Start up the game.
 	 */
 	@Override
 	public void start(Stage primaryStage) {
@@ -49,16 +50,16 @@ public class Launcher extends Application {
 	}
 	
 	/**
-	 * getStage
-	 * @return stage
+	 * Get the stage.
+	 * @return stage the stage.
 	 */
 	public static Stage getStage() {
 		return stage;
 	}
 	
 	/**
-	 * Load the fxml file for the screen
-	 * @param fxmlURL
+	 * Load the fxml file for the screen.
+	 * @param fxmlURL URL of the FXML file.
 	 */
 	public static IviewController loadView(URL fxmlURL) {
 		FXMLLoader loader = new FXMLLoader();
@@ -75,6 +76,11 @@ public class Launcher extends Application {
 		}
 	}
 	
+	/**
+	 * Load a popup screen.
+	 * @param mainViewController the controller of the current view.
+	 * @param fxmlURL the URL of the FXML file of the popup.
+	 */
 	public static void loadPopup(IviewController mainViewController, URL fxmlURL) {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(fxmlURL);

@@ -7,8 +7,14 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 /**
  *
+ * Interface to be implemented by all objects which should be updated by the 
+ * GameLoop.
  * @author faris
  */
 public interface IUpdateable {
+	/**
+	 * Update the object.
+	 * @param nanoFrameTime nanoFrameTime the framerate (nanoseconds/frame)
+	 */
 	public abstract void update(final long nanoFrameTime);
 }

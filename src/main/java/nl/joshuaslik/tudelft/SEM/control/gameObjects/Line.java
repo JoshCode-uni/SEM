@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import javafx.scene.Node;
@@ -11,6 +6,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
 /**
+ * Contains position of a line. Contains a collision functionality.
  * @author faris
  */
 public class Line implements PhysicsObject {
@@ -19,6 +15,11 @@ public class Line implements PhysicsObject {
 	private Point p1, p2;
 	private final Vector dir;
 
+	/**
+	 * Create a line between point 1/2.
+	 * @param p1 point 1.
+	 * @param p2 point 2.
+	 */
 	public Line(Point p1, Point p2) {
 		fxLine = new javafx.scene.shape.Line(p1.getxPos(), p1.getyPos(), p2.getxPos(), p2.getyPos());
 		this.p1 = p1;
@@ -27,11 +28,20 @@ public class Line implements PhysicsObject {
 		dir = new Vector(p2.getxPos() - p1.getxPos(), p2.getyPos() - p1.getyPos());
 	}
 
+	/**
+	 * Get the node of this line.
+	 * @return 
+	 */
 	@Override
 	public Node getNode() {
 		return fxLine;
 	}
 
+	/**
+	 * Get the closest point of point p with this line.
+	 * @param p point to intersect with.
+	 * @return intersection point on the line, which is closest to point p.
+	 */
 	@Override
 	public IntersectionPoint getClosestIntersection(final Point p) {
 		Vector normal = dir.normal();
@@ -63,18 +73,34 @@ public class Line implements PhysicsObject {
 		return new IntersectionPoint(intersection.getxPos(), intersection.getyPos(), normal, distance);
 	}
 
+	/**
+	 * Get smallest y.
+	 * @return smallest y.
+	 */
 	private Point getSmallestYpoint() {
 		return p1.getyPos() < p2.getyPos() ? p1 : p2;
 	}
 
+	/**
+	 * Get largest y.
+	 * @return largest y.
+	 */
 	private Point getLargestYpoint() {
 		return p1.getyPos() < p2.getyPos() ? p2 : p1;
 	}
 
+	/**
+	 * Get smallest x.
+	 * @return smallest x.
+	 */
 	private Point getSmallestXpoint() {
 		return p1.getxPos() < p2.getxPos() ? p1 : p2;
 	}
 
+	/**
+	 * Get largest x.
+	 * @return largest x.
+	 */
 	private Point getLargestXpoint() {
 		return p1.getxPos() < p2.getxPos() ? p2 : p1;
 	}

@@ -6,6 +6,7 @@
 package nl.joshuaslik.tudelft.SEM.model.container;
 
 /**
+ * A class used to store a vector and do calculations with it.
  * @author faris
  */
 public class Vector {
@@ -81,23 +82,44 @@ public class Vector {
 		return x < 0 ? -1 : 1;
 	}
 	
+	/**
+	 * Get a normal of this vector.
+	 * @return a normal.
+	 */
 	public Vector normal() {
 		return new Vector(y, -x);
 	}
 	
+	/**
+	 * Get the x value.
+	 * @return the x value.
+	 */
 	public double getX() {
 		return x;
 	}
 	
+	/**
+	 * Get the y value.
+	 * @return the y value.
+	 */
 	public double getY() {
 		return y;
 	}
 	
+	/**
+	 * Create a String representation of this class.
+	 * @return String representation of this class. 
+	 */
 	@Override
 	public String toString() {
 		return "Vector{" + "x=" + x + ", y=" + y + '}';
 	}
 	
+	/**
+	 * Check if this vector equals the object obj.
+	 * @param obj Object to compare this vector to.
+	 * @return if this vector and obj are equal.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import javafx.beans.value.ChangeListener;
@@ -16,24 +11,32 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
 /**
+ * This class contains the position, speed and direction of a bubble.
+ * It implements Dynamic object (because it can move) and PhysicsObject (so it
+ * can collide with other objects).
  * @author faris
  */
 public class Bubble implements PhysicsObject, DynamicObject {
 
+	// variables to keep track of the direction/speed/position
 	private final Circle circle;
 	private Vector dir;
 	private Vector newDir;
 	private static final double MAX_X_SPEED = 150;
 	private static final double Y_MAX_SPEED = 900;
-
 	private double vX = 0;
 	private double vY = 0;
 	private double nextX;
 	private double nextY;
-
 	private int previousCollisionFrame = Integer.MIN_VALUE;
 	private int frame = 0;
 
+	/**
+	 * Create a bubble.
+	 * @param p Center x/y coordinates
+	 * @param radius Radius of the bubble
+	 * @param dir Moving direction of the bubble
+	 */
 	public Bubble(Point p, double radius, Vector dir) {
 		this.circle = new Circle(p.getxPos(), p.getyPos(), radius);
 		this.dir = dir;
@@ -44,11 +47,20 @@ public class Bubble implements PhysicsObject, DynamicObject {
 		circle.centerYProperty().addListener(changeListener);
 	}
 
+	/**
+	 * Get the circle of this bubble (as a node).
+	 * @return node of the circle.
+	 */
 	@Override
 	public Node getNode() {
 		return circle;
 	}
 
+	/**
+	 * Calculate the closest point on the circle to point p.
+	 * @param p the point
+	 * @return the interaction point on the circle which is closest to p.
+	 */
 	@Override
 	public IntersectionPoint getClosestIntersection(final Point p) {
 		Point thisCircle = new Point(nextX, nextY);
@@ -60,22 +72,21 @@ public class Bubble implements PhysicsObject, DynamicObject {
 
 		Point xy = new Point(x, y);
 		Vector normal = new Vector(x - nextX, y - nextY);
-//		System.out.println("\ndeltaX = " + deltaX);
-//		System.out.println("deltaY = " + deltaY);
-//		System.out.println("radDdist = " + radDdist);
-//		System.out.println("point = " + p);
-//		System.out.println("IP: x, y = " + x + ", " + y);
-//		System.out.println("normal = " + normal);
-//		System.out.println("xy.distanceTo(p) = " + xy.distanceTo(p));
-//		System.out.println("nextX = " + nextX);
-//		System.out.println("nextY = " + nextY);
 		return new IntersectionPoint(x, y, normal, xy.distanceTo(p));
 	}
 
+	/**
+	 * Get the physics object.
+	 * @return 
+	 */
 	private PhysicsObject getThisPhysicsObject() {
 		return this;
 	}
 
+	/**
+	 * Update the position (called by GameLoop).
+	 * @param nanoFrameTime the framerate (nanoseconds/frame)
+	 */
 	@Override
 	public void update(final long nanoFrameTime) {
 		// move circle
@@ -83,6 +94,11 @@ public class Bubble implements PhysicsObject, DynamicObject {
 		circle.setCenterY(nextY);
 	}
 
+	/**
+	 * Check if the bubble collides with obj2.
+	 * @param obj2 a Phyisics object.
+	 * @param nanoFrameTime the framerate (nanoseconds/frame)
+	 */
 	@Override
 	public void checkCollision(final PhysicsObject obj2, final long nanoFrameTime) {
 		
@@ -114,7 +130,6 @@ public class Bubble implements PhysicsObject, DynamicObject {
 				// hit ground or ceiling !!!
 				newDir = new Vector(newDir.getX(), -newDir.getY());
 				vY *= -.99;
-//					yVelocity = yVelocity > 0 ? -MAX_Y_VELOCITY : MAX_Y_VELOCITY / 2.0;
 			}
 
 			// recalculate new circle position (with new directions)
@@ -131,7 +146,9 @@ public class Bubble implements PhysicsObject, DynamicObject {
 			}
 			calculateNextPosition(nanoFrameTime);
 		}
+	}
 
+// WIP: should be implemented later
 //		// don't collide if you collided in one of the last 2 frames
 //		if(!(previousCollisionFrame + 2 < frame || frame == previousCollisionFrame))
 //			return;
@@ -154,7 +171,6 @@ public class Bubble implements PhysicsObject, DynamicObject {
 //				((DynamicObject) obj2).collide(this, nanoFrameTime);
 //			}
 //		}
-	}
 //
 //	private void collide(final IntersectionPoint ip, final long nanoFrameTime) {
 //		// bounce off of the object by changing the direction
@@ -185,7 +201,11 @@ public class Bubble implements PhysicsObject, DynamicObject {
 //		IntersectionPoint ip = obj2.getClosestIntersection(thisCirclePoint);
 //		collide(ip, nanoFrameTime);
 //	}
-
+	
+	/**
+	 * Prepare for an update (calculate next positions). Called by GameLoop
+	 * @param nanoFrameTime the framerate (nanoseconds/frame)
+	 */
 	@Override
 	public void prepareUpdate(final long nanoFrameTime) {
 
@@ -202,6 +222,10 @@ public class Bubble implements PhysicsObject, DynamicObject {
 		dir = new Vector(vX, vY);
 	}
 
+	/**
+	 * Calculate the next position of the bubble.
+	 * @param nanoFrameTime the framerate (nanoseconds/frame)
+	 */
 	private void calculateNextPosition(final long nanoFrameTime) {
 		if (vY > Y_MAX_SPEED) {
 			vY = Y_MAX_SPEED;
@@ -212,16 +236,18 @@ public class Bubble implements PhysicsObject, DynamicObject {
 		nextY = circle.getCenterY() + vY * (nanoFrameTime / 1_000_000_000.0);
 	}
 
+	/**
+	 * Get the speed of the bubble as a x/y vector.
+	 * @return speed vector.
+	 */
 	@Override
 	public Vector getSpeedVector() {
 		return new Vector(vX, vY);
 	}
 
 	/**
-	 * Splits a bubble if you pushed the button.
+	 * Split a bubble if you pushed the button.
 	 *
-	 * @param pane the pane in which the bubbles should spawn
-	 * @return the bubbles which are spawned by the splitbubble function
 	 */
 	public void splitBubble() {
 
@@ -248,14 +274,26 @@ public class Bubble implements PhysicsObject, DynamicObject {
 		GameLoop.addObject(bubble2);
 	}
 
+	/**
+	 * Get the center point of this bubble.
+	 * @return center point of this bubble.
+	 */
 	public Point getPoint() {
 		return new Point(circle.getCenterX(), circle.getCenterY());
 	}
 
+	/**
+	 * Get the radius of this bubble.
+	 * @return radius of the bubble.
+	 */
 	public double getRadius() {
 		return circle.getRadius();
 	}
 
+	/**
+	 * Listens to changed of the x and/or y position of the circle and assures 
+	 * that the circle won't go outside of the view.
+	 */
 	private class SceneSizeChangeListener implements ChangeListener<Number> {
 
 		@Override
@@ -280,6 +318,10 @@ public class Bubble implements PhysicsObject, DynamicObject {
 		}
 	}
 
+	/**
+	 * Get an instance of this class (for annonymous inner class).
+	 * @return instance of this class.
+	 */
 	private Bubble getThis() {
 		return this;
 	}

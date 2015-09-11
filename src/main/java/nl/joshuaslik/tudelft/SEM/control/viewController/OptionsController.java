@@ -56,15 +56,26 @@ public class OptionsController implements IviewController {
 		System.exit(0);
 	}
 
+	/**
+	 * Load this view.
+	 */
 	public static void loadView() {
 		Launcher.loadView(Class.class.getResource("/data/gui/pages/Options.fxml"));
 	}
 	
+	/**
+	 * Initialize.
+	 * @param scene the scene of this view.
+	 */
 	@Override
 	public void start(Scene scene) {
 		
 	}
 
+	/**
+	 * Disable the buttons of this view.
+	 * @param disabled if the buttons should be disabled.
+	 */
 	@Override
 	public void setButtonsDisiabled(boolean disabled) {
 		// not currently needed
