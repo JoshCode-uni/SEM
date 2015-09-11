@@ -126,7 +126,7 @@ public class GameLoop extends AnimationTimer {
 
 		} catch (Exception ex) {
 			stop();
-			Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, "exception in gameLoop", ex);
+//			Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, "exception in gameLoop", ex);
 		}
 	}
 

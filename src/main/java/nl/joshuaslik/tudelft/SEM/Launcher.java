@@ -15,6 +15,9 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.PopupControl;
+import javafx.scene.input.KeyCombination;
+import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
 
 /**
@@ -40,7 +43,7 @@ public class Launcher extends Application {
 		Scene scene = new Scene(bp);
 		primaryStage.setScene(scene);
 		primaryStage.setFullScreen(true);
-		primaryStage.setFullScreenExitHint("");
+		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		primaryStage.show();
 		stage = primaryStage;
 	}
@@ -57,13 +60,33 @@ public class Launcher extends Application {
 	 * Load the fxml file for the screen
 	 * @param fxmlURL
 	 */
-	public static void loadView(URL fxmlURL) {
+	public static IviewController loadView(URL fxmlURL) {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(fxmlURL);
 		try {
 			Pane pane = loader.load();
-			((IviewController)loader.getController()).start(bp.getScene());
+			IviewController res = ((IviewController)loader.getController());
+			res.start(bp.getScene());
 			bp.setCenter(pane);
+			return res;
+		} catch (IOException ex) {
+			Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "Failed to load fxml file: " + fxmlURL.toString(), ex);
+			return null;
+		}
+	}
+	
+	public static void loadPopup(IviewController mainViewController, URL fxmlURL) {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(fxmlURL);
+		mainViewController.setButtonsDisiabled(true);
+		try {
+			Pane pane = loader.load();
+			PopupControl popup = new PopupControl();
+			popup.getScene().setRoot(pane);
+			popup.show(stage);
+			IpopupController popupController = (IpopupController) loader.getController();
+			popupController.setPopupControl(popup);
+			popupController.setMainViewController(mainViewController);
 		} catch (IOException ex) {
 			Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "Failed to load fxml file: " + fxmlURL.toString(), ex);
 		}

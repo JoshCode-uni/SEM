@@ -82,7 +82,7 @@ public class Levels {
 
 		// create 2nd bubble
 		Point bubble2Center = new Point(800, 500);
-		double bubble2Radius = 40;
+		double bubble2Radius = 20;
 		Vector bubble2Direction = new Vector(2, -5);
 		Bubble bubble2 = new Bubble(bubble2Center, bubble2Radius, bubble2Direction);
 
@@ -109,7 +109,7 @@ public class Levels {
 
 		// create 2nd bubble
 		Point bubble2Center = new Point(100, 500);
-		double bubble2Radius = 120;
+		double bubble2Radius = 70;
 		Vector bubble2Direction = new Vector(2, -5);
 		Bubble bubble2 = new Bubble(bubble2Center, bubble2Radius, bubble2Direction);
 
@@ -130,7 +130,7 @@ public class Levels {
 
 		// create 1st bubble
 		Point bubbleCenter = new Point(300, 600);
-		double bubbleRadius = 120;
+		double bubbleRadius = 70;
 		Vector bubbleDirection = new Vector(-2, -5);
 		Bubble bubble = new Bubble(bubbleCenter, bubbleRadius, bubbleDirection);
 
@@ -148,7 +148,7 @@ public class Levels {
 
 		// create 4rd bubble
 		Point bubble4Center = new Point(800, 600);
-		double bubble4Radius = 120;
+		double bubble4Radius = 80;
 		Vector bubble4Direction = new Vector(2, -5);
 		Bubble bubble4 = new Bubble(bubble4Center, bubble4Radius, bubble4Direction);
 

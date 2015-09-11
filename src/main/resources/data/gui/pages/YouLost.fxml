@@ -15,7 +15,7 @@
             <Image url="@../img/BackgroundYouLost.jpg" />
          </image>
       </ImageView>
-      <Pane fx:id="pane" prefHeight="362.0" prefWidth="649.0" style="-fx-border-width: 1px; -fx-border-color: #000000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="pane" prefHeight="362.0" prefWidth="649.0" style="-fx-border-width: 1px; -fx-border-color: #000000;" stylesheets="@YouWon.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Text layoutY="109.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You Lost :(" textAlignment="CENTER" wrappingWidth="649.0">
                <font>
@@ -36,10 +36,6 @@
                </font>
             </Button>
          </children>
-         <stylesheets>
-            <URL value="@YouWon.css" />
-            <URL value="@../Documents/SEMProject/src/main/resources/data/gui/pages/YouWon.css" />
-         </stylesheets>
       </Pane>
    </children>
 </AnchorPane>

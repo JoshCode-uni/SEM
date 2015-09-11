@@ -5,16 +5,13 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import javafx.scene.Scene;
+import javafx.scene.control.PopupControl;
 
 /**
  *
  * @author faris
  */
-public interface IviewController {
-	/**
-	 * Start will be called after the fxml file has been initialized.
-	 */
-	public void start(Scene scene);
-	public void setButtonsDisiabled(boolean disabled);
+public interface IpopupController {
+	public void setMainViewController(IviewController controller);
+	public void setPopupControl(PopupControl popupControl);
 }

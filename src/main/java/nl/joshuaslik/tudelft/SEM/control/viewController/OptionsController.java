@@ -64,4 +64,9 @@ public class OptionsController implements IviewController {
 	public void start(Scene scene) {
 		
 	}
+
+	@Override
+	public void setButtonsDisiabled(boolean disabled) {
+		// not currently needed
+	}
 }
