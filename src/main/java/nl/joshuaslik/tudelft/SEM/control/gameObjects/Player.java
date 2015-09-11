@@ -69,7 +69,7 @@ public class Player implements PhysicsObject, DynamicObject {
 		
 		if (keyboard.isShoot() && !GameLoop.hasProjectile()) {
 			//shoot
-			GameLoop.setProjectile(new Projectile((image.getX() + image.getLayoutBounds().getMaxX()) / 2.0, image.getY()));
+			GameLoop.setProjectile(new Projectile((image.getX() + image.getLayoutBounds().getMaxX()) / 2.0, image.getY() + image.getLayoutBounds().getHeight()));
 		}
 	}
 	
