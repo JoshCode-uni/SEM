@@ -30,5 +30,6 @@ notifications:
       - lisette_stella@hotmail.com
       - faris.elghlan@hotmail.com
       - m.houtman@student.tudelft.nl
+      - kasper_kooijman@live.nl
     on_success: change
     on_failure: always
