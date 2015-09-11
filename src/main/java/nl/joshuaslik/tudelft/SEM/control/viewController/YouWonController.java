@@ -29,7 +29,7 @@ public class YouWonController {
 	private Button mainMenuButton, nextLevelButton;
 	
 	/**
-	 * THe start method to load the loadgame dialog
+	 * Start the pop-up when player has won
 	 * @throws IOException is thrown if the FXML file cannot be parsed.
 	 */
 	public static void start() throws IOException {
