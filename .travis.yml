@@ -1,0 +1,35 @@
+language: java
+jdk:
+  - oraclejdk8
+
+install:
+  - mvn install -DskipTests=false -B -V
+
+before_deploy:
+  - mvn package
+  - cd build
+  - zip -r SEM ./* -x ./maven-archiver\* ./maven-status\* ./classes\* ./surefire-reports\* ./test-classes\* ./generated-sources\* ./generated-test-sources\* ./generated-classes\* ./cobertura\* ./testtarget\*
+  - ls
+  - cd ..
+
+deploy:
+  provider: releases
+  api-key: "84c3bc84a9c15a6b4e4449fd503c9f92e7dde4e6"
+  file: "./build/SEM.zip"
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
+    jdk: oraclejdk8
+
+notifications:
+  email:
+    recipients:
+      - joshua.b.slik@gmail.com
+      - bastijnkostense@hotmail.nl
+      - lisette_stella@hotmail.com
+      - faris.elghlan@hotmail.com
+      - m.houtman@student.tudelft.nl
+      - kasper_kooijman@live.nl
+    on_success: change
+    on_failure: always
