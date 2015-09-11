@@ -2,41 +2,41 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.io.IOException;
 
-import nl.joshuaslik.tudelft.SEM.Launcher;
-import javafx.scene.layout.Pane;
-import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
+import javafx.scene.layout.Pane;
+import nl.joshuaslik.tudelft.SEM.Launcher;
 
 /**
  * Controller for the You Won screen.
  *
  * @author Bastijn
  */
-public class YouWonController implements IpopupController{
-
+public class YouWonController implements IpopupController {
+	
 	@FXML
 	private Pane pane;
-
+	
 	@FXML
 	private Button mainMenuButton, nextLevelButton;
-
+	
 	private Scene newScene;
 	
 	private IviewController mainController;
 	private PopupControl popupControl;
-
+	
 	/**
 	 * Start the pop-up when player has won
 	 *
 	 * @throws IOException is thrown if the FXML file cannot be parsed.
 	 */
 	public static void start() throws IOException {
-
+		
 	}
-
+	
 	/**
 	 * Handles clicking of the main menu button
 	 *
@@ -48,7 +48,7 @@ public class YouWonController implements IpopupController{
 		popupControl.hide();
 		mainController.setButtonsDisiabled(false);
 	}
-
+	
 	/**
 	 * Handles clicking of the next level button
 	 *
@@ -62,19 +62,19 @@ public class YouWonController implements IpopupController{
 		popupControl.hide();
 		GameController.loadView();
 	}
-
+	
 	public static void loadPopup(IviewController controller) {
 		Launcher.loadPopup(controller, Class.class.getResource("/data/gui/pages/YouWon.fxml"));
 	}
-
+	
 	@Override
 	public void setMainViewController(IviewController controller) {
 		mainController = controller;
 	}
-
+	
 	@Override
 	public void setPopupControl(PopupControl popupControl) {
 		this.popupControl = popupControl;
 	}
-
+	
 }

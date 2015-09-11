@@ -1,17 +1,16 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import nl.joshuaslik.tudelft.SEM.Launcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
+import nl.joshuaslik.tudelft.SEM.Launcher;
 
 public class OptionsController implements IviewController {
-
+	
 	@FXML
 	private Button playButton, chooseLevelButton, optionsButton, quitButton;
-
+	
 	/**
 	 * Handles clicking of the start button
 	 *
@@ -22,7 +21,7 @@ public class OptionsController implements IviewController {
 		System.out.println("Play button pressed!");
 		GameController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the choose level button
 	 *
@@ -33,7 +32,7 @@ public class OptionsController implements IviewController {
 		System.out.println("Choose Level button pressed!");
 		ChooseLevelController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the options button
 	 *
@@ -44,7 +43,7 @@ public class OptionsController implements IviewController {
 		System.out.println("Options button pressed!");
 		OptionsController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the quit button
 	 *
@@ -55,7 +54,7 @@ public class OptionsController implements IviewController {
 		System.out.println("Quit button pressed!");
 		System.exit(0);
 	}
-
+	
 	/**
 	 * Load this view.
 	 */
@@ -65,15 +64,17 @@ public class OptionsController implements IviewController {
 	
 	/**
 	 * Initialize.
+	 *
 	 * @param scene the scene of this view.
 	 */
 	@Override
 	public void start(Scene scene) {
 		
 	}
-
+	
 	/**
 	 * Disable the buttons of this view.
+	 *
 	 * @param disabled if the buttons should be disabled.
 	 */
 	@Override

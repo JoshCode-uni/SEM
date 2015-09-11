@@ -1,16 +1,16 @@
 .button {
-	-fx-background-color: #800000;
-	-fx-text-fill: white;
-	-fx-font-size: 225%;
-	-fx-font-family: 'Buxton Sketch';
-	-fx-opacity: 85%;
-	-fx-border-width: 2px;
-	-fx-border-color: #cecece;
-	-fx-border-style: solid;
+    -fx-background-color: #800000;
+    -fx-text-fill: white;
+    -fx-font-size: 225%;
+    -fx-font-family: 'Buxton Sketch';
+    -fx-opacity: 85%;
+    -fx-border-width: 2px;
+    -fx-border-color: #cecece;
+    -fx-border-style: solid;
 }
 
-.button:hover{
-	-fx-background-color: #000000;
-	-fx-opacity: 90%;
-	-fx-cursor: hand;
+.button:hover {
+    -fx-background-color: #000000;
+    -fx-opacity: 90%;
+    -fx-cursor: hand;
 }

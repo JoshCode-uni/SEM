@@ -7,6 +7,7 @@ package nl.joshuaslik.tudelft.SEM.model.container;
 
 /**
  * A class used to store a vector and do calculations with it.
+ *
  * @author faris
  */
 public class Vector {
@@ -84,6 +85,7 @@ public class Vector {
 	
 	/**
 	 * Get a normal of this vector.
+	 *
 	 * @return a normal.
 	 */
 	public Vector normal() {
@@ -92,6 +94,7 @@ public class Vector {
 	
 	/**
 	 * Get the x value.
+	 *
 	 * @return the x value.
 	 */
 	public double getX() {
@@ -100,6 +103,7 @@ public class Vector {
 	
 	/**
 	 * Get the y value.
+	 *
 	 * @return the y value.
 	 */
 	public double getY() {
@@ -108,7 +112,8 @@ public class Vector {
 	
 	/**
 	 * Create a String representation of this class.
-	 * @return String representation of this class. 
+	 *
+	 * @return String representation of this class.
 	 */
 	@Override
 	public String toString() {
@@ -117,6 +122,7 @@ public class Vector {
 	
 	/**
 	 * Check if this vector equals the object obj.
+	 *
 	 * @param obj Object to compare this vector to.
 	 * @return if this vector and obj are equal.
 	 */

@@ -9,30 +9,32 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.PopupControl;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.control.PopupControl;
-import javafx.scene.input.KeyCombination;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
 
 /**
  * The launcher of the application.
+ *
  * @author faris
  */
 public class Launcher extends Application {
-
+	
 	public static final int SCREEN_WIDTH = 600;
 	public static final int SCREEN_HEIGHT = 600;
 	public static final double GRAVITY = 700;
 	public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
 	private static final BorderPane bp = new BorderPane();
 	public static Stage stage;
-
+	
 	/**
 	 * Start up the game.
 	 */
@@ -51,6 +53,7 @@ public class Launcher extends Application {
 	
 	/**
 	 * Get the stage.
+	 *
 	 * @return stage the stage.
 	 */
 	public static Stage getStage() {
@@ -59,6 +62,7 @@ public class Launcher extends Application {
 	
 	/**
 	 * Load the fxml file for the screen.
+	 *
 	 * @param fxmlURL URL of the FXML file.
 	 */
 	public static IviewController loadView(URL fxmlURL) {
@@ -66,7 +70,7 @@ public class Launcher extends Application {
 		loader.setLocation(fxmlURL);
 		try {
 			Pane pane = loader.load();
-			IviewController res = ((IviewController)loader.getController());
+			IviewController res = ((IviewController) loader.getController());
 			res.start(bp.getScene());
 			bp.setCenter(pane);
 			return res;
@@ -78,8 +82,9 @@ public class Launcher extends Application {
 	
 	/**
 	 * Load a popup screen.
+	 *
 	 * @param mainViewController the controller of the current view.
-	 * @param fxmlURL the URL of the FXML file of the popup.
+	 * @param fxmlURL            the URL of the FXML file of the popup.
 	 */
 	public static void loadPopup(IviewController mainViewController, URL fxmlURL) {
 		FXMLLoader loader = new FXMLLoader();
@@ -97,12 +102,12 @@ public class Launcher extends Application {
 			Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "Failed to load fxml file: " + fxmlURL.toString(), ex);
 		}
 	}
-
+	
 	/**
 	 * @param args the command line arguments
 	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
 }

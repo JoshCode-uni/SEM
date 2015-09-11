@@ -1,11 +1,10 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-
-import nl.joshuaslik.tudelft.SEM.Launcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
+import nl.joshuaslik.tudelft.SEM.Launcher;
 
 public class YouLostController implements IpopupController {
 	
@@ -42,6 +41,7 @@ public class YouLostController implements IpopupController {
 	
 	/**
 	 * Load this popup.
+	 *
 	 * @param controller the controller class of the currently loaded view.
 	 */
 	public static void loadPopup(IviewController controller) {
@@ -50,15 +50,17 @@ public class YouLostController implements IpopupController {
 	
 	/**
 	 * Set the controller of the main view.
+	 *
 	 * @param controller the main view controller.
 	 */
 	@Override
 	public void setMainViewController(IviewController controller) {
 		mainController = controller;
 	}
-
+	
 	/**
 	 * Set the popupControl of this popup.
+	 *
 	 * @param popupControl PopupControl.
 	 */
 	@Override

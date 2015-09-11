@@ -1,21 +1,20 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import nl.joshuaslik.tudelft.SEM.Launcher;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
+import nl.joshuaslik.tudelft.SEM.Launcher;
 
 public class ChooseLevelController implements IviewController {
-
+	
 	@FXML
 	private static Pane pane;
-
+	
 	@FXML
-	private Button level1Button, level2Button, level3Button, level4Button, 
-			level5Button, mainMenuButton;
-
+	private Button level1Button, level2Button, level3Button, level4Button, level5Button, mainMenuButton;
+	
 	/**
 	 * Handles clicking of the Level 1 button
 	 *
@@ -26,9 +25,9 @@ public class ChooseLevelController implements IviewController {
 		System.out.println("Level 1 button pressed!");
 		GameController.setLevel(0);
 		GameController.loadView();
-
+		
 	}
-
+	
 	/**
 	 * Handles clicking of the Level 2 button
 	 *
@@ -40,7 +39,7 @@ public class ChooseLevelController implements IviewController {
 		GameController.setLevel(1);
 		GameController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the Level 3 button
 	 *
@@ -51,9 +50,9 @@ public class ChooseLevelController implements IviewController {
 		System.out.println("Level 3 button pressed!");
 		GameController.setLevel(2);
 		GameController.loadView();
-
+		
 	}
-
+	
 	/**
 	 * Handles clicking of the Level 4 button
 	 *
@@ -65,7 +64,7 @@ public class ChooseLevelController implements IviewController {
 		GameController.setLevel(3);
 		GameController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the Level 5 button
 	 *
@@ -77,7 +76,7 @@ public class ChooseLevelController implements IviewController {
 		GameController.setLevel(4);
 		GameController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the main menu button
 	 *
@@ -88,7 +87,7 @@ public class ChooseLevelController implements IviewController {
 		System.out.println("Main Menu button pressed!");
 		MainMenuController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the start button
 	 *
@@ -99,7 +98,7 @@ public class ChooseLevelController implements IviewController {
 		System.out.println("Play button pressed!");
 		GameController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the choose level button
 	 *
@@ -110,7 +109,7 @@ public class ChooseLevelController implements IviewController {
 		System.out.println("Choose Level button pressed!");
 		ChooseLevelController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the options button
 	 *
@@ -121,7 +120,7 @@ public class ChooseLevelController implements IviewController {
 		System.out.println("Options button pressed!");
 		OptionsController.loadView();
 	}
-
+	
 	/**
 	 * Handles clicking of the quit button
 	 *
@@ -132,7 +131,7 @@ public class ChooseLevelController implements IviewController {
 		System.out.println("Quit button pressed!");
 		System.exit(0);
 	}
-
+	
 	/**
 	 * Load this view.
 	 */
@@ -142,13 +141,14 @@ public class ChooseLevelController implements IviewController {
 	
 	/**
 	 * Initialize.
+	 *
 	 * @param scene the scene of this view.
 	 */
 	@Override
 	public void start(Scene scene) {
 		
 	}
-
+	
 	@Override
 	public void setButtonsDisiabled(boolean disabled) {
 		//not currently needed

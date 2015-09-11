@@ -7,6 +7,7 @@ package nl.joshuaslik.tudelft.SEM.model.container;
 
 /**
  * A container class which stores a point (x/y coordinate).
+ *
  * @author faris
  */
 public class Point {
@@ -16,6 +17,7 @@ public class Point {
 	
 	/**
 	 * Create a point.
+	 *
 	 * @param xPos X position of this point.
 	 * @param yPos Y position of this point.
 	 */
@@ -26,6 +28,7 @@ public class Point {
 	
 	/**
 	 * Distance from this point to point 2.
+	 *
 	 * @param p2 point 2.
 	 * @return the distance between this and point 2.
 	 */
@@ -36,6 +39,7 @@ public class Point {
 	/**
 	 * Get the point which is this point translated of the distance deltaX and
 	 * deltaY.
+	 *
 	 * @param deltaX delta X.
 	 * @param deltaY delta Y
 	 * @return the translated point
@@ -46,6 +50,7 @@ public class Point {
 	
 	/**
 	 * Translate by point p.
+	 *
 	 * @param p point
 	 * @return the new point
 	 */
@@ -55,6 +60,7 @@ public class Point {
 	
 	/**
 	 * Get the x position of this point.
+	 *
 	 * @return the x position of this point.
 	 */
 	public double getxPos() {
@@ -63,6 +69,7 @@ public class Point {
 	
 	/**
 	 * Get the y position of this point.
+	 *
 	 * @return the y position of this point.
 	 */
 	public double getyPos() {
@@ -71,6 +78,7 @@ public class Point {
 	
 	/**
 	 * Represent this point as a String.
+	 *
 	 * @return String representation of this point.
 	 */
 	@Override
@@ -80,6 +88,7 @@ public class Point {
 	
 	/**
 	 * Check if this point is equal to obj.
+	 *
 	 * @param obj the obj to compare to.
 	 * @return if this point is equal to obj.
 	 */
