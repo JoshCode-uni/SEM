@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import nl.joshuaslik.tudelft.SEM.GameLog;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
@@ -64,6 +65,7 @@ public class GameController implements IviewController {
 	 */
 	@FXML
 	private void handleQuitButton(ActionEvent event) {
+		GameLog.addInfoLog("Quit button pressed");
 		System.out.println("Quit button pressed!");
 		System.exit(0);
 	}
@@ -75,6 +77,7 @@ public class GameController implements IviewController {
 	 */
 	@FXML
 	private void handleMainMenuButton(ActionEvent event) {
+		GameLog.addInfoLog("Main Menu button pressed");
 		System.out.println("Main Menu button pressed!");
 		gl.stop();
 		gl = null;
@@ -207,6 +210,7 @@ public class GameController implements IviewController {
 	 * The player died, end level.
 	 */
 	public void died() {
+		GameLog.addInfoLog("Player died");
 		System.out.println("Player died");
 		gl.stop();
 		gl = null;
