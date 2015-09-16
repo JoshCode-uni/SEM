@@ -17,7 +17,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import nl.joshuaslik.tudelft.SEM.GameLog;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
@@ -25,6 +24,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.Keyboard;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import utility.GameLog;
 
 /**
  * Controller for the game UI.
