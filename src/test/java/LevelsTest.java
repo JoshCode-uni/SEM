@@ -18,17 +18,17 @@ public class LevelsTest {
 	@Test
 	public void testGetLevel() {
 		ArrayList<Bubble> bubbles = Levels.getLevel(0);
-		assertEquals(bubbles.size(),1);
+		assertEquals(bubbles.size(), 1);
 		bubbles = Levels.getLevel(1);
-		assertEquals(bubbles.size(),2);
+		assertEquals(bubbles.size(), 2);
 		bubbles = Levels.getLevel(2);
-		assertEquals(bubbles.size(),3);
-		assertEquals(bubbles.get(1).getRadius(),20d,0);
+		assertEquals(bubbles.size(), 3);
+		assertEquals(bubbles.get(1).getRadius(), 20d, 0);
 		bubbles = Levels.getLevel(3);
-		assertEquals(bubbles.size(),3);
-		assertEquals(bubbles.get(1).getRadius(),70d,0);
+		assertEquals(bubbles.size(), 3);
+		assertEquals(bubbles.get(1).getRadius(), 70d, 0);
 		bubbles = Levels.getLevel(4);
-		assertEquals(bubbles.size(),4);
+		assertEquals(bubbles.size(), 4);
 	}
 	
 }

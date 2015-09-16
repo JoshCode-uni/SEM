@@ -24,24 +24,24 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
  * @author faris
  */
 public class GameLoop extends AnimationTimer {
-	
+
 	private static ArrayList<PhysicsObject> allObjects = new ArrayList<>();
 	private ArrayList<PhysicsObject> staticObjects = new ArrayList<>();
 	private static ArrayList<DynamicObject> dynamicObjects = new ArrayList<>();
-	
+
 	// list of updateable instances which aren't dynamic objects
 	private ArrayList<IUpdateable> updateable = new ArrayList<>();
-	
+
 	private DynamicObject player;
 	private static GameController gameController;
 	private static Projectile projectile = null;
 	private static double topBorder, rightBorder, bottomBorder, leftBorder;
-	
+
 	private static int bubbleCount = 0;
 	private static int score = 0;
-	
+
 	private static long time = 0;
-	
+
 	/**
 	 * Stop the GameLoop and reset the static variables.
 	 */
@@ -60,7 +60,7 @@ public class GameLoop extends AnimationTimer {
 		bubbleCount = 0;
 		score = 0;
 	}
-	
+
 	/**
 	 * Called every time JavaFX refreshes a frame. Calls all update methods.
 	 *
@@ -68,19 +68,19 @@ public class GameLoop extends AnimationTimer {
 	 */
 	@Override
 	public void handle(long time) {
-		
+
 		if (bubbleCount <= 0) {
 			gameController.levelCompleted();
 			return;
 		}
-		
+
 		try {
 			// update time
 			long frametime = this.time != 0 ? time - this.time : 165_000_000;
 			this.time = time;
-			
+
 			gameController.updateTime(frametime);
-			
+
 			//		System.out.println("framerate:  = " + 1.0 / frametime * 1_000_000_000 + "fps");
 			// check if there are any collisions (for dynamic objects)
 			// if so, update the direction
@@ -88,7 +88,7 @@ public class GameLoop extends AnimationTimer {
 			//		for (DynamicObject e : dynamicObjects) {
 			//			e.prepareUpdate(frametime);
 			//		}
-			//		
+			//
 			//		for(int i=0; i<dynamicObjects.size(); i++) {
 			//			for(int j=0; j<dynamicObjects.size(); j++) {
 			//				dynamicObjects.get(i).checkCollision(dynamicObjects.get(j), frametime);
@@ -97,34 +97,34 @@ public class GameLoop extends AnimationTimer {
 			//				dynamicObjects.get(i).checkCollision(e, frametime);
 			//			}
 			//		}
-			//		
+			//
 			//		for (DynamicObject e : dynamicObjects) {
 			//			e.update(frametime);
 			//		}
 			for (IUpdateable e : updateable) {
 				e.update(frametime);
 			}
-			
+
 			for (DynamicObject e : dynamicObjects) {
 				e.prepareUpdate(frametime);
 			}
-			
+
 			for (DynamicObject e : dynamicObjects) {
 				for (DynamicObject f : dynamicObjects) {
 					e.checkCollision(f, frametime);
 				}
 			}
-			
+
 			for (DynamicObject e : dynamicObjects) {
 				for (PhysicsObject f : staticObjects) {
 					e.checkCollision(f, frametime);
 				}
 			}
-			
+
 			for (int i = 0; i < dynamicObjects.size(); i++) {
 				dynamicObjects.get(i).update(frametime);
 			}
-			
+
 			player.update(frametime);
 			if (projectile != null) {
 				projectile.update(frametime);
@@ -132,13 +132,13 @@ public class GameLoop extends AnimationTimer {
 					projectile.collisionCheck(dynamicObjects.get(i));
 				}
 			}
-			
+
 		} catch (Exception ex) {
 			stop();
 			//			Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, "exception in gameLoop", ex);
 		}
 	}
-	
+
 	/**
 	 * Get the closest intersection point to the given point which is not equal
 	 * to the given Physics object.
@@ -156,7 +156,7 @@ public class GameLoop extends AnimationTimer {
 				if (tempIP.getDistance() < dist) {
 					dist = tempIP.getDistance();
 					ip = tempIP;
-					
+
 					// add speed vector if the object is dynamic
 					if (e instanceof DynamicObject) {
 						DynamicObject d = (DynamicObject) e;
@@ -167,7 +167,7 @@ public class GameLoop extends AnimationTimer {
 		}
 		return ip;
 	}
-	
+
 	/**
 	 * Get time of the last frame refresh.
 	 *
@@ -176,7 +176,7 @@ public class GameLoop extends AnimationTimer {
 	public static long getTime() {
 		return time;
 	}
-	
+
 	/**
 	 * Add a Physics Object to the game.
 	 *
@@ -186,7 +186,7 @@ public class GameLoop extends AnimationTimer {
 		staticObjects.add(object);
 		allObjects.add(object);
 	}
-	
+
 	/**
 	 * Add a Dynamic Object to the game.
 	 *
@@ -195,15 +195,15 @@ public class GameLoop extends AnimationTimer {
 	public static void addObject(DynamicObject object) {
 		dynamicObjects.add(object);
 		allObjects.add(object);
-		
+
 		if (object instanceof Bubble) {
 			++bubbleCount;
 		}
-		
+
 		// let the dynamic object be drawn in the game view
 		gameController.drawNode(object.getNode());
 	}
-	
+
 	/**
 	 * Remove a Physics Object from the game.
 	 *
@@ -212,28 +212,28 @@ public class GameLoop extends AnimationTimer {
 	public void removeObject(PhysicsObject object) {
 		staticObjects.remove(object);
 		allObjects.remove(object);
-		
+
 	}
-	
+
 	/**
 	 * Remove a Dynamic Object from the game.
 	 *
 	 * @param object the Dynamic Object to remove from the game.
 	 */
 	public static void removeObject(DynamicObject object) {
-		
+
 		if (object instanceof Bubble && dynamicObjects.contains(object)) {
 			score += 10;
 			--bubbleCount;
 		}
-		
+
 		dynamicObjects.remove(object);
 		allObjects.remove(object);
-		
+
 		// remove the dynamic object from the view
 		gameController.removeNode(object.getNode());
 	}
-	
+
 	/**
 	 * Get all objects which are currently in the game (except for player/projectile).
 	 *
@@ -242,7 +242,7 @@ public class GameLoop extends AnimationTimer {
 	public static ArrayList<PhysicsObject> getAllObjects() {
 		return allObjects;
 	}
-	
+
 	/**
 	 * Add a player object to the game.
 	 *
@@ -251,7 +251,7 @@ public class GameLoop extends AnimationTimer {
 	public void addPlayer(DynamicObject pl) {
 		player = pl;
 	}
-	
+
 	/**
 	 * Set the bounds of the game.
 	 *
@@ -266,7 +266,7 @@ public class GameLoop extends AnimationTimer {
 		GameLoop.bottomBorder = bottom;
 		GameLoop.leftBorder = left;
 	}
-	
+
 	/**
 	 * Add a projectile to the game.
 	 *
@@ -276,7 +276,7 @@ public class GameLoop extends AnimationTimer {
 		GameLoop.projectile = projectile;
 		gameController.drawNode(projectile.getNode());
 	}
-	
+
 	/**
 	 * Remove a projectile from the game.
 	 *
@@ -286,7 +286,7 @@ public class GameLoop extends AnimationTimer {
 		GameLoop.projectile = null;
 		gameController.removeNode(projectile);
 	}
-	
+
 	/**
 	 * Check if there currently is a projectile.
 	 *
@@ -295,7 +295,7 @@ public class GameLoop extends AnimationTimer {
 	public static boolean hasProjectile() {
 		return projectile != null;
 	}
-	
+
 	/**
 	 * Get the min y value.
 	 *
@@ -304,7 +304,7 @@ public class GameLoop extends AnimationTimer {
 	public static double getTopBorder() {
 		return topBorder;
 	}
-	
+
 	/**
 	 * Get the maximum x value.
 	 *
@@ -313,7 +313,7 @@ public class GameLoop extends AnimationTimer {
 	public static double getRightBorder() {
 		return rightBorder;
 	}
-	
+
 	/**
 	 * Get the maximum y value.
 	 *
@@ -322,7 +322,7 @@ public class GameLoop extends AnimationTimer {
 	public static double getBottomBorder() {
 		return bottomBorder;
 	}
-	
+
 	/**
 	 * Get the minimum x value.
 	 *
@@ -331,7 +331,7 @@ public class GameLoop extends AnimationTimer {
 	public static double getLeftBorder() {
 		return leftBorder;
 	}
-	
+
 	/**
 	 * Set the view controller class.
 	 *
@@ -340,7 +340,7 @@ public class GameLoop extends AnimationTimer {
 	public void setViewController(GameController gameController) {
 		GameLoop.gameController = gameController;
 	}
-	
+
 	/**
 	 * Get the game controller class.
 	 *
@@ -349,7 +349,7 @@ public class GameLoop extends AnimationTimer {
 	public static GameController getGameController() {
 		return gameController;
 	}
-	
+
 	/**
 	 * Get the score achieved in this level.
 	 *
