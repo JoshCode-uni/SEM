@@ -13,16 +13,16 @@ import javafx.scene.Scene;
  * @author faris
  */
 public interface IviewController {
-	
-	/**
-	 * Start will be called after the fxml file has been initialized.
-	 */
-	public void start(Scene scene);
-	
-	/**
-	 * Dis/enable the buttons of this view.
-	 *
-	 * @param disabled if the buttons should be disabled or enabled.
-	 */
-	public void setButtonsDisiabled(boolean disabled);
+
+    /**
+     * Start will be called after the fxml file has been initialized.
+     */
+    public void start(Scene scene);
+
+    /**
+     * Dis/enable the buttons of this view.
+     *
+     * @param disabled if the buttons should be disabled or enabled.
+     */
+    public void setButtonsDisiabled(boolean disabled);
 }
