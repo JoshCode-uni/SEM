@@ -8,8 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class GameLog {
-	private File log;
-	private FileWriter fw;
 	private static PrintWriter pw;
 	
 	/**
@@ -17,10 +15,9 @@ public class GameLog {
 	 * to write the Log in a desired format.
 	 */
 	public GameLog(){
-//		System.setProperty("java.util.logging.SimpleFormatter.format","%1$tY-%1$tm-%1$td %1$tH:%1$tM:%1$tS [%4$-4s] %5$s%6$s%n" );
 		File log = new File("logs/Log.log");
 		try {
-			fw = new FileWriter(log,true);
+			FileWriter fw = new FileWriter(log,true);
 			pw = new PrintWriter(fw,true);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -34,7 +31,7 @@ public class GameLog {
 	 * @param string Error Description
 	 */
 	public static void addErrorLog(String string){
-		pw.println(getCurrentTime()+"[ERROR] "+string+"\n");
+		pw.println(getCurrentTime()+"[ERROR] "+string);
 	}
 	
 	/**
@@ -42,7 +39,7 @@ public class GameLog {
 	 * @param string Warning Description
 	 */
 	public static void addWarningLog(String string){
-		pw.println(getCurrentTime()+"[WARNING] "+string+"\n");
+		pw.println(getCurrentTime()+"[WARNING] "+string);
 	}
 	
 	/**
@@ -50,7 +47,7 @@ public class GameLog {
 	 * @param string Info Description
 	 */
 	public static void addInfoLog(String string){
-		pw.println(getCurrentTime()+"[INFO] "+string+"\n");
+		pw.println(getCurrentTime()+"[INFO] "+string);
 	}
 	
 	/**
