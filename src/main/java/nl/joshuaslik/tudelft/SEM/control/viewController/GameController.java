@@ -13,6 +13,8 @@ import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import utility.GameLog;
 
 /**
  * Controller for the game UI.
@@ -20,7 +22,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Levels;
  * @author Bastijn
  */
 public class GameController implements IviewController {
-
+    
     @FXML
     private Pane pane;
 
@@ -51,6 +53,7 @@ public class GameController implements IviewController {
      */
     @FXML
     private void handleQuitButton(ActionEvent event) {
+        GameLog.addInfoLog("Quit button pressed");
         System.out.println("Quit button pressed!");
         System.exit(0);
     }
@@ -62,6 +65,7 @@ public class GameController implements IviewController {
      */
     @FXML
     private void handleMainMenuButton(ActionEvent event) {
+        GameLog.addInfoLog("Main Menu button pressed");
         System.out.println("Main Menu button pressed!");
         gl.stop();
         gl = null;
@@ -157,6 +161,7 @@ public class GameController implements IviewController {
      * The player died, end level.
      */
     public void died() {
+        GameLog.addInfoLog("Player died");
         System.out.println("Player died");
         gl.stop();
         gl = null;
