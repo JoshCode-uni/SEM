@@ -23,6 +23,7 @@ public class Projectile extends AbstractDynamicObject {
     private final Vector dir;
 
     private final static double GROW_RATE = 750;
+    private boolean isActive = true;
 
     /**
      * Create a projectile.
@@ -54,24 +55,30 @@ public class Projectile extends AbstractDynamicObject {
      * Check if we collide with object dobj.
      *
      * @param dobj a dynamic object.
+     * @param nanoFrameTime
      */
     @Override
     public void checkCollision(PhysicsObject dobj, long nanoFrameTime) {
-        if (dobj instanceof Bubble) {
-            Bubble bubble = (Bubble) dobj;
-
-            // don't split circles which are too small
-            if (bubble.getRadius() < 10) {
-                return;
-            }
-
-            Point bubblePoint = bubble.getPoint();
-            Point ip = getClosestIntersection(bubblePoint);
-            if (ip.distanceTo(bubblePoint) < bubble.getRadius()) {
-                bubble.splitBubble();
-                getGameObjects().removeProjectile();
-            }
-        }
+        // only react to collisions when circles call our collision method
+//        if(!isActive)
+//            return;
+//        
+//        if (dobj instanceof Bubble) {
+//            Bubble bubble = (Bubble) dobj;
+//
+//            // don't split circles which are too small
+//            if (bubble.getRadius() < 10) {
+//                return;
+//            }
+//
+//            Point bubblePoint = bubble.getPoint();
+//            Point ip = getClosestIntersection(bubblePoint);
+//            if (ip.distanceTo(bubblePoint) < bubble.getRadius()) {
+//                bubble.splitBubble();
+//                getGameObjects().removeProjectile();
+//                isActive = false;
+//            }
+//        }
     }
 
     /**
@@ -81,22 +88,23 @@ public class Projectile extends AbstractDynamicObject {
      */
     @Override
     public void update(long nanoFrameTime) {
+
         // make line longer
         double endY = fxLine.getEndY() - GROW_RATE * (nanoFrameTime / 1_000_000_000.0);
         fxLine.setEndY(endY);
-        updatePoints();
+        updateLinePoints();
 
         // destroy line if line hits the ceiling
         if (endY < getGameObjects().getTopBorder()) {
             getGameObjects().removeProjectile();
+            isActive = false;
         }
     }
 
-    @Override
-    public Vector getSpeedVector() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+//    @Override
+//    public Vector getSpeedVector() {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
     @Override
     public void prepareUpdate(long nanoFrameTime) {
         // no preparation needed
@@ -178,8 +186,18 @@ public class Projectile extends AbstractDynamicObject {
     /**
      * Recalculated p1 and p2.
      */
-    public void updatePoints() {
+    public void updateLinePoints() {
         p1 = new Point(fxLine.getStartX(), fxLine.getStartY());
         p2 = new Point(fxLine.getEndX(), fxLine.getEndY());
+    }
+
+    @Override
+    public void collide(IDynamicObject obj2, long nanoFrameTime) {
+        if (isActive && obj2 instanceof Bubble) {
+            Bubble bubble = (Bubble) obj2;
+            bubble.splitBubble();
+            getGameObjects().removeProjectile();
+            isActive = false;
+        }
     }
 }

@@ -5,8 +5,6 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import nl.joshuaslik.tudelft.SEM.model.container.Vector;
-
 /**
  * Interface to be implemented by all objects which can move.
  *
@@ -28,7 +26,9 @@ public interface IDynamicObject extends PhysicsObject, IUpdateable {
      *
      * @return x/y vector representing the speed.
      */
-    public Vector getSpeedVector();
+//    public Vector getSpeedVector();
 
+    public void collide(final IDynamicObject obj2, final long nanoFrameTime);
+    
     public void setIGameObjects(IGameObjects gameObjects);
 }

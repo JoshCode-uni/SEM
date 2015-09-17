@@ -14,7 +14,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
-import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
@@ -24,15 +23,12 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
  */
 public class GameObjects implements IUpdateable, IGameObjects {
 
-    private ArrayList<PhysicsObject> allObjects = new ArrayList<>();
-    private ArrayList<PhysicsObject> staticObjects = new ArrayList<>();
-    private ArrayList<IDynamicObject> dynamicObjects = new ArrayList<>();
+    private final ArrayList<PhysicsObject> allObjects = new ArrayList<>();
+    private final ArrayList<PhysicsObject> staticObjects = new ArrayList<>();
+    private final ArrayList<IDynamicObject> dynamicObjects = new ArrayList<>();
 
-    private ArrayList<IDynamicObject> addDynamicBuffer = new ArrayList<>();
-    private ArrayList<IDynamicObject> removeDynamicBuffer = new ArrayList<>();
-
-    // list of updateable instances which aren't dynamic objects
-    private ArrayList<IUpdateable> updateable = new ArrayList<>();
+    private final ArrayList<IDynamicObject> addDynamicBuffer = new ArrayList<>();
+    private final ArrayList<IDynamicObject> removeDynamicBuffer = new ArrayList<>();
 
     private IDynamicObject player;
     private boolean hasProjectile = false;
@@ -64,60 +60,39 @@ public class GameObjects implements IUpdateable, IGameObjects {
         addBufferedDynamicObjects();
         removeBufferedDynamicObjects();
 
-        //		System.out.println("framerate:  = " + 1.0 / frametime * 1_000_000_000 + "fps");
-        // check if there are any collisions (for dynamic objects)
-        // if so, update the direction
-        // update the positions of al dynamic objects
-        //		for (DynamicObject e : dynamicObjects) {
-        //			e.prepareUpdate(frametime);
-        //		}
-        //
-        //		for(int i=0; i<dynamicObjects.size(); i++) {
-        //			for(int j=0; j<dynamicObjects.size(); j++) {
-        //				dynamicObjects.get(i).checkCollision(dynamicObjects.get(j), frametime);
-        //			}
-        //			for(PhysicsObject e : staticObjects) {
-        //				dynamicObjects.get(i).checkCollision(e, frametime);
-        //			}
-        //		}
-        //
-        //		for (DynamicObject e : dynamicObjects) {
-        //			e.update(frametime);
-        //		}
-        if (hasProjectile) { // can hit 2 bubbles in the same frame
-            projectile.update(nanoFrameTime);
-        }
+//        if (hasProjectile) { // note: can hit 2 bubbles in the same frame
+//            projectile.update(nanoFrameTime);
+//        }
+//        for (IDynamicObject e : dynamicObjects) {
+//            if (hasProjectile) {
+//                projectile.checkCollision(e, nanoFrameTime);
+//            }
+//        }
 
-        for (IDynamicObject e : dynamicObjects) {
-            if (hasProjectile) {
-                projectile.checkCollision(e, nanoFrameTime);
-            }
-        }
-
-        for (IUpdateable e : updateable) {
-            e.update(nanoFrameTime);
-        }
-
+        //System.out.println("framerate:  = " + 1.0 / frametime * 1_000_000_000 + "fps");
+        
+        // calculate next positions
         for (IDynamicObject e : dynamicObjects) {
             e.prepareUpdate(nanoFrameTime);
         }
 
-        for (IDynamicObject e : dynamicObjects) {
-            for (IDynamicObject f : dynamicObjects) {
-                e.checkCollision(f, nanoFrameTime);
-            }
-        }
-
-        for (IDynamicObject e : dynamicObjects) {
-            for (PhysicsObject f : staticObjects) {
-                e.checkCollision(f, nanoFrameTime);
-            }
-        }
-
+        // check for collisions
         for (int i = 0; i < dynamicObjects.size(); i++) {
-            dynamicObjects.get(i).update(nanoFrameTime);
+            for (int j = 0; j < dynamicObjects.size(); j++) {
+                dynamicObjects.get(i).checkCollision(dynamicObjects.get(j), nanoFrameTime);
+            }
+            for (PhysicsObject e : staticObjects) {
+                dynamicObjects.get(i).checkCollision(e, nanoFrameTime);
+            }
         }
 
+        // update positions based on the calculated positions (which might've
+        // been changed by a collision)
+        for (IDynamicObject e : dynamicObjects) {
+            e.update(nanoFrameTime);
+        }
+        
+        // update the players position
         player.update(nanoFrameTime);
     }
 
@@ -137,14 +112,15 @@ public class GameObjects implements IUpdateable, IGameObjects {
     }
 
     private void initializePlayer(Scene scene) {
-        //draw player
-        Image playerImage = null;
+        // draw player
+        Image playerImage;
         try {
             playerImage = new Image(getClass().getResource("/data/gui/img/penguin.png").openStream(), 100, 100, true, true);
             assert (playerImage != null);
         }
         catch (IOException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
+            return;
         }
         ImageView playrImg = new ImageView(playerImage);
         playrImg.setX((rightBorder - leftBorder) / 2.0);
@@ -152,7 +128,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
         draw.drawOnScreen(playrImg);
 
-        //listen to player controls
+        // listen to player controls
         Keyboard kb = new Keyboard(scene);
         kb.addListeners();
 
@@ -175,35 +151,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
     public void addObject(PhysicsObject object) {
         staticObjects.add(object);
         allObjects.add(object);
-    }
-
-    /**
-     * Get the closest intersection point to the given point which is not equal
-     * to the given Physics object.
-     *
-     * @param point the point.
-     * @param pObj the Physics Object.
-     * @return the closest Intersection Point.
-     */
-    public IntersectionPoint getClosestPoint(Point point, PhysicsObject pObj) {
-        double dist = Double.MAX_VALUE;
-        IntersectionPoint ip = null;
-        for (PhysicsObject e : allObjects) {
-            if (!pObj.equals(e)) {
-                IntersectionPoint tempIP = e.getClosestIntersection(point);
-                if (tempIP.getDistance() < dist) {
-                    dist = tempIP.getDistance();
-                    ip = tempIP;
-
-                    // add speed vector if the object is dynamic
-                    if (e instanceof IDynamicObject) {
-                        IDynamicObject d = (IDynamicObject) e;
-                        ip.setSpeedVec(d.getSpeedVector());
-                    }
-                }
-            }
-        }
-        return ip;
     }
 
     /**
@@ -355,6 +302,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
     @Override
     public void addProjectile(Projectile projectile) {
         projectile.setIGameObjects((IGameObjects) this);
+        dynamicObjects.add(projectile);
         this.projectile = projectile;
         hasProjectile = true;
         draw.drawOnScreen(projectile.getNode());
@@ -363,6 +311,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
     @Override
     public void removeProjectile() {
         draw.removeFromScreen(projectile.getNode());
+        removeObject(projectile);
         this.projectile = null;
         hasProjectile = false;
     }

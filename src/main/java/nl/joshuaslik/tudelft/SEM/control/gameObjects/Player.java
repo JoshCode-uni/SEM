@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
-import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
 /**
  * A class containing the position of the player. This class also controller the
@@ -20,8 +19,8 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
  */
 public class Player extends AbstractDynamicObject {
 
-    private ImageView image;
-    private Keyboard keyboard;
+    private final ImageView image;
+    private final Keyboard keyboard;
     private static final double MAX_SPEED = 200;
 
     // TODO Temporary dirty static
@@ -119,25 +118,6 @@ public class Player extends AbstractDynamicObject {
     }
 
     /**
-     * Get the speed vector of the player. Not implemented.
-     *
-     * @return x/y vector containing the speed of the player.
-     */
-    @Override
-    public Vector getSpeedVector() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-//	/**
-//	 * Get the node of the image of the player.
-//	 *
-//	 * @return the node of the image of the player.
-//	 */
-//	@Override
-//	public Node getNode() {
-//		return image;
-//	}
-    /**
      * Not implemented.
      *
      * @param p point
@@ -145,6 +125,12 @@ public class Player extends AbstractDynamicObject {
      */
     @Override
     public IntersectionPoint getClosestIntersection(Point p) {
+        // player is special: getClosestIntersection won't be called
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void collide(IDynamicObject obj2, long nanoFrameTime) {
+        // player is special: collide won't be called
     }
 }

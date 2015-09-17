@@ -27,8 +27,6 @@ public class Bubble extends AbstractDynamicObject {
     private double vY = 0;
     private double nextX;
     private double nextY;
-    private int previousCollisionFrame = Integer.MIN_VALUE;
-    private int frame = 0;
 
     /**
      * Create a bubble.
@@ -75,15 +73,6 @@ public class Bubble extends AbstractDynamicObject {
     }
 
     /**
-     * Get the physics object.
-     *
-     * @return
-     */
-    private PhysicsObject getThisPhysicsObject() {
-        return this;
-    }
-
-    /**
      * Update the position (called by GameLoop).
      *
      * @param nanoFrameTime the framerate (nanoseconds/frame)
@@ -107,102 +96,97 @@ public class Bubble extends AbstractDynamicObject {
         // get the closest object to the circle (which we might hit)
         Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
         Point nextPos = new Point(nextX, nextY);
-        IntersectionPoint closest = obj2.getClosestIntersection(nextPos);
+        IntersectionPoint ip = obj2.getClosestIntersection(nextPos);
 
-        double curDist = currentPos.distanceTo(closest);
-        double newDist = nextPos.distanceTo(closest);
+        double curDist = currentPos.distanceTo(ip);
+        double newDist = nextPos.distanceTo(ip);
 
         // if are close enough to hit, and going toward it
-        if (newDist < circle.getRadius() * 0.9 && newDist < curDist) {
-			// bounce off of the object by changing the direction
+        if (newDist < circle.getRadius() * 0.9) {
+            if (newDist < curDist) {
+            // bounce off of the object by changing the direction
 
-            // calculate new direction vector
-            Vector normal = closest.getNormal();
-            if (normal.getX() != 0) {
-                newDir = dir;
-                double dotProduct = -2 * (newDir.getX() * normal.getX() + newDir.getY() + normal.getY());
-                newDir = new Vector(dotProduct * normal.getX() + newDir.getX(), dotProduct * normal.getY() + newDir.getY());
+                // calculate new direction vector
+                Vector normal = ip.getNormal();
+                if (normal.getX() != 0) {
+                    newDir = dir;
+                    double dotProduct = -2 * (newDir.getX() * normal.getX() + newDir.getY() + normal.getY());
+                    newDir = new Vector(dotProduct * normal.getX() + newDir.getX(), dotProduct * normal.getY() + newDir.getY());
 
-                // multiply y with -1 if we change y directions
-                if (dir.getY() * newDir.getY() < 0) {
+                    // multiply y with -1 if we change y directions
+                    if (dir.getY() * newDir.getY() < 0) {
+                        vY *= -1;
+                        newDir = new Vector(-newDir.getX(), newDir.getY());
+                    }
+                } else {
+                    // hit ground or ceiling
+                    newDir = new Vector(newDir.getX(), -newDir.getY());
                     vY *= -1;
-                    newDir = new Vector(-newDir.getX(), newDir.getY());
                 }
-            } else {
-                // hit ground or ceiling !!!
-                newDir = new Vector(newDir.getX(), -newDir.getY());
-                vY *= -.99;
-            }
 
-            // recalculate new circle position (with new directions)
-            vX = MAX_X_SPEED * newDir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
+                // recalculate new circle position (with new directions)
+                vX = MAX_X_SPEED * newDir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
 
-            if (closest.hasSpeedVec()) {
-                Vector speedVecOtherObj = closest.getSpeedVec();
-                double xSpeedOtherObj = speedVecOtherObj.getX();
-                double ySpeedOtherObj = speedVecOtherObj.getY();
-                xSpeedOtherObj *= xSpeedOtherObj * vX < 0 ? -1 : 1;
-                ySpeedOtherObj *= ySpeedOtherObj * vY < 0 ? -1 : 1;
-                vX = (vX + xSpeedOtherObj) / 2.0;
-                vY = (vY + ySpeedOtherObj) / 2.0;
+                if (ip.hasSpeedVec()) {
+                    Vector speedVecOtherObj = ip.getSpeedVec();
+                    double xSpeedOtherObj = speedVecOtherObj.getX();
+                    double ySpeedOtherObj = speedVecOtherObj.getY();
+                    xSpeedOtherObj *= xSpeedOtherObj * vX < 0 ? -1 : 1;
+                    ySpeedOtherObj *= ySpeedOtherObj * vY < 0 ? -1 : 1;
+                    vX = (vX + xSpeedOtherObj) / 2.0;
+                    vY = (vY + ySpeedOtherObj) / 2.0;
+                }
             }
-            calculateNextPosition(nanoFrameTime);
+            //notify the other object to collide with this object
+            if (obj2 instanceof IDynamicObject) {
+                ((IDynamicObject) obj2).collide(this, nanoFrameTime);
+            }
+            if (newDist < curDist) {
+                calculateNextPosition(nanoFrameTime);
+            }
         }
     }
 
-    // WIP: should be implemented later
-    //		// don't collide if you collided in one of the last 2 frames
-    //		if(!(previousCollisionFrame + 2 < frame || frame == previousCollisionFrame))
-    //			return;
-    //		previousCollisionFrame = frame;
-    //		
-    //		// calculate next position if direction doesn't change and we move for 1ms
-    ////		double nextX = circle.getCenterX() + vX * 0.001;
-    ////		double nextY = circle.getCenterY() + vY * 0.001;
-    //		Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
-    //		Point nextPos = new Point(nextX, nextY);
-    //		IntersectionPoint ip = obj2.getClosestIntersection(nextPos);
-    //
-    //		double curDist = currentPos.distanceTo(ip);
-    //		double newDist = nextPos.distanceTo(ip);
-    //
-    //		// if are close enough to hit
-    //		if (newDist < circle.getRadius()) {
-    //			collide(ip, nanoFrameTime);
-    //			if (obj2 instanceof DynamicObject) {
-    //				((DynamicObject) obj2).collide(this, nanoFrameTime);
-    //			}
-    //		}
-    //
-    //	private void collide(final IntersectionPoint ip, final long nanoFrameTime) {
-    //		// bounce off of the object by changing the direction
-    //
-    //		// calculate new direction vector
-    //		Vector normal = ip.getNormal();
-    //		if (normal.getX() != 0) {
-    //			double oldDirY = dir.getY();
-    //			double dotProduct = -2 * (dir.getX() * normal.getX() + dir.getY() + normal.getY());
-    //			newDir = new Vector(dotProduct * normal.getX() + dir.getX(), dotProduct * normal.getY() + dir.getY());
-    //
-    //			// multiply y with -1 if we change y directions
-    //			if (oldDirY * newDir.getY() < 0) {
-    //				vY *= -1;
-    //				newDir = new Vector(-newDir.getX(), newDir.getY());
-    //			}
-    //		} else {
-    //			// hit ground or ceiling !!!
-    //			newDir = new Vector(newDir.getX(), -newDir.getY());
-    //			vY *= -1;
-    //		}
-    //		recalculateNextPosition(nanoFrameTime);
-    //	}
-    //
-    //	@Override
-    //	public void collide(final DynamicObject obj2, final long nanoFrameTime) {
-    //		Point thisCirclePoint = new Point(circle.getCenterX(), circle.getCenterY());
-    //		IntersectionPoint ip = obj2.getClosestIntersection(thisCirclePoint);
-    //		collide(ip, nanoFrameTime);
-    //	}
+    private void collide(final IntersectionPoint ip, final long nanoFrameTime) {
+        // bounce off of the object by changing the direction
+
+        // calculate new direction vector
+        Vector normal = ip.getNormal();
+        if (normal.getX() != 0) {
+            double oldDirY = dir.getY();
+            double dotProduct = -2 * (dir.getX() * normal.getX() + dir.getY() + normal.getY());
+            newDir = new Vector(dotProduct * normal.getX() + dir.getX(), dotProduct * normal.getY() + dir.getY());
+
+            // multiply y with -1 if we change y directions
+            if (oldDirY * newDir.getY() < 0) {
+                vY *= -1;
+                newDir = new Vector(-newDir.getX(), newDir.getY());
+            }
+        } else {
+            // hit ground or ceiling !!!
+            newDir = new Vector(newDir.getX(), -newDir.getY());
+            vY *= -1;
+        }
+        calculateNextPosition(nanoFrameTime);
+    }
+
+    @Override
+    public void collide(final IDynamicObject obj2, final long nanoFrameTime) {
+        Point thisCirclePoint = new Point(circle.getCenterX(), circle.getCenterY());
+        IntersectionPoint ip = obj2.getClosestIntersection(thisCirclePoint);
+
+        Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
+        Point nextPos = new Point(nextX, nextY);
+
+        double curDist = currentPos.distanceTo(ip);
+        double newDist = nextPos.distanceTo(ip);
+
+        // if are going toward obj2, cause a collision
+        if (newDist < curDist) {
+            collide(ip, nanoFrameTime);
+        }
+    }
+
     /**
      * Prepare for an update (calculate next positions). Called by GameLoop
      *
@@ -240,31 +224,25 @@ public class Bubble extends AbstractDynamicObject {
     }
 
     /**
-     * Get the speed of the bubble as a x/y vector.
-     *
-     * @return speed vector.
-     */
-    @Override
-    public Vector getSpeedVector() {
-        return new Vector(vX, vY);
-    }
-
-    /**
      * Split a bubble if you pushed the button.
      */
     public void splitBubble() {
 
-        double newRadius = circle.getRadius();
-        if (newRadius < 15) {
+        double newRadius = circle.getRadius() / 2.0;
+        if (newRadius < 10) {
             getGameObjects().removeObject(this);
             return;
         }
+        if (newRadius < 20) {
+            newRadius = 10;
+        }
+
         double xPos = circle.getCenterX();
         double yPos = circle.getCenterY();
-        Bubble bubble2 = new Bubble(new Point(xPos + 1.1 * newRadius / 2, yPos),
-                newRadius / 2, new Vector(2, -5));
-        circle.setCenterX(xPos - newRadius / 2);
-        circle.setRadius(newRadius / 2);
+        Bubble bubble2 = new Bubble(new Point(xPos + 1.1 * newRadius, yPos),
+                newRadius, new Vector(2, -5));
+        circle.setCenterX(xPos - newRadius);
+        circle.setRadius(newRadius);
         circle.setCenterY(yPos);
 
         this.newDir = new Vector(-2, -5);
@@ -302,24 +280,46 @@ public class Bubble extends AbstractDynamicObject {
      */
     private class SceneSizeChangeListener implements ChangeListener<Number> {
 
+        private double circleX;
+        private double circleY;
+        private double radius;
+
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            double circleX = circle.getCenterX();
-            double circleY = circle.getCenterY();
-            double radius = circle.getRadius();
+            circleX = circle.getCenterX();
+            circleY = circle.getCenterY();
+            radius = circle.getRadius();
+            listenerCheckTop();
+            listenerCheckLeft();
+            listenerCheckRight();
+            listenerCheckBottom();
+        }
 
-            if (circleX - radius + 10 < getGameObjects().getLeftBorder()) {
-                circle.setCenterX(getGameObjects().getLeftBorder() + radius - 10);
-            }
-            if (circleX + radius - 10 > getGameObjects().getRightBorder()) {
-                circle.setCenterX(getGameObjects().getRightBorder() - radius + 10);
-            }
+        private void listenerCheckTop() {
             if (circleY - radius + 10 < getGameObjects().getTopBorder()) // hit ceiling
             {
                 getGameObjects().removeObject(getThis());
             }
+        }
+
+        private void listenerCheckLeft() {
+            if (circleX - radius + 10 < getGameObjects().getLeftBorder()) {
+                circle.setCenterX(getGameObjects().getLeftBorder() + radius - 10);
+                vY = -Y_MAX_SPEED;
+            }
+        }
+
+        private void listenerCheckRight() {
+            if (circleX + radius - 10 > getGameObjects().getRightBorder()) {
+                circle.setCenterX(getGameObjects().getRightBorder() - radius + 10);
+                vY = -Y_MAX_SPEED;
+            }
+        }
+
+        private void listenerCheckBottom() {
             if (circleY + radius - 10 > getGameObjects().getBottomBorder()) {
                 circle.setCenterY(getGameObjects().getBottomBorder() - radius + 10);
+                vY = -Y_MAX_SPEED;
             }
         }
     }
