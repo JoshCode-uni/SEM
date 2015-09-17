@@ -20,6 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
+import utility.GameLog;
 
 /**
  * The launcher of the application.
@@ -40,7 +41,7 @@ public class Launcher extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		
+		GameLog.constructor();
 		loadView(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
 		
 		Scene scene = new Scene(bp);
