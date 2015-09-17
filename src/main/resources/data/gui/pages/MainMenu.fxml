@@ -2,7 +2,7 @@
 
 <?import javafx.scene.control.Button?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.Pane?><?import javafx.scene.layout.VBox?><?import javafx.scene.text.Font?><?import javafx.scene.text.Text?>
 <Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8"
-    xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.joshuaslik.tudelft.SEM.control.viewController.MainMenuController">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.joshuaslik.tudelft.SEM.control.viewController.MainMenuController">
     <children>
         <ImageView fitHeight="1080.0" fitWidth="1920.0">
             <image>
@@ -12,25 +12,25 @@
         <VBox layoutX="290.0" layoutY="185.0" spacing="2.0">
             <children>
                 <Button fx:id="playButton" layoutX="290.0" layoutY="185.0" mnemonicParsing="false" onAction="#handlePlayButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css"
-                    text="Play">
+                        text="Play">
                     <font>
                         <Font size="42.0" />
                     </font>
                 </Button>
                 <Button fx:id="chooseLevelButton" layoutX="290.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleChooseLevelButton" prefHeight="135.0" prefWidth="360.0"
-                    stylesheets="@MainMenu.css" text="Choose Level">
+                        stylesheets="@MainMenu.css" text="Choose Level">
                     <font>
                         <Font size="42.0" />
                     </font>
                 </Button>
                 <Button fx:id="optionsButton" layoutX="290.0" layoutY="455.0" mnemonicParsing="false" onAction="#handleOptionsButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css"
-                    text="Options">
+                        text="Options">
                     <font>
                         <Font size="42.0" />
                     </font>
                 </Button>
                 <Button fx:id="quitButton" layoutX="290.0" layoutY="590.0" mnemonicParsing="false" onAction="#handleQuitButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css"
-                    text="Quit">
+                        text="Quit">
                     <font>
                         <Font size="42.0" />
                     </font>
