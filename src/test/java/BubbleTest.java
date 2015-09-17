@@ -63,13 +63,6 @@ public class BubbleTest extends TestCase {
     }
 
     @Test
-    public void testGetSpeedVector() {
-        bubble = new Bubble(new Point(200, 200), 50, new Vector(5, 2));
-        assertEquals(bubble.getSpeedVector(), new Vector(0, 0));
-
-    }
-
-    @Test
     public void testSplitBubble() {
         //fail("Not yet implemented");
         // TODO Implement test

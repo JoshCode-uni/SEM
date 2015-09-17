@@ -16,6 +16,7 @@ public interface IviewController {
 
     /**
      * Start will be called after the fxml file has been initialized.
+     * @param scene The scene of the view of this controller.
      */
     public void start(Scene scene);
 

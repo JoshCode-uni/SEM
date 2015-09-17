@@ -1,6 +1,5 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import java.io.IOException;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

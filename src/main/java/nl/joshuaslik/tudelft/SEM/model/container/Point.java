@@ -85,29 +85,4 @@ public class Point {
     public String toString() {
         return "Position: (x: " + xPos + ", y: " + yPos + ")";
     }
-
-    /**
-     * Check if this point is equal to obj.
-     *
-     * @param obj the obj to compare to.
-     * @return if this point is equal to obj.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Point other = (Point) obj;
-        if (Double.doubleToLongBits(this.xPos) != Double.doubleToLongBits(other.xPos)) {
-            return false;
-        }
-        if (Double.doubleToLongBits(this.yPos) != Double.doubleToLongBits(other.yPos)) {
-            return false;
-        }
-        return true;
-    }
-
 }

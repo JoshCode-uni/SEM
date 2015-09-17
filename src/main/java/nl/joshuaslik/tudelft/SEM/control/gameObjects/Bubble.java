@@ -104,38 +104,8 @@ public class Bubble extends AbstractDynamicObject {
         // if are close enough to hit, and going toward it
         if (newDist < circle.getRadius() * 0.9) {
             if (newDist < curDist) {
-            // bounce off of the object by changing the direction
-
-                // calculate new direction vector
-                Vector normal = ip.getNormal();
-                if (normal.getX() != 0) {
-                    newDir = dir;
-                    double dotProduct = -2 * (newDir.getX() * normal.getX() + newDir.getY() + normal.getY());
-                    newDir = new Vector(dotProduct * normal.getX() + newDir.getX(), dotProduct * normal.getY() + newDir.getY());
-
-                    // multiply y with -1 if we change y directions
-                    if (dir.getY() * newDir.getY() < 0) {
-                        vY *= -1;
-                        newDir = new Vector(-newDir.getX(), newDir.getY());
-                    }
-                } else {
-                    // hit ground or ceiling
-                    newDir = new Vector(newDir.getX(), -newDir.getY());
-                    vY *= -1;
-                }
-
-                // recalculate new circle position (with new directions)
-                vX = MAX_X_SPEED * newDir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
-
-                if (ip.hasSpeedVec()) {
-                    Vector speedVecOtherObj = ip.getSpeedVec();
-                    double xSpeedOtherObj = speedVecOtherObj.getX();
-                    double ySpeedOtherObj = speedVecOtherObj.getY();
-                    xSpeedOtherObj *= xSpeedOtherObj * vX < 0 ? -1 : 1;
-                    ySpeedOtherObj *= ySpeedOtherObj * vY < 0 ? -1 : 1;
-                    vX = (vX + xSpeedOtherObj) / 2.0;
-                    vY = (vY + ySpeedOtherObj) / 2.0;
-                }
+                // bounce off of the object by changing the direction
+                collide(ip, nanoFrameTime);
             }
             //notify the other object to collide with this object
             if (obj2 instanceof IDynamicObject) {
@@ -147,6 +117,12 @@ public class Bubble extends AbstractDynamicObject {
         }
     }
 
+    /**
+     * Method to calculate the position of this bubble after a collision.
+     *
+     * @param ip the intersection point (collision point).
+     * @param nanoFrameTime the time which a frame takes.
+     */
     private void collide(final IntersectionPoint ip, final long nanoFrameTime) {
         // bounce off of the object by changing the direction
 
@@ -167,9 +143,27 @@ public class Bubble extends AbstractDynamicObject {
             newDir = new Vector(newDir.getX(), -newDir.getY());
             vY *= -1;
         }
-        calculateNextPosition(nanoFrameTime);
+
+        // recalculate new circle position (with new directions)
+        vX = MAX_X_SPEED * newDir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
+
+        if (ip.hasSpeedVec()) {
+            Vector speedVecOtherObj = ip.getSpeedVec();
+            double xSpeedOtherObj = speedVecOtherObj.getX();
+            double ySpeedOtherObj = speedVecOtherObj.getY();
+            xSpeedOtherObj *= xSpeedOtherObj * vX < 0 ? -1 : 1;
+            ySpeedOtherObj *= ySpeedOtherObj * vY < 0 ? -1 : 1;
+            vX = (vX + xSpeedOtherObj) / 2.0;
+            vY = (vY + ySpeedOtherObj) / 2.0;
+        }
     }
 
+    /**
+     * Called when a dynamic object collides with this Bubble.
+     *
+     * @param obj2 the dynamic object which collided with this bubble.
+     * @param nanoFrameTime the time which a frame takes.
+     */
     @Override
     public void collide(final IDynamicObject obj2, final long nanoFrameTime) {
         Point thisCirclePoint = new Point(circle.getCenterX(), circle.getCenterY());
@@ -184,6 +178,7 @@ public class Bubble extends AbstractDynamicObject {
         // if are going toward obj2, cause a collision
         if (newDist < curDist) {
             collide(ip, nanoFrameTime);
+            calculateNextPosition(nanoFrameTime);
         }
     }
 
@@ -247,7 +242,7 @@ public class Bubble extends AbstractDynamicObject {
 
         this.newDir = new Vector(-2, -5);
         this.vX = -MAX_X_SPEED;
-        this.vY = -200 + this.vY / 4;
+        this.vY = -Y_MAX_SPEED / 1.5;
 
         bubble2.vY = -200 + this.vY / 4;
         bubble2.vX = MAX_X_SPEED;
@@ -284,6 +279,13 @@ public class Bubble extends AbstractDynamicObject {
         private double circleY;
         private double radius;
 
+        /**
+         * Make sure the bubble will never go outside of the screen.
+         *
+         * @param observable not used.
+         * @param oldValue not used.
+         * @param newValue not used.
+         */
         @Override
         public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
             circleX = circle.getCenterX();
@@ -295,13 +297,20 @@ public class Bubble extends AbstractDynamicObject {
             listenerCheckBottom();
         }
 
+        /**
+         * Check if bubble is too high (above top border of the screen)
+         */
         private void listenerCheckTop() {
-            if (circleY - radius + 10 < getGameObjects().getTopBorder()) // hit ceiling
+            if (circleY - radius - 10 < getGameObjects().getTopBorder()) // hit ceiling
             {
                 getGameObjects().removeObject(getThis());
             }
         }
 
+        /**
+         * Check if bubble is too far to the left (left from the left border of
+         * the screen)
+         */
         private void listenerCheckLeft() {
             if (circleX - radius + 10 < getGameObjects().getLeftBorder()) {
                 circle.setCenterX(getGameObjects().getLeftBorder() + radius - 10);
@@ -309,6 +318,10 @@ public class Bubble extends AbstractDynamicObject {
             }
         }
 
+        /**
+         * Check if bubble is too far to the right (right from the right border
+         * of the screen)
+         */
         private void listenerCheckRight() {
             if (circleX + radius - 10 > getGameObjects().getRightBorder()) {
                 circle.setCenterX(getGameObjects().getRightBorder() - radius + 10);
@@ -316,6 +329,9 @@ public class Bubble extends AbstractDynamicObject {
             }
         }
 
+        /**
+         * Check if bubble is too low (below bottom border of the screen)
+         */
         private void listenerCheckBottom() {
             if (circleY + radius - 10 > getGameObjects().getBottomBorder()) {
                 circle.setCenterY(getGameObjects().getBottomBorder() - radius + 10);

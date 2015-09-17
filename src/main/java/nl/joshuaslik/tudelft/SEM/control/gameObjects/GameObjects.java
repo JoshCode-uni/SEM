@@ -18,7 +18,8 @@ import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
- *
+ * Game objects stores all objects of a level and updates them. It also keeps
+ * track of other things, like if there are any bubbles left and the score.
  * @author faris
  */
 public class GameObjects implements IUpdateable, IGameObjects {
@@ -40,6 +41,16 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
     private final IDraw draw;
 
+    /**
+     * Construct all required objects for the given level.
+     * @param draw interface to the drawing class which allows us to draw the game objects.
+     * @param level the current level.
+     * @param topBorder y value of the top border.
+     * @param rightBorder x value of the right border.
+     * @param bottomBorder y value of the bottom border.
+     * @param leftBorder x value of the left border.
+     * @param scene the scene of the game (to add a keylistener to).
+     */
     public GameObjects(IDraw draw, int level, double topBorder, double rightBorder,
             double bottomBorder, double leftBorder, Scene scene) {
         this.draw = draw;
@@ -56,21 +67,10 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     @Override
     public void update(long nanoFrameTime) {
-
+        // only add/remove objects at the beginning of each update
         addBufferedDynamicObjects();
         removeBufferedDynamicObjects();
 
-//        if (hasProjectile) { // note: can hit 2 bubbles in the same frame
-//            projectile.update(nanoFrameTime);
-//        }
-//        for (IDynamicObject e : dynamicObjects) {
-//            if (hasProjectile) {
-//                projectile.checkCollision(e, nanoFrameTime);
-//            }
-//        }
-
-        //System.out.println("framerate:  = " + 1.0 / frametime * 1_000_000_000 + "fps");
-        
         // calculate next positions
         for (IDynamicObject e : dynamicObjects) {
             e.prepareUpdate(nanoFrameTime);
@@ -96,6 +96,13 @@ public class GameObjects implements IUpdateable, IGameObjects {
         player.update(nanoFrameTime);
     }
 
+    /**
+     * Initialize the borders of the game.
+     * @param topBorder y value of the top border.
+     * @param rightBorder x value of the right border.
+     * @param bottomBorder y value of the bottom border.
+     * @param leftBorder x value of the left border.
+     */
     private void initializeBorders(double topBorder, double rightBorder, double bottomBorder, double leftBorder) {
         Point topLeft = new Point(leftBorder, topBorder);
         Point topRight = new Point(rightBorder, topBorder);
@@ -111,6 +118,10 @@ public class GameObjects implements IUpdateable, IGameObjects {
         setGameBounds(topBorder, rightBorder, bottomBorder, leftBorder);
     }
 
+    /**
+     * Initialize the player.
+     * @param scene the scene of the game (to add a keylistener to).
+     */
     private void initializePlayer(Scene scene) {
         // draw player
         Image playerImage;
@@ -136,6 +147,10 @@ public class GameObjects implements IUpdateable, IGameObjects {
         player.setIGameObjects((IGameObjects) this);
     }
 
+    /**
+     * Initialize the level.
+     * @param level the level to initialize.
+     */
     private void initializeLevel(int level) {
         ArrayList<Bubble> bubbles = Levels.getLevel(level);
         for (Bubble e : bubbles) {
@@ -173,6 +188,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
         removeDynamicBuffer.add(object);
     }
 
+    /**
+     * Add all buffered dynamic objects to the scene.
+     */
     private void addBufferedDynamicObjects() {
         for (IDynamicObject object : addDynamicBuffer) {
             object.setIGameObjects((IGameObjects) this);
@@ -190,6 +208,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
         addDynamicBuffer.clear();
     }
 
+    /**
+     * Remove all buffered dynamic objects from the game.
+     */
     private void removeBufferedDynamicObjects() {
         for (IDynamicObject object : removeDynamicBuffer) {
             if (object instanceof Bubble && dynamicObjects.contains(object)) {
@@ -280,25 +301,44 @@ public class GameObjects implements IUpdateable, IGameObjects {
         return score;
     }
 
+    /**
+     * Check if all bubbles are destroyed.
+     * @return if all bubbles are destroyed.
+     */
     public boolean allBubblesDestroyed() {
         return bubbleCount == 0;
     }
 
+    /**
+     * Check if the game currently has a spawned projectile.
+     * @return if the game currently has a spawned projectile.
+     */
     @Override
     public boolean hasProjectile() {
         return hasProjectile;
     }
 
+    /**
+     * Prepare for update.
+     * @param nanoFrameTime the frame time in nano seconds. 
+     */
     @Override
     public void prepareUpdate(long nanoFrameTime) {
-
+        //no preparation required, everything is handled in the update method
     }
 
+    /**
+     * Handle event: player died.
+     */
     @Override
     public void playerDied() {
         draw.playerDied();
     }
 
+    /**
+     * Add a projectile to the game.
+     * @param projectile the projectile to add.
+     */
     @Override
     public void addProjectile(Projectile projectile) {
         projectile.setIGameObjects((IGameObjects) this);
@@ -308,6 +348,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
         draw.drawOnScreen(projectile.getNode());
     }
 
+    /**
+     * Remove the projectile from the game.
+     */
     @Override
     public void removeProjectile() {
         draw.removeFromScreen(projectile.getNode());

@@ -12,7 +12,7 @@ package nl.joshuaslik.tudelft.SEM.model.container;
  */
 public class Vector {
 
-    private double x, y;
+    private final double x, y;
 
     public Vector(double x, double y) {
         this.x = x;

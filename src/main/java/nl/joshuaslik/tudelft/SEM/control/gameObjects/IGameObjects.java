@@ -6,7 +6,8 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 /**
- *
+ * Interface which defines which methods may be accessed by the objects inside
+ * the GameObjects class.
  * @author faris
  */
 public interface IGameObjects {
@@ -18,6 +19,11 @@ public interface IGameObjects {
      */
     public void addObject(IDynamicObject object);
 
+    /**
+     * Add a Projectile to the game.
+     *
+     * @param projectile the Projectile to add to the scene.
+     */
     public void addProjectile(Projectile projectile);
     
     /**
@@ -27,6 +33,9 @@ public interface IGameObjects {
      */
     public void removeObject(IDynamicObject object);
 
+    /**
+     * Remove a Projectile from the game.
+     */
     public void removeProjectile();
     
     /**
@@ -57,7 +66,15 @@ public interface IGameObjects {
      */
     public double getLeftBorder();
     
+    /**
+     * Check if there is currently a projectile spawned in the game.
+     * @return if there is currently a projectile spawned in the game.
+     */
     public boolean hasProjectile();
 
+    /**
+     * Called when the player dies. Handles quiting the game and reducing the
+     * amount of lives by 1.
+     */
     public void playerDied();
 }

@@ -59,26 +59,7 @@ public class Projectile extends AbstractDynamicObject {
      */
     @Override
     public void checkCollision(PhysicsObject dobj, long nanoFrameTime) {
-        // only react to collisions when circles call our collision method
-//        if(!isActive)
-//            return;
-//        
-//        if (dobj instanceof Bubble) {
-//            Bubble bubble = (Bubble) dobj;
-//
-//            // don't split circles which are too small
-//            if (bubble.getRadius() < 10) {
-//                return;
-//            }
-//
-//            Point bubblePoint = bubble.getPoint();
-//            Point ip = getClosestIntersection(bubblePoint);
-//            if (ip.distanceTo(bubblePoint) < bubble.getRadius()) {
-//                bubble.splitBubble();
-//                getGameObjects().removeProjectile();
-//                isActive = false;
-//            }
-//        }
+        // we won't collide with anything, other things only collide with us.
     }
 
     /**
@@ -93,18 +74,18 @@ public class Projectile extends AbstractDynamicObject {
         double endY = fxLine.getEndY() - GROW_RATE * (nanoFrameTime / 1_000_000_000.0);
         fxLine.setEndY(endY);
         updateLinePoints();
-
-        // destroy line if line hits the ceiling
-        if (endY < getGameObjects().getTopBorder()) {
+        
+        // destroy line if it hit the ceiling
+        if (fxLine.getEndY() < getGameObjects().getTopBorder()) {
             getGameObjects().removeProjectile();
             isActive = false;
         }
     }
 
-//    @Override
-//    public Vector getSpeedVector() {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+    /**
+     * Prepare for an update.
+     * @param nanoFrameTime the time which a frame takes.
+     */
     @Override
     public void prepareUpdate(long nanoFrameTime) {
         // no preparation needed
@@ -191,6 +172,12 @@ public class Projectile extends AbstractDynamicObject {
         p2 = new Point(fxLine.getEndX(), fxLine.getEndY());
     }
 
+    /**
+     * Called when a dynamic object collides with this projectile. If it is a
+     * bubble we will split the bubble.
+     * @param obj2 the dynamic object which collided with this projectile.
+     * @param nanoFrameTime the time which a frame takes.
+     */
     @Override
     public void collide(IDynamicObject obj2, long nanoFrameTime) {
         if (isActive && obj2 instanceof Bubble) {

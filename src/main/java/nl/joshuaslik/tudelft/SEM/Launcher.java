@@ -55,6 +55,7 @@ public class Launcher extends Application {
      * Load the fxml file for the screen.
      *
      * @param fxmlURL URL of the FXML file.
+     * @return the controller of the loaded view.
      */
     public static IviewController loadView(URL fxmlURL) {
         FXMLLoader loader = new FXMLLoader();

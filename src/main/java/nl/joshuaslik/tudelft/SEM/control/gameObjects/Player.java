@@ -23,7 +23,6 @@ public class Player extends AbstractDynamicObject {
     private final Keyboard keyboard;
     private static final double MAX_SPEED = 200;
 
-    // TODO Temporary dirty static
     private int lives;
 
     /**
@@ -119,9 +118,8 @@ public class Player extends AbstractDynamicObject {
 
     /**
      * Not implemented.
-     *
-     * @param p point
-     * @return intersection point
+     * @param p -
+     * @return intersection -
      */
     @Override
     public IntersectionPoint getClosestIntersection(Point p) {
@@ -129,6 +127,11 @@ public class Player extends AbstractDynamicObject {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Never called, because player is special.
+     * @param obj2 -
+     * @param nanoFrameTime -
+     */
     @Override
     public void collide(IDynamicObject obj2, long nanoFrameTime) {
         // player is special: collide won't be called

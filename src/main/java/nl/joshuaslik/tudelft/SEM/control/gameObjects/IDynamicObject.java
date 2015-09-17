@@ -19,16 +19,18 @@ public interface IDynamicObject extends PhysicsObject, IUpdateable {
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     public void checkCollision(final PhysicsObject obj2, final long nanoFrameTime);
-    //	public abstract void collide(final DynamicObject obj2, final long nanoFrameTime);
 
     /**
-     * Get the speed of this object as a x/y vector.
-     *
-     * @return x/y vector representing the speed.
+     * Notify a dynamic object of the fact that we collided with it.
+     * @param obj2 the dynamic object with which you collided.
+     * @param nanoFrameTime the frame time in nano seconds.
      */
-//    public Vector getSpeedVector();
-
     public void collide(final IDynamicObject obj2, final long nanoFrameTime);
     
+    /**
+     * Set the game object interface, which allows this class to interact via a
+     * limited set of methods, with other game objects.
+     * @param gameObjects the game objects interface.
+     */
     public void setIGameObjects(IGameObjects gameObjects);
 }

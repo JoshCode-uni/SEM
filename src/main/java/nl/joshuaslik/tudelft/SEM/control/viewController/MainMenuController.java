@@ -27,7 +27,7 @@ public class MainMenuController implements IviewController {
     @FXML
     private Text totalScore;
 
-    private static ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
+    private static final ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
 
     static {
         for (int i = 0; i < Levels.amountOfLevels(); i++) {
@@ -126,6 +126,7 @@ public class MainMenuController implements IviewController {
      *
      * @param disabled if the buttons should be disabled.
      */
+    @Override
     public void setButtonsDisiabled(boolean disabled) {
         playButton.setDisable(disabled);
         chooseLevelButton.setDisable(disabled);
