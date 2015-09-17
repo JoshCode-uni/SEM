@@ -5,6 +5,8 @@
  */
 package nl.joshuaslik.tudelft.SEM.model.container;
 
+import java.util.Objects;
+
 /**
  * A container class which contains an intersection point.
  *
@@ -74,4 +76,32 @@ public class IntersectionPoint extends Point {
     public void setSpeedVec(Vector speedVec) {
         this.speedVec = speedVec;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        return hash;
+    }
+
+    /**
+     * Check if this and obj are equal.
+     * @param obj the object to compare to.
+     * @return if the objects are equal.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final IntersectionPoint other = (IntersectionPoint) obj;
+        if (!Objects.equals(this.normal, other.normal)) {
+            return false;
+        }
+        return super.equals(obj);
+    }
+    
+    
 }
