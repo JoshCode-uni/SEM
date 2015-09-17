@@ -11,14 +11,21 @@ public class GameLog {
 	private static PrintWriter pw;
 	
 	/**
-	 * Builds a FileHandler to handle the logs added by the logger, uses SimpleFormatter
-	 * to write the Log in a desired format.
+	 * Constructs the logs directory and logfile if it is not created yet
+	 * Constructs a PrintWriter to write to the logfile
+	 * If the log gets bigger than 10kb it will reset the file
 	 */
-	public GameLog(){
+	public static void constructor(){
+		File dir = new File("logs");
+		dir.mkdirs();
 		File log = new File("logs/Log.log");
+		if(log.length() > 10000)
+			log.delete();
 		try {
 			FileWriter fw = new FileWriter(log,true);
 			pw = new PrintWriter(fw,true);
+			pw.println("");
+			pw.println("GAME STARTED AT: "+getCurrentTime());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

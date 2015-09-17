@@ -35,14 +35,13 @@ public class Launcher extends Application {
 	public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
 	private static final BorderPane bp = new BorderPane();
 	public static Stage stage;
-	public static final GameLog gl = new GameLog();
 	
 	/**
 	 * Start up the game.
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		
+		GameLog.constructor();
 		loadView(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
 		
 		Scene scene = new Scene(bp);
