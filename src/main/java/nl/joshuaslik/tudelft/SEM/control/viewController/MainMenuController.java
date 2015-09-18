@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import utility.GameLog;
 
 /**
  * Controller for the main menu UI.
@@ -39,11 +40,15 @@ public class MainMenuController implements IviewController {
      * Initialize.
      */
     public void initialize() {
+        totalScore.setText("Total Score: " + calculateTotalScore());
+    }
+    
+    private static int calculateTotalScore() {
         int score = 0;
         for (int e : scoresPerLevel) {
             score += e;
         }
-        totalScore.setText("Total Score: " + score);
+        return score;
     }
 
     /**
@@ -53,6 +58,7 @@ public class MainMenuController implements IviewController {
      */
     @FXML
     protected void handlePlayButton(ActionEvent event) {
+        GameLog.addInfoLog("Play button pressed from main menu");
         System.out.println("Play button pressed!");
         GameController.loadView();
     }
@@ -64,6 +70,7 @@ public class MainMenuController implements IviewController {
      */
     @FXML
     protected void handleChooseLevelButton(ActionEvent event) {
+        GameLog.addInfoLog("Choose level button pressed from main menu");
         System.out.println("Choose Level button pressed!");
         ChooseLevelController.loadView();
     }
@@ -75,6 +82,7 @@ public class MainMenuController implements IviewController {
      */
     @FXML
     protected void handleOptionsButton(ActionEvent event) {
+        GameLog.addInfoLog("Options button pressed from main menu");
         System.out.println("Options button pressed!");
         OptionsController.loadView();
     }
@@ -86,6 +94,7 @@ public class MainMenuController implements IviewController {
      */
     @FXML
     protected void handleQuitButton(ActionEvent event) {
+        GameLog.addInfoLog("Quit button pressed from main menu");
         System.out.println("Quit button pressed!");
         System.exit(0);
     }
@@ -119,6 +128,7 @@ public class MainMenuController implements IviewController {
         if (scoresPerLevel.get(level) < score) {
             MainMenuController.scoresPerLevel.set(level, score);
         }
+        GameLog.addInfoLog("new total score: " + calculateTotalScore());
     }
 
     /**

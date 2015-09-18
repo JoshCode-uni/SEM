@@ -12,6 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.GameObjects;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import utility.GameLog;
 
 /**
  * The gameloop which updated all objects after each frame.
@@ -58,13 +59,15 @@ public class GameLoop extends AnimationTimer implements IDraw {
             // update time
             long frametime = this.time != 0 ? time - this.time : 165_000_000;
             this.time = time;
-
+            
             gameController.updateTime(frametime);
             gameObjects.update(frametime);
 
         }
         catch (Exception ex) {
             stop();
+            GameLog.addErrorLog("Exception in game loop");
+            GameLog.addErrorLog(ex.getMessage());
             Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, "Exception in game loop", ex);
         }
     }

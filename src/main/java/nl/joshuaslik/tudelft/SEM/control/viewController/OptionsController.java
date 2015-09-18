@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import utility.GameLog;
 
 public class OptionsController implements IviewController {
 
@@ -18,6 +19,7 @@ public class OptionsController implements IviewController {
      */
     @FXML
     protected void handlePlayButton(ActionEvent event) {
+        GameLog.addInfoLog("Play button pressed from option menu");
         System.out.println("Play button pressed!");
         GameController.loadView();
     }
@@ -29,6 +31,7 @@ public class OptionsController implements IviewController {
      */
     @FXML
     protected void handleChooseLevelButton(ActionEvent event) {
+        GameLog.addInfoLog("Choose level button pressed from option menu");
         System.out.println("Choose Level button pressed!");
         ChooseLevelController.loadView();
     }
@@ -40,6 +43,7 @@ public class OptionsController implements IviewController {
      */
     @FXML
     protected void handleOptionsButton(ActionEvent event) {
+        GameLog.addInfoLog("Options button pressed from option menu");
         System.out.println("Options button pressed!");
         OptionsController.loadView();
     }
@@ -51,6 +55,7 @@ public class OptionsController implements IviewController {
      */
     @FXML
     protected void handleQuitButton(ActionEvent event) {
+        GameLog.addInfoLog("Quit button pressed from option menu");
         System.out.println("Quit button pressed!");
         System.exit(0);
     }

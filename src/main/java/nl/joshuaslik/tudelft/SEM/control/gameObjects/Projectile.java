@@ -9,6 +9,7 @@ import javafx.scene.paint.Color;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
+import utility.GameLog;
 
 /**
  * A class which holds the information of a projectile which is shot by the
@@ -49,6 +50,8 @@ public class Projectile extends AbstractDynamicObject {
         fxLine.setStroke(Color.FUCHSIA);
         fxLine.setOpacity(0.3);
 
+        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) 
+                + ", " + Double.toString(startY) + ")");
     }
 
     /**
@@ -74,9 +77,12 @@ public class Projectile extends AbstractDynamicObject {
         double endY = fxLine.getEndY() - GROW_RATE * (nanoFrameTime / 1_000_000_000.0);
         fxLine.setEndY(endY);
         updateLinePoints();
-        
+
         // destroy line if it hit the ceiling
         if (fxLine.getEndY() < getGameObjects().getTopBorder()) {
+            GameLog.addInfoLog("Projectile hit ceiling at: ("
+                    + Double.toString(fxLine.getEndX()) + ", "
+                    + Double.toString(fxLine.getEndY()) + ")");
             getGameObjects().removeProjectile();
             isActive = false;
         }
@@ -84,6 +90,7 @@ public class Projectile extends AbstractDynamicObject {
 
     /**
      * Prepare for an update.
+     *
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
@@ -175,6 +182,7 @@ public class Projectile extends AbstractDynamicObject {
     /**
      * Called when a dynamic object collides with this projectile. If it is a
      * bubble we will split the bubble.
+     *
      * @param obj2 the dynamic object which collided with this projectile.
      * @param nanoFrameTime the time which a frame takes.
      */
@@ -183,6 +191,9 @@ public class Projectile extends AbstractDynamicObject {
         if (isActive && obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
+            GameLog.addInfoLog("Projectile hit bubble at: ("
+                    + Double.toString(fxLine.getEndX()) + ", "
+                    + Double.toString(fxLine.getEndY()) + ")");
             getGameObjects().removeProjectile();
             isActive = false;
         }
