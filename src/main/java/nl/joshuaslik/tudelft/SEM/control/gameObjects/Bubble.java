@@ -53,7 +53,7 @@ public class Bubble extends AbstractDynamicObject {
         circle.centerYProperty().addListener(changeListener);
         
         GameLog.addInfoLog("Bubble created at: ("
-                    + Double.toString(circle.getCenterX())
+                    + Double.toString(circle.getCenterX()) + ", "
                     + Double.toString(circle.getCenterY()) + ")");
     }
 

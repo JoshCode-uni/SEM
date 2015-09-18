@@ -50,8 +50,8 @@ public class Projectile extends AbstractDynamicObject {
         fxLine.setStroke(Color.FUCHSIA);
         fxLine.setOpacity(0.3);
 
-        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX)
-                + Double.toString(startY) + ")");
+        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) 
+                + ", " + Double.toString(startY) + ")");
     }
 
     /**
@@ -81,7 +81,7 @@ public class Projectile extends AbstractDynamicObject {
         // destroy line if it hit the ceiling
         if (fxLine.getEndY() < getGameObjects().getTopBorder()) {
             GameLog.addInfoLog("Projectile hit ceiling at: ("
-                    + Double.toString(fxLine.getEndX())
+                    + Double.toString(fxLine.getEndX()) + ", "
                     + Double.toString(fxLine.getEndY()) + ")");
             getGameObjects().removeProjectile();
             isActive = false;
@@ -192,7 +192,7 @@ public class Projectile extends AbstractDynamicObject {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
             GameLog.addInfoLog("Projectile hit bubble at: ("
-                    + Double.toString(fxLine.getEndX())
+                    + Double.toString(fxLine.getEndX()) + ", "
                     + Double.toString(fxLine.getEndY()) + ")");
             getGameObjects().removeProjectile();
             isActive = false;

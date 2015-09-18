@@ -99,7 +99,7 @@ public class Player extends AbstractDynamicObject {
             
             //shoot
             GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX)
-                    + Double.toString(bulletY) + ")");
+                    + ", " + Double.toString(bulletY) + ")");
             getGameObjects().addProjectile(new Projectile(bulletX, bulletY));
         }
     }
