@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import utility.GameLog;
 
 public class ChooseLevelController implements IviewController {
 
@@ -22,6 +23,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handleLevel1Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 1 button pressed");
         System.out.println("Level 1 button pressed!");
         GameController.setLevel(0);
         GameController.loadView();
@@ -35,6 +37,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handleLevel2Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 2 button pressed");
         System.out.println("Level 2 button pressed!");
         GameController.setLevel(1);
         GameController.loadView();
@@ -47,6 +50,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handleLevel3Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 3 button pressed");
         System.out.println("Level 3 button pressed!");
         GameController.setLevel(2);
         GameController.loadView();
@@ -60,6 +64,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handleLevel4Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 4 button pressed");
         System.out.println("Level 4 button pressed!");
         GameController.setLevel(3);
         GameController.loadView();
@@ -72,6 +77,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handleLevel5Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 5 button pressed");
         System.out.println("Level 5 button pressed!");
         GameController.setLevel(4);
         GameController.loadView();
@@ -84,6 +90,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handleMainMenuButton(ActionEvent event) {
+        GameLog.addInfoLog("Main Menu button pressed from choose level");
         System.out.println("Main Menu button pressed!");
         MainMenuController.loadView();
     }
@@ -95,6 +102,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handlePlayButton(ActionEvent event) {
+        GameLog.addInfoLog("Play button pressed from choose level");
         System.out.println("Play button pressed!");
         GameController.loadView();
     }
@@ -106,6 +114,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handleChooseLevelButton(ActionEvent event) {
+        GameLog.addInfoLog("Choose level button pressed from choose level");
         System.out.println("Choose Level button pressed!");
         ChooseLevelController.loadView();
     }
@@ -117,6 +126,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handleOptionsButton(ActionEvent event) {
+        GameLog.addInfoLog("Options button pressed from choose level");
         System.out.println("Options button pressed!");
         OptionsController.loadView();
     }
@@ -128,6 +138,7 @@ public class ChooseLevelController implements IviewController {
      */
     @FXML
     protected void handleQuitButton(ActionEvent event) {
+        GameLog.addInfoLog("Quit button pressed from choose level");
         System.out.println("Quit button pressed!");
         System.exit(0);
     }

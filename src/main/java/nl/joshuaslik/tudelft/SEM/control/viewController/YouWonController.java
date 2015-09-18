@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
 import javafx.scene.layout.Pane;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import utility.GameLog;
 
 /**
  * Controller for the You Won screen.
@@ -41,6 +42,7 @@ public class YouWonController implements IpopupController {
      */
     @FXML
     private void handleMainMenuButton(ActionEvent event) {
+        GameLog.addInfoLog("Main menu button pressed from you won screen");
         System.out.println("Main Menu button pressed!");
         popupControl.hide();
         mainController.setButtonsDisiabled(false);
@@ -54,6 +56,7 @@ public class YouWonController implements IpopupController {
     //Needs to change
     @FXML
     private void handleNextLevelButton(ActionEvent event) {
+        GameLog.addInfoLog("Next level button pressed from you won screen");
         System.out.println("Next level button pressed!");
         mainController.setButtonsDisiabled(false);
         popupControl.hide();

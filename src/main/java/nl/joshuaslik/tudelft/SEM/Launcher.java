@@ -59,6 +59,7 @@ public class Launcher extends Application {
      * @return the controller of the loaded view.
      */
     public static IviewController loadView(URL fxmlURL) {
+        GameLog.addInfoLog("Load view: " + fxmlURL.getPath());
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(fxmlURL);
         try {
@@ -69,6 +70,8 @@ public class Launcher extends Application {
             return res;
         }
         catch (IOException ex) {
+            GameLog.addErrorLog("Failed to load fxml file: " + fxmlURL.toString());
+            GameLog.addErrorLog(ex.getMessage());
             Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "Failed to load fxml file: " + fxmlURL.toString(), ex);
             return null;
         }
@@ -94,6 +97,8 @@ public class Launcher extends Application {
             popupController.setMainViewController(mainViewController);
         }
         catch (IOException ex) {
+            GameLog.addErrorLog("Failed to load fxml file: " + fxmlURL.toString());
+            GameLog.addErrorLog(ex.getMessage());
             Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "Failed to load fxml file: " + fxmlURL.toString(), ex);
         }
     }

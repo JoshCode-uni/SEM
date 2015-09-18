@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import utility.GameLog;
 
 /**
  * A class containing the position of the player. This class also controller the
@@ -46,6 +47,8 @@ public class Player extends AbstractDynamicObject {
      */
     @Override
     public void prepareUpdate(long nanoFrameTime) {
+        GameLog.addWarningLog("Called non-implemented method: " + 
+                "prepareUpdate in class Player");
         // no preparation needed
     }
 
@@ -57,6 +60,8 @@ public class Player extends AbstractDynamicObject {
      */
     @Override
     public void checkCollision(PhysicsObject obj2, long nanoFrameTime) {
+        GameLog.addWarningLog("Called non-implemented method: " + 
+                "checkCollision in class Player");
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
@@ -89,8 +94,13 @@ public class Player extends AbstractDynamicObject {
         }
 
         if (keyboard.isShoot() && !getGameObjects().hasProjectile()) {
+            double bulletX = (image.getX() + image.getLayoutBounds().getMaxX()) / 2.0;
+            double bulletY = image.getY() + image.getLayoutBounds().getHeight();
+            
             //shoot
-            getGameObjects().addProjectile(new Projectile((image.getX() + image.getLayoutBounds().getMaxX()) / 2.0, image.getY() + image.getLayoutBounds().getHeight()));
+            GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX)
+                    + Double.toString(bulletY) + ")");
+            getGameObjects().addProjectile(new Projectile(bulletX, bulletY));
         }
     }
 
@@ -102,12 +112,8 @@ public class Player extends AbstractDynamicObject {
     public boolean checkBubbleCollision() {
         ArrayList<PhysicsObject> objects = ((GameObjects) getGameObjects()).getAllObjects();//GameLoop.getAllObjects(); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MUST BE CHANGED
 
-        Point leftcorner = new Point(image.getX(), image.getY());
-        Point rightcorner = new Point(image.getX() + image.getFitWidth(), image.getY());
-
         for (PhysicsObject o : objects) {
             if (o instanceof Bubble) {
-                Bubble b = (Bubble) o;
                 if (image.intersects(o.getNode().getLayoutBounds())) {
                     return true;
                 }
@@ -123,6 +129,8 @@ public class Player extends AbstractDynamicObject {
      */
     @Override
     public IntersectionPoint getClosestIntersection(Point p) {
+        GameLog.addWarningLog("Called non-implemented method: " + 
+                "getClosestIntersection in class Player");
         // player is special: getClosestIntersection won't be called
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -134,6 +142,8 @@ public class Player extends AbstractDynamicObject {
      */
     @Override
     public void collide(IDynamicObject obj2, long nanoFrameTime) {
+        GameLog.addWarningLog("Called non-implemented method: " + 
+                "collide in class Player");
         // player is special: collide won't be called
     }
 }

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import utility.GameLog;
 
 public class YouLostController implements IpopupController {
 
@@ -21,6 +22,7 @@ public class YouLostController implements IpopupController {
      */
     @FXML
     private void handleMainMenuButton(ActionEvent event) {
+        GameLog.addInfoLog("Retry button pressed from you lost screen");
         System.out.println("Retry button pressed!");
         popupControl.hide();
         mainController.setButtonsDisiabled(false);
@@ -33,6 +35,7 @@ public class YouLostController implements IpopupController {
      */
     @FXML
     private void handleTryAgainButton(ActionEvent event) {
+        GameLog.addInfoLog("Main menu button pressed from you lost screen");
         System.out.println("Main Menu button pressed!");
         popupControl.hide();
         mainController.setButtonsDisiabled(false);

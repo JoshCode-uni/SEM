@@ -7,6 +7,7 @@ import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
+import utility.GameLog;
 
 /**
  * This class contains the position, speed and direction of a bubble. It
@@ -50,6 +51,10 @@ public class Bubble extends AbstractDynamicObject {
         SceneSizeChangeListener changeListener = new SceneSizeChangeListener();
         circle.centerXProperty().addListener(changeListener);
         circle.centerYProperty().addListener(changeListener);
+        
+        GameLog.addInfoLog("Bubble created at: ("
+                    + Double.toString(circle.getCenterX())
+                    + Double.toString(circle.getCenterY()) + ")");
     }
 
     /**
@@ -222,6 +227,10 @@ public class Bubble extends AbstractDynamicObject {
      * Split a bubble if you pushed the button.
      */
     public void splitBubble() {
+        
+        GameLog.addInfoLog("Bubble hit by projectile at: ("
+                    + Double.toString(circle.getCenterX())
+                    + Double.toString(circle.getCenterY()) + ")");
 
         double newRadius = circle.getRadius() / 2.0;
         if (newRadius < 10) {
@@ -231,6 +240,8 @@ public class Bubble extends AbstractDynamicObject {
         if (newRadius < 20) {
             newRadius = 10;
         }
+        
+        GameLog.addInfoLog("Bubble is split");
 
         double xPos = circle.getCenterX();
         double yPos = circle.getCenterY();
@@ -303,6 +314,10 @@ public class Bubble extends AbstractDynamicObject {
         private void listenerCheckTop() {
             if (circleY - radius - 10 < getGameObjects().getTopBorder()) // hit ceiling
             {
+                GameLog.addInfoLog("Bubble hit ceiling: ("
+                    + Double.toString(circle.getCenterX())
+                    + Double.toString(circle.getCenterY()) + ")");
+                GameLog.addInfoLog("Bubble is destroyed");
                 getGameObjects().removeObject(getThis());
             }
         }
