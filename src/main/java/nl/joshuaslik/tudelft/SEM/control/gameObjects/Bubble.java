@@ -304,6 +304,10 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
         return this;
     }
     
+    /**
+     * Get the circle view object interface of this bubble.
+     * @return the circle view object interface of this bubble.
+     */
     protected ICircleViewObject getCircleViewObject() {
         return circle;
     }

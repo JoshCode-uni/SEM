@@ -329,18 +329,40 @@ public class GameObjects implements IUpdateable, IGameObjects {
         hasProjectile = false;
     }
     
+    /**
+     * Create a circle in the view.
+     * @param centerX the x coordinate of the center of the circle.
+     * @param centerY the y coordinate of the center of the circle.
+     * @param radius the radius of the circle.
+     * @return the interface of the circle view object.
+     */
     @Override
     public ICircleViewObject makeCircle(double centerX, double centerY, 
             double radius) {
         return draw.makeCircle(centerX, centerY, radius);
     }
     
+    /**
+     * Create a line in the view.
+     * @param startX the x coordinate of the start point of the line.
+     * @param startY the y coordinate of the start point of the line.
+     * @param endX the x coordinate of the end point of the line.
+     * @param endY the y coordinate of the end point of the line.
+     * @return the interface of the line view object.
+     */
     @Override
     public ILineViewObject makeLine(double startX, double startY, 
             double endX, double endY) {
         return draw.makeLine(startX, startY, endX, endY);
     }
     
+     /**
+     * Create an image in the view.
+     * @param is the input stream of the image.
+     * @param height the height of the image.
+     * @param width the width of the image.
+     * @return the interface of the image view object.
+     */
     @Override
     public IImageViewObject makeImage(InputStream is, double height, 
             double width) {

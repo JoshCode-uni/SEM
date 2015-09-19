@@ -16,13 +16,6 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 public interface PhysicsObject {
 
     /**
-     * Get the node of the object.
-     *
-     * @return the node.
-     */
-//    public Node getNode();
-
-    /**
      * Get the closest point of this object to point p.
      *
      * @param p point to get closest location to.

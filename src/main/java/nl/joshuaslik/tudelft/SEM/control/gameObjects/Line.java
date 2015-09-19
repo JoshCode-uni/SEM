@@ -12,9 +12,8 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
  */
 public class Line extends AbstractPhysicsObject {
 
-//    private final javafx.scene.shape.Line line;
     private final ILineViewObject line;
-    private Point p1, p2;
+    private final Point p1, p2;
     private final Vector dir;
     /**
      * 

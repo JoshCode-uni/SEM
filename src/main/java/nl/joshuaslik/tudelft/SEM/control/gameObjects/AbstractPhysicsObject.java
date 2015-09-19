@@ -7,14 +7,23 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import utility.GameLog;
 
+
 /**
+ * This class can be extended instead of IPhysicsObject if no other abstract
+ * classes have to be extended. It implements some of the functionality of the
+ * IPhysicsObject. This class is intended to be extended whenever possible, to
+ * avoid duplicate code.
  *
  * @author faris
  */
 public abstract class AbstractPhysicsObject implements PhysicsObject {
 
-    private IGameObjects gameObjects;
+    private final IGameObjects gameObjects;
 
+    /**
+     * Set the gameObject reference.
+     * @param gameObjects game objects interface.
+     */
     public AbstractPhysicsObject(IGameObjects gameObjects) {
         this.gameObjects = gameObjects;
     }
