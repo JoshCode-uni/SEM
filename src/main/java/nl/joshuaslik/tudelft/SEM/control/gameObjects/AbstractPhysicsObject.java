@@ -40,9 +40,6 @@ public abstract class AbstractPhysicsObject implements PhysicsObject {
                 + "This method shouldn't be "
                 + "called. Only classes directly implementing the interface "
                 + "\"Physics Objects\" may use it.");
-        throw new UnsupportedOperationException("This method shouldn't be "
-                + "called. Only classes directly implementing the interface "
-                + "\"Physics Objects\" may use it.");
     }
 
     /**

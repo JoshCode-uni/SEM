@@ -105,7 +105,7 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
             GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX)
                     + ", " + Double.toString(bulletY) + ")");
             getGameObjects().addProjectile(
-                    new Projectile(getGameObjects(), bulletX, bulletY));
+                    makeProjectile(getGameObjects(), bulletX, bulletY));
         }
     }
 
@@ -135,5 +135,25 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
                 + "collide in class Player");
         // player is special: collide won't be called
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    /**
+     * Method for testing purposes.
+     * @return the max speed.
+     */
+    public static double getMAX_SPEED() {
+        return MAX_SPEED;
+    }
+    
+    /**
+     * Method for testing puproses. Avoiding object creation.
+     * @param gameObjects game object.
+     * @param startX start X.
+     * @param startY start Y.
+     * @return the requested projectile.
+     */
+    public Projectile makeProjectile(IGameObjects gameObjects, double startX, 
+            double startY){
+        return new Projectile(gameObjects, startX, startY);
     }
 }
