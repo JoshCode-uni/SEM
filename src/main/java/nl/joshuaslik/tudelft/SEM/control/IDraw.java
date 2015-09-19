@@ -5,7 +5,10 @@
  */
 package nl.joshuaslik.tudelft.SEM.control;
 
-import javafx.scene.Node;
+import java.io.InputStream;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 
 /**
  * Drawing interface which gives a limited set of methods to the game container
@@ -15,19 +18,15 @@ import javafx.scene.Node;
 public interface IDraw {
 
     /**
-     * Draw node n on the screen.
-     * @param n the node to draw on the screen.
-     */
-    public void drawOnScreen(Node n);
-
-    /**
-     * Remove node n from the screen.
-     * @param n the node to remove from the screen.
-     */
-    public void removeFromScreen(Node n);
-
-    /**
      * Handle the event: player died.
      */
     public void playerDied();
+    
+    public ICircleViewObject makeCircle(double centerX, double centerY, 
+            double radius);
+    
+    public IImageViewObject makeImage(InputStream is, double width, double height);
+    
+    public ILineViewObject makeLine(double startX, double startY, double endX,
+            double endY);
 }

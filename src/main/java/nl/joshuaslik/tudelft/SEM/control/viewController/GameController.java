@@ -1,5 +1,6 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
+import java.io.InputStream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -12,6 +13,12 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.control.GameLoop;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.CircleViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import utility.GameLog;
 
@@ -189,5 +196,20 @@ public class GameController implements IviewController {
         GameLog.addWarningLog("Called non-implemented method: " + 
                 "setButtonsDisiabled in class GameController");
         //unnecesairy, no popup will occur in this view
+    }
+    
+    public ICircleViewObject makeCircle(double centerX, double centerY, 
+            double radius) {
+        return new CircleViewObject(centerX, centerY, radius, this);
+    }
+    
+    public IImageViewObject makeImage(InputStream is, 
+            double width, double height) {
+        return new ImageViewObject(is, width, height, this);
+    }
+    
+    public ILineViewObject makeLine(double startX, double startY, double endX,
+            double endY) {
+        return new LineViewObject(startX, startY, endX, endY, this);
     }
 }

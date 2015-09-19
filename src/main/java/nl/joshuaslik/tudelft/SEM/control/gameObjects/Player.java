@@ -5,8 +5,9 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-
-import javafx.scene.image.ImageView;
+import java.io.InputStream;
+import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import utility.GameLog;
@@ -17,25 +18,30 @@ import utility.GameLog;
  *
  * @author faris
  */
-public class Player extends AbstractDynamicObject {
+public class Player extends AbstractPhysicsObject implements IDynamicObject  {
 
-    private final ImageView image;
-    private final Keyboard keyboard;
+//    private final ImageView image;
+    private final IImageViewObject image;
+    private final IKeyboard keyboard;
     private static final double MAX_SPEED = 200;
 
     private int lives;
 
     /**
      * Create a player.
-     *
-     * @param img image of the player.
+     * @param gameObjects
+     * @param is
      * @param kb keyboard which controller the actions of the player.
      */
-    public Player(ImageView img, Keyboard kb) {
-        super(img);
-        image = img;
+    public Player(IGameObjects gameObjects, InputStream is, IKeyboard kb) {
+        super(gameObjects);
+        
+        image = getGameObjects().makeImage(is, 100, 100);
+        image.setX((getGameObjects().getRightBorder() - 
+                getGameObjects().getLeftBorder()) / 2.0);
+        image.setY(getGameObjects().getBottomBorder() - 
+                image.getHeight());
         keyboard = kb;
-
         lives = 1;
     }
 
@@ -58,7 +64,8 @@ public class Player extends AbstractDynamicObject {
     @Override
     public void checkCollision(PhysicsObject obj2, long nanoFrameTime) {
         if (obj2 instanceof Bubble) {
-            if (image.intersects(obj2.getNode().getLayoutBounds())) {
+            Bubble bubble = (Bubble) obj2;
+            if (image.intersects(bubble.getCircleViewObject())) {
                 if (lives > 0) {
                     GameLog.addInfoLog("Player loses life, lives left: " + lives);
                     System.out.println("Player loses life");
@@ -80,24 +87,25 @@ public class Player extends AbstractDynamicObject {
      */
     @Override
     public void update(long nanoFrameTime) {
-        if (keyboard.isMoveLeft() && getGameObjects().getLeftBorder() < image.getLayoutBounds().getMinX()) {
+        if (keyboard.isMoveLeft() && getGameObjects().getLeftBorder() < image.getStartX()) {
             // move left
-            image.setX(image.getX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000);
+            image.setX(image.getStartX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000);
             image.setScaleX(1);
-        } else if (keyboard.isMoveRight() && getGameObjects().getRightBorder() > image.getLayoutBounds().getMaxX()) {
+        } else if (keyboard.isMoveRight() && getGameObjects().getRightBorder() > image.getEndX()) {
             // move right
-            image.setX(image.getX() + MAX_SPEED * nanoFrameTime / 1_000_000_000);
+            image.setX(image.getStartX() + MAX_SPEED * nanoFrameTime / 1_000_000_000);
             image.setScaleX(-1);
         }
 
         if (keyboard.isShoot() && !getGameObjects().hasProjectile()) {
-            double bulletX = (image.getX() + image.getLayoutBounds().getMaxX()) / 2.0;
-            double bulletY = image.getY() + image.getLayoutBounds().getHeight();
+            double bulletX = (image.getStartX() + image.getEndX()) / 2.0;
+            double bulletY = image.getEndY();
 
             //shoot
             GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX)
                     + ", " + Double.toString(bulletY) + ")");
-            getGameObjects().addProjectile(new Projectile(bulletX, bulletY));
+            getGameObjects().addProjectile(
+                    new Projectile(getGameObjects(), bulletX, bulletY));
         }
     }
 

@@ -1,6 +1,6 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import javafx.scene.Node;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
@@ -10,34 +10,29 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
  *
  * @author faris
  */
-public class Line implements PhysicsObject {
+public class Line extends AbstractPhysicsObject {
 
-    private final javafx.scene.shape.Line fxLine;
+//    private final javafx.scene.shape.Line line;
+    private final ILineViewObject line;
     private Point p1, p2;
     private final Vector dir;
-
     /**
-     * Create a line between point 1/2.
-     *
-     * @param p1 point 1.
-     * @param p2 point 2.
+     * 
+     * @param gameObjects
+     * @param startX
+     * @param startY
+     * @param endX
+     * @param endY 
      */
-    public Line(Point p1, Point p2) {
-        fxLine = new javafx.scene.shape.Line(p1.getxPos(), p1.getyPos(), p2.getxPos(), p2.getyPos());
-        this.p1 = p1;
-        this.p2 = p2;
+    public Line(IGameObjects gameObjects, double startX, double startY, double endX, 
+            double endY) {
+        super(gameObjects);
+        
+        line = getGameObjects().makeLine(startX, startY, endX, endY);
+        this.p1 = new Point(startX, startY);
+        this.p2 = new Point(endX, endY);
 
         dir = new Vector(p2.getxPos() - p1.getxPos(), p2.getyPos() - p1.getyPos());
-    }
-
-    /**
-     * Get the node of this line.
-     *
-     * @return
-     */
-    @Override
-    public Node getNode() {
-        return fxLine;
     }
 
     /**

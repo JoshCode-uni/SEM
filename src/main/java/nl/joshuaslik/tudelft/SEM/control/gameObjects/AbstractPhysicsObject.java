@@ -5,29 +5,20 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import javafx.scene.Node;
+import utility.GameLog;
 
 /**
- * This class can be extended instead of IDynamicObject if no other abstract
- * classes have to be extended. It implements some of the functionality of the
- * IDynamicObject. This class is intended to be extended whenever possible, to
- * avoid duplicate code.
  *
  * @author faris
  */
-public abstract class AbstractDynamicObject implements IDynamicObject {
+public abstract class AbstractPhysicsObject implements PhysicsObject {
 
     private IGameObjects gameObjects;
-    private final Node node;
 
-    /**
-     * Construct this dynamic object.
-     * @param node the node of this object.
-     */
-    public AbstractDynamicObject(Node node) {
-        this.node = node;
+    public AbstractPhysicsObject(IGameObjects gameObjects) {
+        this.gameObjects = gameObjects;
     }
-
+    
     /**
      * Set the game objects interface of the gameobjects class which contains
      * this object.
@@ -35,16 +26,14 @@ public abstract class AbstractDynamicObject implements IDynamicObject {
      */
     @Override
     public final void setIGameObjects(IGameObjects gameObjects) {
-        this.gameObjects = gameObjects;
-    }
-
-    /**
-     * Get the node of this dynamic object.
-     * @return the node of this dynamic object.
-     */
-    @Override
-    public final Node getNode() {
-        return node;
+        GameLog.addErrorLog("Method call: setIGameObjects in class "
+                + "AbstractPhysicsObject. \n"
+                + "This method shouldn't be "
+                + "called. Only classes directly implementing the interface "
+                + "\"Physics Objects\" may use it.");
+        throw new UnsupportedOperationException("This method shouldn't be "
+                + "called. Only classes directly implementing the interface "
+                + "\"Physics Objects\" may use it.");
     }
 
     /**

@@ -5,13 +5,17 @@
  */
 package nl.joshuaslik.tudelft.SEM.control;
 
+import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.GameObjects;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import utility.GameLog;
 
 /**
@@ -21,6 +25,7 @@ import utility.GameLog;
  */
 public class GameLoop extends AnimationTimer implements IDraw {
 
+    private final Keyboard kb;
     private GameController gameController;
     private final GameObjects gameObjects;
     private long time = 0;
@@ -38,8 +43,21 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public GameLoop(GameController gameController, int currentLevel, double top,
             double right, double bottom, double left, Scene scene) {
         this.gameController = gameController;
+        kb = new Keyboard(scene);
         gameObjects = new GameObjects((IDraw) this, currentLevel, top, right,
-                bottom, left, scene);
+                bottom, left, kb);
+    }
+
+    @Override
+    public void start() {
+        super.start();
+        kb.addListeners();
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        kb.removeListeners();
     }
 
     /**
@@ -81,16 +99,6 @@ public class GameLoop extends AnimationTimer implements IDraw {
         this.gameController = gameController;
     }
 
-    @Override
-    public void drawOnScreen(Node n) {
-        gameController.drawNode(n);
-    }
-
-    @Override
-    public void removeFromScreen(Node n) {
-        gameController.removeNode(n);
-    }
-
     /**
      * Get the score achieved in this level.
      *
@@ -103,5 +111,23 @@ public class GameLoop extends AnimationTimer implements IDraw {
     @Override
     public void playerDied() {
         gameController.died();
+    }
+
+    @Override
+    public ICircleViewObject makeCircle(double centerX, double centerY,
+            double radius) {
+        return gameController.makeCircle(centerX, centerY, radius);
+    }
+
+    @Override
+    public IImageViewObject makeImage(InputStream is, double width,
+            double height) {
+        return gameController.makeImage(is, width, height);
+    }
+
+    @Override
+    public ILineViewObject makeLine(double startX, double startY, double endX,
+            double endY) {
+        return gameController.makeLine(startX, startY, endX, endY);
     }
 }

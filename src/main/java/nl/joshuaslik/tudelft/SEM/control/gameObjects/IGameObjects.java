@@ -5,6 +5,11 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
+import java.io.InputStream;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+
 /**
  * Interface which defines which methods may be accessed by the objects inside
  * the GameObjects class.
@@ -77,4 +82,11 @@ public interface IGameObjects {
      * amount of lives by 1.
      */
     public void playerDied();
+    
+    public ICircleViewObject makeCircle(double centerX, double centerY, 
+            double radius);
+    public ILineViewObject makeLine(double startX, double startY, 
+            double endX, double endY);
+    public IImageViewObject makeImage(InputStream is, double height, 
+            double width);
 }
