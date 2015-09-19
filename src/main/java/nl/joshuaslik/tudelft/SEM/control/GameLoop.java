@@ -59,7 +59,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
             // update time
             long frametime = this.time != 0 ? time - this.time : 165_000_000;
             this.time = time;
-            
+
             gameController.updateTime(frametime);
             gameObjects.update(frametime);
 
@@ -73,30 +73,12 @@ public class GameLoop extends AnimationTimer implements IDraw {
     }
 
     /**
-     * Get time of the last frame refresh.
-     *
-     * @return the time.
-     */
-    public long getTime() {
-        return time;
-    }
-
-    /**
      * Set the view controller class.
      *
      * @param gameController the view controller class.
      */
     public void setViewController(GameController gameController) {
         this.gameController = gameController;
-    }
-
-    /**
-     * Get the game controller class.
-     *
-     * @return the game controller class.
-     */
-    public GameController getViewController() {
-        return gameController;
     }
 
     @Override

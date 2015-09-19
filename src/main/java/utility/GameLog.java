@@ -15,13 +15,13 @@ public class GameLog {
     /**
      * Constructs the logs directory and logfile if it is not created yet
      * Constructs a PrintWriter to write to the logfile If the log gets bigger
-     * than 10kb it will reset the file
+     * than 1MB it will reset the file
      */
     public static void constructor() {
         File dir = new File("logs");
         dir.mkdirs();
         File log = new File("logs/Log.log");
-        if (log.length() > 10000) {
+        if (log.length() > 1_000_000) {
             log.delete();
         }
         try {

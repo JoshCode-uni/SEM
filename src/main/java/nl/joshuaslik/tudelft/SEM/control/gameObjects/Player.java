@@ -5,7 +5,6 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import java.util.ArrayList;
 
 import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
@@ -47,8 +46,6 @@ public class Player extends AbstractDynamicObject {
      */
     @Override
     public void prepareUpdate(long nanoFrameTime) {
-        GameLog.addWarningLog("Called non-implemented method: " + 
-                "prepareUpdate in class Player");
         // no preparation needed
     }
 
@@ -60,9 +57,20 @@ public class Player extends AbstractDynamicObject {
      */
     @Override
     public void checkCollision(PhysicsObject obj2, long nanoFrameTime) {
-        GameLog.addWarningLog("Called non-implemented method: " + 
-                "checkCollision in class Player");
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (obj2 instanceof Bubble) {
+            if (image.intersects(obj2.getNode().getLayoutBounds())) {
+                if (lives > 0) {
+                    GameLog.addInfoLog("Player loses life, lives left: " + lives);
+                    System.out.println("Player loses life");
+                    lives--;
+                    // Reset level
+                } else {
+                    GameLog.addInfoLog("Player dies, no lives left");
+                    System.out.println("Player dies");
+                    getGameObjects().playerDied();
+                }
+            }
+        }
     }
 
     /**
@@ -82,21 +90,10 @@ public class Player extends AbstractDynamicObject {
             image.setScaleX(-1);
         }
 
-        if (checkBubbleCollision()) {
-            if (lives > 0) {
-                System.out.println("Player loses life");
-                lives--;
-                // Reset level
-            } else {
-                System.out.println("Player dies");
-                getGameObjects().playerDied();
-            }
-        }
-
         if (keyboard.isShoot() && !getGameObjects().hasProjectile()) {
             double bulletX = (image.getX() + image.getLayoutBounds().getMaxX()) / 2.0;
             double bulletY = image.getY() + image.getLayoutBounds().getHeight();
-            
+
             //shoot
             GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX)
                     + ", " + Double.toString(bulletY) + ")");
@@ -105,45 +102,30 @@ public class Player extends AbstractDynamicObject {
     }
 
     /**
-     * Check if we collided with a bubble.
-     *
-     * @return if we collided with a bubble.
-     */
-    public boolean checkBubbleCollision() {
-        ArrayList<PhysicsObject> objects = ((GameObjects) getGameObjects()).getAllObjects();//GameLoop.getAllObjects(); // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MUST BE CHANGED
-
-        for (PhysicsObject o : objects) {
-            if (o instanceof Bubble) {
-                if (image.intersects(o.getNode().getLayoutBounds())) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    /**
      * Not implemented.
+     *
      * @param p -
      * @return intersection -
      */
     @Override
     public IntersectionPoint getClosestIntersection(Point p) {
-        GameLog.addWarningLog("Called non-implemented method: " + 
-                "getClosestIntersection in class Player");
+        GameLog.addWarningLog("Called non-implemented method: "
+                + "getClosestIntersection in class Player");
         // player is special: getClosestIntersection won't be called
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
      * Never called, because player is special.
+     *
      * @param obj2 -
      * @param nanoFrameTime -
      */
     @Override
     public void collide(IDynamicObject obj2, long nanoFrameTime) {
-        GameLog.addWarningLog("Called non-implemented method: " + 
-                "collide in class Player");
+        GameLog.addWarningLog("Called non-implemented method: "
+                + "collide in class Player");
         // player is special: collide won't be called
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

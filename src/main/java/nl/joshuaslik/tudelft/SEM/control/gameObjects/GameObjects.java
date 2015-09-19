@@ -24,14 +24,12 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
  */
 public class GameObjects implements IUpdateable, IGameObjects {
 
-    private final ArrayList<PhysicsObject> allObjects = new ArrayList<>();
     private final ArrayList<PhysicsObject> staticObjects = new ArrayList<>();
     private final ArrayList<IDynamicObject> dynamicObjects = new ArrayList<>();
 
     private final ArrayList<IDynamicObject> addDynamicBuffer = new ArrayList<>();
     private final ArrayList<IDynamicObject> removeDynamicBuffer = new ArrayList<>();
 
-    private IDynamicObject player;
     private boolean hasProjectile = false;
     private Projectile projectile = null;
     private double topBorder, rightBorder, bottomBorder, leftBorder;
@@ -78,7 +76,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
         // check for collisions
         for (int i = 0; i < dynamicObjects.size(); i++) {
-            for (int j = 0; j < dynamicObjects.size(); j++) {
+            for (int j = i + 1; j < dynamicObjects.size(); j++) {
                 dynamicObjects.get(i).checkCollision(dynamicObjects.get(j), nanoFrameTime);
             }
             for (PhysicsObject e : staticObjects) {
@@ -91,9 +89,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
         for (IDynamicObject e : dynamicObjects) {
             e.update(nanoFrameTime);
         }
-        
-        // update the players position
-        player.update(nanoFrameTime);
     }
 
     /**
@@ -143,8 +138,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
         Keyboard kb = new Keyboard(scene);
         kb.addListeners();
 
-        player = new Player(playrImg, kb);
+        Player player = new Player(playrImg, kb);
         player.setIGameObjects((IGameObjects) this);
+        dynamicObjects.add(player);
     }
 
     /**
@@ -165,7 +161,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     public void addObject(PhysicsObject object) {
         staticObjects.add(object);
-        allObjects.add(object);
     }
 
     /**
@@ -196,7 +191,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
             object.setIGameObjects((IGameObjects) this);
 
             dynamicObjects.add(object);
-            allObjects.add(object);
 
             if (object instanceof Bubble) {
                 ++bubbleCount;
@@ -219,7 +213,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
             }
 
             dynamicObjects.remove(object);
-            allObjects.remove(object);
 
             // remove the dynamic object from the view
             draw.removeFromScreen(object.getNode());
@@ -233,9 +226,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @return all objects which are currently in the game.
      */
-    public ArrayList<PhysicsObject> getAllObjects() {
-        return allObjects;
-    }
+//    public ArrayList<PhysicsObject> getAllObjects() {
+//        return allObjects;
+//    }
 
     /**
      * Set the bounds of the game.
@@ -342,10 +335,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
     @Override
     public void addProjectile(Projectile projectile) {
         projectile.setIGameObjects((IGameObjects) this);
-        dynamicObjects.add(projectile);
+        addObject(projectile);
         this.projectile = projectile;
         hasProjectile = true;
-        draw.drawOnScreen(projectile.getNode());
     }
 
     /**
