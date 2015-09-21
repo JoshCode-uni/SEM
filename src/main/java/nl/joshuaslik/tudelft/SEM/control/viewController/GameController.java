@@ -48,7 +48,7 @@ public class GameController implements IviewController {
 
     private GameLoop gl;
     
-    private static final long MAX_TIME = 30_000_000_000l; // 30 seconds in ns
+    private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
     private long timeLeft;
 
     /**
