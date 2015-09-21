@@ -43,7 +43,6 @@ public class YouWonController implements IpopupController {
         GameLog.addInfoLog("Main menu button pressed from you won screen");
         System.out.println("Main Menu button pressed!");
         popupControl.hide();
-        mainController.setButtonsDisabled(false);
         MainMenuController.loadView();
     }
 

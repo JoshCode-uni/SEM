@@ -25,7 +25,6 @@ public class YouLostController implements IpopupController {
         GameLog.addInfoLog("Retry button pressed from you lost screen");
         System.out.println("Retry button pressed!");
         popupControl.hide();
-        mainController.setButtonsDisabled(false);
         MainMenuController.loadView();
     }
 

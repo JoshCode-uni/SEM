@@ -180,10 +180,8 @@ public class GameController implements IviewController {
      */
     @Override
     public void setButtonsDisabled(boolean disabled) {
-        GameLog.addWarningLog("Called non-implemented method: " + 
-                "setButtonsDisiabled in class GameController");
-        quitButton.setDisable(true);
-        mainMenuButton.setDisable(true);
+        quitButton.setDisable(disabled);
+        mainMenuButton.setDisable(disabled);
     }
     
     /**
