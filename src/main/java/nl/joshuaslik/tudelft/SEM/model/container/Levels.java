@@ -17,7 +17,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
  */
 public class Levels {
 
-    private final static int AMOUNT_OF_IMPLEMENTED_LEVELS = 5;
+    private final static int AMOUNT_OF_IMPLEMENTED_LEVELS = 4;
     private static int currentLevel = 0;
     private static int unlockedLevel = 0;
 
@@ -29,6 +29,7 @@ public class Levels {
      * Get level of [index].
      *
      * @param index the index of the level.
+     * @param gameObjects
      * @return the level.
      */
     public static ArrayList<Bubble> getLevel(int index, IGameObjects gameObjects) {
@@ -57,7 +58,7 @@ public class Levels {
         ArrayList<Bubble> level0 = new ArrayList<>();
 
         // create 1 bubble
-        Point bubbleCenter = new Point(200, 300);
+        Point bubbleCenter = new Point(200, 500);
         double bubbleRadius = 20;
         Vector bubbleDirection = new Vector(-2, -5);
         Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
@@ -75,13 +76,13 @@ public class Levels {
         ArrayList<Bubble> level1 = new ArrayList<>();
 
         // create 1st bubble
-        Point bubbleCenter = new Point(300, 300);
+        Point bubbleCenter = new Point(300, 200);
         double bubbleRadius = 20;
         Vector bubbleDirection = new Vector(-2, -5);
         Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
 
         // create 2nd bubble
-        Point bubble2Center = new Point(900, 400);
+        Point bubble2Center = new Point(1300, 650);
         double bubble2Radius = 40;
         Vector bubble2Direction = new Vector(2, -5);
         Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
@@ -100,19 +101,19 @@ public class Levels {
         ArrayList<Bubble> level2 = new ArrayList<>();
 
         // create 1st bubble
-        Point bubbleCenter = new Point(300, 200);
+        Point bubbleCenter = new Point(300, 700);
         double bubbleRadius = 40;
         Vector bubbleDirection = new Vector(-2, -5);
         Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
 
         // create 2nd bubble
-        Point bubble2Center = new Point(800, 500);
+        Point bubble2Center = new Point(1200, 300);
         double bubble2Radius = 20;
         Vector bubble2Direction = new Vector(2, -5);
         Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
 
         // create 3rd bubble
-        Point bubble3Center = new Point(900, 300);
+        Point bubble3Center = new Point(1400, 620);
         double bubble3Radius = 40;
         Vector bubble3Direction = new Vector(2, -5);
         Bubble bubble3 = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
@@ -132,19 +133,19 @@ public class Levels {
         ArrayList<Bubble> level3 = new ArrayList<>();
 
         // create 1st bubble
-        Point bubbleCenter = new Point(300, 400);
+        Point bubbleCenter = new Point(300, 660);
         double bubbleRadius = 40;
         Vector bubbleDirection = new Vector(-2, -5);
         Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
 
         // create 2nd bubble
-        Point bubble2Center = new Point(100, 500);
-        double bubble2Radius = 70;
+        Point bubble2Center = new Point(100, 620);
+        double bubble2Radius = 80;
         Vector bubble2Direction = new Vector(2, -5);
         Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
 
         // create 3rd bubble
-        Point bubble3Center = new Point(900, 400);
+        Point bubble3Center = new Point(1300, 400);
         double bubble3Radius = 40;
         Vector bubble3Direction = new Vector(2, -5);
         Bubble bubble3 = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
@@ -165,24 +166,24 @@ public class Levels {
 
         // create 1st bubble
         Point bubbleCenter = new Point(300, 600);
-        double bubbleRadius = 70;
+        double bubbleRadius = 80;
         Vector bubbleDirection = new Vector(-2, -5);
         Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
 
         // create 2nd bubble
-        Point bubble2Center = new Point(100, 600);
+        Point bubble2Center = new Point(100, 700);
         double bubble2Radius = 20;
         Vector bubble2Direction = new Vector(-2, -5);
         Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
 
         // create 3rd bubble
-        Point bubble3Center = new Point(900, 600);
+        Point bubble3Center = new Point(1300, 700);
         double bubble3Radius = 20;
         Vector bubble3Direction = new Vector(2, -5);
         Bubble bubble3 = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
 
         // create 4rd bubble
-        Point bubble4Center = new Point(800, 600);
+        Point bubble4Center = new Point(1600, 600);
         double bubble4Radius = 80;
         Vector bubble4Direction = new Vector(2, -5);
         Bubble bubble4 = new Bubble(gameObjects, bubble4Center, bubble4Radius, bubble4Direction);

@@ -43,7 +43,7 @@ public class MainMenuController implements IviewController {
     private static final ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
 
     static {
-        for (int i = 0; i < Levels.amountOfLevels(); i++) {
+        for (int i = 0; i < Levels.amountOfLevels() + 1; i++) {
             scoresPerLevel.add(0);
         }
     }
