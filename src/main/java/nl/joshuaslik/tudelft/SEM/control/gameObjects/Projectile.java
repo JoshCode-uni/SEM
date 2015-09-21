@@ -24,7 +24,7 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
     private Point p1, p2;
     private final Vector dir;
 
-    private final static double GROW_RATE = 750;
+    private final static double GROW_RATE = 1000;
     private boolean isActive = true;
 
     /**
@@ -45,8 +45,8 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
         dir = new Vector(p2.getxPos() - p1.getxPos(), p2.getyPos() - p1.getyPos());
 
         line.setStrokeWidth(7);
-        line.setColor(0.7, 0.5, 0.9);
-        line.setOpacity(0.3);
+        line.setColor(0.2, 0.1, 0.1);
+        line.setOpacity(0.8);
 
         GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) 
                 + ", " + Double.toString(startY) + ")");

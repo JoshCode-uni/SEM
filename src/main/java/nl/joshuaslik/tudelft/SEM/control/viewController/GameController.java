@@ -47,8 +47,7 @@ public class GameController implements IviewController {
     private Group gameObjects;
 
     private GameLoop gl;
-
-    private static int currentLevel = 0;
+    
     private static final long MAX_TIME = 30_000_000_000l; // 30 seconds in ns
     private long timeLeft;
 
@@ -102,11 +101,11 @@ public class GameController implements IviewController {
      */
     @Override
     public void start(Scene scene) {
-        levelText.setText(Integer.toString(currentLevel + 1));
+        levelText.setText(Integer.toString(Levels.getCurrentLevel() + 1));
         timeLeft = MAX_TIME;
 
-        gl = new GameLoop(this, currentLevel, top.getStartY(), top.getEndX(),
-                bottom.getStartY(), top.getStartX(), scene);
+        gl = new GameLoop(this, Levels.getCurrentLevel(), top.getStartY(), 
+                top.getEndX(), bottom.getStartY(), top.getStartX(), scene);
         gl.setViewController(this);
 
         gl.start();
@@ -150,15 +149,15 @@ public class GameController implements IviewController {
      */
     public void levelCompleted() {
         int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
-        GameLog.addInfoLog("Player completed level: " + currentLevel);
+        GameLog.addInfoLog("Player completed level: " + 
+                Levels.getCurrentLevel());
         GameLog.addInfoLog("level score: " + totalScore);
         
-        MainMenuController.setScore(totalScore, currentLevel);
+        MainMenuController.setScore(totalScore, Levels.getCurrentLevel());
         gl.stop();
         gl = null;
-        if (currentLevel + 1 < Levels.amountOfLevels()) {
-            currentLevel++;
-        }
+        Levels.nextLevel();
+        
         //		MainMenuController.loadView();
         IviewController contr = MainMenuController.loadView();
         YouWonController.loadPopup(contr);
@@ -175,15 +174,6 @@ public class GameController implements IviewController {
 
         IviewController contr = MainMenuController.loadView();
         YouLostController.loadPopup(contr);
-    }
-
-    /**
-     * Select the level which should be played.
-     *
-     * @param level
-     */
-    public static void setLevel(int level) {
-        GameController.currentLevel = level;
     }
 
     /**

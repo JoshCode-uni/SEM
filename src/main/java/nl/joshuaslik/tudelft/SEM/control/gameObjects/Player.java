@@ -23,7 +23,7 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
 //    private final ImageView image;
     private final IImageViewObject image;
     private final IKeyboard keyboard;
-    private static final double MAX_SPEED = 200;
+    private static final double MAX_SPEED = 300;
 
     private int lives;
 

@@ -18,6 +18,8 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
 public class Levels {
 
     private final static int AMOUNT_OF_IMPLEMENTED_LEVELS = 5;
+    private static int currentLevel = 0;
+    private static int unlockedLevel = 0;
 
     public static int amountOfLevels() {
         return AMOUNT_OF_IMPLEMENTED_LEVELS;
@@ -190,5 +192,27 @@ public class Levels {
         level4.add(bubble3);
         level4.add(bubble4);
         return level4;
+    }
+
+    public static int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    public static void nextLevel() {
+        if(currentLevel < AMOUNT_OF_IMPLEMENTED_LEVELS)
+            currentLevel++;
+        if(currentLevel > unlockedLevel)
+            unlockedLevel = currentLevel;
+    }
+    
+    public static void setCurrentLevel(int level) {
+        if(level < unlockedLevel)
+            Levels.currentLevel = level;
+        else
+            Levels.currentLevel = unlockedLevel;
+    }
+
+    public static int getUnlockedLevel() {
+        return unlockedLevel;
     }
 }
