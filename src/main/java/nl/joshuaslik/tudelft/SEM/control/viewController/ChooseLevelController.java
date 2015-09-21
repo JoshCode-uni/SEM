@@ -161,7 +161,7 @@ public class ChooseLevelController implements IviewController {
     }
 
     @Override
-    public void setButtonsDisiabled(boolean disabled) {
+    public void setButtonsDisabled(boolean disabled) {
         //not currently needed
     }
 }

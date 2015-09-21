@@ -25,5 +25,5 @@ public interface IviewController {
      *
      * @param disabled if the buttons should be disabled or enabled.
      */
-    public void setButtonsDisiabled(boolean disabled);
+    public void setButtonsDisabled(boolean disabled);
 }

@@ -86,7 +86,7 @@ public class Launcher extends Application {
     public static void loadPopup(IviewController mainViewController, URL fxmlURL) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(fxmlURL);
-        mainViewController.setButtonsDisiabled(true);
+        mainViewController.setButtonsDisabled(true);
         try {
             Pane pane = loader.load();
             PopupControl popup = new PopupControl();
