@@ -101,7 +101,7 @@ public class GameController implements IviewController {
      */
     @Override
     public void start(Scene scene) {
-        levelText.setText(Integer.toString(Levels.getCurrentLevel() + 1));
+        levelText.setText("Level " + Integer.toString(Levels.getCurrentLevel() + 1));
         timeLeft = MAX_TIME;
 
         gl = new GameLoop(this, Levels.getCurrentLevel(), top.getStartY(), 
@@ -156,11 +156,9 @@ public class GameController implements IviewController {
         MainMenuController.setScore(totalScore, Levels.getCurrentLevel());
         gl.stop();
         gl = null;
-        Levels.nextLevel();
         
-        //		MainMenuController.loadView();
-        IviewController contr = MainMenuController.loadView();
-        YouWonController.loadPopup(contr);
+        Levels.nextLevel();
+        YouWonController.loadPopup(this);
     }
 
     /**
@@ -172,8 +170,7 @@ public class GameController implements IviewController {
         gl.stop();
         gl = null;
 
-        IviewController contr = MainMenuController.loadView();
-        YouLostController.loadPopup(contr);
+        YouLostController.loadPopup(this);
     }
 
     /**
@@ -182,10 +179,11 @@ public class GameController implements IviewController {
      * @param disabled if the buttons should be disabled.
      */
     @Override
-    public void setButtonsDisiabled(boolean disabled) {
+    public void setButtonsDisabled(boolean disabled) {
         GameLog.addWarningLog("Called non-implemented method: " + 
                 "setButtonsDisiabled in class GameController");
-        //unnecesairy, no popup will occur in this view
+        quitButton.setDisable(true);
+        mainMenuButton.setDisable(true);
     }
     
     /**

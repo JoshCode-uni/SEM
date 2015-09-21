@@ -165,7 +165,7 @@ public class MainMenuController implements IviewController {
      * @param disabled if the buttons should be disabled.
      */
     @Override
-    public void setButtonsDisiabled(boolean disabled) {
+    public void setButtonsDisabled(boolean disabled) {
         playButton.setDisable(disabled);
         chooseLevelButton.setDisable(disabled);
         optionsButton.setDisable(disabled);

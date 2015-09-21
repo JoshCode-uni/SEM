@@ -83,7 +83,7 @@ public class OptionsController implements IviewController {
      * @param disabled if the buttons should be disabled.
      */
     @Override
-    public void setButtonsDisiabled(boolean disabled) {
+    public void setButtonsDisabled(boolean disabled) {
         // not currently needed
     }
 }
