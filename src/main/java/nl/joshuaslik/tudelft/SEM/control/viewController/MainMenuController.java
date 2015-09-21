@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
@@ -21,17 +22,28 @@ public class MainMenuController implements IviewController {
 
     @FXML
     private Pane pane;
+    
+    @FXML
+    private HBox chooseLevelBox;
+    
+    @FXML
+    private Pane optionsPane;
 
     @FXML
     private Button playButton, chooseLevelButton, optionsButton, quitButton;
 
     @FXML
     private Text totalScore;
+    
+    @FXML
+    private Button level1Button, level2Button, level3Button, level4Button, 
+            level5Button, mainMenuButton;
+
 
     private static final ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
 
     static {
-        for (int i = 0; i < Levels.amountOfLevels(); i++) {
+        for (int i = 0; i < Levels.amountOfLevels() + 1; i++) {
             scoresPerLevel.add(0);
         }
     }
@@ -41,6 +53,21 @@ public class MainMenuController implements IviewController {
      */
     public void initialize() {
         totalScore.setText("Total Score: " + calculateTotalScore());
+        level5Button.setDisable(true);
+        level4Button.setDisable(true);
+        level3Button.setDisable(true);
+        level2Button.setDisable(true);
+        switch(Levels.getUnlockedLevel()) {
+            case(4) :
+                level5Button.setDisable(false);
+                // intended fallthrough
+            case 3:
+                level4Button.setDisable(false);
+            case 2:
+                level3Button.setDisable(false);
+            case 1:
+                level2Button.setDisable(false);
+        }
     }
     
     private static int calculateTotalScore() {
@@ -64,7 +91,8 @@ public class MainMenuController implements IviewController {
     }
 
     /**
-     * Handles clicking of the choose level button
+     * Handles clicking of the choose level button. Toggles choose button
+     * visibility.
      *
      * @param event the click of the button
      */
@@ -72,7 +100,7 @@ public class MainMenuController implements IviewController {
     protected void handleChooseLevelButton(ActionEvent event) {
         GameLog.addInfoLog("Choose level button pressed from main menu");
         System.out.println("Choose Level button pressed!");
-        ChooseLevelController.loadView();
+        chooseLevelBox.setVisible(!chooseLevelBox.isVisible());
     }
 
     /**
@@ -84,7 +112,7 @@ public class MainMenuController implements IviewController {
     protected void handleOptionsButton(ActionEvent event) {
         GameLog.addInfoLog("Options button pressed from main menu");
         System.out.println("Options button pressed!");
-        OptionsController.loadView();
+        optionsPane.setVisible(!optionsPane.isVisible());
     }
 
     /**
@@ -115,7 +143,7 @@ public class MainMenuController implements IviewController {
      */
     @Override
     public void start(Scene scene) {
-
+        
     }
 
     /**
@@ -142,5 +170,72 @@ public class MainMenuController implements IviewController {
         chooseLevelButton.setDisable(disabled);
         optionsButton.setDisable(disabled);
         quitButton.setDisable(disabled);
+    }
+    
+    /**
+     * Handles clicking of the Level 1 button
+     *
+     * @param event the click of the button
+     */
+    @FXML
+    protected void handleLevel1Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 1 button pressed");
+        System.out.println("Level 1 button pressed!");
+        Levels.setCurrentLevel(0);
+        GameController.loadView();
+
+    }
+
+    /**
+     * Handles clicking of the Level 2 button
+     *
+     * @param event the click of the button
+     */
+    @FXML
+    protected void handleLevel2Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 2 button pressed");
+        System.out.println("Level 2 button pressed!");
+        Levels.setCurrentLevel(1);
+        GameController.loadView();
+    }
+
+    /**
+     * Handles clicking of the Level 3 button
+     *
+     * @param event the click of the button
+     */
+    @FXML
+    protected void handleLevel3Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 3 button pressed");
+        System.out.println("Level 3 button pressed!");
+        Levels.setCurrentLevel(2);
+        GameController.loadView();
+
+    }
+
+    /**
+     * Handles clicking of the Level 4 button
+     *
+     * @param event the click of the button
+     */
+    @FXML
+    protected void handleLevel4Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 4 button pressed");
+        System.out.println("Level 4 button pressed!");
+        Levels.setCurrentLevel(3);
+        GameController.loadView();
+    }
+
+    /**
+     * Handles clicking of the Level 5 button
+     *
+     * @param event the click of the button
+     */
+    @FXML
+    protected void handleLevel5Button(ActionEvent event) {
+        GameLog.addInfoLog("Level 5 button pressed");
+        System.out.println("Level 5 button pressed!");
+        Levels.setCurrentLevel(4);
+        GameController.loadView();
     }
 }

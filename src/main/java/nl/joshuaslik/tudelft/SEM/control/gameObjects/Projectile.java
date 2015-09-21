@@ -5,7 +5,7 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import javafx.scene.paint.Color;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
@@ -17,38 +17,36 @@ import utility.GameLog;
  *
  * @author faris
  */
-public class Projectile extends AbstractDynamicObject {
+public class Projectile extends AbstractPhysicsObject implements IDynamicObject  {
 
-    private final javafx.scene.shape.Line fxLine;
+//    private final javafx.scene.shape.Line fxLine;
+    private final ILineViewObject line;
     private Point p1, p2;
     private final Vector dir;
 
-    private final static double GROW_RATE = 750;
+    private final static double GROW_RATE = 1000;
     private boolean isActive = true;
 
     /**
      * Create a projectile.
      *
+     * @param gameObjects
      * @param startX start x coordinate of the projectile.
      * @param startY start y coordinate of the projectile.
      */
-    public Projectile(double startX, double startY) {
-        super(new javafx.scene.shape.Line());
-
-        fxLine = (javafx.scene.shape.Line) getNode();
-        fxLine.setStartX(startX);
-        fxLine.setStartY(startY - 1);
-        fxLine.setEndX(startX);
-        fxLine.setEndY(startY);
+    public Projectile(IGameObjects gameObjects, double startX, double startY) {
+        super(gameObjects);
+        
+        line = getGameObjects().makeLine(startX, startY - 1, startX, startY);
 
         this.p1 = new Point(startX, startY);
         this.p2 = new Point(startX, startY - 1);
 
         dir = new Vector(p2.getxPos() - p1.getxPos(), p2.getyPos() - p1.getyPos());
 
-        fxLine.setStrokeWidth(7);
-        fxLine.setStroke(Color.FUCHSIA);
-        fxLine.setOpacity(0.3);
+        line.setStrokeWidth(7);
+        line.setColor(0.2, 0.1, 0.1);
+        line.setOpacity(0.8);
 
         GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) 
                 + ", " + Double.toString(startY) + ")");
@@ -74,16 +72,17 @@ public class Projectile extends AbstractDynamicObject {
     public void update(long nanoFrameTime) {
 
         // make line longer
-        double endY = fxLine.getEndY() - GROW_RATE * (nanoFrameTime / 1_000_000_000.0);
-        fxLine.setEndY(endY);
+        double endY = line.getEndY() - GROW_RATE * (nanoFrameTime / 1_000_000_000.0);
+        line.setEndY(endY);
         updateLinePoints();
 
         // destroy line if it hit the ceiling
-        if (fxLine.getEndY() < getGameObjects().getTopBorder()) {
+        if (line.getEndY() < getGameObjects().getTopBorder()) {
             GameLog.addInfoLog("Projectile hit ceiling at: ("
-                    + Double.toString(fxLine.getEndX()) + ", "
-                    + Double.toString(fxLine.getEndY()) + ")");
+                    + Double.toString(line.getEndX()) + ", "
+                    + Double.toString(line.getEndY()) + ")");
             getGameObjects().removeProjectile();
+            line.destroy();
             isActive = false;
         }
     }
@@ -175,8 +174,8 @@ public class Projectile extends AbstractDynamicObject {
      * Recalculated p1 and p2.
      */
     public void updateLinePoints() {
-        p1 = new Point(fxLine.getStartX(), fxLine.getStartY());
-        p2 = new Point(fxLine.getEndX(), fxLine.getEndY());
+        p1 = new Point(line.getStartX(), line.getStartY());
+        p2 = new Point(line.getEndX(), line.getEndY());
     }
 
     /**
@@ -192,9 +191,10 @@ public class Projectile extends AbstractDynamicObject {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
             GameLog.addInfoLog("Projectile hit bubble at: ("
-                    + Double.toString(fxLine.getEndX()) + ", "
-                    + Double.toString(fxLine.getEndY()) + ")");
+                    + Double.toString(line.getEndX()) + ", "
+                    + Double.toString(line.getEndY()) + ")");
             getGameObjects().removeProjectile();
+            line.destroy();
             isActive = false;
         }
     }

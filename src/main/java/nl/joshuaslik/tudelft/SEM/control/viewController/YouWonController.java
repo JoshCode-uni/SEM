@@ -23,8 +23,6 @@ public class YouWonController implements IpopupController {
     @FXML
     private Button mainMenuButton, nextLevelButton;
 
-    private Scene newScene;
-
     private IviewController mainController;
     private PopupControl popupControl;
 
