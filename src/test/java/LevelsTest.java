@@ -2,9 +2,6 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import java.util.ArrayList;
-
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import org.junit.Test;
 
@@ -12,7 +9,7 @@ public class LevelsTest {
 
     @Test
     public void testAmountOfLevels() {
-        assertEquals(Levels.amountOfLevels(), 5);
+        assertEquals(Levels.amountOfLevels(), 4);
         assertNotEquals(Levels.amountOfLevels(), 7);
     }
 
