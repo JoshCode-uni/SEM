@@ -7,6 +7,8 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
@@ -19,6 +21,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewOb
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import utility.GameLog;
 
@@ -37,6 +40,9 @@ public class GameController implements IviewController {
 
     @FXML
     private Text livesText, levelText, scoreText;
+    
+    @FXML
+    private ImageView lives;
 
     @FXML
     private Button quitButton, mainMenuButton;
@@ -49,6 +55,12 @@ public class GameController implements IviewController {
     private GameLoop gl;
     
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
+
+    private Player player;
+    
+    private static int currentlives = 3;
+    private static int currentLevel = 0;
+    
     private long timeLeft;
 
     /**
@@ -101,11 +113,19 @@ public class GameController implements IviewController {
      */
     @Override
     public void start(Scene scene) {
-        levelText.setText("Level " + Integer.toString(Levels.getCurrentLevel() + 1));
-        timeLeft = MAX_TIME;
 
-        gl = new GameLoop(this, Levels.getCurrentLevel(), top.getStartY(), 
-                top.getEndX(), bottom.getStartY(), top.getStartX(), scene);
+		//player = new Player(null, null);
+		//currentlives = player.getLives();
+		
+        levelText.setText("Level " + Integer.toString(currentLevel + 1));
+        timeLeft = MAX_TIME;
+		
+		Image image = new Image("/data/gui/img/heart" + currentlives + ".png");
+		lives.setImage(image);
+		
+        gl = new GameLoop(this, currentLevel, top.getStartY(), top.getEndX(),
+                bottom.getStartY(), top.getStartX(), scene);
+
         gl.setViewController(this);
 
         gl.start();
@@ -135,11 +155,13 @@ public class GameController implements IviewController {
      * @param nanoTimePassed the framerate (nanoseconds/frame)
      */
     public void updateTime(Long nanoTimePassed) {
+    	
         timeLeft -= nanoTimePassed;
         if (timeLeft <= 0) {
             died();
             return;
         }
+        
         scoreText.setText("Score: " + gl.getScore());
         timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft / (double) MAX_TIME));
     }
@@ -167,14 +189,45 @@ public class GameController implements IviewController {
     public void died() {
         GameLog.addInfoLog("Player died");
         System.out.println("Player died");
+        
         gl.stop();
         gl = null;
+        
+        setLives(currentlives-1);
 
-        YouLostController.loadPopup(this);
+       if (currentlives >= 0) {
+    	   GameController.setLevel(currentLevel);
+    	   GameController.loadView();
+           System.out.println(currentlives);
+       }
+       else {
+        	YouLostController.loadPopup(this);
+       }
     }
 
     /**
+<<<<<<< HEAD
      * Disable all butons.
+=======
+     * Select the level which should be played.
+     *
+     * @param level
+     */
+    public static void setLevel(int level) {
+        GameController.currentLevel = level;
+    }
+    
+    /**
+     * Select the lives the player has.
+     *
+     * @param lives
+     */
+    public static void setLives(int lives) {
+        GameController.currentlives = lives;
+    }
+
+    /**
+     * Disable all buttons.
      *
      * @param disabled if the buttons should be disabled.
      */

@@ -42,7 +42,8 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
         image.setY(getGameObjects().getBottomBorder() - 
                 image.getHeight());
         keyboard = kb;
-        lives = 1;
+
+        lives = 3;
     }
 
     /**
@@ -56,7 +57,7 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
     }
 
     /**
-     * Check if the player has colldided with anything. Not implemented.
+     * Check if the player has collided with anything. Not implemented.
      *
      * @param obj2 object to check collision with
      * @param nanoFrameTime the framerate (nanoseconds/frame)
@@ -155,5 +156,14 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
     public Projectile makeProjectile(IGameObjects gameObjects, double startX, 
             double startY){
         return new Projectile(gameObjects, startX, startY);
+    }
+    
+    /**
+     * Get the number of lives the player has.
+     *
+     * @return lives.
+     */
+    public int getLives() {
+        return lives;
     }
 }
