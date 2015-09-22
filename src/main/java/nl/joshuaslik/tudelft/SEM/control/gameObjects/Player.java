@@ -166,4 +166,13 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
     public int getLives() {
         return lives;
     }
+    
+    /**
+     * Set the number of lives the player has.
+     *
+     * @return lives.
+     */
+    public void setLives(int newlives) {
+        lives = newlives;
+    }
 }

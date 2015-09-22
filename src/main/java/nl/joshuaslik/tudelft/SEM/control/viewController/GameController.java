@@ -55,8 +55,6 @@ public class GameController implements IviewController {
     private GameLoop gl;
     
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
-
-    private Player player;
     
     private static int currentlives = 3;
     private static int currentLevel = 0;
@@ -114,7 +112,6 @@ public class GameController implements IviewController {
     @Override
     public void start(Scene scene) {
 
-		//player = new Player(null, null);
 		//currentlives = player.getLives();
 		
         levelText.setText("Level " + Integer.toString(currentLevel + 1));
@@ -202,13 +199,12 @@ public class GameController implements IviewController {
        }
        else {
         	YouLostController.loadPopup(this);
+        	setLives(3);
        }
     }
 
     /**
-<<<<<<< HEAD
-     * Disable all butons.
-=======
+     * Disable all buttons.
      * Select the level which should be played.
      *
      * @param level
