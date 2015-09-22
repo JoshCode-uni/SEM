@@ -175,8 +175,13 @@ public class GameController implements IviewController {
         MainMenuController.setScore(totalScore, Levels.getCurrentLevel());
         gl.stop();
         gl = null;
+        //Levels.nextLevel();
+        setLevel(currentLevel + 1);
         
-        Levels.nextLevel();
+        //if (currentLevel == 5) {
+        //	MainMenuController.loadView();
+        //}
+        
         YouWonController.loadPopup(this);
     }
 
