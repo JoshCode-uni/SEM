@@ -5,7 +5,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewO
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * This class contains the position, speed and direction of a bubble. It

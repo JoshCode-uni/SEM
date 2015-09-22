@@ -23,7 +23,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObj
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * Controller for the game UI.
