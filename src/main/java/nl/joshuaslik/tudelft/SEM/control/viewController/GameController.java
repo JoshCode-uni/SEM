@@ -228,7 +228,6 @@ public class GameController implements IviewController {
 
     /**
      * Disable all buttons.
->>>>>>> 2725508... Add lives in game < feature
      *
      * @param disabled if the buttons should be disabled.
      */
