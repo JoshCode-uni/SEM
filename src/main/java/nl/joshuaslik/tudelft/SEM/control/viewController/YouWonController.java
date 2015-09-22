@@ -23,8 +23,6 @@ public class YouWonController implements IpopupController {
     @FXML
     private Button mainMenuButton, nextLevelButton;
 
-    private Scene newScene;
-
     private IviewController mainController;
     private PopupControl popupControl;
 
@@ -32,7 +30,7 @@ public class YouWonController implements IpopupController {
      * Start the pop-up when player has won
      */
     public void start() {
-
+    	
     }
 
     /**
@@ -45,7 +43,7 @@ public class YouWonController implements IpopupController {
         GameLog.addInfoLog("Main menu button pressed from you won screen");
         System.out.println("Main Menu button pressed!");
         popupControl.hide();
-        mainController.setButtonsDisiabled(false);
+        MainMenuController.loadView();
     }
 
     /**
@@ -58,8 +56,8 @@ public class YouWonController implements IpopupController {
     private void handleNextLevelButton(ActionEvent event) {
         GameLog.addInfoLog("Next level button pressed from you won screen");
         System.out.println("Next level button pressed!");
-        mainController.setButtonsDisiabled(false);
         popupControl.hide();
+        mainController.setButtonsDisabled(false);
         GameController.loadView();
     }
 

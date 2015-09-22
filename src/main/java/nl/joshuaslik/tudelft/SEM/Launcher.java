@@ -34,7 +34,7 @@ public class Launcher extends Application {
     public static final double GRAVITY = 700;
     public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
     private static final BorderPane bp = new BorderPane();
-    public static Stage stage;
+    private static Stage stage;
 
     /**
      * Start up the game.
@@ -49,7 +49,7 @@ public class Launcher extends Application {
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.show();
-        stage = primaryStage;
+        Launcher.stage = primaryStage;
     }
 
     /**
@@ -86,7 +86,7 @@ public class Launcher extends Application {
     public static void loadPopup(IviewController mainViewController, URL fxmlURL) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(fxmlURL);
-        mainViewController.setButtonsDisiabled(true);
+        mainViewController.setButtonsDisabled(true);
         try {
             Pane pane = loader.load();
             PopupControl popup = new PopupControl();

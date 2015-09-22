@@ -15,20 +15,25 @@ public class GameLog {
     /**
      * Constructs the logs directory and logfile if it is not created yet
      * Constructs a PrintWriter to write to the logfile If the log gets bigger
-     * than 10kb it will reset the file
+     * than 1MB it will reset the file
      */
     public static void constructor() {
         File dir = new File("logs");
-        dir.mkdirs();
+        boolean mkdirs = dir.mkdirs();
+        
         File log = new File("logs/Log.log");
-        if (log.length() > 10000) {
-            log.delete();
+        boolean logDelete = false;
+        if (log.length() > 1_000_000) {
+            logDelete = log.delete();
         }
         try {
             FileWriter fw = new FileWriter(log, true);
             pw = new PrintWriter(fw, true);
-            pw.println("");
+            pw.print("\n\n\n");
             pw.println("GAME STARTED AT: " + getCurrentTime());
+            pw.println("Created directory = " + mkdirs);
+            pw.println("Deleted old log = " + logDelete);
+            pw.print("\n");
             initialized = true;
         }
         catch (IOException e) {

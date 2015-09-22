@@ -1,4 +1,4 @@
-package nl.joshuaslik.tudelft.SEM.control.gameObjects;
+package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.util.BitSet;
 
@@ -13,7 +13,7 @@ import javafx.scene.input.KeyEvent;
  *
  * @author faris
  */
-public class Keyboard {
+public class Keyboard implements IKeyboard {
 
     private BitSet keyboard = new BitSet();
 
@@ -51,19 +51,15 @@ public class Keyboard {
     /**
      * Handle the "key pressed" event.
      */
-    private EventHandler<KeyEvent> keyPressedEventHandler = new EventHandler<KeyEvent>() {
-        public void handle(KeyEvent event) {
-            keyboard.set(event.getCode().ordinal(), true);
-        }
+    private final EventHandler<KeyEvent> keyPressedEventHandler = (KeyEvent event) -> {
+        keyboard.set(event.getCode().ordinal(), true);
     };
 
     /**
      * Handle the "key released" event.
      */
-    private EventHandler<KeyEvent> keyReleasedEventHandler = new EventHandler<KeyEvent>() {
-        public void handle(KeyEvent event) {
-            keyboard.set(event.getCode().ordinal(), false);
-        }
+    private final EventHandler<KeyEvent> keyReleasedEventHandler = (KeyEvent event) -> {
+        keyboard.set(event.getCode().ordinal(), false);
     };
 
     /**
@@ -71,6 +67,7 @@ public class Keyboard {
      *
      * @return true if left arrow is pressed, otherwise false.
      */
+    @Override
     public boolean isMoveLeft() {
         return keyboard.get(leftKey.ordinal()) && !keyboard.get(rightKey.ordinal());
     }
@@ -80,6 +77,7 @@ public class Keyboard {
      *
      * @return true if right arraow is pressed, otherwise false.
      */
+    @Override
     public boolean isMoveRight() {
         return keyboard.get(rightKey.ordinal()) && !keyboard.get(leftKey.ordinal());
     }
@@ -89,6 +87,7 @@ public class Keyboard {
      *
      * @return true if spacebar is pressed, otherwise false.
      */
+    @Override
     public boolean isShoot() {
         return keyboard.get(shoot.ordinal());
     }

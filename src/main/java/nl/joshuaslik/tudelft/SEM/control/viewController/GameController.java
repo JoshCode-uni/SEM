@@ -1,17 +1,27 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
+import java.io.InputStream;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.control.GameLoop;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.CircleViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import utility.GameLog;
 
@@ -30,6 +40,9 @@ public class GameController implements IviewController {
 
     @FXML
     private Text livesText, levelText, scoreText;
+    
+    @FXML
+    private ImageView lives;
 
     @FXML
     private Button quitButton, mainMenuButton;
@@ -40,9 +53,14 @@ public class GameController implements IviewController {
     private Group gameObjects;
 
     private GameLoop gl;
+    
+    private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
 
+    private Player player;
+    
+    private static int currentlives = 3;
     private static int currentLevel = 0;
-    private static final long MAX_TIME = 30_000_000_000l; // 30 seconds in ns
+    
     private long timeLeft;
 
     /**
@@ -95,11 +113,19 @@ public class GameController implements IviewController {
      */
     @Override
     public void start(Scene scene) {
-        levelText.setText(Integer.toString(currentLevel + 1));
-        timeLeft = MAX_TIME;
 
+		//player = new Player(null, null);
+		//currentlives = player.getLives();
+		
+        levelText.setText("Level " + Integer.toString(currentLevel + 1));
+        timeLeft = MAX_TIME;
+		
+		Image image = new Image("/data/gui/img/heart" + currentlives + ".png");
+		lives.setImage(image);
+		
         gl = new GameLoop(this, currentLevel, top.getStartY(), top.getEndX(),
                 bottom.getStartY(), top.getStartX(), scene);
+
         gl.setViewController(this);
 
         gl.start();
@@ -129,11 +155,13 @@ public class GameController implements IviewController {
      * @param nanoTimePassed the framerate (nanoseconds/frame)
      */
     public void updateTime(Long nanoTimePassed) {
+    	
         timeLeft -= nanoTimePassed;
         if (timeLeft <= 0) {
             died();
             return;
         }
+        
         scoreText.setText("Score: " + gl.getScore());
         timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft / (double) MAX_TIME));
     }
@@ -143,18 +171,16 @@ public class GameController implements IviewController {
      */
     public void levelCompleted() {
         int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
-        GameLog.addInfoLog("Player completed level: " + currentLevel);
+        GameLog.addInfoLog("Player completed level: " + 
+                Levels.getCurrentLevel());
         GameLog.addInfoLog("level score: " + totalScore);
         
-        MainMenuController.setScore(totalScore, currentLevel);
+        MainMenuController.setScore(totalScore, Levels.getCurrentLevel());
         gl.stop();
         gl = null;
-        if (currentLevel + 1 < Levels.amountOfLevels()) {
-            currentLevel++;
-        }
-        //		MainMenuController.loadView();
-        IviewController contr = MainMenuController.loadView();
-        YouWonController.loadPopup(contr);
+        
+        Levels.nextLevel();
+        YouWonController.loadPopup(this);
     }
 
     /**
@@ -163,14 +189,26 @@ public class GameController implements IviewController {
     public void died() {
         GameLog.addInfoLog("Player died");
         System.out.println("Player died");
+        
         gl.stop();
         gl = null;
+        
+        setLives(currentlives-1);
 
-        IviewController contr = MainMenuController.loadView();
-        YouLostController.loadPopup(contr);
+       if (currentlives >= 0) {
+    	   GameController.setLevel(currentLevel);
+    	   GameController.loadView();
+           System.out.println(currentlives);
+       }
+       else {
+        	YouLostController.loadPopup(this);
+       }
     }
 
     /**
+<<<<<<< HEAD
+     * Disable all butons.
+=======
      * Select the level which should be played.
      *
      * @param level
@@ -178,16 +216,61 @@ public class GameController implements IviewController {
     public static void setLevel(int level) {
         GameController.currentLevel = level;
     }
+    
+    /**
+     * Select the lives the player has.
+     *
+     * @param lives
+     */
+    public static void setLives(int lives) {
+        GameController.currentlives = lives;
+    }
 
     /**
-     * Disable all butons.
+     * Disable all buttons.
      *
      * @param disabled if the buttons should be disabled.
      */
     @Override
-    public void setButtonsDisiabled(boolean disabled) {
-        GameLog.addWarningLog("Called non-implemented method: " + 
-                "setButtonsDisiabled in class GameController");
-        //unnecesairy, no popup will occur in this view
+    public void setButtonsDisabled(boolean disabled) {
+        quitButton.setDisable(disabled);
+        mainMenuButton.setDisable(disabled);
+    }
+    
+    /**
+     * Create a circle in the view.
+     * @param centerX the x coordinate of the center of the circle.
+     * @param centerY the y coordinate of the center of the circle.
+     * @param radius the radius of the circle.
+     * @return the interface of the circle view object.
+     */
+    public ICircleViewObject makeCircle(double centerX, double centerY, 
+            double radius) {
+        return new CircleViewObject(centerX, centerY, radius, this);
+    }
+    
+     /**
+     * Create an image in the view.
+     * @param is the input stream of the image.
+     * @param height the height of the image.
+     * @param width the width of the image.
+     * @return the interface of the image view object.
+     */
+    public IImageViewObject makeImage(InputStream is, 
+            double width, double height) {
+        return new ImageViewObject(is, width, height, this);
+    }
+    
+    /**
+     * Create a line in the view.
+     * @param startX the x coordinate of the start point of the line.
+     * @param startY the y coordinate of the start point of the line.
+     * @param endX the x coordinate of the end point of the line.
+     * @param endY the y coordinate of the end point of the line.
+     * @return the interface of the line view object.
+     */
+    public ILineViewObject makeLine(double startX, double startY, double endX,
+            double endY) {
+        return new LineViewObject(startX, startY, endX, endY, this);
     }
 }

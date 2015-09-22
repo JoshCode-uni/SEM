@@ -6,16 +6,17 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
-import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
  * Game objects stores all objects of a level and updates them. It also keeps
@@ -24,14 +25,12 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
  */
 public class GameObjects implements IUpdateable, IGameObjects {
 
-    private final ArrayList<PhysicsObject> allObjects = new ArrayList<>();
     private final ArrayList<PhysicsObject> staticObjects = new ArrayList<>();
     private final ArrayList<IDynamicObject> dynamicObjects = new ArrayList<>();
 
     private final ArrayList<IDynamicObject> addDynamicBuffer = new ArrayList<>();
     private final ArrayList<IDynamicObject> removeDynamicBuffer = new ArrayList<>();
 
-    private IDynamicObject player;
     private boolean hasProjectile = false;
     private Projectile projectile = null;
     private double topBorder, rightBorder, bottomBorder, leftBorder;
@@ -49,13 +48,13 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param rightBorder x value of the right border.
      * @param bottomBorder y value of the bottom border.
      * @param leftBorder x value of the left border.
-     * @param scene the scene of the game (to add a keylistener to).
+     * @param keyBoard
      */
     public GameObjects(IDraw draw, int level, double topBorder, double rightBorder,
-            double bottomBorder, double leftBorder, Scene scene) {
+            double bottomBorder, double leftBorder, IKeyboard keyBoard) {
         this.draw = draw;
         initializeBorders(topBorder, rightBorder, bottomBorder, leftBorder);
-        initializePlayer(scene);
+        initializePlayer(keyBoard);
         initializeLevel(level);
         addBufferedDynamicObjects();
     }
@@ -78,7 +77,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
         // check for collisions
         for (int i = 0; i < dynamicObjects.size(); i++) {
-            for (int j = 0; j < dynamicObjects.size(); j++) {
+            for (int j = i + 1; j < dynamicObjects.size(); j++) {
                 dynamicObjects.get(i).checkCollision(dynamicObjects.get(j), nanoFrameTime);
             }
             for (PhysicsObject e : staticObjects) {
@@ -91,9 +90,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
         for (IDynamicObject e : dynamicObjects) {
             e.update(nanoFrameTime);
         }
-        
-        // update the players position
-        player.update(nanoFrameTime);
     }
 
     /**
@@ -103,17 +99,26 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param bottomBorder y value of the bottom border.
      * @param leftBorder x value of the left border.
      */
-    private void initializeBorders(double topBorder, double rightBorder, double bottomBorder, double leftBorder) {
-        Point topLeft = new Point(leftBorder, topBorder);
-        Point topRight = new Point(rightBorder, topBorder);
-        Point bottomLeft = new Point(leftBorder, bottomBorder);
-        Point bottomRight = new Point(rightBorder, bottomBorder);
-
+    private void initializeBorders(double topBorder, double rightBorder, 
+            double bottomBorder, double leftBorder) {
+        
         // add top, left, right and bottom lines
-        addObject(new nl.joshuaslik.tudelft.SEM.control.gameObjects.Line(topLeft, topRight));
-        addObject(new nl.joshuaslik.tudelft.SEM.control.gameObjects.Line(topLeft, bottomLeft));
-        addObject(new nl.joshuaslik.tudelft.SEM.control.gameObjects.Line(topRight, bottomRight));
-        addObject(new nl.joshuaslik.tudelft.SEM.control.gameObjects.Line(bottomLeft, bottomRight));
+        Line top = new Line((IGameObjects) this, leftBorder, topBorder, 
+                rightBorder, topBorder);
+        
+        Line left = new Line((IGameObjects) this, leftBorder, topBorder, 
+                leftBorder, bottomBorder);
+        
+        Line right = new Line((IGameObjects) this,rightBorder, topBorder, 
+                rightBorder, bottomBorder);
+        
+        Line bottom = new Line((IGameObjects) this,leftBorder, bottomBorder, 
+                rightBorder, bottomBorder);
+        
+        addObject(top);
+        addObject(left);
+        addObject(right);
+        addObject(bottom);
 
         setGameBounds(topBorder, rightBorder, bottomBorder, leftBorder);
     }
@@ -122,29 +127,18 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Initialize the player.
      * @param scene the scene of the game (to add a keylistener to).
      */
-    private void initializePlayer(Scene scene) {
-        // draw player
-        Image playerImage;
+    private void initializePlayer(IKeyboard keyBoard) {
+        InputStream is;
         try {
-            playerImage = new Image(getClass().getResource("/data/gui/img/penguin.png").openStream(), 100, 100, true, true);
-            assert (playerImage != null);
+            is = getClass().getResource("/data/gui/img/penguin.png").openStream();
         }
         catch (IOException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
             return;
         }
-        ImageView playrImg = new ImageView(playerImage);
-        playrImg.setX((rightBorder - leftBorder) / 2.0);
-        playrImg.setY(bottomBorder - playerImage.getHeight());
 
-        draw.drawOnScreen(playrImg);
-
-        // listen to player controls
-        Keyboard kb = new Keyboard(scene);
-        kb.addListeners();
-
-        player = new Player(playrImg, kb);
-        player.setIGameObjects((IGameObjects) this);
+        Player player = new Player((IGameObjects) this, is, keyBoard);
+        addObject(player);
     }
 
     /**
@@ -152,7 +146,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param level the level to initialize.
      */
     private void initializeLevel(int level) {
-        ArrayList<Bubble> bubbles = Levels.getLevel(level);
+        ArrayList<Bubble> bubbles = Levels.getLevel(level, (IGameObjects) this);
         for (Bubble e : bubbles) {
             addObject(e);
         }
@@ -165,7 +159,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     public void addObject(PhysicsObject object) {
         staticObjects.add(object);
-        allObjects.add(object);
     }
 
     /**
@@ -193,17 +186,11 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     private void addBufferedDynamicObjects() {
         for (IDynamicObject object : addDynamicBuffer) {
-            object.setIGameObjects((IGameObjects) this);
-
             dynamicObjects.add(object);
-            allObjects.add(object);
 
             if (object instanceof Bubble) {
                 ++bubbleCount;
             }
-
-            // let the dynamic object be drawn in the game view
-            draw.drawOnScreen(object.getNode());
         }
         addDynamicBuffer.clear();
     }
@@ -213,28 +200,14 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     private void removeBufferedDynamicObjects() {
         for (IDynamicObject object : removeDynamicBuffer) {
-            if (object instanceof Bubble && dynamicObjects.contains(object)) {
+            if (object instanceof Bubble) {
                 score += 10;
                 --bubbleCount;
             }
 
             dynamicObjects.remove(object);
-            allObjects.remove(object);
-
-            // remove the dynamic object from the view
-            draw.removeFromScreen(object.getNode());
         }
         removeDynamicBuffer.clear();
-    }
-
-    /**
-     * Get all objects which are currently in the game (except for
-     * player/projectile).
-     *
-     * @return all objects which are currently in the game.
-     */
-    public ArrayList<PhysicsObject> getAllObjects() {
-        return allObjects;
     }
 
     /**
@@ -341,11 +314,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     @Override
     public void addProjectile(Projectile projectile) {
-        projectile.setIGameObjects((IGameObjects) this);
-        dynamicObjects.add(projectile);
+        addObject(projectile);
         this.projectile = projectile;
         hasProjectile = true;
-        draw.drawOnScreen(projectile.getNode());
     }
 
     /**
@@ -353,9 +324,48 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     @Override
     public void removeProjectile() {
-        draw.removeFromScreen(projectile.getNode());
         removeObject(projectile);
         this.projectile = null;
         hasProjectile = false;
+    }
+    
+    /**
+     * Create a circle in the view.
+     * @param centerX the x coordinate of the center of the circle.
+     * @param centerY the y coordinate of the center of the circle.
+     * @param radius the radius of the circle.
+     * @return the interface of the circle view object.
+     */
+    @Override
+    public ICircleViewObject makeCircle(double centerX, double centerY, 
+            double radius) {
+        return draw.makeCircle(centerX, centerY, radius);
+    }
+    
+    /**
+     * Create a line in the view.
+     * @param startX the x coordinate of the start point of the line.
+     * @param startY the y coordinate of the start point of the line.
+     * @param endX the x coordinate of the end point of the line.
+     * @param endY the y coordinate of the end point of the line.
+     * @return the interface of the line view object.
+     */
+    @Override
+    public ILineViewObject makeLine(double startX, double startY, 
+            double endX, double endY) {
+        return draw.makeLine(startX, startY, endX, endY);
+    }
+    
+     /**
+     * Create an image in the view.
+     * @param is the input stream of the image.
+     * @param height the height of the image.
+     * @param width the width of the image.
+     * @return the interface of the image view object.
+     */
+    @Override
+    public IImageViewObject makeImage(InputStream is, double height, 
+            double width) {
+        return draw.makeImage(is, width, height);
     }
 }

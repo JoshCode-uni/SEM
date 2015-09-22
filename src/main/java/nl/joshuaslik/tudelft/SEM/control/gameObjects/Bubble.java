@@ -1,9 +1,7 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.shape.Circle;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
@@ -16,10 +14,10 @@ import utility.GameLog;
  *
  * @author faris
  */
-public class Bubble extends AbstractDynamicObject {
+public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
 
     // variables to keep track of the direction/speed/position
-    private final Circle circle;
+    private final ICircleViewObject circle;
     private Vector dir;
     private Vector newDir;
     private static final double MAX_X_SPEED = 150;
@@ -32,29 +30,28 @@ public class Bubble extends AbstractDynamicObject {
     /**
      * Create a bubble.
      *
+     * @param gameObjects
      * @param p Center x/y coordinates
      * @param radius Radius of the bubble
      * @param dir Moving direction of the bubble
      */
-    public Bubble(Point p, double radius, Vector dir) {
+    public Bubble(IGameObjects gameObjects, Point p, double radius, Vector dir) {
+        super(gameObjects);
 
-        super(new Circle());
-
-        this.circle = (Circle) getNode();
-        circle.setCenterX(p.getxPos());
-        circle.setCenterY(p.getyPos());
+        circle = getGameObjects().makeCircle(p.getxPos(), p.getyPos(), radius);
         circle.setRadius(radius);
 
         this.dir = dir;
         this.newDir = dir;
 
-        SceneSizeChangeListener changeListener = new SceneSizeChangeListener();
-        circle.centerXProperty().addListener(changeListener);
-        circle.centerYProperty().addListener(changeListener);
-        
+        circle.setBounds(getGameObjects().getLeftBorder(),
+                getGameObjects().getTopBorder(),
+                getGameObjects().getRightBorder(),
+                getGameObjects().getBottomBorder());
+
         GameLog.addInfoLog("Bubble created at: ("
-                    + Double.toString(circle.getCenterX()) + ", "
-                    + Double.toString(circle.getCenterY()) + ")");
+                + Double.toString(circle.getCenterX()) + ", "
+                + Double.toString(circle.getCenterY()) + ")");
     }
 
     /**
@@ -84,9 +81,25 @@ public class Bubble extends AbstractDynamicObject {
      */
     @Override
     public void update(final long nanoFrameTime) {
+        // check if hit ceiling, if so, destroy bubble
+        if (nextY - circle.getRadius() - 10 < getGameObjects().getTopBorder())
+        {
+            GameLog.addInfoLog("Bubble hit ceiling: ("
+                    + Double.toString(circle.getCenterX())
+                    + Double.toString(circle.getCenterY()) + ")");
+            GameLog.addInfoLog("Bubble is destroyed");
+            getGameObjects().removeObject(getThis());
+            circle.destroy();
+        }
+        
         // move circle
         circle.setCenterX(nextX);
         circle.setCenterY(nextY);
+        
+        // Ensure we won't get stuck on the ground if we tried to go through the
+        // bottom border
+        if(circle.getCenterY() == getGameObjects().getBottomBorder())
+            vY = -Y_MAX_SPEED;
     }
 
     /**
@@ -227,25 +240,27 @@ public class Bubble extends AbstractDynamicObject {
      * Split a bubble if you pushed the button.
      */
     public void splitBubble() {
-        
+
         GameLog.addInfoLog("Bubble hit by projectile at: ("
-                    + Double.toString(circle.getCenterX())
-                    + Double.toString(circle.getCenterY()) + ")");
+                + Double.toString(circle.getCenterX())
+                + Double.toString(circle.getCenterY()) + ")");
 
         double newRadius = circle.getRadius() / 2.0;
         if (newRadius < 10) {
             getGameObjects().removeObject(this);
+            circle.destroy();
             return;
         }
         if (newRadius < 20) {
             newRadius = 10;
         }
-        
+
         GameLog.addInfoLog("Bubble is split");
 
         double xPos = circle.getCenterX();
         double yPos = circle.getCenterY();
-        Bubble bubble2 = new Bubble(new Point(xPos + 1.1 * newRadius, yPos),
+        Bubble bubble2 = new Bubble(getGameObjects(),
+                new Point(xPos + 1.1 * newRadius, yPos),
                 newRadius, new Vector(2, -5));
         circle.setCenterX(xPos - newRadius);
         circle.setRadius(newRadius);
@@ -281,86 +296,19 @@ public class Bubble extends AbstractDynamicObject {
     }
 
     /**
-     * Listens to changed of the x and/or y position of the circle and assures
-     * that the circle won't go outside of the view.
-     */
-    private class SceneSizeChangeListener implements ChangeListener<Number> {
-
-        private double circleX;
-        private double circleY;
-        private double radius;
-
-        /**
-         * Make sure the bubble will never go outside of the screen.
-         *
-         * @param observable not used.
-         * @param oldValue not used.
-         * @param newValue not used.
-         */
-        @Override
-        public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-            circleX = circle.getCenterX();
-            circleY = circle.getCenterY();
-            radius = circle.getRadius();
-            listenerCheckTop();
-            listenerCheckLeft();
-            listenerCheckRight();
-            listenerCheckBottom();
-        }
-
-        /**
-         * Check if bubble is too high (above top border of the screen)
-         */
-        private void listenerCheckTop() {
-            if (circleY - radius - 10 < getGameObjects().getTopBorder()) // hit ceiling
-            {
-                GameLog.addInfoLog("Bubble hit ceiling: ("
-                    + Double.toString(circle.getCenterX())
-                    + Double.toString(circle.getCenterY()) + ")");
-                GameLog.addInfoLog("Bubble is destroyed");
-                getGameObjects().removeObject(getThis());
-            }
-        }
-
-        /**
-         * Check if bubble is too far to the left (left from the left border of
-         * the screen)
-         */
-        private void listenerCheckLeft() {
-            if (circleX - radius + 10 < getGameObjects().getLeftBorder()) {
-                circle.setCenterX(getGameObjects().getLeftBorder() + radius - 10);
-                vY = -Y_MAX_SPEED;
-            }
-        }
-
-        /**
-         * Check if bubble is too far to the right (right from the right border
-         * of the screen)
-         */
-        private void listenerCheckRight() {
-            if (circleX + radius - 10 > getGameObjects().getRightBorder()) {
-                circle.setCenterX(getGameObjects().getRightBorder() - radius + 10);
-                vY = -Y_MAX_SPEED;
-            }
-        }
-
-        /**
-         * Check if bubble is too low (below bottom border of the screen)
-         */
-        private void listenerCheckBottom() {
-            if (circleY + radius - 10 > getGameObjects().getBottomBorder()) {
-                circle.setCenterY(getGameObjects().getBottomBorder() - radius + 10);
-                vY = -Y_MAX_SPEED;
-            }
-        }
-    }
-
-    /**
      * Get an instance of this class (for annonymous inner class).
      *
      * @return instance of this class.
      */
     private Bubble getThis() {
         return this;
+    }
+    
+    /**
+     * Get the circle view object interface of this bubble.
+     * @return the circle view object interface of this bubble.
+     */
+    protected ICircleViewObject getCircleViewObject() {
+        return circle;
     }
 }

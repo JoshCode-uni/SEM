@@ -33,7 +33,7 @@ public class OptionsController implements IviewController {
     protected void handleChooseLevelButton(ActionEvent event) {
         GameLog.addInfoLog("Choose level button pressed from option menu");
         System.out.println("Choose Level button pressed!");
-        ChooseLevelController.loadView();
+//        ChooseLevelController.loadView();
     }
 
     /**
@@ -83,7 +83,7 @@ public class OptionsController implements IviewController {
      * @param disabled if the buttons should be disabled.
      */
     @Override
-    public void setButtonsDisiabled(boolean disabled) {
+    public void setButtonsDisabled(boolean disabled) {
         // not currently needed
     }
 }
