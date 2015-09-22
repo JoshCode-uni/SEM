@@ -9,7 +9,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObj
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * A class which holds the information of a projectile which is shot by the

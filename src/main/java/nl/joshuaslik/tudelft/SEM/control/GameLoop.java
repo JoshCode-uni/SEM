@@ -16,7 +16,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * The gameloop which updated all objects after each frame.

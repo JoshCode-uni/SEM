@@ -5,7 +5,7 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 
 /**

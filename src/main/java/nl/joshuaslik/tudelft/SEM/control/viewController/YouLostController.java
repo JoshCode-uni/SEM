@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 public class YouLostController implements IpopupController {
 
