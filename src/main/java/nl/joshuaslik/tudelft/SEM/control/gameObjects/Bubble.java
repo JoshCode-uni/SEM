@@ -14,7 +14,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  *
  * @author faris
  */
-public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
+public class Bubble extends AbstractPhysicsObject implements IDynamicObject, IUpdateable, IPrepareUpdateable, ICollider, ICollideReceiver {
 
     // variables to keep track of the direction/speed/position
     private final ICircleViewObject circle;
@@ -109,7 +109,7 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public void checkCollision(final PhysicsObject obj2, final long nanoFrameTime) {
+    public void checkCollision(final IIntersectable obj2, final long nanoFrameTime) {
 
         // get the closest object to the circle (which we might hit)
         Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
@@ -126,8 +126,8 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
                 collide(ip, nanoFrameTime);
             }
             //notify the other object to collide with this object
-            if (obj2 instanceof IDynamicObject) {
-                ((IDynamicObject) obj2).collide(this, nanoFrameTime);
+            if (obj2 instanceof ICollideReceiver) {
+                ((ICollideReceiver) obj2).collide(this, nanoFrameTime);
             }
             if (newDist < curDist) {
                 calculateNextPosition(nanoFrameTime);
@@ -183,9 +183,11 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
-    public void collide(final IDynamicObject obj2, final long nanoFrameTime) {
+    public void collide(final ICollider obj2, final long nanoFrameTime) {
+        if(!(obj2 instanceof IIntersectable))
+            return;
         Point thisCirclePoint = new Point(circle.getCenterX(), circle.getCenterY());
-        IntersectionPoint ip = obj2.getClosestIntersection(thisCirclePoint);
+        IntersectionPoint ip = ((IIntersectable)obj2).getClosestIntersection(thisCirclePoint);
 
         Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
         Point nextPos = new Point(nextX, nextY);

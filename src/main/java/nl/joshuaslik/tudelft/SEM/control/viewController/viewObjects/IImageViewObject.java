@@ -64,4 +64,13 @@ public interface IImageViewObject extends IViewObject  {
      * @param scale the scale.
      */
     public void setScaleX(double scale);
+    
+    /**
+     * Set the bounds outside of which the circle is not allowed to move.
+     * @param minX minimum x coordinate value.
+     * @param minY minimum y coordinate value.
+     * @param maxX maximum x coordinate value.
+     * @param maxY maximum y coordinate value.
+     */
+    public void setBounds(double minX, double minY, double maxX, double maxY);
 }

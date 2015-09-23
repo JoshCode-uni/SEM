@@ -17,7 +17,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  *
  * @author faris
  */
-public class Projectile extends AbstractPhysicsObject implements IDynamicObject  {
+public class Projectile extends AbstractPhysicsObject implements IDynamicObject, IUpdateable, ICollideReceiver  {
 
 //    private final javafx.scene.shape.Line fxLine;
     private final ILineViewObject line;
@@ -53,17 +53,6 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
     }
 
     /**
-     * Check if we collide with object dobj.
-     *
-     * @param dobj a dynamic object.
-     * @param nanoFrameTime
-     */
-    @Override
-    public void checkCollision(PhysicsObject dobj, long nanoFrameTime) {
-        // we won't collide with anything, other things only collide with us.
-    }
-
-    /**
      * Update the length of the projectile.
      *
      * @param nanoFrameTime the framerate (nanoseconds/frame).
@@ -85,16 +74,6 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
             line.destroy();
             isActive = false;
         }
-    }
-
-    /**
-     * Prepare for an update.
-     *
-     * @param nanoFrameTime the time which a frame takes.
-     */
-    @Override
-    public void prepareUpdate(long nanoFrameTime) {
-        // no preparation needed
     }
 
     /**
@@ -186,7 +165,7 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
-    public void collide(IDynamicObject obj2, long nanoFrameTime) {
+    public void collide(ICollider obj2, long nanoFrameTime) {
         if (isActive && obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
