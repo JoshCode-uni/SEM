@@ -19,6 +19,8 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 public class ImageViewObject extends AbstractViewObject implements IImageViewObject {
 
     private final ImageView image;
+    private boolean bounds = false;
+    private double minX, minY, maxX, maxY;
 
     /**
      * Create an image.
@@ -48,7 +50,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
      */
     @Override
     public void setX(double xCoordinate) {
-        image.setX(xCoordinate);
+        image.setX(checkXBounds(xCoordinate));
     }
 
     /**
@@ -56,7 +58,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
      */
     @Override
     public void setY(double yCoordinate) {
-        image.setY(yCoordinate);
+        image.setY(checkYBounds(yCoordinate));
     }
 
     /**
@@ -123,5 +125,55 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
     public double getHeight() {
         return image.getLayoutBounds().getMaxY() - 
                 image.getLayoutBounds().getMinY();
+    }
+
+    /**
+     * Set the bounds outside of which the circle is not allowed to move.
+     * @param minX minimum x coordinate value.
+     * @param minY minimum y coordinate value.
+     * @param maxX maximum x coordinate value.
+     * @param maxY maximum y coordinate value.
+     */
+    @Override
+    public void setBounds(double minX, double minY, double maxX, double maxY) {
+        bounds = true;
+        this.minX = minX;
+        this.minY = minY;
+        this.maxX = maxX;
+        this.maxY = maxY;
+    }
+    
+    /**
+     * Check if the x coordinate is outside of the set bounds.
+     * @param xCoordinate the x coordinate to check.
+     * @return the same as the parameter if inside, or on the bounds if otherwise
+     * outside of the bounds
+     */
+    private double checkXBounds(double xCoordinate){
+        if(!bounds)
+            return xCoordinate;
+        if(xCoordinate > maxX)
+            return maxX;
+        else if(xCoordinate < minX)
+            return minX;
+        else
+            return xCoordinate;
+    }
+    
+    /**
+     * Check if the y coordinate is outside of the set bounds.
+     * @param yCoordinate the y coordinate to check.
+     * @return the same as the parameter if inside, or on the bounds if otherwise
+     * outside of the bounds
+     */
+    private double checkYBounds(double yCoordinate){
+        if(!bounds)
+            return yCoordinate;
+        if(yCoordinate > maxY)
+            return maxY;
+        else if(yCoordinate < minY)
+            return minY;
+        else
+            return yCoordinate;
     }
 }

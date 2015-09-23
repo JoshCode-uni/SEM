@@ -10,7 +10,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
  *
  * @author faris
  */
-public class Line extends AbstractPhysicsObject {
+public class Line extends AbstractPhysicsObject implements IIntersectable {
 
     private final ILineViewObject line;
     private final Point p1, p2;

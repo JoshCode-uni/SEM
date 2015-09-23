@@ -91,15 +91,6 @@ public class PlayerTest {
     }
 
     /**
-     * Test of prepareUpdate method, of class Player.
-     */
-    @Test
-    public void testPrepareUpdate() {
-        player.prepareUpdate(0);
-        // empty method, can't test it.
-    }
-
-    /**
      * Test of checkCollision method, of class Player.
      */
     @Test
@@ -188,21 +179,4 @@ public class PlayerTest {
         // verify that the bullet has been created at the right location
         verify(spyPlayer).makeProjectile(gameObjects, 5.5, 10.0);
     }
-
-    /**
-     * Test of getClosestIntersection method, of class Player.
-     */
-    @Test(expected = UnsupportedOperationException.class)
-    public void testGetClosestIntersection() {
-        player.getClosestIntersection(null);
-    }
-
-    /**
-     * Test of collide method, of class Player.
-     */
-    @Test(expected = UnsupportedOperationException.class)
-    public void testCollide() {
-        player.collide(null, 0);
-    }
-
 }

@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.joshuaslik.tudelft.SEM.control.gameObjects;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.modifiers;
 
 /**
- * Interface to be implemented by all objects which can move.
  *
  * @author faris
  */
-public interface IDynamicObject extends PhysicsObject {
-
-
+public enum EnumPickups {
+    
 }

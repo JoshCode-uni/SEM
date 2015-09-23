@@ -6,17 +6,15 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 /**
- * Interface to be implemented by all objects which should be updated by the
- * GameLoop.
  *
  * @author faris
  */
-public interface IUpdateable {
-
+public interface IPrepareUpdateable {
+    
     /**
-     * Update the object.
+     * Prepare for an update (if needed).
      *
-     * @param nanoFrameTime nanoFrameTime the framerate (nanoseconds/frame)
+     * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
-    public abstract void update(final long nanoFrameTime);
+    public void prepareUpdate(final long nanoFrameTime);
 }

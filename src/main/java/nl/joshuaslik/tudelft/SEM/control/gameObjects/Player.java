@@ -6,10 +6,9 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.modifiers.Pickup;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
-import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
-import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -18,7 +17,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  *
  * @author faris
  */
-public class Player extends AbstractPhysicsObject implements IDynamicObject  {
+public class Player extends AbstractPhysicsObject implements IDynamicObject, IUpdateable, ICollider  {
 
 //    private final ImageView image;
     private final IImageViewObject image;
@@ -47,23 +46,13 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
     }
 
     /**
-     * Prepare for updating.
-     *
-     * @param nanoFrameTime the framerate (nanoseconds/frame)
-     */
-    @Override
-    public void prepareUpdate(long nanoFrameTime) {
-        // no preparation needed
-    }
-
-    /**
      * Check if the player has collided with anything. Not implemented.
      *
      * @param obj2 object to check collision with
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public void checkCollision(PhysicsObject obj2, long nanoFrameTime) {
+    public void checkCollision(IIntersectable obj2, long nanoFrameTime) {
         if (obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             if (image.intersects(bubble.getCircleViewObject())) {
@@ -77,6 +66,12 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
                     System.out.println("Player dies");
                     getGameObjects().playerDied();
                 }
+            }
+        } else if(obj2 instanceof Pickup) {
+            // check pickup collision
+            Pickup pickup = (Pickup) obj2;
+            if(image.intersects(pickup.getPickupImage())){
+                pickup.pickedUp(this);
             }
         }
     }
@@ -111,34 +106,6 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
     }
 
     /**
-     * Not implemented.
-     *
-     * @param p -
-     * @return intersection -
-     */
-    @Override
-    public IntersectionPoint getClosestIntersection(Point p) {
-        GameLog.addWarningLog("Called non-implemented method: "
-                + "getClosestIntersection in class Player");
-        // player is special: getClosestIntersection won't be called
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * Never called, because player is special.
-     *
-     * @param obj2 -
-     * @param nanoFrameTime -
-     */
-    @Override
-    public void collide(IDynamicObject obj2, long nanoFrameTime) {
-        GameLog.addWarningLog("Called non-implemented method: "
-                + "collide in class Player");
-        // player is special: collide won't be called
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
      * Method for testing purposes.
      * @return the max speed.
      */
@@ -170,9 +137,13 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
     /**
      * Set the number of lives the player has.
      *
-     * @return lives.
+     * @param newlives
      */
     public void setLives(int newlives) {
         lives = newlives;
+    }
+
+    public IImageViewObject getImage() {
+        return image;
     }
 }
