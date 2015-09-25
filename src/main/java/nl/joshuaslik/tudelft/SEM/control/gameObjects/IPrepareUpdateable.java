@@ -6,10 +6,15 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 /**
- * Object in the game.
  *
  * @author faris
  */
-public interface PhysicsObject {
+public interface IPrepareUpdateable extends PhysicsObject {
     
+    /**
+     * Prepare for an update (if needed).
+     *
+     * @param nanoFrameTime the framerate (nanoseconds/frame)
+     */
+    public void prepareUpdate(final long nanoFrameTime);
 }

@@ -21,9 +21,8 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewOb
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * Controller for the game UI.
@@ -31,7 +30,7 @@ import utility.GameLog;
  * @author Bastijn
  */
 public class GameController implements IviewController {
-    
+
     @FXML
     private Pane pane;
 
@@ -40,7 +39,7 @@ public class GameController implements IviewController {
 
     @FXML
     private Text livesText, levelText, scoreText;
-    
+
     @FXML
     private ImageView lives;
 
@@ -53,14 +52,12 @@ public class GameController implements IviewController {
     private Group gameObjects;
 
     private GameLoop gl;
-    
+
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
 
-    private Player player;
-    
     private static int currentlives = 3;
     private static int currentLevel = 0;
-    
+
     private long timeLeft;
 
     /**
@@ -114,15 +111,12 @@ public class GameController implements IviewController {
     @Override
     public void start(Scene scene) {
 
-		//player = new Player(null, null);
 		//currentlives = player.getLives();
-		
         levelText.setText("Level " + Integer.toString(currentLevel + 1));
         timeLeft = MAX_TIME;
-		
-		Image image = new Image("/data/gui/img/heart" + currentlives + ".png");
-		lives.setImage(image);
-		
+
+        resetLives();
+
         gl = new GameLoop(this, currentLevel, top.getStartY(), top.getEndX(),
                 bottom.getStartY(), top.getStartX(), scene);
 
@@ -130,7 +124,15 @@ public class GameController implements IviewController {
 
         gl.start();
     }
-
+    
+    public void resetLives() {
+        if(currentlives > 5)
+            currentlives = 5;
+        Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + currentlives
+                + ".png"));
+        lives.setImage(image);
+    }
+    
     /**
      * Draw a node in the game view.
      *
@@ -155,15 +157,16 @@ public class GameController implements IviewController {
      * @param nanoTimePassed the framerate (nanoseconds/frame)
      */
     public void updateTime(Long nanoTimePassed) {
-    	
+
         timeLeft -= nanoTimePassed;
         if (timeLeft <= 0) {
             died();
             return;
         }
-        
+
         scoreText.setText("Score: " + gl.getScore());
         timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft / (double) MAX_TIME));
+        
     }
 
     /**
@@ -171,15 +174,16 @@ public class GameController implements IviewController {
      */
     public void levelCompleted() {
         int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
-        GameLog.addInfoLog("Player completed level: " + 
-                Levels.getCurrentLevel());
+        GameLog.addInfoLog("Player completed level: "
+                + Levels.getCurrentLevel());
         GameLog.addInfoLog("level score: " + totalScore);
-        
+
         MainMenuController.setScore(totalScore, Levels.getCurrentLevel());
         gl.stop();
         gl = null;
-        
         Levels.nextLevel();
+        setLevel(currentLevel + 1);
+
         YouWonController.loadPopup(this);
     }
 
@@ -189,40 +193,35 @@ public class GameController implements IviewController {
     public void died() {
         GameLog.addInfoLog("Player died");
         System.out.println("Player died");
-        
         gl.stop();
         gl = null;
-        
-        setLives(currentlives-1);
 
-       if (currentlives >= 0) {
-    	   GameController.setLevel(currentLevel);
-    	   GameController.loadView();
-           System.out.println(currentlives);
-       }
-       else {
-        	YouLostController.loadPopup(this);
-       }
+        setLives(currentlives - 1);
+
+        if (currentlives >= 0) {
+            GameController.loadView();
+            System.out.println("lives: " + currentlives);
+        } else {
+            YouLostController.loadPopup(this);
+            setLives(3);
+        }
     }
 
     /**
-<<<<<<< HEAD
-     * Disable all butons.
-=======
-     * Select the level which should be played.
+     * Disable all buttons. Select the level which should be played.
      *
      * @param level
      */
     public static void setLevel(int level) {
         GameController.currentLevel = level;
     }
-    
+
     /**
      * Select the lives the player has.
      *
      * @param lives
      */
-    public static void setLives(int lives) {
+    private static void setLives(int lives) {
         GameController.currentlives = lives;
     }
 
@@ -236,33 +235,36 @@ public class GameController implements IviewController {
         quitButton.setDisable(disabled);
         mainMenuButton.setDisable(disabled);
     }
-    
+
     /**
      * Create a circle in the view.
+     *
      * @param centerX the x coordinate of the center of the circle.
      * @param centerY the y coordinate of the center of the circle.
      * @param radius the radius of the circle.
      * @return the interface of the circle view object.
      */
-    public ICircleViewObject makeCircle(double centerX, double centerY, 
+    public ICircleViewObject makeCircle(double centerX, double centerY,
             double radius) {
         return new CircleViewObject(centerX, centerY, radius, this);
     }
-    
-     /**
+
+    /**
      * Create an image in the view.
+     *
      * @param is the input stream of the image.
      * @param height the height of the image.
      * @param width the width of the image.
      * @return the interface of the image view object.
      */
-    public IImageViewObject makeImage(InputStream is, 
+    public IImageViewObject makeImage(InputStream is,
             double width, double height) {
         return new ImageViewObject(is, width, height, this);
     }
-    
+
     /**
      * Create a line in the view.
+     *
      * @param startX the x coordinate of the start point of the line.
      * @param startY the y coordinate of the start point of the line.
      * @param endX the x coordinate of the end point of the line.
@@ -272,5 +274,10 @@ public class GameController implements IviewController {
     public ILineViewObject makeLine(double startX, double startY, double endX,
             double endY) {
         return new LineViewObject(startX, startY, endX, endY, this);
+    }
+    
+    public void addLife() {
+        setLives(currentlives + 1);
+        resetLives();
     }
 }

@@ -3,12 +3,11 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
 import javafx.scene.layout.Pane;
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * Controller for the You Won screen.
