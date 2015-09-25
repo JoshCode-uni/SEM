@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.IModifier;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerater;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.AbstractBubbleModifierDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.AbstractPlayerModifierDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
@@ -405,6 +406,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
     public void handlePickupCollision(IModifier mod, boolean isPlayerPickup, boolean isBubblePickup) {
         if(isPlayerPickup) {
             player.addModifier((AbstractPlayerModifierDecorator) mod);
+        } else if(isBubblePickup) {
+            for(Bubble b : bubbles)
+                b.addModifier((AbstractBubbleModifierDecorator) mod);
         }
     }
     

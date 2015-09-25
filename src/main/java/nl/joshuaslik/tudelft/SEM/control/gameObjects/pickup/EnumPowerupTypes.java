@@ -9,6 +9,7 @@ import java.io.InputStream;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.bubbleMods.BubbleSlowdown;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.playerMods.PlayerSpeedUp;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.playerMods.ProjectileSpeedUp;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.playerMods.ProjectileSpikeDelayUp;
@@ -25,7 +26,8 @@ public enum EnumPowerupTypes {
      */
     PLAYER_SPEED_UP(PlayerSpeedUp.class, "/data/gui/img/speedup.png", true, false),
     PROJECTILE_SPEED_UP(ProjectileSpeedUp.class, "/data/gui/img/projectilespeedup.png", true, false),
-    PROJECTILE_DELAY(ProjectileSpikeDelayUp.class, "/data/gui/img/spike.png", true, false);
+    PROJECTILE_DELAY(ProjectileSpikeDelayUp.class, "/data/gui/img/spike.png", true, false),
+    BUBBLE_SLOW_DOWN(BubbleSlowdown.class, "/data/gui/img/slowdown.png", false, true);
 
     private final Class<? extends IModifier> mod;
 //    private IDecorator decor;
