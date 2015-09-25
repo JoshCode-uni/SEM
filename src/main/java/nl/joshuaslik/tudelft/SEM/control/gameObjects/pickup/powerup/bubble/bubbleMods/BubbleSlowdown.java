@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.bubbleMods;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.bubbleMods;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.AbstractBubbleModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
 
 /**
  *

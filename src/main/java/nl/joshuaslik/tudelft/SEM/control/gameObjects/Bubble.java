@@ -1,9 +1,9 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.AbstractBubbleModifierDecorator;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.BubbleModifier;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.IBubbleModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.BubbleModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.IBubbleModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;

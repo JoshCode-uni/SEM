@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.AbstractPickup;
 
 /**
  *

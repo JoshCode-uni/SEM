@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.playerMods;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.AbstractPlayerModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
 
 /**
  *

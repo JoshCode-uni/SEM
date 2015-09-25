@@ -6,9 +6,9 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.IPlayerModifier;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.PlayerModifier;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.AbstractPlayerModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.PlayerModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
