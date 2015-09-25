@@ -20,7 +20,6 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  * @author faris
  */
 public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider {
-
     private IPlayerModifier modifier = new PlayerModifier();
     private final IImageViewObject image;
     private final IKeyboard keyboard;

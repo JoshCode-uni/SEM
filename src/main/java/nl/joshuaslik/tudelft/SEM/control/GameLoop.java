@@ -110,6 +110,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
     @Override
     public void playerDied() {
+        stop();
         gameController.died();
     }
 
