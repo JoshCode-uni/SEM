@@ -12,12 +12,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.IModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerater;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.AbstractPlayerModifierDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
  * Game objects stores all objects of a level and updates them. It also keeps
@@ -34,6 +37,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
     private final ArrayList<PhysicsObject> addObjectBuffer = new ArrayList<>();
     private final ArrayList<PhysicsObject> removeObjectBuffer = new ArrayList<>();
+    
+    private final PickupGenerater pickupGenerater = new PickupGenerater((IGameObjects) this);
+    private final ArrayList<Bubble> bubbles = new ArrayList<>();
     private Player player;
 
     private boolean hasProjectile = false;
@@ -199,6 +205,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
             }
 
             if (object instanceof Bubble) {
+                bubbles.add((Bubble) object);
                 ++bubbleCount;
             }
         }
@@ -225,6 +232,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
             }
 
             if (object instanceof Bubble) {
+                bubbles.remove((Bubble) object);
                 score += 10;
                 --bubbleCount;
             }
@@ -395,6 +403,13 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
     @Override
     public void handlePickupCollision(IModifier mod, boolean isPlayerPickup, boolean isBubblePickup) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(isPlayerPickup) {
+            player.addModifier((AbstractPlayerModifierDecorator) mod);
+        }
+    }
+    
+    @Override
+    public void handleBubbleSplit(Point p) {
+        pickupGenerater.generatePickup(p);
     }
 }

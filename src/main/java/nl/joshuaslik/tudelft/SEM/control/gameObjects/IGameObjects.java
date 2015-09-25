@@ -10,6 +10,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.IModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
  * Interface which defines which methods may be accessed by the objects inside
@@ -118,4 +119,6 @@ public interface IGameObjects {
     public Player getPlayer();
     
     public void handlePickupCollision(IModifier pickup, boolean isPlayerPickup, boolean isBubblePickup);
+    
+    public void handleBubbleSplit(Point p);
 }

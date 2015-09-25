@@ -17,24 +17,30 @@ public abstract class AbstractPlayerModifierDecorator<T extends IPlayerModifier>
 
     private IPlayerModifier child;
     
-    @Override
-    public double getMoveSpeedMultiplier() {
-        return child.getProjectileSpeedMultiplier();
-    }
+//    @Override
+//    public double getMoveSpeedMultiplier() {
+//        double res = child.getProjectileSpeedMultiplier();
+//        System.out.println("return res = " + res);
+//        return res;
+//    }
 
-    @Override
-    public double getProjectileSpeedMultiplier() {
-        return child.getProjectileSpeedMultiplier();
-    }
-
-    @Override
-    public int getProjectileSpikeDelay() {
-        return child.getProjectileSpikeDelay();
-    }
+//    @Override
+//    public double getProjectileSpeedMultiplier() {
+//        return child.getProjectileSpeedMultiplier();
+//    }
+//
+//    @Override
+//    public int getProjectileSpikeDelay() {
+//        return child.getProjectileSpikeDelay();
+//    }
     
     @Override
     public T decorate(IModifier mod) {
         child = (IPlayerModifier) mod;
         return (T) this;
+    }
+
+    public IPlayerModifier getChild() {
+        return child;
     }
 }
