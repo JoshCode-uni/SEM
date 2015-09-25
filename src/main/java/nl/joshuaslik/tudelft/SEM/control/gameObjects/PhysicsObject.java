@@ -5,29 +5,11 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
-import nl.joshuaslik.tudelft.SEM.model.container.Point;
-
 /**
- * Object which has physics (you can collide with it).
+ * Object in the game.
  *
  * @author faris
  */
 public interface PhysicsObject {
-
-    /**
-     * Get the closest point of this object to point p.
-     *
-     * @param p point to get closest location to.
-     * @return closest point on the object to point p.
-     */
-    public IntersectionPoint getClosestIntersection(final Point p);
     
-    /**
-     * Set the game object interface, which allows this class to interact via a
-     * limited set of methods, with other game objects.
-     * @param gameObjects the game objects interface.
-     */
-    public void setIGameObjects(IGameObjects gameObjects);
-
 }

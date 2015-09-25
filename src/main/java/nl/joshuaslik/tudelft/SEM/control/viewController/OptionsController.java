@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 public class OptionsController implements IviewController {
 

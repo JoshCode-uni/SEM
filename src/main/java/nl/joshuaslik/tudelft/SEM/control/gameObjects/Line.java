@@ -10,7 +10,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
  *
  * @author faris
  */
-public class Line extends AbstractPhysicsObject {
+public class Line extends AbstractPhysicsObject implements IIntersectable {
 
     private final ILineViewObject line;
     private final Point p1, p2;
@@ -28,6 +28,8 @@ public class Line extends AbstractPhysicsObject {
         super(gameObjects);
         
         line = getGameObjects().makeLine(startX, startY, endX, endY);
+        line.setStrokeWidth(10);
+        
         this.p1 = new Point(startX, startY);
         this.p2 = new Point(endX, endY);
 
@@ -105,5 +107,10 @@ public class Line extends AbstractPhysicsObject {
      */
     private Point getLargestXpoint() {
         return p1.getxPos() < p2.getxPos() ? p2 : p1;
+    }
+    
+    public void destroy() {
+        getGameObjects().removeObject(this);
+        line.destroy();
     }
 }

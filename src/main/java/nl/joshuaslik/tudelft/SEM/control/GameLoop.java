@@ -16,7 +16,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * The gameloop which updated all objects after each frame.
@@ -110,6 +110,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
     @Override
     public void playerDied() {
+        stop();
         gameController.died();
     }
 
@@ -151,5 +152,10 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public ILineViewObject makeLine(double startX, double startY, double endX,
             double endY) {
         return gameController.makeLine(startX, startY, endX, endY);
+    }
+    
+    @Override
+    public void addLife() {
+        gameController.addLife();
     }
 }

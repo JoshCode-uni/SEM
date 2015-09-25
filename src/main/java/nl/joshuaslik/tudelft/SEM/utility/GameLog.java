@@ -1,4 +1,4 @@
-package utility;
+package nl.joshuaslik.tudelft.SEM.utility;
 
 import java.io.File;
 import java.io.FileWriter;

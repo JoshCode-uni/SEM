@@ -6,54 +6,45 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.PlayerModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
-import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
-import nl.joshuaslik.tudelft.SEM.model.container.Point;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
- * A class containing the position of the player. This class also controller the
- * player.
+ * A class containing the position of the player. This class also controller the player.
  *
  * @author faris
  */
-public class Player extends AbstractPhysicsObject implements IDynamicObject  {
-
-//    private final ImageView image;
+public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider {
+    private IPlayerModifier modifier = new PlayerModifier();
     private final IImageViewObject image;
     private final IKeyboard keyboard;
     private static final double MAX_SPEED = 300;
-
-    private int lives;
+    private ArrayList<Double> leftDoor = new ArrayList<>();
+    private ArrayList<Double> rightDoor = new ArrayList<>();
+    private final double playerXstart;
 
     /**
      * Create a player.
+     *
      * @param gameObjects
      * @param is
      * @param kb keyboard which controller the actions of the player.
      */
     public Player(IGameObjects gameObjects, InputStream is, IKeyboard kb) {
         super(gameObjects);
-        
+
         image = getGameObjects().makeImage(is, 100, 100);
-        image.setX((getGameObjects().getRightBorder() - 
-                getGameObjects().getLeftBorder()) / 2.0);
-        image.setY(getGameObjects().getBottomBorder() - 
-                image.getHeight());
+        image.setX((getGameObjects().getRightBorder()
+                - getGameObjects().getLeftBorder()) / 2.0);
+        image.setY(getGameObjects().getBottomBorder()
+                - image.getHeight());
         keyboard = kb;
-
-        lives = 3;
-    }
-
-    /**
-     * Prepare for updating.
-     *
-     * @param nanoFrameTime the framerate (nanoseconds/frame)
-     */
-    @Override
-    public void prepareUpdate(long nanoFrameTime) {
-        // no preparation needed
+        playerXstart = image.getStartX();
     }
 
     /**
@@ -63,20 +54,11 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public void checkCollision(PhysicsObject obj2, long nanoFrameTime) {
+    public void checkCollision(IIntersectable obj2, long nanoFrameTime) {
         if (obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             if (image.intersects(bubble.getCircleViewObject())) {
-                if (lives > 0) {
-                    GameLog.addInfoLog("Player loses life, lives left: " + lives);
-                    System.out.println("Player loses life");
-                    lives--;
-                    // Reset level
-                } else {
-                    GameLog.addInfoLog("Player dies, no lives left");
-                    System.out.println("Player dies");
-                    getGameObjects().playerDied();
-                }
+                getGameObjects().playerDied();
             }
         }
     }
@@ -88,13 +70,29 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
      */
     @Override
     public void update(long nanoFrameTime) {
-        if (keyboard.isMoveLeft() && getGameObjects().getLeftBorder() < image.getStartX()) {
+        if (keyboard.isMoveLeft()) {
             // move left
-            image.setX(image.getStartX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000);
+            double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier();
+            double leftBorder = getClosestLeftBorder();
+            if (leftBorder < leftPos) {
+                image.setX(leftPos);
+            } else {
+                image.setX(leftBorder);
+            }
             image.setScaleX(1);
-        } else if (keyboard.isMoveRight() && getGameObjects().getRightBorder() > image.getEndX()) {
+        } else if (keyboard.isMoveRight()) {
             // move right
-            image.setX(image.getStartX() + MAX_SPEED * nanoFrameTime / 1_000_000_000);
+            double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier();
+            double rightBorder = getClosestRightBorder();
+            if (rightBorder - 100 > rightPos) {
+                image.setX(rightPos);
+            } else {
+                System.out.println("rightBorder = " + rightBorder);
+                System.out.println("image.getStartX() = " + image.getStartX());
+                System.out.println("image.getEndX() = " + image.getEndX());
+                System.out.println("rightPos = " + rightPos);
+                image.setX(rightBorder - 100);
+            }
             image.setScaleX(-1);
         }
 
@@ -111,59 +109,78 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject  {
     }
 
     /**
-     * Not implemented.
-     *
-     * @param p -
-     * @return intersection -
-     */
-    @Override
-    public IntersectionPoint getClosestIntersection(Point p) {
-        GameLog.addWarningLog("Called non-implemented method: "
-                + "getClosestIntersection in class Player");
-        // player is special: getClosestIntersection won't be called
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
-     * Never called, because player is special.
-     *
-     * @param obj2 -
-     * @param nanoFrameTime -
-     */
-    @Override
-    public void collide(IDynamicObject obj2, long nanoFrameTime) {
-        GameLog.addWarningLog("Called non-implemented method: "
-                + "collide in class Player");
-        // player is special: collide won't be called
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    /**
      * Method for testing purposes.
+     *
      * @return the max speed.
      */
     public static double getMAX_SPEED() {
         return MAX_SPEED;
     }
-    
+
     /**
      * Method for testing puproses. Avoiding object creation.
+     *
      * @param gameObjects game object.
      * @param startX start X.
      * @param startY start Y.
      * @return the requested projectile.
      */
-    public Projectile makeProjectile(IGameObjects gameObjects, double startX, 
-            double startY){
-        return new Projectile(gameObjects, startX, startY);
+    public Projectile makeProjectile(IGameObjects gameObjects, double startX,
+            double startY) {
+        return new Projectile(gameObjects, startX, startY, getProjectileSpeedMultiplier(),
+                getProjectileSpikeDelay());
+    }
+
+    public IImageViewObject getImage() {
+        return image;
+    }
+
+    public void addModifier(AbstractPlayerModifierDecorator newmod) {
+        modifier = newmod.decorate(modifier);
+    }
+
+    private double getMoveSpeedMultiplier() {
+        return modifier.getMoveSpeedMultiplier();
+    }
+
+    private double getProjectileSpeedMultiplier() {
+        return modifier.getProjectileSpeedMultiplier();
+    }
+
+    private int getProjectileSpikeDelay() {
+        return modifier.getProjectileSpikeDelay();
+    }
+
+    public void setDoor(double xCoordinate) {
+        System.out.println("add: xCoordinate = " + xCoordinate);
+        if (xCoordinate > image.getStartX()) {
+            rightDoor.add(xCoordinate);
+        } else {
+            leftDoor.add(xCoordinate);
+        }
+    }
+
+    public void removeDoor(double xCoordinate) {
+        System.out.println("remove: xCoordinate = " + xCoordinate);
+        rightDoor.remove(xCoordinate);
+        leftDoor.remove(xCoordinate);
     }
     
-    /**
-     * Get the number of lives the player has.
-     *
-     * @return lives.
-     */
-    public int getLives() {
-        return lives;
+    private double getClosestLeftBorder() {
+       double res = getGameObjects().getLeftBorder();
+        for(double e : leftDoor) {
+            if(e > res && e < playerXstart)
+                res = e;
+        }
+        return res; 
+    }
+    
+    private double getClosestRightBorder() {
+        double res = getGameObjects().getRightBorder();
+        for(double e : rightDoor) {
+            if(e < res && e > playerXstart)
+                res = e;
+        }
+        return res;
     }
 }

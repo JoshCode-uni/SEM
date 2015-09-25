@@ -20,7 +20,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
-import utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * The launcher of the application.
@@ -46,7 +46,7 @@ public class Launcher extends Application {
 
         Scene scene = new Scene(bp);
         primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
+//        primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.show();
         Launcher.stage = primaryStage;

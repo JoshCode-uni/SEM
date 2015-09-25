@@ -6,9 +6,11 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
  * Interface which defines which methods may be accessed by the objects inside
@@ -22,7 +24,7 @@ public interface IGameObjects {
      *
      * @param object the Dynamic Object to add to the scene.
      */
-    public void addObject(IDynamicObject object);
+    public void addObject(PhysicsObject object);
 
     /**
      * Add a Projectile to the game.
@@ -36,7 +38,7 @@ public interface IGameObjects {
      *
      * @param object the Dynamic Object to remove from the game.
      */
-    public void removeObject(IDynamicObject object);
+    public void removeObject(PhysicsObject object);
 
     /**
      * Remove a Projectile from the game.
@@ -113,4 +115,14 @@ public interface IGameObjects {
      */
     public IImageViewObject makeImage(InputStream is, double height, 
             double width);
+    
+    public Player getPlayer();
+    
+    public void handleModifierCollision(IModifier pickup, boolean isPlayerPickup, boolean isBubblePickup);
+    
+    public void handleBubbleSplit(Point p);
+    
+    public void addPoints(int points);
+    public void addLife();
+    public int bubblesLeft();
 }
