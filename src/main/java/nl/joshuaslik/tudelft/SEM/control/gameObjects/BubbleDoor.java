@@ -14,6 +14,12 @@ public class BubbleDoor extends Door {
 	//	if(open == true){
 	//		destroy();
 	//	}
+	}
+
+	@Override
+	public boolean isOpen() {
+		// TODO Auto-generated method stub
+		return false;
 	}	
 
 }

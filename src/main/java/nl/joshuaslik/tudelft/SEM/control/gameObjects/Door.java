@@ -125,7 +125,5 @@ abstract public class Door implements IDynamicObject{
 	 * Checks if the door is currently open
 	 * @return open
 	 */
-	public boolean isOpen() {
-		return open;
+	abstract public boolean isOpen();
 	}
-}
