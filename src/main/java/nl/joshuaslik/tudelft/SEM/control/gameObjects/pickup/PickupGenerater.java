@@ -5,6 +5,8 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup;
 
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.Powerup;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.EnumPowerupTypes;
 import java.util.Random;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;

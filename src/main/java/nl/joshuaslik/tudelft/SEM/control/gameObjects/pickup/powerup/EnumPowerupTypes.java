@@ -3,16 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup;
 
 import java.io.InputStream;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.bubbleMods.BubbleSlowdown;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.playerMods.PlayerSpeedUp;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.playerMods.ProjectileSpeedUp;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.playerMods.ProjectileSpikeDelayUp;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.bubbleMods.BubbleSlowdown;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.PlayerSpeedUp;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.ProjectileSpeedUp;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.ProjectileSpikeDelayUp;
 
 /**
  *
