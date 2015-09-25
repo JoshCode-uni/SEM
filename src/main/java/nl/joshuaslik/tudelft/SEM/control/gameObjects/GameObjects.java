@@ -159,8 +159,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param level the level to initialize.
      */
     private void initializeLevel(int level) {
-        ArrayList<Bubble> bubbles = Levels.getLevel(level, (IGameObjects) this);
-        for (Bubble e : bubbles) {
+        for (PhysicsObject e : Levels.getLevelObjects(level, (IGameObjects) this)) {
             addObject(e);
         }
     }
