@@ -29,8 +29,8 @@ public class PickupGenerater {
             return;
         }
 
-        // 50% chance for a pickup and 50% chance for a powerup:
-        if (rand.nextBoolean()) {
+        // 40% chance for a pickup and 60% chance for a powerup:
+        if (rand.nextDouble() < 0.6) {
              //create powerup
             Powerup powerup = new Powerup(gameObjects, EnumPowerupTypes.getRandomPowerup(),
             p.getxPos(), p.getyPos());

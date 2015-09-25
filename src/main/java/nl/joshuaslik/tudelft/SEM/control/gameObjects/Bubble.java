@@ -1,6 +1,9 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.AbstractBubbleModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.BubbleModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble.IBubbleModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
@@ -26,6 +29,8 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     private double vY = 0;
     private double nextX;
     private double nextY;
+    
+    private IBubbleModifier modifier = new BubbleModifier();
 
     /**
      * Create a bubble.
@@ -81,6 +86,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      */
     @Override
     public void update(final long nanoFrameTime) {
+        
         // check if hit ceiling, if so, destroy bubble
         if (nextY - circle.getRadius() - 10 < getGameObjects().getTopBorder())
         {
@@ -208,8 +214,10 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public void prepareUpdate(final long nanoFrameTime) {
+    public void prepareUpdate(long nanoFrameTime) {
 
+        nanoFrameTime *= getSpeedModifier();
+        
         dir = newDir;
 
         // apply gravity
@@ -229,6 +237,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     private void calculateNextPosition(final long nanoFrameTime) {
+        
         if (vY > Y_MAX_SPEED) {
             vY = Y_MAX_SPEED;
         } else if (vY < -Y_MAX_SPEED) {
@@ -279,6 +288,9 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         bubble2.vY = this.vY;
 
         getGameObjects().addObject(bubble2);
+        
+        // remove modifier
+        this.modifier = new BubbleModifier();
     }
 
     /**
@@ -314,5 +326,13 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      */
     protected ICircleViewObject getCircleViewObject() {
         return circle;
+    }
+    
+    public void addModifier(AbstractBubbleModifierDecorator newmod) {
+        modifier = newmod.decorate(modifier);
+    }
+    
+    private double getSpeedModifier() {
+        return modifier.getBubbleSpeedModifier();
     }
 }

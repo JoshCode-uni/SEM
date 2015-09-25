@@ -12,12 +12,11 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
- * A class which holds the information of a projectile which is shot by the
- * palyer.
+ * A class which holds the information of a projectile which is shot by the palyer.
  *
  * @author faris
  */
-public class Projectile extends AbstractPhysicsObject implements IUpdateable, ICollideReceiver  {
+public class Projectile extends AbstractPhysicsObject implements IUpdateable, ICollideReceiver {
 
 //    private final javafx.scene.shape.Line fxLine;
     private final ILineViewObject line;
@@ -37,17 +36,17 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * @param speed
      * @param delay
      */
-    public Projectile(IGameObjects gameObjects, double startX, double startY, double speed, 
+    public Projectile(IGameObjects gameObjects, double startX, double startY, double speed,
             int delay) {
         super(gameObjects);
-        
+
         growSpeed = 1000 * speed;
         this.delay = delay * 1_000_000_000.0;
-        
-        line = getGameObjects().makeLine(startX, startY - 1, startX, startY);
+
+        line = getGameObjects().makeLine(startX, startY - 2, startX, startY - 3);
 
         this.p1 = new Point(startX, startY);
-        this.p2 = new Point(startX, startY - 1);
+        this.p2 = new Point(startX, startY + 10);
 
         dir = new Vector(p2.getxPos() - p1.getxPos(), p2.getyPos() - p1.getyPos());
 
@@ -55,7 +54,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
         line.setColor(0.2, 0.1, 0.1);
         line.setOpacity(0.8);
 
-        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) 
+        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX)
                 + ", " + Double.toString(startY) + ")");
     }
 
@@ -68,9 +67,9 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
     public void update(long nanoFrameTime) {
 
         // destroy line if it hit the ceiling
-        if (line.getEndY() < getGameObjects().getTopBorder()) {
+        if (line.getEndY() <= getGameObjects().getTopBorder() + 2) {
             // Wait till delay is done.
-            if(delay > 0) {
+            if (delay > 0) {
                 delay -= nanoFrameTime;
                 return;
             }
@@ -81,10 +80,14 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
             line.destroy();
             isActive = false;
         }
-        
+
         // make line longer
         double endY = line.getEndY() - growSpeed * (nanoFrameTime / 1_000_000_000.0);
-        line.setEndY(endY);
+        if (endY < getGameObjects().getTopBorder() + 2) {
+            line.setEndY(getGameObjects().getTopBorder() + 2);
+        } else {
+            line.setEndY(endY);
+        }
         updateLinePoints();
     }
 
@@ -170,8 +173,8 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
     }
 
     /**
-     * Called when a dynamic object collides with this projectile. If it is a
-     * bubble we will split the bubble.
+     * Called when a dynamic object collides with this projectile. If it is a bubble we will split
+     * the bubble.
      *
      * @param obj2 the dynamic object which collided with this projectile.
      * @param nanoFrameTime the time which a frame takes.
