@@ -12,19 +12,19 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
- * A class which holds the information of a projectile which is shot by the
- * palyer.
+ * A class which holds the information of a projectile which is shot by the palyer.
  *
  * @author faris
  */
-public class Projectile extends AbstractPhysicsObject implements IDynamicObject  {
+public class Projectile extends AbstractPhysicsObject implements IUpdateable, ICollideReceiver {
 
 //    private final javafx.scene.shape.Line fxLine;
     private final ILineViewObject line;
     private Point p1, p2;
     private final Vector dir;
 
-    private final static double GROW_RATE = 1000;
+    private final double growSpeed;
+    private double delay;
     private boolean isActive = true;
 
     /**
@@ -33,14 +33,20 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
      * @param gameObjects
      * @param startX start x coordinate of the projectile.
      * @param startY start y coordinate of the projectile.
+     * @param speed
+     * @param delay
      */
-    public Projectile(IGameObjects gameObjects, double startX, double startY) {
+    public Projectile(IGameObjects gameObjects, double startX, double startY, double speed,
+            int delay) {
         super(gameObjects);
-        
-        line = getGameObjects().makeLine(startX, startY - 1, startX, startY);
+
+        growSpeed = 1000 * speed;
+        this.delay = delay * 1_000_000_000.0;
+
+        line = getGameObjects().makeLine(startX, startY - 2, startX, startY - 3);
 
         this.p1 = new Point(startX, startY);
-        this.p2 = new Point(startX, startY - 1);
+        this.p2 = new Point(startX, startY + 10);
 
         dir = new Vector(p2.getxPos() - p1.getxPos(), p2.getyPos() - p1.getyPos());
 
@@ -48,19 +54,8 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
         line.setColor(0.2, 0.1, 0.1);
         line.setOpacity(0.8);
 
-        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) 
+        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX)
                 + ", " + Double.toString(startY) + ")");
-    }
-
-    /**
-     * Check if we collide with object dobj.
-     *
-     * @param dobj a dynamic object.
-     * @param nanoFrameTime
-     */
-    @Override
-    public void checkCollision(PhysicsObject dobj, long nanoFrameTime) {
-        // we won't collide with anything, other things only collide with us.
     }
 
     /**
@@ -71,13 +66,13 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
     @Override
     public void update(long nanoFrameTime) {
 
-        // make line longer
-        double endY = line.getEndY() - GROW_RATE * (nanoFrameTime / 1_000_000_000.0);
-        line.setEndY(endY);
-        updateLinePoints();
-
         // destroy line if it hit the ceiling
-        if (line.getEndY() < getGameObjects().getTopBorder()) {
+        if (line.getEndY() <= getGameObjects().getTopBorder() + 2) {
+            // Wait till delay is done.
+            if (delay > 0) {
+                delay -= nanoFrameTime;
+                return;
+            }
             GameLog.addInfoLog("Projectile hit ceiling at: ("
                     + Double.toString(line.getEndX()) + ", "
                     + Double.toString(line.getEndY()) + ")");
@@ -85,16 +80,15 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
             line.destroy();
             isActive = false;
         }
-    }
 
-    /**
-     * Prepare for an update.
-     *
-     * @param nanoFrameTime the time which a frame takes.
-     */
-    @Override
-    public void prepareUpdate(long nanoFrameTime) {
-        // no preparation needed
+        // make line longer
+        double endY = line.getEndY() - growSpeed * (nanoFrameTime / 1_000_000_000.0);
+        if (endY < getGameObjects().getTopBorder() + 2) {
+            line.setEndY(getGameObjects().getTopBorder() + 2);
+        } else {
+            line.setEndY(endY);
+        }
+        updateLinePoints();
     }
 
     /**
@@ -179,14 +173,14 @@ public class Projectile extends AbstractPhysicsObject implements IDynamicObject 
     }
 
     /**
-     * Called when a dynamic object collides with this projectile. If it is a
-     * bubble we will split the bubble.
+     * Called when a dynamic object collides with this projectile. If it is a bubble we will split
+     * the bubble.
      *
      * @param obj2 the dynamic object which collided with this projectile.
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
-    public void collide(IDynamicObject obj2, long nanoFrameTime) {
+    public void collide(ICollider obj2, long nanoFrameTime) {
         if (isActive && obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();

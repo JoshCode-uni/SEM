@@ -1,6 +1,9 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.BubbleModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.IBubbleModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
@@ -14,7 +17,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  *
  * @author faris
  */
-public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
+public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepareUpdateable, ICollider, ICollideReceiver {
 
     // variables to keep track of the direction/speed/position
     private final ICircleViewObject circle;
@@ -26,6 +29,8 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
     private double vY = 0;
     private double nextX;
     private double nextY;
+    
+    private IBubbleModifier modifier = new BubbleModifier();
 
     /**
      * Create a bubble.
@@ -81,6 +86,7 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
      */
     @Override
     public void update(final long nanoFrameTime) {
+        
         // check if hit ceiling, if so, destroy bubble
         if (nextY - circle.getRadius() - 10 < getGameObjects().getTopBorder())
         {
@@ -109,7 +115,7 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public void checkCollision(final PhysicsObject obj2, final long nanoFrameTime) {
+    public void checkCollision(final IIntersectable obj2, final long nanoFrameTime) {
 
         // get the closest object to the circle (which we might hit)
         Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
@@ -126,8 +132,8 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
                 collide(ip, nanoFrameTime);
             }
             //notify the other object to collide with this object
-            if (obj2 instanceof IDynamicObject) {
-                ((IDynamicObject) obj2).collide(this, nanoFrameTime);
+            if (obj2 instanceof ICollideReceiver) {
+                ((ICollideReceiver) obj2).collide(this, nanoFrameTime);
             }
             if (newDist < curDist) {
                 calculateNextPosition(nanoFrameTime);
@@ -183,9 +189,11 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
-    public void collide(final IDynamicObject obj2, final long nanoFrameTime) {
+    public void collide(final ICollider obj2, final long nanoFrameTime) {
+        if(!(obj2 instanceof IIntersectable))
+            return;
         Point thisCirclePoint = new Point(circle.getCenterX(), circle.getCenterY());
-        IntersectionPoint ip = obj2.getClosestIntersection(thisCirclePoint);
+        IntersectionPoint ip = ((IIntersectable)obj2).getClosestIntersection(thisCirclePoint);
 
         Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
         Point nextPos = new Point(nextX, nextY);
@@ -206,8 +214,10 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public void prepareUpdate(final long nanoFrameTime) {
+    public void prepareUpdate(long nanoFrameTime) {
 
+        nanoFrameTime *= getSpeedModifier();
+        
         dir = newDir;
 
         // apply gravity
@@ -227,6 +237,7 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     private void calculateNextPosition(final long nanoFrameTime) {
+        
         if (vY > Y_MAX_SPEED) {
             vY = Y_MAX_SPEED;
         } else if (vY < -Y_MAX_SPEED) {
@@ -245,6 +256,8 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
                 + Double.toString(circle.getCenterX())
                 + Double.toString(circle.getCenterY()) + ")");
 
+        getGameObjects().handleBubbleSplit(getPoint());
+        
         double newRadius = circle.getRadius() / 2.0;
         if (newRadius < 10) {
             getGameObjects().removeObject(this);
@@ -275,6 +288,9 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
         bubble2.vY = this.vY;
 
         getGameObjects().addObject(bubble2);
+        
+        // remove modifier
+        this.modifier = new BubbleModifier();
     }
 
     /**
@@ -310,5 +326,13 @@ public class Bubble extends AbstractPhysicsObject implements IDynamicObject {
      */
     protected ICircleViewObject getCircleViewObject() {
         return circle;
+    }
+    
+    public void addModifier(AbstractBubbleModifierDecorator newmod) {
+        modifier = newmod.decorate(modifier);
+    }
+    
+    private double getSpeedModifier() {
+        return modifier.getBubbleSpeedModifier();
     }
 }
