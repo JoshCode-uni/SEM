@@ -5,8 +5,6 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import nl.joshuaslik.tudelft.SEM.utility.GameLog;
-
 
 /**
  * This class can be extended instead of IPhysicsObject if no other abstract

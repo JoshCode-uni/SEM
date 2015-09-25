@@ -106,4 +106,9 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
     private Point getLargestXpoint() {
         return p1.getxPos() < p2.getxPos() ? p2 : p1;
     }
+    
+    public void destroy() {
+        getGameObjects().removeObject(this);
+        line.destroy();
+    }
 }

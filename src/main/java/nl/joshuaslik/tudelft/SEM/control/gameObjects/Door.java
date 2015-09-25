@@ -1,14 +1,13 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
-/**Makes a door which can be removed.
- *
+/**
+ * Makes a door which can be removed.
  */
-abstract public class Door implements IDynamicObject{
+abstract public class Door extends AbstractPhysicsObject implements IUpdateable, IIntersectable {
 
 	int MAX_OPEN_SPEED;
 	ImageViewObject texture;
@@ -29,12 +28,14 @@ abstract public class Door implements IDynamicObject{
 	
 	/**
 	 * Constructs a door of 4 points
+     * @param game
 	 * @param upperLeft
 	 * @param upperRight
 	 * @param bottomLeft
 	 * @param bottomRight
 	 */
 	public Door (IGameObjects game, Point upperLeft, Point upperRight, Point bottomLeft, Point bottomRight) {
+            super(game);
 		ul = upperLeft;
 		ur = upperRight;
 		bl = bottomLeft;
@@ -83,42 +84,21 @@ abstract public class Door implements IDynamicObject{
 	}
 
 	@Override
-	public void setIGameObjects(IGameObjects gameObjects) {
-		igo = gameObjects;	
-	}
-
-	@Override
 	public void update(long nanoFrameTime) {
 		if(open == true){
 			destroy();
 		}
-	}
-
-	@Override
-	public void prepareUpdate(long nanoFrameTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	//Not needed, doors don't collide into other stuff
-	@Override
-	public void checkCollision(PhysicsObject obj2, long nanoFrameTime) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	//Not needed, doors don't collide into other stuff
-	@Override
-	public void collide(IDynamicObject obj2, long nanoFrameTime) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 	/**
 	 * Should destory the door
 	 */
 	public void destroy() {
-		
+		up.destroy();
+                left.destroy();
+                right.destroy();
+                down.destroy();
+                getGameObjects().removeObject(this);
 	}
 	
 	/**
