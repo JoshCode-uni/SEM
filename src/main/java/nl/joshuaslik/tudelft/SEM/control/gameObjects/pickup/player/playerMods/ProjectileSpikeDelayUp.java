@@ -15,6 +15,16 @@ public class ProjectileSpikeDelayUp extends AbstractPlayerModifierDecorator<Proj
 
     @Override
     public int getProjectileSpikeDelay() {
-        return 3 + super.getProjectileSpikeDelay();
+        return 1 + getChild().getProjectileSpikeDelay();
+    }
+
+    @Override
+    public double getMoveSpeedMultiplier() {
+        return 1 * getChild().getMoveSpeedMultiplier();
+    }
+
+    @Override
+    public double getProjectileSpeedMultiplier() {
+        return 1 * getChild().getProjectileSpeedMultiplier();
     }
 }

@@ -15,6 +15,16 @@ public class ProjectileSpeedUp extends AbstractPlayerModifierDecorator<Projectil
 
     @Override
     public double getProjectileSpeedMultiplier() {
-        return 1.3 * super.getProjectileSpeedMultiplier();
+        return 1.3 * getChild().getProjectileSpeedMultiplier();
+    }
+
+    @Override
+    public double getMoveSpeedMultiplier() {
+        return 1 * getChild().getMoveSpeedMultiplier();
+    }
+
+    @Override
+    public int getProjectileSpikeDelay() {
+        return 0 + getChild().getProjectileSpikeDelay();
     }
 }

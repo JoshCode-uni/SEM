@@ -118,7 +118,8 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      */
     public Projectile makeProjectile(IGameObjects gameObjects, double startX, 
             double startY){
-        return new Projectile(gameObjects, startX, startY);
+        return new Projectile(gameObjects, startX, startY, getProjectileSpeedMultiplier(), 
+            getProjectileSpikeDelay());
     }
     
     /**

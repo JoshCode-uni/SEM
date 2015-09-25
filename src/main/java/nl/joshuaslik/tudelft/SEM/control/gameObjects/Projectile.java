@@ -24,7 +24,8 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
     private Point p1, p2;
     private final Vector dir;
 
-    private final static double GROW_RATE = 1000;
+    private final double growSpeed;
+    private double delay;
     private boolean isActive = true;
 
     /**
@@ -33,9 +34,15 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * @param gameObjects
      * @param startX start x coordinate of the projectile.
      * @param startY start y coordinate of the projectile.
+     * @param speed
+     * @param delay
      */
-    public Projectile(IGameObjects gameObjects, double startX, double startY) {
+    public Projectile(IGameObjects gameObjects, double startX, double startY, double speed, 
+            int delay) {
         super(gameObjects);
+        
+        growSpeed = 1000 * speed;
+        this.delay = delay * 1_000_000_000.0;
         
         line = getGameObjects().makeLine(startX, startY - 1, startX, startY);
 
@@ -60,13 +67,13 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
     @Override
     public void update(long nanoFrameTime) {
 
-        // make line longer
-        double endY = line.getEndY() - GROW_RATE * (nanoFrameTime / 1_000_000_000.0);
-        line.setEndY(endY);
-        updateLinePoints();
-
         // destroy line if it hit the ceiling
         if (line.getEndY() < getGameObjects().getTopBorder()) {
+            // Wait till delay is done.
+            if(delay > 0) {
+                delay -= nanoFrameTime;
+                return;
+            }
             GameLog.addInfoLog("Projectile hit ceiling at: ("
                     + Double.toString(line.getEndX()) + ", "
                     + Double.toString(line.getEndY()) + ")");
@@ -74,6 +81,11 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
             line.destroy();
             isActive = false;
         }
+        
+        // make line longer
+        double endY = line.getEndY() - growSpeed * (nanoFrameTime / 1_000_000_000.0);
+        line.setEndY(endY);
+        updateLinePoints();
     }
 
     /**

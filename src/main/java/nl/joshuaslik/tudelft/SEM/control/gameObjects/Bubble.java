@@ -247,6 +247,8 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
                 + Double.toString(circle.getCenterX())
                 + Double.toString(circle.getCenterY()) + ")");
 
+        getGameObjects().handleBubbleSplit(getPoint());
+        
         double newRadius = circle.getRadius() / 2.0;
         if (newRadius < 10) {
             getGameObjects().removeObject(this);

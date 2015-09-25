@@ -123,8 +123,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
      */
     @Override
     public double getHeight() {
-        return image.getLayoutBounds().getMaxY() - 
-                image.getLayoutBounds().getMinY();
+        return image.getLayoutBounds().getHeight();
     }
 
     /**
@@ -140,7 +139,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
         this.minX = minX;
         this.minY = minY;
         this.maxX = maxX;
-        this.maxY = maxY;
+        this.maxY = maxY - getHeight();
     }
     
     /**
