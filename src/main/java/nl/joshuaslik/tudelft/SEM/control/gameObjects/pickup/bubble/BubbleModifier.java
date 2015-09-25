@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.joshuaslik.tudelft.SEM.control.gameObjects.modifiers;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.bubble;
 
 /**
  *
  * @author faris
  */
-public enum EnumPickups {
+public class BubbleModifier implements IBubbleModifier {
     
 }

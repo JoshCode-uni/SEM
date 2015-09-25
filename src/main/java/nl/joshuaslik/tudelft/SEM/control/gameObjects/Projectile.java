@@ -17,7 +17,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  *
  * @author faris
  */
-public class Projectile extends AbstractPhysicsObject implements IDynamicObject, IUpdateable, ICollideReceiver  {
+public class Projectile extends AbstractPhysicsObject implements IUpdateable, ICollideReceiver  {
 
 //    private final javafx.scene.shape.Line fxLine;
     private final ILineViewObject line;
