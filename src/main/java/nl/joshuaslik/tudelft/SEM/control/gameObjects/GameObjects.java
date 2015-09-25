@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.IModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
@@ -33,6 +34,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
     private final ArrayList<PhysicsObject> addObjectBuffer = new ArrayList<>();
     private final ArrayList<PhysicsObject> removeObjectBuffer = new ArrayList<>();
+    private Player player;
 
     private boolean hasProjectile = false;
     private Projectile projectile = null;
@@ -83,7 +85,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
         // check for collisions
         for(ICollider collider : colliderObjects) {
             for(IIntersectable intersectable : intersectableObjects)
-                collider.checkCollision(intersectable, nanoFrameTime);
+                if(intersectable != collider)
+                    collider.checkCollision(intersectable, nanoFrameTime);
         }
 
         // update positions based on the calculated positions (which might've
@@ -140,7 +143,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
             return;
         }
 
-        Player player = new Player((IGameObjects) this, is, keyBoard);
+        player = new Player((IGameObjects) this, is, keyBoard);
         addObject(player);
     }
 
@@ -383,5 +386,15 @@ public class GameObjects implements IUpdateable, IGameObjects {
     public IImageViewObject makeImage(InputStream is, double height,
             double width) {
         return draw.makeImage(is, width, height);
+    }
+
+    @Override
+    public Player getPlayer() {
+        return player;
+    }
+
+    @Override
+    public void handlePickupCollision(IModifier mod, boolean isPlayerPickup, boolean isBubblePickup) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

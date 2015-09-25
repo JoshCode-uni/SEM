@@ -6,7 +6,9 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.modifiers.Pickup;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.IPlayerModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.PlayerModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.player.AbstractPlayerModifierDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
@@ -17,9 +19,9 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  *
  * @author faris
  */
-public class Player extends AbstractPhysicsObject implements IDynamicObject, IUpdateable, ICollider  {
+public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider  {
 
-//    private final ImageView image;
+    private IPlayerModifier modifier = new PlayerModifier();
     private final IImageViewObject image;
     private final IKeyboard keyboard;
     private static final double MAX_SPEED = 300;
@@ -67,12 +69,6 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject, IUp
                     getGameObjects().playerDied();
                 }
             }
-        } else if(obj2 instanceof Pickup) {
-            // check pickup collision
-            Pickup pickup = (Pickup) obj2;
-            if(image.intersects(pickup.getPickupImage())){
-                pickup.pickedUp(this);
-            }
         }
     }
 
@@ -85,11 +81,11 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject, IUp
     public void update(long nanoFrameTime) {
         if (keyboard.isMoveLeft() && getGameObjects().getLeftBorder() < image.getStartX()) {
             // move left
-            image.setX(image.getStartX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000);
+            image.setX(image.getStartX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier());
             image.setScaleX(1);
         } else if (keyboard.isMoveRight() && getGameObjects().getRightBorder() > image.getEndX()) {
             // move right
-            image.setX(image.getStartX() + MAX_SPEED * nanoFrameTime / 1_000_000_000);
+            image.setX(image.getStartX() + MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier());
             image.setScaleX(-1);
         }
 
@@ -145,5 +141,21 @@ public class Player extends AbstractPhysicsObject implements IDynamicObject, IUp
 
     public IImageViewObject getImage() {
         return image;
+    }
+    
+    public void addModifier(AbstractPlayerModifierDecorator newmod) {
+        modifier = newmod.decorate(modifier);
+    }
+    
+    private double getMoveSpeedMultiplier() {
+        return modifier.getMoveSpeedMultiplier();
+    }
+    
+    private double getProjectileSpeedMultiplier() {
+        return modifier.getProjectileSpeedMultiplier();
+    }
+    
+    private int getProjectileSpikeDelay() {
+        return modifier.getProjectileSpikeDelay();
     }
 }

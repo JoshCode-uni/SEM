@@ -9,7 +9,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
  *
  * @author faris
  */
-public interface ICollideReceiver extends IIntersectable {
+public interface ICollideReceiver extends PhysicsObject, IIntersectable {
 
     /**
      * Notify a dynamic object of the fact that we collided with it.
