@@ -47,7 +47,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
     private Projectile projectile = null;
     private double topBorder, rightBorder, bottomBorder, leftBorder;
 
-    private int bubbleCount = 0;
     private int score = 0;
 
     private final IDraw draw;
@@ -207,7 +206,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
             if (object instanceof Bubble) {
                 bubbles.add((Bubble) object);
-                ++bubbleCount;
             }
         }
         addObjectBuffer.clear();
@@ -235,7 +233,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
             if (object instanceof Bubble) {
                 bubbles.remove((Bubble) object);
                 score += 10;
-                --bubbleCount;
             }
         }
         removeObjectBuffer.clear();
@@ -311,7 +308,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return if all bubbles are destroyed.
      */
     public boolean allBubblesDestroyed() {
-        return bubbleCount == 0;
+        return bubbles.isEmpty();
     }
 
     /**
@@ -425,5 +422,10 @@ public class GameObjects implements IUpdateable, IGameObjects {
     @Override
     public void addLife() {
         draw.addLife();
+    }
+    
+    @Override
+    public int bubblesLeft() {
+        return bubbles.size();
     }
 }

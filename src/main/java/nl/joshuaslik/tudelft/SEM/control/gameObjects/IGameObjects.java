@@ -124,4 +124,5 @@ public interface IGameObjects {
     
     public void addPoints(int points);
     public void addLife();
+    public int bubblesLeft();
 }
