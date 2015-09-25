@@ -193,6 +193,7 @@ public class GameController implements IviewController {
     public void died() {
         GameLog.addInfoLog("Player died");
         System.out.println("Player died");
+        gl.stop();
         gl = null;
 
         setLives(currentlives - 1);
