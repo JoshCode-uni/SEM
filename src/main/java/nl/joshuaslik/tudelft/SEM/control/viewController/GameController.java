@@ -55,7 +55,7 @@ public class GameController implements IviewController {
 
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
 
-    private static int currentlives = 3;
+    private static int currentlives = 5;
     private static int currentLevel = 0;
 
     private long timeLeft;
@@ -126,8 +126,8 @@ public class GameController implements IviewController {
     }
     
     public void resetLives() {
-        if(currentlives > 5)
-            currentlives = 5;
+        if(currentlives > 10)
+            currentlives = 10;
         Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + currentlives
                 + ".png"));
         lives.setImage(image);
@@ -181,9 +181,15 @@ public class GameController implements IviewController {
         MainMenuController.setScore(totalScore, Levels.getCurrentLevel());
         gl.stop();
         gl = null;
+        Levels.nextLevel();
         setLevel(currentLevel + 1);
 
+        if (currentLevel < 5) {
         YouWonController.loadPopup(this);
+        }
+        else {
+        CongratsController.loadPopup(this);
+        }
     }
 
     /**
@@ -192,6 +198,7 @@ public class GameController implements IviewController {
     public void died() {
         GameLog.addInfoLog("Player died");
         System.out.println("Player died");
+        gl.stop();
         gl = null;
 
         setLives(currentlives - 1);

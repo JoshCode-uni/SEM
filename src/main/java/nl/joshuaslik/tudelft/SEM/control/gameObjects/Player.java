@@ -6,6 +6,7 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.PlayerModifier;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
@@ -14,33 +15,36 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewOb
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
- * A class containing the position of the player. This class also controller the
- * player.
+ * A class containing the position of the player. This class also controller the player.
  *
  * @author faris
  */
-public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider  {
-
+public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider {
     private IPlayerModifier modifier = new PlayerModifier();
     private final IImageViewObject image;
     private final IKeyboard keyboard;
     private static final double MAX_SPEED = 300;
+    private ArrayList<Double> leftDoor = new ArrayList<>();
+    private ArrayList<Double> rightDoor = new ArrayList<>();
+    private final double playerXstart;
 
     /**
      * Create a player.
+     *
      * @param gameObjects
      * @param is
      * @param kb keyboard which controller the actions of the player.
      */
     public Player(IGameObjects gameObjects, InputStream is, IKeyboard kb) {
         super(gameObjects);
-        
+
         image = getGameObjects().makeImage(is, 100, 100);
-        image.setX((getGameObjects().getRightBorder() - 
-                getGameObjects().getLeftBorder()) / 2.0);
-        image.setY(getGameObjects().getBottomBorder() - 
-                image.getHeight());
+        image.setX((getGameObjects().getRightBorder()
+                - getGameObjects().getLeftBorder()) / 2.0);
+        image.setY(getGameObjects().getBottomBorder()
+                - image.getHeight());
         keyboard = kb;
+        playerXstart = image.getStartX();
     }
 
     /**
@@ -66,13 +70,29 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      */
     @Override
     public void update(long nanoFrameTime) {
-        if (keyboard.isMoveLeft() && getGameObjects().getLeftBorder() < image.getStartX()) {
+        if (keyboard.isMoveLeft()) {
             // move left
-            image.setX(image.getStartX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier());
+            double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier();
+            double leftBorder = getClosestLeftBorder();
+            if (leftBorder < leftPos) {
+                image.setX(leftPos);
+            } else {
+                image.setX(leftBorder);
+            }
             image.setScaleX(1);
-        } else if (keyboard.isMoveRight() && getGameObjects().getRightBorder() > image.getEndX()) {
+        } else if (keyboard.isMoveRight()) {
             // move right
-            image.setX(image.getStartX() + MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier());
+            double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier();
+            double rightBorder = getClosestRightBorder();
+            if (rightBorder - 100 > rightPos) {
+                image.setX(rightPos);
+            } else {
+                System.out.println("rightBorder = " + rightBorder);
+                System.out.println("image.getStartX() = " + image.getStartX());
+                System.out.println("image.getEndX() = " + image.getEndX());
+                System.out.println("rightPos = " + rightPos);
+                image.setX(rightBorder - 100);
+            }
             image.setScaleX(-1);
         }
 
@@ -90,42 +110,77 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Method for testing purposes.
+     *
      * @return the max speed.
      */
     public static double getMAX_SPEED() {
         return MAX_SPEED;
     }
-    
+
     /**
      * Method for testing puproses. Avoiding object creation.
+     *
      * @param gameObjects game object.
      * @param startX start X.
      * @param startY start Y.
      * @return the requested projectile.
      */
-    public Projectile makeProjectile(IGameObjects gameObjects, double startX, 
-            double startY){
-        return new Projectile(gameObjects, startX, startY, getProjectileSpeedMultiplier(), 
-            getProjectileSpikeDelay());
+    public Projectile makeProjectile(IGameObjects gameObjects, double startX,
+            double startY) {
+        return new Projectile(gameObjects, startX, startY, getProjectileSpeedMultiplier(),
+                getProjectileSpikeDelay());
     }
 
     public IImageViewObject getImage() {
         return image;
     }
-    
+
     public void addModifier(AbstractPlayerModifierDecorator newmod) {
         modifier = newmod.decorate(modifier);
     }
-    
+
     private double getMoveSpeedMultiplier() {
         return modifier.getMoveSpeedMultiplier();
     }
-    
+
     private double getProjectileSpeedMultiplier() {
         return modifier.getProjectileSpeedMultiplier();
     }
-    
+
     private int getProjectileSpikeDelay() {
         return modifier.getProjectileSpikeDelay();
+    }
+
+    public void setDoor(double xCoordinate) {
+        System.out.println("add: xCoordinate = " + xCoordinate);
+        if (xCoordinate > image.getStartX()) {
+            rightDoor.add(xCoordinate);
+        } else {
+            leftDoor.add(xCoordinate);
+        }
+    }
+
+    public void removeDoor(double xCoordinate) {
+        System.out.println("remove: xCoordinate = " + xCoordinate);
+        rightDoor.remove(xCoordinate);
+        leftDoor.remove(xCoordinate);
+    }
+    
+    private double getClosestLeftBorder() {
+       double res = getGameObjects().getLeftBorder();
+        for(double e : leftDoor) {
+            if(e > res && e < playerXstart)
+                res = e;
+        }
+        return res; 
+    }
+    
+    private double getClosestRightBorder() {
+        double res = getGameObjects().getRightBorder();
+        for(double e : rightDoor) {
+            if(e < res && e > playerXstart)
+                res = e;
+        }
+        return res;
     }
 }
