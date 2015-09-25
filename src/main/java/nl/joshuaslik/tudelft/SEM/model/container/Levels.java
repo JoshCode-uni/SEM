@@ -48,7 +48,7 @@ public class Levels {
             case 4:
                 return createLevel4(gameObjects);
             default:
-                throw new IllegalArgumentException();
+                return createLevel4(gameObjects);
         }
     }
 
@@ -215,7 +215,7 @@ public class Levels {
 
         // create 2nd bubble
         Point bubble2Center = new Point(400, 700);
-        double bubble2Radius = 20;
+        double bubble2Radius = 40;
         Vector bubble2Direction = new Vector(-2, -5);
         Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
 
@@ -227,7 +227,7 @@ public class Levels {
 
         // create 4rd bubble
         Point bubble4Center = new Point(1300, 600);
-        double bubble4Radius = 20;
+        double bubble4Radius = 40;
         Vector bubble4Direction = new Vector(2, -5);
         Bubble bubble4 = new Bubble(gameObjects, bubble4Center, bubble4Radius, bubble4Direction);
         
@@ -249,7 +249,7 @@ public class Levels {
         Point bl = new Point(200, 851);
         Point br = new Point(300, 851);
 
-        TimeDoor timeDoor = new TimeDoor(gameObjects, ul, ur, bl, br, 0, 10_000_000_000l);
+        TimeDoor timeDoor = new TimeDoor(gameObjects, ul, ur, bl, br, 0, 6_000_000_000l);
         
         // Create timeDoor
         Point ul2 = new Point(500, 30);
@@ -257,7 +257,7 @@ public class Levels {
         Point bl2 = new Point(500, 851);
         Point br2 = new Point(600, 851);
 
-        TimeDoor timeDoor2 = new TimeDoor(gameObjects, ul2, ur2, bl2, br2, 0, 5_000_000_000l);
+        TimeDoor timeDoor2 = new TimeDoor(gameObjects, ul2, ur2, bl2, br2, 0, 3_000_000_000l);
         
         // Create timeDoor
         Point ul3 = new Point(1100, 30);
@@ -265,7 +265,7 @@ public class Levels {
         Point bl3 = new Point(1100, 851);
         Point br3 = new Point(1200, 851);
 
-        TimeDoor timeDoor3 = new TimeDoor(gameObjects, ul3, ur3, bl3, br3, 0, 5_000_000_000l);
+        TimeDoor timeDoor3 = new TimeDoor(gameObjects, ul3, ur3, bl3, br3, 0, 3_000_000_000l);
         
         // Create timeDoor
         Point ul4 = new Point(1400, 30);
@@ -273,7 +273,7 @@ public class Levels {
         Point bl4 = new Point(1400, 851);
         Point br4 = new Point(1500, 851);
 
-        TimeDoor timeDoor4 = new TimeDoor(gameObjects, ul4, ur4, bl4, br4, 0, 10_000_000_000l);
+        TimeDoor timeDoor4 = new TimeDoor(gameObjects, ul4, ur4, bl4, br4, 0, 6_000_000_000l);
         
         level4.add(timeDoor);
         level4.add(timeDoor2);
