@@ -104,9 +104,6 @@ public class PlayerTest {
         
         // die twice so player loses all of his lives
         player.checkCollision(bubble, 1);
-        player.checkCollision(bubble, 1);
-        player.checkCollision(bubble, 1);
-        player.checkCollision(bubble, 1);
         
         // check if player died method is called
         verify(gameObjects).playerDied();
