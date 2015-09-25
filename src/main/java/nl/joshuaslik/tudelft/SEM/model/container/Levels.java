@@ -100,7 +100,7 @@ public class Levels {
         Point bl = new Point(1050, 851);
         Point br = new Point(1150, 851);
 
-        TimeDoor timeDoor = new TimeDoor(gameObjects, ul, ur, bl, br, 0, 10_000_000_000l);
+        TimeDoor timeDoor = new TimeDoor(gameObjects, ul, ur, bl, br, 0, 5_000_000_000l);
         
         level1.add(timeDoor);
         return level1;
