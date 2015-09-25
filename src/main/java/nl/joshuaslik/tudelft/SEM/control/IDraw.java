@@ -51,4 +51,6 @@ public interface IDraw {
      */
     public ILineViewObject makeLine(double startX, double startY, double endX,
             double endY);
+    
+    public void addLife();
 }

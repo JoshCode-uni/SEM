@@ -26,8 +26,6 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private final IKeyboard keyboard;
     private static final double MAX_SPEED = 300;
 
-    private int lives;
-
     /**
      * Create a player.
      * @param gameObjects
@@ -43,8 +41,6 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         image.setY(getGameObjects().getBottomBorder() - 
                 image.getHeight());
         keyboard = kb;
-
-        lives = 3;
     }
 
     /**
@@ -58,16 +54,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         if (obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             if (image.intersects(bubble.getCircleViewObject())) {
-                if (lives > 0) {
-                    GameLog.addInfoLog("Player loses life, lives left: " + lives);
-                    System.out.println("Player loses life");
-                    lives--;
-                    // Reset level
-                } else {
-                    GameLog.addInfoLog("Player dies, no lives left");
-                    System.out.println("Player dies");
-                    getGameObjects().playerDied();
-                }
+                getGameObjects().playerDied();
             }
         }
     }
@@ -120,24 +107,6 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             double startY){
         return new Projectile(gameObjects, startX, startY, getProjectileSpeedMultiplier(), 
             getProjectileSpikeDelay());
-    }
-    
-    /**
-     * Get the number of lives the player has.
-     *
-     * @return lives.
-     */
-    public int getLives() {
-        return lives;
-    }
-    
-    /**
-     * Set the number of lives the player has.
-     *
-     * @param newlives
-     */
-    public void setLives(int newlives) {
-        lives = newlives;
     }
 
     public IImageViewObject getImage() {

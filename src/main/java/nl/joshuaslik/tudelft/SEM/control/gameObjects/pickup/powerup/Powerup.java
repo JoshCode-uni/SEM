@@ -33,7 +33,7 @@ public class Powerup<T extends IModifier> extends AbstractPickup {
     @Override
     public void handlePlayerCollision() {
         destroy();
-        getGameObjects().handlePickupCollision(mod, pickupType.isPlayerPickup(), 
+        getGameObjects().handleModifierCollision(mod, pickupType.isPlayerPickup(), 
                 pickupType.isBubblePickup());
     }
 }
