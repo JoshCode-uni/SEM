@@ -105,7 +105,9 @@
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
-        <module name="LineLength" />
+        <module name="LineLength">
+		<property name="max" value="100"/>
+	</module>
         <module name="MethodLength" />
         <module name="ParameterNumber" />
 
@@ -143,7 +145,7 @@
         <module name="HiddenField" />
         <module name="IllegalInstantiation" />
         <module name="InnerAssignment" />
-        <module name="MagicNumber" />
+        <!--<module name="MagicNumber" /> -->
         <module name="MissingSwitchDefault" />
         <module name="RedundantThrows" />
         <module name="SimplifyBooleanExpression" />
