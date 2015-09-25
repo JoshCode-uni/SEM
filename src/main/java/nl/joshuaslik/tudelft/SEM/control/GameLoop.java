@@ -110,6 +110,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
     @Override
     public void playerDied() {
+        stop();
         gameController.died();
     }
 
@@ -151,5 +152,10 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public ILineViewObject makeLine(double startX, double startY, double endX,
             double endY) {
         return gameController.makeLine(startX, startY, endX, endY);
+    }
+    
+    @Override
+    public void addLife() {
+        gameController.addLife();
     }
 }

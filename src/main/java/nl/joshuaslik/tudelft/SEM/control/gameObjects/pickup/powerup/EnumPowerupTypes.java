@@ -20,26 +20,20 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playe
  */
 public enum EnumPowerupTypes {
 
-    // player mods:
-    /**
-     *
-     */
     PLAYER_SPEED_UP(PlayerSpeedUp.class, "/data/gui/img/speedup.png", true, false),
     PROJECTILE_SPEED_UP(ProjectileSpeedUp.class, "/data/gui/img/projectilespeedup.png", true, false),
     PROJECTILE_DELAY(ProjectileSpikeDelayUp.class, "/data/gui/img/spike.png", true, false),
     BUBBLE_SLOW_DOWN(BubbleSlowdown.class, "/data/gui/img/slowdown.png", false, true);
 
     private final Class<? extends IModifier> mod;
-//    private IDecorator decor;
     private final String imageName;
-    private boolean playerPickup, bubblePickup;
+    private final boolean playerPickup, bubblePickup;
     private final static double imageHeight = 50;
     private final static double imageWidth = 50;
 
     private EnumPowerupTypes(Class<? extends IModifier> mod, String imageName, boolean playerPickup, boolean bubblePickup) {
         this.mod = mod;
         this.imageName = imageName;
-//        this.decor = (IDecorator) mod;
         this.playerPickup = playerPickup;
         this.bubblePickup = bubblePickup;
     }

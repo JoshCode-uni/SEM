@@ -403,7 +403,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
     }
 
     @Override
-    public void handlePickupCollision(IModifier mod, boolean isPlayerPickup, boolean isBubblePickup) {
+    public void handleModifierCollision(IModifier mod, boolean isPlayerPickup, boolean isBubblePickup) {
         if(isPlayerPickup) {
             player.addModifier((AbstractPlayerModifierDecorator) mod);
         } else if(isBubblePickup) {
@@ -415,5 +415,15 @@ public class GameObjects implements IUpdateable, IGameObjects {
     @Override
     public void handleBubbleSplit(Point p) {
         pickupGenerater.generatePickup(p);
+    }
+
+    @Override
+    public void addPoints(int points) {
+        score += points;
+    }
+
+    @Override
+    public void addLife() {
+        draw.addLife();
     }
 }

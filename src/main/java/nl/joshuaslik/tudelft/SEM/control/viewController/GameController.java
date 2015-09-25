@@ -21,7 +21,6 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewOb
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
@@ -116,8 +115,7 @@ public class GameController implements IviewController {
         levelText.setText("Level " + Integer.toString(currentLevel + 1));
         timeLeft = MAX_TIME;
 
-        Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + currentlives + ".png"));
-        lives.setImage(image);
+        resetLives();
 
         gl = new GameLoop(this, currentLevel, top.getStartY(), top.getEndX(),
                 bottom.getStartY(), top.getStartX(), scene);
@@ -126,7 +124,15 @@ public class GameController implements IviewController {
 
         gl.start();
     }
-
+    
+    public void resetLives() {
+        if(currentlives > 5)
+            currentlives = 5;
+        Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + currentlives
+                + ".png"));
+        lives.setImage(image);
+    }
+    
     /**
      * Draw a node in the game view.
      *
@@ -160,6 +166,7 @@ public class GameController implements IviewController {
 
         scoreText.setText("Score: " + gl.getScore());
         timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft / (double) MAX_TIME));
+        
     }
 
     /**
@@ -174,12 +181,8 @@ public class GameController implements IviewController {
         MainMenuController.setScore(totalScore, Levels.getCurrentLevel());
         gl.stop();
         gl = null;
-        //Levels.nextLevel();
         setLevel(currentLevel + 1);
 
-        //if (currentLevel == 5) {
-        //	MainMenuController.loadView();
-        //}
         YouWonController.loadPopup(this);
     }
 
@@ -189,16 +192,13 @@ public class GameController implements IviewController {
     public void died() {
         GameLog.addInfoLog("Player died");
         System.out.println("Player died");
-
-        gl.stop();
         gl = null;
 
         setLives(currentlives - 1);
 
         if (currentlives >= 0) {
-            GameController.setLevel(currentLevel);
             GameController.loadView();
-            System.out.println(currentlives);
+            System.out.println("lives: " + currentlives);
         } else {
             YouLostController.loadPopup(this);
             setLives(3);
@@ -219,7 +219,7 @@ public class GameController implements IviewController {
      *
      * @param lives
      */
-    public static void setLives(int lives) {
+    private static void setLives(int lives) {
         GameController.currentlives = lives;
     }
 
@@ -272,5 +272,10 @@ public class GameController implements IviewController {
     public ILineViewObject makeLine(double startX, double startY, double endX,
             double endY) {
         return new LineViewObject(startX, startY, endX, endY, this);
+    }
+    
+    public void addLife() {
+        setLives(currentlives + 1);
+        resetLives();
     }
 }

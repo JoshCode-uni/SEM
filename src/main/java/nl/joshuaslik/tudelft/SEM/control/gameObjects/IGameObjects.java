@@ -118,7 +118,10 @@ public interface IGameObjects {
     
     public Player getPlayer();
     
-    public void handlePickupCollision(IModifier pickup, boolean isPlayerPickup, boolean isBubblePickup);
+    public void handleModifierCollision(IModifier pickup, boolean isPlayerPickup, boolean isBubblePickup);
     
     public void handleBubbleSplit(Point p);
+    
+    public void addPoints(int points);
+    public void addLife();
 }
