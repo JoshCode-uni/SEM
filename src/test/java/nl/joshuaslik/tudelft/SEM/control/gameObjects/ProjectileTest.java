@@ -2,7 +2,6 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 

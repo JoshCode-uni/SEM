@@ -71,7 +71,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
         initializeLevel(level);
         addBufferedDynamicObjects();
     }
-
+    
     /**
      * Update the positions of all objects.
      *
@@ -427,4 +427,39 @@ public class GameObjects implements IUpdateable, IGameObjects {
     public int bubblesLeft() {
         return bubbles.size();
     }
+    
+    
+    //Methods for testing purposes
+    
+    GameObjects(Boolean testing, IDraw draw, int level, double topBorder, double rightBorder,
+            double bottomBorder, double leftBorder, IKeyboard keyBoard) {
+        this.draw = draw;
+        if(!testing){
+        	initializeBorders(topBorder, rightBorder, bottomBorder, leftBorder);
+        	initializePlayer(keyBoard);
+        	initializeLevel(level);
+        }
+        addBufferedDynamicObjects();
+    }
+    
+    void addBubbles(Bubble bubble){
+    	bubbles.add(bubble);
+    }
+    
+    ArrayList<IPrepareUpdateable> getPrepareUpdateable() {
+    	return prepUpdateableObjects;
+    }
+    
+    ArrayList<IUpdateable> getUpdateable() {
+    	return updateableObjects;
+    }
+    
+    ArrayList<ICollider> getCollider() {
+    	return colliderObjects;
+    }
+    
+    ArrayList<IIntersectable> getIntersectable() {
+    	return intersectableObjects;
+    }
+    
 }
