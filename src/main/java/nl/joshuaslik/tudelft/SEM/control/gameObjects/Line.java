@@ -113,4 +113,16 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
         getGameObjects().removeObject(this);
         line.destroy();
     }
+    
+    public Point getPoint1(){
+    	return p1;
+    }
+    
+    public Point getPoint2(){
+    	return p2;
+    }
+    
+    public Vector getVector(){
+    	return dir;
+    }
 }
