@@ -60,16 +60,18 @@ public class GameObjectsTest {
 	
 	GameObjects spyGameObjects;
 	
+	/**
+     * Setup the mocks.
+     */
 	@Before
-	public void setUp() throws Exception {
-/*		when(gameObjects.makeLine(0, 100, 100, 100)).thenReturn(topL);
-		when(gameObjects.makeLine(0, 100, 0, 0)).thenReturn(leftL);
-		when(gameObjects.makeLine(100, 100, 100, 0)).thenReturn(rightL);
-		when(gameObjects.makeLine(0, 0, 100, 0)).thenReturn(botL);	*/
+	public void setUp() {
 		gameObjects = new GameObjects(true,gl, 0, 100, 100, 0, 0, kb);
 		spyGameObjects = Mockito.spy(gameObjects);
 	}
 
+	/**
+	 * Tests if the gameObjects are updated correctly.
+	 */
 	@Test
 	public void testUpdate() {
 		spyGameObjects.getPrepareUpdateable().add(prepUp);
@@ -83,6 +85,9 @@ public class GameObjectsTest {
 	//	fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests if all bubbles are indeed destroyed.
+	 */
 	@Test
 	public void testAllBubblesDestroyed() {
 		assertTrue(gameObjects.allBubblesDestroyed());
@@ -90,12 +95,18 @@ public class GameObjectsTest {
 		assertFalse(gameObjects.allBubblesDestroyed());
 	}
 
+	/**
+	 * Tests if a projectile is added correctly.
+	 */
 	@Test
 	public void testAddProjectile() {
 		spyGameObjects.addProjectile(pj);
 		verify(spyGameObjects).addObject(pj);
 	}
 	
+	/**
+	 * Tests if the projectile is removed correctly.
+	 */
 	@Test
 	public void testRemoveProjectile() {
 		spyGameObjects.addProjectile(pj);
@@ -103,11 +114,17 @@ public class GameObjectsTest {
 		verify(spyGameObjects).removeObject(isA(Projectile.class));
 	}
 
+	/**
+	 *
+	 */
 	@Test
 	public void testHandleBubbleSplit() {
 		fail("Not yet implemented");
 	}
 
+	/**
+	 * Tests if points are correctly added.
+	 */
 	@Test
 	public void testAddPoints() {
 		assertEquals(gameObjects.getScore(),0);
@@ -115,12 +132,18 @@ public class GameObjectsTest {
 		assertEquals(gameObjects.getScore(),50);
 	}
 
+	/**
+	 * Tests if a life is added correctly.
+	 */
 	@Test
 	public void testAddLife() {
 		gameObjects.addLife();
 		verify(gl).addLife();
 	}
 
+	/**
+	 * Tests if the bubbles left are updated correctly.
+	 */
 	@Test
 	public void testBubblesLeft() {
 		assertEquals(gameObjects.bubblesLeft(),0);
@@ -128,30 +151,45 @@ public class GameObjectsTest {
 		assertEquals(gameObjects.bubblesLeft(),1);
 	}
 	
+	/**
+	 * Tests if a circle is made correctly.
+	 */
 	@Test
 	public void testMakeCircle() {
 		gameObjects.makeCircle(100,200,25);
 		verify(gl).makeCircle(100, 200, 25);
 	}
 	
+	/**
+	 * Tests if a line is made correctly.
+	 */
 	@Test
 	public void testMakeLine() {
 		gameObjects.makeLine(25, 0, 100, 50);
 		verify(gl).makeLine(25, 0, 100, 50);
 	}
 	
+	/**
+	 * Tests if an iamge is created correctly.
+	 */
 	@Test
 	public void testMakeImage() {
 		gameObjects.makeImage(is, 75, 25);
 		verify(gl).makeImage(is, 25, 75);
 	}
 	
+	/**
+	 * Tests if it is correctly updated if the player dies.
+	 */
 	@Test
 	public void testPlayerDied() {
 		gameObjects.playerDied();
 		verify(gl).playerDied();
 	}
 	
+	/**
+	 * Tests if the projectile is correctly updated.
+	 */
 	@Test
 	public void testHasProjectile() {
 		assertFalse(gameObjects.hasProjectile());
@@ -159,6 +197,9 @@ public class GameObjectsTest {
 		assertTrue(gameObjects.hasProjectile());
 	}
 	
+	/**
+	 * 
+	 */
 	@Test
 	public void testHandleModifierCollision() {
 		fail("Not correctly implemented");

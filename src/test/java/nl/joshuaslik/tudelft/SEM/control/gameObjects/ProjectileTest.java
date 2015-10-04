@@ -40,6 +40,9 @@ public class ProjectileTest {
     
     Projectile projectile;
 	
+    /**
+     * Set up mocks.
+     */
 	@Before
 	public void setup() {
 		when(gameObjects.makeLine(0,-1,0,-2)).thenReturn(line);
@@ -57,10 +60,10 @@ public class ProjectileTest {
         when(line.getEndY()).thenReturn(0.0);
         
         projectile = new Projectile(gameObjects, 0, 1,20,0);
-        
-        
-        
 	}
+	/**
+	 * Tests initialization.
+	 */
 	@Test
 	public void testPointsInitialized() {
 		assertEquals(projectile.getPoint1().getxPos(),0,0);
@@ -69,11 +72,17 @@ public class ProjectileTest {
 		assertEquals(projectile.getPoint2().getyPos(),11,0);
 	}
 	
+	/**
+	 * Tests initialization.
+	 */
 	@Test
 	public void testVectorInitialized() {
 		assertEquals(projectile.getVector(),new Vector(0,10));
 	}
 	
+	/**
+	 * Tests initialization.
+	 */
 	@Test
 	public void testVectorProperties() {
 		verify(line).setStrokeWidth(7);
@@ -83,7 +92,9 @@ public class ProjectileTest {
 		assertEquals(projectile.getDelay(),0,0);
 	}
 	
-	
+	/**
+	 * Tests if the projectile is correctly updated.
+	 */
 	@Test
 	public void testUpdate() {
 		projectile.update(1_000_000_000);
@@ -91,6 +102,9 @@ public class ProjectileTest {
 		verify(line,times(4)).setEndY(line.getEndY() - 750 * ( 1_000_000_000/ 1_000_000_000.0));
 	}
 	
+	/**
+	 * Tests if a projectile is correctly destroyed.
+	 */
 	@Test
 	public void testUpdateDestroyed() {
 		when(line.getEndY()).thenReturn(-1.0);
@@ -98,8 +112,11 @@ public class ProjectileTest {
 		verify(line).destroy();
 	}
 	
+	/**
+	 * Tests for closest instersection
+	 */
 	@Test
-	public void testGetClosestIntersectionOutOfBounds(){
+	public void testGetClosestIntersection(){
 		Point point = Mockito.mock(Point.class);
 		when(point.getxPos()).thenReturn(5.0);
 		when(point.getyPos()).thenReturn(5.0);
@@ -107,6 +124,9 @@ public class ProjectileTest {
 		
 	}
 	
+	/**
+	 * Tests if linepoints are correctly updated
+	 */
 	@Test
 	public void testUpdateLinePoints() {
 		projectile.updateLinePoints();
@@ -116,6 +136,9 @@ public class ProjectileTest {
 		verify(line,times(1)).getEndY();
 	}
 	
+	/**
+	 * Tests bubble collision.
+	 */
 	@Test
 	public void testCollideBubble(){
 		 Bubble bubble = Mockito.mock(Bubble.class);
@@ -125,6 +148,9 @@ public class ProjectileTest {
 	     verify(line,times(1)).destroy();
 	}
 	
+	/**
+	 * Tests player collision.
+	 */
 	@Test
 	public void testCollidePlayer() {
 		Player player = Mockito.mock(Player.class);

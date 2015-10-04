@@ -29,46 +29,64 @@ public class LineTest {
 	
 	Line L;
 	
+	
+	/**
+	 * Setup mocks
+	 */
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		when(gameObjects.makeLine(0.0, 5.0, 15.0, 25.0)).thenReturn(line);
 		L = new Line(gameObjects,0.0,5.0,15.0,25.0);
 	}
 	
+	/**
+	 * Test constructor
+	 */
 	@Test
 	public void testSetStrokeWidth(){
 		verify(line).setStrokeWidth(10);
 	}
+	
+	/**
+	 * Test constructor
+	 */
 	@Test
 	public void testPoint1Set() {
 		assertEquals(L.getPoint1().getxPos(),0.0,0);
 		assertEquals(L.getPoint1().getyPos(),5.0,0);
 	}
 	
+	/**
+	 * Test constructor
+	 */
 	@Test
 	public void testPoint2Set() {
 		assertEquals(L.getPoint2().getxPos(),15.0,0);
 		assertEquals(L.getPoint2().getyPos(),25.0,0);
 	}
 	
+	/**
+	 * Test constructor
+	 */
 	@Test
 	public void testVectorSet() {
 		assertEquals(L.getVector().getX(),15,0);
 		assertEquals(L.getVector().getY(),20,0);
 	}
 	
+	/**
+	 * Test method looking for the closest intersection with a point
+	 */
 	@Test
 	public void testGetClosestIntersection() {
 		when(p.getxPos()).thenReturn(50d);
 		when(p.getyPos()).thenReturn(25d);
 		assertEquals(L.getClosestIntersection(p),new IntersectionPoint(15.0,25.0,L.getVector().normal(),Double.MAX_VALUE));
 	}
-/*
-	@Test
-	public void testDestroyObject() {
-		verify(gameObjects).removeObject(L);
-	}
-	*/
+	
+	/**
+	 * Test removing the line from the gameObjects
+	 */
 	@Test
 	public void testDestroyLine() {
 		L.destroy();

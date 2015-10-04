@@ -42,7 +42,7 @@ public class BubbleTest{
     
     
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
     	when(gameObjects.makeCircle(250, 100, 50)).thenReturn(circle);
     	
         when(gameObjects.getLeftBorder()).thenReturn(0.0);
@@ -55,18 +55,27 @@ public class BubbleTest{
         bubble = new Bubble(gameObjects, new Point(250,100), 50, new Vector(5,-2));
     }
 
+    /**
+	 * Test constructor
+	 */
     @Test
     public void testBubbleCircle() {
     	verify(circle).setRadius(50);
     	verify(circle).setBounds(0.0, 0.0, 500.0, 500.0);
     }
     
+    /**
+	 * Test constructor
+	 */
     @Test
     public void testBubbleVector() {
     	assertEquals(bubble.getDir(),new Vector(5,-2));
     	assertEquals(bubble.getDir(),bubble.getNewDir());
     }
     
+    /**
+	 * Test prepareUpdate and update method of class Bubble.
+	 */
     @Test
     public void testUpdate() {
     	assertEquals(bubble.getDir(),new Vector(5,-2));
@@ -80,6 +89,9 @@ public class BubbleTest{
     	verify(circle).setCenterY(100.0+900.0*5);
     }
 
+    /**
+     * Test if a circle is correctly destroyed after an update.
+     */
     @Test
     public void testUpdateDestroy() {
     	when(circle.getRadius()).thenReturn(500.0);
@@ -88,6 +100,9 @@ public class BubbleTest{
     	verify(circle).destroy();
     }
     
+    /**
+     * Test if the circle bounces correctly from the ground.
+     */
     @Test
     public void testUpdateBounce() {
     	when(circle.getCenterY()).thenReturn(500.0);
@@ -95,6 +110,9 @@ public class BubbleTest{
     	assertEquals(-900.0,bubble.getYvelocity(),0);
     }
     
+    /**
+     * Tests if the collision is administered correctly.
+     */
     @Test
     public void testCheckSuccesfulBubbleCollision() {
     	when(bubble2.getClosestIntersection(isA(Point.class))).thenReturn(new IntersectionPoint(300,100, new Vector(5,-2),0));
@@ -104,6 +122,9 @@ public class BubbleTest{
     	verify(bubble2).collide(bubble, 1_000_000_000l);
     }
     
+    /**
+     * Tests if bubbles are split correctly.
+     */
     @Test
     public void testSplitBubble() {
     	when(gameObjects.makeCircle(250+1.1*25, 100, 25)).thenReturn(circle2);
@@ -115,6 +136,10 @@ public class BubbleTest{
     	verify(gameObjects).addObject(isA(Bubble.class));
     }
     
+    
+    /**
+     * Tests if the small bubble is destroyed correctly.
+     */
     @Test
     public void testDestroySmallBubble() {
     	when(circle.getRadius()).thenReturn(9.0);
@@ -122,6 +147,9 @@ public class BubbleTest{
     	verify(circle).destroy();
     }
     
+    /**
+     * Tests if a bubble with radius r/2<20 always results in a bubble of size 10.
+     */
     @Test
     public void testSplitBubble25() {
     	when(circle.getRadius()).thenReturn(25.0);
