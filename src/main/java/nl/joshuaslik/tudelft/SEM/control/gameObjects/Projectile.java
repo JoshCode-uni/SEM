@@ -192,4 +192,22 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
             isActive = false;
         }
     }
+    
+    public Vector getVector(){
+    	return dir;
+    }
+    
+    public Point getPoint1(){
+    	return p1;
+    }
+    
+    public Point getPoint2(){
+    	return p2;
+    }
+    public double getDelay(){
+    	return delay;
+    }
+    public double getGrowSpeed(){
+    	return growSpeed;
+    }
 }
