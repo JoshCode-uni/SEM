@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IModifier;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerater;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
@@ -39,7 +39,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
     private final ArrayList<PhysicsObject> addObjectBuffer = new ArrayList<>();
     private final ArrayList<PhysicsObject> removeObjectBuffer = new ArrayList<>();
     
-    private final PickupGenerater pickupGenerater = new PickupGenerater((IGameObjects) this);
+    private final PickupGenerator pickupGenerator = new PickupGenerator((IGameObjects) this);
     private final ArrayList<Bubble> bubbles = new ArrayList<>();
     private Player player;
 
@@ -410,7 +410,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
     
     @Override
     public void handleBubbleSplit(Point p) {
-        pickupGenerater.generatePickup(p);
+        pickupGenerator.generatePickup(p);
     }
 
     @Override

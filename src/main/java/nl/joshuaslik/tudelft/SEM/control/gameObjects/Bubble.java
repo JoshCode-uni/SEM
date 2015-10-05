@@ -319,7 +319,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     private Bubble getThis() {
         return this;
     }
-    
+ 
     /**
      * Get the circle view object interface of this bubble.
      * @return the circle view object interface of this bubble.
@@ -355,5 +355,11 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     }
     public void setNextY(double y){
     	nextY=y;
+    }
+    public double getNextX(){
+    	return nextX;
+    }
+    public double getNextY(){
+    	return nextY;
     }
 }

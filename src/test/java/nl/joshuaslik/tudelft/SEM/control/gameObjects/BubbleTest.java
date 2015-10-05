@@ -1,6 +1,8 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.IBubbleModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
@@ -8,14 +10,18 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
 import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Matchers.isA;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 
@@ -37,9 +43,17 @@ public class BubbleTest{
 	@Mock
 	Bubble bubble2;
     
+	@Mock
+	AbstractBubbleModifierDecorator mod;
+	
+	@Mock
+	Point p;
+	
 	
 	Bubble bubble;
     
+	
+    Bubble spyBubble;
     
     @Before
     public void setUp() {
@@ -160,5 +174,80 @@ public class BubbleTest{
     	verify(circle).setRadius(10);
     	verify(circle).setCenterY(100);
     	verify(gameObjects).addObject(isA(Bubble.class));
+    }
+    
+    /**
+     * Tests getter for circleViewObject.
+     */
+    @Test
+    public void testGetCircleViewObject() {
+    	assertEquals(circle,bubble.getCircleViewObject());
+    	
+    }
+    
+    /**
+     * Tests getter for radius.
+     */
+    @Test
+    public void testGetRadius() {
+    	assertEquals(bubble.getRadius(),50.0,0);
+    }
+    
+    /**
+     * Tests getting the closest intersectionpoint.
+     */
+    @Test
+    public void testClosestIntersection() {
+    	doReturn(0.0).when(p).getxPos();
+    	doReturn(0.0).when(p).getyPos();
+    	doReturn(1.0).when(p).distanceTo(new Point(5.0,5.0));
+    	bubble.setNextX(5.0);
+    	bubble.setNextY(5.0);
+    	IntersectionPoint a = bubble.getClosestIntersection(p);
+    	verify(circle).getRadius();
+    	Point b = new Point(5.0,5.0);
+    	assertEquals(new IntersectionPoint(-245.0,-245.0,new Vector(-250.0,-250.0),b.distanceTo(p)),a);
+    }
+    
+    /**
+     * Tests collider
+     */
+    @Test
+    public void testCollide() {
+  //  	fail("Not yet implemented");
+    	bubble.setNextX(255.0);
+    	bubble.setNextY(100.0);
+    	doReturn(new IntersectionPoint(300.0,100.0,new Vector(-300.0,-300.0),0)).when(bubble2).getClosestIntersection(new Point(250,100));
+    	bubble.collide(bubble2, 0l);
+    	verify(circle, times(4)).getCenterX();
+    	verify(circle, times(4)).getCenterY();
+    	verify(bubble2).getClosestIntersection(new Point(250,100));
+    	assertNotEquals(255.0,bubble.getNextX());
+    	assertEquals(100.0,bubble.getNextY(),0);
+    }
+    
+    /**
+     * Test collider
+     */
+    @Test
+    public void testNoCollide() {
+    	bubble.setNextX(245.0);
+    	bubble.setNextY(100.0);
+    	doReturn(new IntersectionPoint(300.0,100.0,new Vector(-300.0,-300.0),0)).when(bubble2).getClosestIntersection(new Point(250,100));
+    	bubble.collide(bubble2, 0l);
+    	verify(circle, times(3)).getCenterX();
+    	verify(circle, times(3)).getCenterY();
+    	verify(bubble2).getClosestIntersection(new Point(250,100));
+    	assertEquals(245.0,bubble.getNextX(),0);
+    	assertEquals(100.0,bubble.getNextY(),0);
+    }
+    
+    /**
+     * Tests adding a modifier.
+     */
+    @Test
+    public void testAddModifier() {
+    	bubble.addModifier(mod);
+    	verify(mod).decorate(isA(IBubbleModifier.class));
     }
 }
