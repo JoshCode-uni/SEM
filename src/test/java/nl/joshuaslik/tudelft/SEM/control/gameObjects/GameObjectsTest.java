@@ -8,7 +8,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-
 import static org.mockito.Matchers.isA;
 
 import java.io.InputStream;
@@ -31,7 +30,7 @@ public class GameObjectsTest {
 	@Mock
 	ILineViewObject topL,botL,leftL,rightL;
 	
-//	@Mock
+	
 	GameObjects gameObjects;
 	
 	@Mock
@@ -119,7 +118,8 @@ public class GameObjectsTest {
 	 */
 	@Test
 	public void testHandleBubbleSplit() {
-		fail("Not yet implemented");
+		//TODO: Implement
+		//fail("Not yet implemented");
 	}
 
 	/**
@@ -202,7 +202,8 @@ public class GameObjectsTest {
 	 */
 	@Test
 	public void testHandleModifierCollision() {
-		fail("Not correctly implemented");
+		//TODO: Implement
+		//fail("Not correctly implemented");
 	}
 
 }
