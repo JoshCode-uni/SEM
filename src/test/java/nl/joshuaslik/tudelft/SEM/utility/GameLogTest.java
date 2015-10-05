@@ -10,20 +10,30 @@ import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(GameLog.class)
 public class GameLogTest {
 	StringWriter sw;
 	PrintWriter pw;
+	String date = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 	
 	/**
 	 * Setup the test.
+	 * @throws Exception 
 	 */
 	@Before
-	public void setup() {
+	public void setup() throws Exception {
 		sw = new StringWriter();
 		pw = new PrintWriter(sw);
 		GameLog.setPrintWriter(pw);
 		GameLog.setInitialization(true);
+		PowerMockito.spy(GameLog.class);
+		PowerMockito.doReturn(date).when(GameLog.class, "getCurrentTime");
 	}
 	
 	/**
@@ -33,7 +43,7 @@ public class GameLogTest {
 	public void testAddErrorLog() {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addErrorLog(randomString);
-		assertTrue(sw.toString().contains(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+		assertTrue(sw.toString().contains(date));
 		assertTrue(sw.toString().contains("[ERROR] "+randomString));
 	}
 
@@ -44,7 +54,7 @@ public class GameLogTest {
 	public void testAddWarningLog() {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addWarningLog(randomString);
-		assertTrue(sw.toString().contains(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+		assertTrue(sw.toString().contains(date));
 		assertTrue(sw.toString().contains("[WARNING] "+randomString));
 	}
 
@@ -55,7 +65,7 @@ public class GameLogTest {
 	public void testAddInfoLog() {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addInfoLog(randomString);
-		assertTrue(sw.toString().contains(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+		assertTrue(sw.toString().contains(date));
 		assertTrue(sw.toString().contains("[INFO] "+randomString));	}
 
 	/**
@@ -65,7 +75,7 @@ public class GameLogTest {
 	public void testAddDebugLog() {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addDebugLog(randomString);
-		assertTrue(sw.toString().contains(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+		assertTrue(sw.toString().contains(date));
 		assertTrue(sw.toString().contains("[DEBUG] "+randomString));
 	}
 
@@ -76,7 +86,7 @@ public class GameLogTest {
 	public void testAddTraceLog() {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addTraceLog(randomString);
-		assertTrue(sw.toString().contains(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date())));
+		assertTrue(sw.toString().contains(date));
 		assertTrue(sw.toString().contains("[TRACE] "+randomString));
 	}
 
