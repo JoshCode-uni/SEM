@@ -434,11 +434,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
     GameObjects(Boolean testing, IDraw draw, int level, double topBorder, double rightBorder,
             double bottomBorder, double leftBorder, IKeyboard keyBoard) {
         this.draw = draw;
-        if(!testing){
-        	initializeBorders(topBorder, rightBorder, bottomBorder, leftBorder);
-        	initializePlayer(keyBoard);
-        	initializeLevel(level);
-        }
         addBufferedDynamicObjects();
     }
     
@@ -460,6 +455,5 @@ public class GameObjects implements IUpdateable, IGameObjects {
     
     ArrayList<IIntersectable> getIntersectable() {
     	return intersectableObjects;
-    }
-    
+    } 
 }

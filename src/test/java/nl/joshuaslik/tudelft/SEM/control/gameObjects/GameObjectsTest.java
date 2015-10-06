@@ -13,10 +13,13 @@ import static org.mockito.Matchers.isA;
 import java.io.InputStream;
 
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.doNothing;
 
 import nl.joshuaslik.tudelft.SEM.control.GameLoop;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GameObjectsTest {
@@ -46,6 +49,9 @@ public class GameObjectsTest {
 	Player p;
 	
 	@Mock
+	Point p1;
+	
+	@Mock
 	IPrepareUpdateable prepUp;
 	
 	@Mock
@@ -56,6 +62,9 @@ public class GameObjectsTest {
 	
 	@Mock 
 	IIntersectable intersectable;
+	
+	@Mock
+	PickupGenerator pickupGenerator;
 	
 	GameObjects spyGameObjects;
 	
@@ -198,12 +207,23 @@ public class GameObjectsTest {
 	}
 	
 	/**
-	 * 
+	 * Tests if the interacting objects are correctly added to the arrays in gameObjects
 	 */
 	@Test
-	public void testHandleModifierCollision() {
-		//TODO: Implement
-		//fail("Not correctly implemented");
+	public void objectCorrectlyAddedAndRemoved() {
+		gameObjects.addObject(bl);
+		gameObjects.update(0);
+		assertTrue(gameObjects.getUpdateable().contains(bl));
+		assertTrue(gameObjects.getCollider().contains(bl));
+		assertTrue(gameObjects.getPrepareUpdateable().contains(bl));
+		assertTrue(gameObjects.getIntersectable().contains(bl));
+		
+		gameObjects.removeObject(bl);
+		gameObjects.update(0);
+		assertFalse(gameObjects.getUpdateable().contains(bl));
+		assertFalse(gameObjects.getCollider().contains(bl));
+		assertFalse(gameObjects.getPrepareUpdateable().contains(bl));
+		assertFalse(gameObjects.getIntersectable().contains(bl));
 	}
 
 }
