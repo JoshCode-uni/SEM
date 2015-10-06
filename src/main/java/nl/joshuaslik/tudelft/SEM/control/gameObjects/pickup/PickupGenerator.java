@@ -15,11 +15,11 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
  *
  * @author faris
  */
-public class PickupGenerater {
+public class PickupGenerator {
 
     private final IGameObjects gameObjects;
 
-    public PickupGenerater(IGameObjects gameObjects) {
+    public PickupGenerator(IGameObjects gameObjects) {
         this.gameObjects = gameObjects;
     }
 
