@@ -11,19 +11,13 @@ public class PointTest {
 
     Point point1, point2, point3;
 
-    /**
-     * setup Test
-     */
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         point1 = new Point(20, 20);
         point2 = new Point(25, 25);
         point3 = new Point(20, 20);
     }
 
-    /**
-     * Tests initialization.
-     */
     @Test
     public void testPoint() {
         assertEquals(point1, point3);
@@ -31,18 +25,12 @@ public class PointTest {
         assertNotEquals(point1, null);
     }
 
-    /**
-     * Tests correctly calculated distance.
-     */
     @Test
     public void testDistanceTo() {
         double distance = Math.sqrt(50);
         assertEquals(distance, point1.distanceTo(point2), 0);
     }
-    
-    /**
-     * Test translation from points with double values
-     */
+
     @Test
     public void testTranslateDoubleDouble() {
         assertEquals(point1.getxPos(), point3.getxPos(), 0);
@@ -51,9 +39,6 @@ public class PointTest {
         assertEquals(point1.translate(5, 5).getyPos(), point2.getyPos(), 0);
     }
 
-    /**
-     * Test translation from points with points.
-     */
     @Test
     public void testTranslatePoint() {
         assertEquals(point1.getxPos(), point3.getxPos(), 0);
@@ -61,27 +46,18 @@ public class PointTest {
         assertEquals(point1.translate(new Point(5, 5)), point2);
     }
 
-    /**
-     * Test getter.
-     */
     @Test
     public void testGetxPos() {
         assertEquals(point1.getxPos(), 20, 0);
         assertNotEquals(point1.getxPos(), 50, 0);
     }
 
-    /**
-     * Test getter.
-     */
     @Test
     public void testGetyPos() {
         assertEquals(point1.getyPos(), 20, 0);
         assertNotEquals(point1.getyPos(), 50, 0);
     }
 
-    /**
-     * Testing toString.
-     */
     @Test
     public void testToString() {
         assertEquals("Position: (x: 20.0, y: 20.0)", point1.toString());

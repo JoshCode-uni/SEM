@@ -107,32 +107,4 @@ public class GameLog {
         Date now = new Date();
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(now) + " ";
     }
-    
-    /**
-     * Methods built for testing purposes.
-     */
-    
-    /**
-     * Set the printWriter.
-     * @param printWriter 
-     */
-    static void setPrintWriter(PrintWriter printWriter) {
-    	pw=printWriter;
-    }
-    
-    /**
-     * Set the logger initialization.
-     * @param b
-     */
-    static void setInitialization(boolean b) {
-    	initialized = b;
-    }
-    
-    /**
-     * Get the logger initialization.
-     * @return
-     */
-    static boolean getInitialization() {
-    	return initialized;
-    }
 }
