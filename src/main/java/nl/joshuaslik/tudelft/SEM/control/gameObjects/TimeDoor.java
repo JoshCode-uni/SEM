@@ -2,7 +2,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
-public class TimeDoor extends Door {
+public class TimeDoor extends AbstractDoor {
 
     private long waitTime;
 

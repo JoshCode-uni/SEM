@@ -2,7 +2,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
-public class BubbleDoor extends Door {
+public class BubbleDoor extends AbstractDoor {
 
     private final int bubblesOtherSide;
 

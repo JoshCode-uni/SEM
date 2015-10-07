@@ -17,7 +17,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  *
  * @author faris
  */
-public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepareUpdateable, ICollider, ICollideReceiver {
+public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepareable, ICollider, ICollideReceiver {
 
     // variables to keep track of the direction/speed/position
     private final ICircleViewObject circle;
@@ -214,7 +214,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public void prepareUpdate(long nanoFrameTime) {
+    public void prepare(long nanoFrameTime) {
 
         nanoFrameTime *= getSpeedModifier();
         
