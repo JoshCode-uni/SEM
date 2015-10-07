@@ -108,6 +108,9 @@ public class GameLoop extends AnimationTimer implements IDraw {
         return gameObjects.getScore();
     }
 
+    /**
+     * Tells gameController the player has died
+     */
     @Override
     public void playerDied() {
         stop();
@@ -154,8 +157,19 @@ public class GameLoop extends AnimationTimer implements IDraw {
         return gameController.makeLine(startX, startY, endX, endY);
     }
     
+    /**
+     * Adds a life to the player.
+     */
     @Override
     public void addLife() {
         gameController.addLife();
+    }
+    
+    /**
+     * Returns a gamecontroller.
+     * @return gameController
+     */
+    GameController getGameController() {
+    	return gameController;
     }
 }
