@@ -87,10 +87,10 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             if (rightBorder - 100 > rightPos) {
                 image.setX(rightPos);
             } else {
-                System.out.println("rightBorder = " + rightBorder);
+             /*   System.out.println("rightBorder = " + rightBorder);
                 System.out.println("image.getStartX() = " + image.getStartX());
                 System.out.println("image.getEndX() = " + image.getEndX());
-                System.out.println("rightPos = " + rightPos);
+                System.out.println("rightPos = " + rightPos);*/
                 image.setX(rightBorder - 100);
             }
             image.setScaleX(-1);
@@ -118,7 +118,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     }
 
     /**
-     * Method for testing puproses. Avoiding object creation.
+     * Method for testing purposes. Avoiding object creation.
      *
      * @param gameObjects game object.
      * @param startX start X.
@@ -152,7 +152,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     }
 
     public void setDoor(double xCoordinate) {
-        System.out.println("add: xCoordinate = " + xCoordinate);
+//        System.out.println("add: xCoordinate = " + xCoordinate);
         if (xCoordinate > image.getStartX()) {
             rightDoor.add(xCoordinate);
         } else {
@@ -161,7 +161,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     }
 
     public void removeDoor(double xCoordinate) {
-        System.out.println("remove: xCoordinate = " + xCoordinate);
+ //       System.out.println("remove: xCoordinate = " + xCoordinate);
         rightDoor.remove(xCoordinate);
         leftDoor.remove(xCoordinate);
     }
@@ -182,5 +182,13 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
                 res = e;
         }
         return res;
+    }
+    
+    void setLeftDoor(ArrayList<Double> leftDoor) {
+    	this.leftDoor = leftDoor;
+    }
+    
+    void setRightDoor(ArrayList<Double> rightDoor) {
+    	this.rightDoor = rightDoor;
     }
 }

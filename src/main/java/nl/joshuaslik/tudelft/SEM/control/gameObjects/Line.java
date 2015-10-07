@@ -109,6 +109,9 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
         return p1.getxPos() < p2.getxPos() ? p2 : p1;
     }
     
+    /**
+     * Destroys the line object
+     */
     public void destroy() {
         getGameObjects().removeObject(this);
         line.destroy();
