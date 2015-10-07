@@ -37,8 +37,11 @@ public class ProjectileTest {
     @Mock
     Vector vector;
     
+    @Mock
+    Point p;
     
-    Projectile projectile;
+    
+    Projectile projectile, p2;
 	
     /**
      * Set up mocks.
@@ -116,12 +119,20 @@ public class ProjectileTest {
 	 * Tests for closest instersection
 	 */
 	@Test
-	public void testGetClosestIntersection(){
-		Point point = Mockito.mock(Point.class);
-		when(point.getxPos()).thenReturn(5.0);
-		when(point.getyPos()).thenReturn(5.0);
-		assertEquals(projectile.getClosestIntersection(point),new IntersectionPoint(0.0, 5.0, projectile.getVector().normal(), Double.MAX_VALUE));
-		
+	public void testGetClosestIntersectionLargeY() {
+		when(p.getxPos()).thenReturn(50d);
+		when(p.getyPos()).thenReturn(25d);
+		assertEquals(projectile.getClosestIntersection(p),new IntersectionPoint(0.0,11.0,projectile.getVector().normal(),Double.MAX_VALUE));
+	}
+	
+	/**
+	 * Test method looking for the closest intersection with a point
+	 */
+	@Test
+	public void testGetClosestIntersectionSmallY() {
+		when(p.getxPos()).thenReturn(0d);
+		when(p.getyPos()).thenReturn(0d);
+		assertEquals(projectile.getClosestIntersection(p),new IntersectionPoint(0,1,projectile.getVector().normal(),Double.MAX_VALUE));
 	}
 	
 	/**
