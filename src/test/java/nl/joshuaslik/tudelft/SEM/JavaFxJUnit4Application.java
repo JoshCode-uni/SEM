@@ -34,6 +34,7 @@ public class JavaFxJUnit4Application extends Launcher {
      * Start JavaFx.
      */
     public static void startJavaFx() {
+        setHideViewForTesting(true);
         try {
             // Lock or wait. This gives another call to this method time to finish
             // and release the lock before another one has a go

@@ -41,6 +41,7 @@ public class Launcher extends Application {
     private static IpopupController popupController;
     private static final Object LOCK = new Object();
     private static boolean initilized = false;
+    private static boolean hideViewForTesting = false;
 
     /**
      * Start up the game.
@@ -54,7 +55,9 @@ public class Launcher extends Application {
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        primaryStage.show();
+        if(!hideViewForTesting) {
+            primaryStage.show();
+        }
         Launcher.stage = primaryStage;
 
         synchronized (LOCK) {
@@ -158,5 +161,14 @@ public class Launcher extends Application {
                 Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+    }
+
+    /**
+     * Hide the view for integration testing.
+     * FOR TESTING PURPSOSES ONLY!
+     * @param hideViewForTesting if the view must be hidden
+     */
+    public static void setHideViewForTesting(boolean hideViewForTesting) {
+        Launcher.hideViewForTesting = hideViewForTesting;
     }
 }
