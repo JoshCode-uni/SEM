@@ -307,4 +307,12 @@ public class Levels {
     public static int getUnlockedLevel() {
         return unlockedLevel;
     }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @param unlockedLevel the unlocked level
+     */
+    public static void setUnlockedLevel(int unlockedLevel) {
+        Levels.unlockedLevel = unlockedLevel;
+    }
 }

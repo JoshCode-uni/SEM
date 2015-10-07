@@ -35,6 +35,12 @@ public class Launcher extends Application {
     public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
     private static final BorderPane bp = new BorderPane();
     private static Stage stage;
+    
+    // These controllers are only intended to be used for testing purposes:
+    private static IviewController controller;
+    private static IpopupController popupController;
+    private static final Object LOCK = new Object();
+    private static boolean initilized = false;
 
     /**
      * Start up the game.
@@ -50,6 +56,10 @@ public class Launcher extends Application {
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         primaryStage.show();
         Launcher.stage = primaryStage;
+
+        synchronized (LOCK) {
+            initilized = true;
+        }
     }
 
     /**
@@ -67,6 +77,7 @@ public class Launcher extends Application {
             IviewController res = ((IviewController) loader.getController());
             res.start(bp.getScene());
             bp.setCenter(pane);
+            controller = res;
             return res;
         }
         catch (IOException ex) {
@@ -95,6 +106,8 @@ public class Launcher extends Application {
             IpopupController popupController = (IpopupController) loader.getController();
             popupController.setPopupControl(popup);
             popupController.setMainViewController(mainViewController);
+
+            Launcher.popupController = popupController;
         }
         catch (IOException ex) {
             GameLog.addErrorLog("Failed to load fxml file: " + fxmlURL.toString());
@@ -108,5 +121,42 @@ public class Launcher extends Application {
      */
     public static void main(String[] args) {
         launch(args);
+    }
+
+    /**
+     * Get the controller of the last loaded view.
+     * FOR TESTING PURPSOSES ONLY!
+     * @return the view controller
+     */
+    public static IviewController getController() {
+        return controller;
+    }
+
+    /**
+     * Get the controller of the last loaded popup.
+     * FOR TESTING PURPSOSES ONLY!
+     * @return the popup controller
+     */
+    public static IpopupController getPopupController() {
+        return popupController;
+    }
+
+    /**
+     * Wait till the initial view is initialized.
+     * FOR TESTING PURPSOSES ONLY!
+     */
+    public static void waitTillInitialized() {
+        while (true) {
+            synchronized (LOCK) {
+                if (initilized) {
+                    break;
+                }
+            }
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 }

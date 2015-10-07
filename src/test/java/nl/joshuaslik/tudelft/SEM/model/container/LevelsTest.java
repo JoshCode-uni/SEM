@@ -3,18 +3,16 @@ package nl.joshuaslik.tudelft.SEM.model.container;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-import org.junit.Before;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
-import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Mockito.when;
 
-import javafx.scene.shape.Circle;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LevelsTest {
@@ -25,6 +23,15 @@ public class LevelsTest {
 	@Mock
 	ICircleViewObject circle,circle2;
 	
+    /**
+     * Make sure we start with levels unlocked = 0.
+     */
+    @Before
+    public void init() {
+        Levels.setUnlockedLevel(0);
+        Levels.setCurrentLevel(0);
+    }
+        
     @Test
     public void testAmountOfLevels() {
         assertEquals(Levels.amountOfLevels(), 4);
@@ -57,8 +64,8 @@ public class LevelsTest {
     
     @Test
     public void testUnlockedLevel() {
-    	assertEquals(Levels.getUnlockedLevel(),1);
+    	assertEquals(0, Levels.getUnlockedLevel());
     	Levels.nextLevel();
-    	assertEquals(Levels.getUnlockedLevel(),2);
+    	assertEquals(1, Levels.getUnlockedLevel());
     }
 }
