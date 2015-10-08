@@ -1,6 +1,6 @@
 package nl.joshuaslik.tudelft.SEM.utility;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -18,13 +18,15 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameLog.class)
 public class GameLogTest {
+	
 	StringWriter sw;
 	PrintWriter pw;
 	String date = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
 	
 	/**
 	 * Setup the test.
-	 * @throws Exception 
+	 *
+	 * @throws Exception
 	 */
 	@Before
 	public void setup() throws Exception {
@@ -44,9 +46,9 @@ public class GameLogTest {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addErrorLog(randomString);
 		assertTrue(sw.toString().contains(date));
-		assertTrue(sw.toString().contains("[ERROR] "+randomString));
+		assertTrue(sw.toString().contains("[ERROR] " + randomString));
 	}
-
+	
 	/**
 	 * Tests if the correct information is logged by the warning logger.
 	 */
@@ -55,9 +57,9 @@ public class GameLogTest {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addWarningLog(randomString);
 		assertTrue(sw.toString().contains(date));
-		assertTrue(sw.toString().contains("[WARNING] "+randomString));
+		assertTrue(sw.toString().contains("[WARNING] " + randomString));
 	}
-
+	
 	/**
 	 * Tests if the correct information is logged by the information logger.
 	 */
@@ -66,8 +68,9 @@ public class GameLogTest {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addInfoLog(randomString);
 		assertTrue(sw.toString().contains(date));
-		assertTrue(sw.toString().contains("[INFO] "+randomString));	}
-
+		assertTrue(sw.toString().contains("[INFO] " + randomString));
+	}
+	
 	/**
 	 * Tests if the correct information is logged by the debug logger.
 	 */
@@ -76,9 +79,9 @@ public class GameLogTest {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addDebugLog(randomString);
 		assertTrue(sw.toString().contains(date));
-		assertTrue(sw.toString().contains("[DEBUG] "+randomString));
+		assertTrue(sw.toString().contains("[DEBUG] " + randomString));
 	}
-
+	
 	/**
 	 * Tests if the correct information is logged by the trace logger.
 	 */
@@ -87,7 +90,7 @@ public class GameLogTest {
 		String randomString = UUID.randomUUID().toString();
 		GameLog.addTraceLog(randomString);
 		assertTrue(sw.toString().contains(date));
-		assertTrue(sw.toString().contains("[TRACE] "+randomString));
+		assertTrue(sw.toString().contains("[TRACE] " + randomString));
 	}
-
+	
 }
