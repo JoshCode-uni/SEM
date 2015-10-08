@@ -1,34 +1,32 @@
 package nl.joshuaslik.tudelft.SEM.control;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.io.InputStream;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import javafx.scene.Scene;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.GameObjects;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameLoop.class)
 public class GameLoopTest {
-
+	
 	@Mock
 	GameController gameController;
 	
 	@Mock
 	Scene scene;
-	
 	
 	GameObjects gameObjects;
 	
@@ -38,6 +36,7 @@ public class GameLoopTest {
 	
 	/**
 	 * Setup mocks
+	 *
 	 * @throws Exception
 	 */
 	@Before
@@ -49,15 +48,15 @@ public class GameLoopTest {
 		gl = new GameLoop(gameController, 0, 25, 25, 0, 0, scene);
 		spyGL = Mockito.spy(gl);
 	}
-
+	
 	/**
 	 * Tests if GameLoop is correctly initialized
 	 */
 	@Test
 	public void testGameLoop() {
-		assertEquals(gl.getScore(),0);
+		assertEquals(gl.getScore(), 0);
 	}
-
+	
 	/**
 	 * Tests if deaths are correctly handled.
 	 */
@@ -117,11 +116,11 @@ public class GameLoopTest {
 	@Test
 	public void testSetViewController() {
 		GameController gameController2 = Mockito.mock(GameController.class);
-		assertEquals(gl.getGameController(),gameController);
-		assertNotEquals(gl.getGameController(),gameController2);
+		assertEquals(gl.getGameController(), gameController);
+		assertNotEquals(gl.getGameController(), gameController2);
 		gl.setViewController(gameController2);
-		assertEquals(gl.getGameController(),gameController2);
-		assertNotEquals(gl.getGameController(),gameController);
+		assertEquals(gl.getGameController(), gameController2);
+		assertNotEquals(gl.getGameController(), gameController);
 	}
 	
 	/**
@@ -158,7 +157,7 @@ public class GameLoopTest {
 	@Test
 	public void testMakeLine() {
 		gl.makeLine(1000, 50, 1500, 500);
-		Mockito.verify(gameController).makeLine(1000,50,1500,500);
+		Mockito.verify(gameController).makeLine(1000, 50, 1500, 500);
 	}
 	
 	/**

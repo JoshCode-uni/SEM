@@ -9,21 +9,20 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IModifier;
 
 /**
- *
- * @author faris
  * @param <T>
+ * @author faris
  */
 public abstract class AbstractBubbleModifierDecorator<T extends IBubbleModifier> implements IBubbleModifier, IDecorator<T> {
-
-    private IBubbleModifier child;
-    
-    @Override
-    public T decorate(IModifier mod) {
-        child = (IBubbleModifier) mod;
-        return (T) this;
-    }
-
-    public IBubbleModifier getChild() {
-        return child;
-    }
+	
+	private IBubbleModifier child;
+	
+	@Override
+	public T decorate(IModifier mod) {
+		child = (IBubbleModifier) mod;
+		return (T) this;
+	}
+	
+	public IBubbleModifier getChild() {
+		return child;
+	}
 }
