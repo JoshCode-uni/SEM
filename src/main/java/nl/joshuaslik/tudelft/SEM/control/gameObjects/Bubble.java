@@ -1,8 +1,8 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.BubbleModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.BubbleBaseModifier;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.IBubbleModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
@@ -30,7 +30,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
 	private double nextX;
 	private double nextY;
 	
-	private IBubbleModifier modifier = new BubbleModifier();
+	private IBubbleModifier modifier = new BubbleBaseModifier();
 	
 	/**
 	 * Create a bubble.
@@ -278,7 +278,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
 		getGameObjects().addObject(bubble2);
 		
 		// remove modifier
-		this.modifier = new BubbleModifier();
+		this.modifier = new BubbleBaseModifier();
 	}
 	
 	/**
@@ -317,7 +317,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
 		return circle;
 	}
 	
-	public void addModifier(AbstractBubbleModifierDecorator newmod) {
+	public void addModifier(AbstractBubbleDecorator newmod) {
 		modifier = newmod.decorate(modifier);
 	}
 	

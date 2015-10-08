@@ -8,7 +8,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player;
 /**
  * @author faris
  */
-public class PlayerModifier implements IPlayerModifier {
+public class PlayerModifier implements IPlayerBaseModifier {
 	
 	@Override
 	public double getMoveSpeedMultiplier() {

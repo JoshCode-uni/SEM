@@ -5,12 +5,12 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.bubbleMods;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
 
 /**
  * @author faris
  */
-public class BubbleSlowdown extends AbstractBubbleModifierDecorator {
+public class BubbleSlowdown extends AbstractBubbleDecorator {
 	
 	@Override
 	public double getBubbleSpeedModifier() {

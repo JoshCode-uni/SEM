@@ -7,7 +7,6 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
@@ -121,7 +120,7 @@ public interface IGameObjects {
 	
 	public Player getPlayer();
 	
-	public void handleModifierCollision(IModifier pickup, boolean isPlayerPickup, boolean isBubblePickup);
+	public void handleModifierCollision(Object pickup, boolean isPlayerPickup, boolean isBubblePickup);
 	
 	public void handleBubbleSplit(Point p);
 	

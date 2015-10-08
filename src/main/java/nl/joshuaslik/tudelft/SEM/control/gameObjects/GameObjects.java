@@ -13,9 +13,8 @@ import java.util.logging.Logger;
 
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IModifier;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
@@ -390,12 +389,12 @@ public class GameObjects implements IGameObjects {
 	}
 	
 	@Override
-	public void handleModifierCollision(IModifier mod, boolean isPlayerPickup, boolean isBubblePickup) {
+	public void handleModifierCollision(Object mod, boolean isPlayerPickup, boolean isBubblePickup) {
 		if (isPlayerPickup) {
-			player.addModifier((AbstractPlayerModifierDecorator) mod);
+			player.addModifier((AbstractPlayerDecorator) mod);
 		} else if (isBubblePickup) {
 			for (Bubble b : bubbles)
-				b.addModifier((AbstractBubbleModifierDecorator) mod);
+				b.addModifier((AbstractBubbleDecorator) mod);
 		}
 	}
 	

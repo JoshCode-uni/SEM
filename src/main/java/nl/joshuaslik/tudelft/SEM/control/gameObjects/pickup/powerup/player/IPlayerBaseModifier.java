@@ -5,12 +5,11 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IModifier;
 
 /**
  * @author faris
  */
-public interface IPlayerModifier extends IModifier {
+public interface IPlayerBaseModifier {
 	
 	public double getMoveSpeedMultiplier();
 	

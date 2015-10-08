@@ -5,12 +5,12 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 
 /**
  * @author faris
  */
-public class PlayerSpeedUp extends AbstractPlayerModifierDecorator<PlayerSpeedUp> {
+public class PlayerSpeedUp extends AbstractPlayerDecorator{
 	
 	@Override
 	public double getMoveSpeedMultiplier() {
