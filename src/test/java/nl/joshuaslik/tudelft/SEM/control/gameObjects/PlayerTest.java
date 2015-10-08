@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerBaseModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
@@ -224,7 +224,7 @@ public class PlayerTest {
 	@Test
 	public void testAddModifier() {
 		player.addModifier(mod);
-		verify(mod).decorate(isA(IPlayerBaseModifier.class));
+		verify(mod).decorate(isA(IPlayerModifier.class));
 	}
 	
 	/**

@@ -12,17 +12,17 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IDecorator;
  * 
  * @author faris
  */
-public abstract class AbstractPlayerDecorator implements IPlayerBaseModifier, IDecorator<IPlayerBaseModifier> {
+public abstract class AbstractPlayerDecorator implements IPlayerModifier, IDecorator<IPlayerModifier> {
 	
-	private IPlayerBaseModifier child;
+	private IPlayerModifier child;
 	
         @Override
-	public IPlayerBaseModifier decorate(IPlayerBaseModifier mod) {
+	public IPlayerModifier decorate(IPlayerModifier mod) {
 		child = mod;
 		return this;
 	}
 	
-	public IPlayerBaseModifier getChild() {
+	public IPlayerModifier getChild() {
 		return child;
 	}
 }
