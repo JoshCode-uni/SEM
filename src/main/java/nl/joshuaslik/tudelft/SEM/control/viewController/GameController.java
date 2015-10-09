@@ -131,7 +131,7 @@ public class GameController implements IviewController {
         gl.start();
     }
 
-    public void resetLives() {
+    private void resetLives() {
         if (currentlives > 10)
             currentlives = 10;
         Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + currentlives + ".png"));
@@ -220,7 +220,7 @@ public class GameController implements IviewController {
      *
      * @param level
      */
-    public static void setLevel(int level) {
+    private static void setLevel(int level) {
         GameController.currentLevel = level;
     }
 
@@ -284,5 +284,21 @@ public class GameController implements IviewController {
     public void addLife() {
         setLives(currentlives + 1);
         resetLives();
+    }
+    
+    /**
+    * FOR TESTING PURPOSES ONLY.
+    * @return view element
+    */
+    public final Button getQuitButton() {
+       return quitButton;
+    }
+
+    /**
+    * FOR TESTING PURPOSES ONLY.
+    * @return view element
+    */
+    public final Button getMainMenuButton() {
+       return mainMenuButton;
     }
 }

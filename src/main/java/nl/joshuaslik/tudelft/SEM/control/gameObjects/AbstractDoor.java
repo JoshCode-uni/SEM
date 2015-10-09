@@ -27,7 +27,7 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
      * @param bl
      * @param br
      */
-    public AbstractDoor(final IGameObjects gameObjects, final Point ul, final Point ur, final Point bl, final Point br) {
+    AbstractDoor(final IGameObjects gameObjects, final Point ul, final Point ur, final Point bl, final Point br) {
         super(gameObjects);
 
         up = new Line(gameObjects, ul.getxPos(), ul.getyPos(), ur.getxPos(), ur.getyPos());
@@ -63,7 +63,7 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
     /**
      * Should destory the door
      */
-    public final void destroy() {
+    public void destroy() {
         getGameObjects().getPlayer().removeDoor(xLeft);
         getGameObjects().getPlayer().removeDoor(xRight);
 

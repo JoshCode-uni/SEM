@@ -12,5 +12,5 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IModifier;
  */
 public interface IBubbleModifier {
 
-    public double getBubbleSpeedModifier();
+    double getBubbleSpeedModifier();
 }

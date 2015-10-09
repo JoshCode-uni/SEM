@@ -19,12 +19,12 @@ public interface IpopupController {
      *
      * @param controller the controller class of the main view.
      */
-    public void setMainViewController(IviewController controller);
+    void setMainViewController(IviewController controller);
 
     /**
      * Set the PopupControl class.
      *
      * @param popupControl PopupControl class.
      */
-    public void setPopupControl(PopupControl popupControl);
+    void setPopupControl(PopupControl popupControl);
 }

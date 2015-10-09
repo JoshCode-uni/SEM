@@ -7,24 +7,26 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class PointTest {
-	
-	Point point1, point2, point3;
-	
-	/**
-	 * setup Test
-	 */
-	@Before
-	public void setUp() {
-		point1 = new Point(20, 20);
-		point2 = new Point(25, 25);
-		point3 = new Point(20, 20);
-	}
-	
-	/**
-	 * Tests initialization.
-	 */
-	@Test
-	public void testPoint() {
+
+    private Point point1;
+    private Point point2;
+    private Point point3;
+
+    /**
+     * setup Test
+     */
+    @Before
+    public void setUp() {
+        point1 = new Point(20, 20);
+        point2 = new Point(25, 25);
+        point3 = new Point(20, 20);
+    }
+
+    /**
+     * Tests initialization.
+     */
+    @Test
+    public void testPoint() {
 		assertEquals(point1, point3);
 		assertNotEquals(point1, point2);
 		assertNotEquals(point1, null);

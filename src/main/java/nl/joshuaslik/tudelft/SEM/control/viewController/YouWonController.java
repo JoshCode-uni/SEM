@@ -72,5 +72,20 @@ public class YouWonController implements IpopupController {
     public void setPopupControl(PopupControl popupControl) {
         this.popupControl = popupControl;
     }
+    
+    /**
+    * FOR TESTING PURPOSES ONLY.
+    * @return view element
+    */
+   public Button getMainMenuButton() {
+       return mainMenuButton;
+   }
 
+   /**
+    * FOR TESTING PURPOSES ONLY.
+    * @return view element
+    */
+   public Button getNextLevelButton() {
+       return nextLevelButton;
+   }
 }

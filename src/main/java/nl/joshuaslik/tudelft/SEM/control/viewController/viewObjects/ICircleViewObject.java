@@ -18,36 +18,36 @@ public interface ICircleViewObject extends IViewObject {
      *
      * @param xCoordinate the x coordinate.
      */
-    public void setCenterX(double xCoordinate);
+    void setCenterX(double xCoordinate);
 
     /**
      * Set the y coordinate of the center of the circle.
      *
      * @param yCoordinate the y coordinate.
      */
-    public void setCenterY(double yCoordinate);
+    void setCenterY(double yCoordinate);
 
     /**
      * Set the radius of the circle.
      *
      * @param radius the radius.
      */
-    public void setRadius(double radius);
+    void setRadius(double radius);
 
     /**
      * @return the x coordinate of the center of the circle.
      */
-    public double getCenterX();
+    double getCenterX();
 
     /**
      * @return the y coordinate of the center of the circle.
      */
-    public double getCenterY();
+    double getCenterY();
 
     /**
      * @return the radius of the circle.
      */
-    public double getRadius();
+    double getRadius();
 
     /**
      * Set the bounds outside of which the circle is not allowed to move.
@@ -57,5 +57,5 @@ public interface ICircleViewObject extends IViewObject {
      * @param maxX maximum x coordinate value.
      * @param maxY maximum y coordinate value.
      */
-    public void setBounds(double minX, double minY, double maxX, double maxY);
+    void setBounds(double minX, double minY, double maxX, double maxY);
 }

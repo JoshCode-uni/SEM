@@ -23,53 +23,54 @@ import org.mockito.runners.MockitoJUnitRunner;
  */
 @RunWith(MockitoJUnitRunner.class)
 public class ProjectileTest {
-	
-	@Mock
-	IGameObjects gameObjects;
-	
-	@Mock
-	ILineViewObject line;
-	
-	@Mock
-	IKeyboard keyboard;
-	
-	@Mock
-	Vector vector;
-	
-	@Mock
-	Point p;
-	
-	Projectile projectile, p2;
-	
-	/**
-	 * Set up mocks.
-	 */
-	@Before
-	public void setup() {
-		when(gameObjects.makeLine(0, -1, 0, -2)).thenReturn(line);
-		// the view will be a 10x10 square
-		when(gameObjects.getLeftBorder()).thenReturn(0.0);
-		when(gameObjects.getRightBorder()).thenReturn(10.0);
-		when(gameObjects.getTopBorder()).thenReturn(0.0);
-		when(gameObjects.getBottomBorder()).thenReturn(10.0);
-		when(keyboard.isMoveLeft()).thenReturn(false);
-		when(keyboard.isMoveRight()).thenReturn(false);
-		when(keyboard.isShoot()).thenReturn(false);
-		when(line.getStartX()).thenReturn(0.0);
-		when(line.getStartY()).thenReturn(1.0);
-		when(line.getEndX()).thenReturn(0.0);
-		when(line.getEndY()).thenReturn(0.0);
-		
-		projectile = new Projectile(gameObjects, 0, 1, 20, 0);
-	}
-	
-	/**
-	 * Tests initialization.
-	 */
-	@Test
-	public void testPointsInitialized() {
-		assertEquals(projectile.getPoint1().getxPos(), 0, 0);
-		assertEquals(projectile.getPoint1().getyPos(), 1, 0);
+
+    @Mock
+    IGameObjects gameObjects;
+
+    @Mock
+    ILineViewObject line;
+
+    @Mock
+    IKeyboard keyboard;
+
+    @Mock
+    Vector vector;
+
+    @Mock
+    Point p;
+
+    private Projectile projectile;
+    Projectile p2;
+
+    /**
+     * Set up mocks.
+     */
+    @Before
+    public void setup() {
+        when(gameObjects.makeLine(0, -1, 0, -2)).thenReturn(line);
+        // the view will be a 10x10 square
+        when(gameObjects.getLeftBorder()).thenReturn(0.0);
+        when(gameObjects.getRightBorder()).thenReturn(10.0);
+        when(gameObjects.getTopBorder()).thenReturn(0.0);
+        when(gameObjects.getBottomBorder()).thenReturn(10.0);
+        when(keyboard.isMoveLeft()).thenReturn(false);
+        when(keyboard.isMoveRight()).thenReturn(false);
+        when(keyboard.isShoot()).thenReturn(false);
+        when(line.getStartX()).thenReturn(0.0);
+        when(line.getStartY()).thenReturn(1.0);
+        when(line.getEndX()).thenReturn(0.0);
+        when(line.getEndY()).thenReturn(0.0);
+
+        projectile = new Projectile(gameObjects, 0, 1, 20, 0);
+    }
+
+    /**
+     * Tests initialization.
+     */
+    @Test
+    public void testPointsInitialized() {
+        assertEquals(projectile.getPoint1().getxPos(), 0, 0);
+        assertEquals(projectile.getPoint1().getyPos(), 1, 0);
 		assertEquals(projectile.getPoint2().getxPos(), 0, 0);
 		assertEquals(projectile.getPoint2().getyPos(), 11, 0);
 	}

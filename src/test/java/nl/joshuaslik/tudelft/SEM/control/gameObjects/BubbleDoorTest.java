@@ -27,40 +27,40 @@ public class BubbleDoorTest {
 	
 	@Mock
 	ILineViewObject l1, l2, l3, l4;
-	
-	@Mock
-	Player player;
-	
-	AbstractDoor door;
-	
-	AbstractDoor spyDoor;
-	
-	/**
-	 * Setup mocks
-	 */
-	@Before
-	public void setUp() {
-		when(p1.getxPos()).thenReturn(0.0);
-		when(p1.getyPos()).thenReturn(10.0);
-		when(p2.getxPos()).thenReturn(5.0);
-		when(p2.getyPos()).thenReturn(10.0);
-		when(p3.getxPos()).thenReturn(0.0);
-		when(p3.getyPos()).thenReturn(0.0);
-		when(p4.getxPos()).thenReturn(5.0);
-		when(p4.getyPos()).thenReturn(0.0);
-		when(gameObjects.makeLine(0.0, 10.0, 5.0, 10.0)).thenReturn(l1);
-		when(gameObjects.makeLine(0.0, 10.0, 0.0, 0.0)).thenReturn(l2);
-		when(gameObjects.makeLine(5.0, 10.0, 5.0, 0.0)).thenReturn(l3);
-		when(gameObjects.makeLine(0.0, 0.0, 5.0, 0.0)).thenReturn(l4);
-		when(gameObjects.getPlayer()).thenReturn(player);
-		door = new BubbleDoor(gameObjects, p1, p2, p3, p4, 1);
-	}
-	
-	/**
-	 * Test constructor
-	 */
-	@Test
-	public void testBubbleDoor() {
+
+    @Mock
+    Player player;
+
+    private AbstractDoor door;
+
+    private AbstractDoor spyDoor;
+
+    /**
+     * Setup mocks
+     */
+    @Before
+    public void setUp() {
+        when(p1.getxPos()).thenReturn(0.0);
+        when(p1.getyPos()).thenReturn(10.0);
+        when(p2.getxPos()).thenReturn(5.0);
+        when(p2.getyPos()).thenReturn(10.0);
+        when(p3.getxPos()).thenReturn(0.0);
+        when(p3.getyPos()).thenReturn(0.0);
+        when(p4.getxPos()).thenReturn(5.0);
+        when(p4.getyPos()).thenReturn(0.0);
+        when(gameObjects.makeLine(0.0, 10.0, 5.0, 10.0)).thenReturn(l1);
+        when(gameObjects.makeLine(0.0, 10.0, 0.0, 0.0)).thenReturn(l2);
+        when(gameObjects.makeLine(5.0, 10.0, 5.0, 0.0)).thenReturn(l3);
+        when(gameObjects.makeLine(0.0, 0.0, 5.0, 0.0)).thenReturn(l4);
+        when(gameObjects.getPlayer()).thenReturn(player);
+        door = new BubbleDoor(gameObjects, p1, p2, p3, p4, 1);
+    }
+
+    /**
+     * Test constructor
+     */
+    @Test
+    public void testBubbleDoor() {
 		verify(gameObjects, times(4)).addObject(isA(Line.class));
 		verify(player).setDoor(0.0);
 		verify(player).setDoor(5.0);
