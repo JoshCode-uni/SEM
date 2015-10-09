@@ -10,10 +10,10 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player;
  * @author faris
  */
 public interface IPlayerModifier {
-	
-	public double getMoveSpeedMultiplier();
-	
-	public double getProjectileSpeedMultiplier();
-	
-	public int getProjectileSpikeDelay();
+
+    public double getMoveSpeedMultiplier();
+
+    public double getProjectileSpeedMultiplier();
+
+    public int getProjectileSpikeDelay();
 }

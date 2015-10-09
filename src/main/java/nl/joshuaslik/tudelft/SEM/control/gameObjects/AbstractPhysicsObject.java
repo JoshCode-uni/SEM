@@ -14,25 +14,25 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
  * @author faris
  */
 public abstract class AbstractPhysicsObject implements IPhysicsObject {
-	
-	private final IGameObjects gameObjects;
-	
-	/**
-	 * Set the gameObject reference.
-	 *
-	 * @param gameObjects game objects interface.
-	 */
-	public AbstractPhysicsObject(IGameObjects gameObjects) {
-		this.gameObjects = gameObjects;
-	}
-	
-	/**
-	 * Get the game objects interface which allows you to perform a limited
-	 * amount of methods of the game objects class.
-	 *
-	 * @return the game objects interface.
-	 */
-	protected final IGameObjects getGameObjects() {
-		return gameObjects;
-	}
+
+    private final IGameObjects gameObjects;
+
+    /**
+     * Set the gameObject reference.
+     *
+     * @param gameObjects game objects interface.
+     */
+    public AbstractPhysicsObject(final IGameObjects gameObjects) {
+        this.gameObjects = gameObjects;
+    }
+
+    /**
+     * Get the game objects interface which allows you to perform a limited
+     * amount of methods of the game objects class.
+     *
+     * @return the game objects interface.
+     */
+    protected final IGameObjects getGameObjects() {
+        return gameObjects;
+    }
 }
