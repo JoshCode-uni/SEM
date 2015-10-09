@@ -29,10 +29,11 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
      * @param height the height of the image.
      * @param gc a reference to the view in which this image will be drawn.
      */
-    public ImageViewObject(InputStream is, double width, 
+    @SuppressWarnings("restriction")
+	public ImageViewObject(InputStream is, double width, 
             double height, GameController gc) {
         super(gc);
-        Image img = new Image(is, width, height, true, true);
+		Image img = new Image(is, width, height, true, true);
         this.image = new ImageView(img);
         gc.drawNode(image);
     }
