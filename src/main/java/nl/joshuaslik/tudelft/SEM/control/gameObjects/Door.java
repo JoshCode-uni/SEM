@@ -54,7 +54,7 @@ public abstract class Door extends AbstractPhysicsObject implements IUpdateable 
     public abstract boolean isOpen();
 
     @Override
-    public final void update(final long nanoFrameTime) {
+    public void update(final long nanoFrameTime) {
         if (isOpen()) {
             destroy();
         }
