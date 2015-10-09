@@ -23,7 +23,7 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
      * @param endX
      * @param endY
      */
-    public Line(IGameObjects gameObjects, double startX, double startY, double endX, double endY) {
+    public Line(final IGameObjects gameObjects, final double startX, final double startY, final double endX, final double endY) {
         super(gameObjects);
 
         line = getGameObjects().makeLine(startX, startY, endX, endY);
@@ -42,7 +42,7 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
      * @return intersection point on the line, which is closest to point p.
      */
     @Override
-    public IntersectionPoint getClosestIntersection(final Point p) {
+    public final IntersectionPoint getClosestIntersection(final Point p) {
         Vector normal       = dir.normal();
         Point  intersection =
                 normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
@@ -112,20 +112,20 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
     /**
      * Destroys the line object
      */
-    public void destroy() {
+    public final void destroy() {
         getGameObjects().removeObject(this);
         line.destroy();
     }
 
-    public Point getPoint1() {
+    public final Point getPoint1() {
         return p1;
     }
 
-    public Point getPoint2() {
+    public final Point getPoint2() {
         return p2;
     }
 
-    public Vector getVector() {
+    public final Vector getVector() {
         return dir;
     }
 }
