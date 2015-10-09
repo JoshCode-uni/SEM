@@ -78,7 +78,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param nanoFrameTime the time of a frame in nanoseconds.
      */
     @Override
-    public final void update(final long nanoFrameTime) {
+    public void update(final long nanoFrameTime) {
         // only add/remove objects at the beginning of each update
         addBufferedDynamicObjects();
         removeBufferedDynamicObjects();
@@ -165,7 +165,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param object the Dynamic Object to add to the scene.
      */
     @Override
-    public final void addObject(final IPhysicsObject object) {
+    public void addObject(final IPhysicsObject object) {
         addObjectBuffer.add(object);
     }
 
@@ -175,7 +175,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param object the Dynamic Object to remove from the game.
      */
     @Override
-    public final void removeObject(final IPhysicsObject object) {
+    public void removeObject(final IPhysicsObject object) {
         removeObjectBuffer.add(object);
     }
 
@@ -253,7 +253,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return min y value.
      */
     @Override
-    public final double getTopBorder() {
+    public double getTopBorder() {
         return topBorder;
     }
 
@@ -263,7 +263,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return max x value.
      */
     @Override
-    public final double getRightBorder() {
+    public double getRightBorder() {
         return rightBorder;
     }
 
@@ -273,7 +273,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return max y value.
      */
     @Override
-    public final double getBottomBorder() {
+    public double getBottomBorder() {
         return bottomBorder;
     }
 
@@ -283,7 +283,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return min x value.
      */
     @Override
-    public final double getLeftBorder() {
+    public double getLeftBorder() {
         return leftBorder;
     }
 
@@ -292,7 +292,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @return the score.
      */
-    public final int getScore() {
+    public int getScore() {
         return score;
     }
 
@@ -301,7 +301,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @return if all bubbles are destroyed.
      */
-    public final boolean allBubblesDestroyed() {
+    public boolean allBubblesDestroyed() {
         return bubbles.isEmpty();
     }
 
@@ -311,7 +311,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return if the game currently has a spawned projectile.
      */
     @Override
-    public final boolean hasProjectile() {
+    public boolean hasProjectile() {
         return hasProjectile;
     }
 
@@ -319,7 +319,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Handle event: player died.
      */
     @Override
-    public final void playerDied() {
+    public void playerDied() {
         draw.playerDied();
     }
 
@@ -329,7 +329,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param projectile the projectile to add.
      */
     @Override
-    public final void addProjectile(final Projectile projectile) {
+    public void addProjectile(final Projectile projectile) {
         addObject(projectile);
         this.projectile = projectile;
         hasProjectile = true;
@@ -339,7 +339,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Remove the projectile from the game.
      */
     @Override
-    public final void removeProjectile() {
+    public void removeProjectile() {
         removeObject(projectile);
         this.projectile = null;
         hasProjectile = false;
@@ -354,7 +354,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return the interface of the circle view object.
      */
     @Override
-    public final ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
+    public ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
         return draw.makeCircle(centerX, centerY, radius);
     }
 
@@ -368,7 +368,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return the interface of the line view object.
      */
     @Override
-    public final ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
+    public ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
         return draw.makeLine(startX, startY, endX, endY);
     }
 
@@ -381,17 +381,17 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return the interface of the image view object.
      */
     @Override
-    public final IImageViewObject makeImage(final InputStream is, final double height, final double width) {
+    public IImageViewObject makeImage(final InputStream is, final double height, final double width) {
         return draw.makeImage(is, width, height);
     }
 
     @Override
-    public final Player getPlayer() {
+    public Player getPlayer() {
         return player;
     }
 
     @Override
-    public final void handleModifierCollision(final Object mod, final boolean isPlayerPickup, final boolean isBubblePickup) {
+    public void handleModifierCollision(final Object mod, final boolean isPlayerPickup, final boolean isBubblePickup) {
         if (isPlayerPickup) {
             player.addModifier((AbstractPlayerDecorator) mod);
         } else if (isBubblePickup) {
@@ -402,22 +402,22 @@ public class GameObjects implements IUpdateable, IGameObjects {
     }
 
     @Override
-    public final void handleBubbleSplit(final Point p) {
+    public void handleBubbleSplit(final Point p) {
         pickupGenerator.generatePickup(p);
     }
 
     @Override
-    public final void addPoints(final int points) {
+    public void addPoints(final int points) {
         score += points;
     }
 
     @Override
-    public final void addLife() {
+    public void addLife() {
         draw.addLife();
     }
 
     @Override
-    public final int bubblesLeft() {
+    public int bubblesLeft() {
         return bubbles.size();
     }
     
@@ -430,23 +430,23 @@ public class GameObjects implements IUpdateable, IGameObjects {
         addBufferedDynamicObjects();
     }
 
-    final void addBubbles(final Bubble bubble) {
+    protected void addBubbles(final Bubble bubble) {
         bubbles.add(bubble);
     }
 
-    final ArrayList<IPrepareable> getPrepareUpdateable() {
+    protected ArrayList<IPrepareable> getPrepareUpdateable() {
         return prepUpdateableObjects;
     }
 
-    final ArrayList<IUpdateable> getUpdateable() {
+    protected ArrayList<IUpdateable> getUpdateable() {
         return updateableObjects;
     }
 
-    final ArrayList<ICollider> getCollider() {
+    protected ArrayList<ICollider> getCollider() {
         return colliderObjects;
     }
 
-    final ArrayList<IIntersectable> getIntersectable() {
+    protected ArrayList<IIntersectable> getIntersectable() {
         return intersectableObjects;
     }
     //CHECKSTYLE.ON

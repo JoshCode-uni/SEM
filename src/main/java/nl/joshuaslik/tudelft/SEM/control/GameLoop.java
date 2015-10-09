@@ -55,7 +55,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     }
 
     @Override
-    public final void stop() {
+    public void stop() {
         super.stop();
         kb.removeListeners();
     }
@@ -116,7 +116,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * Tells gameController the player has died
      */
     @Override
-    public final void playerDied() {
+    public void playerDied() {
         stop();
         gameController.died();
     }
@@ -130,7 +130,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * @return the interface of the circle view object.
      */
     @Override
-    public final ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
+    public ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
         return gameController.makeCircle(centerX, centerY, radius);
     }
 
@@ -143,7 +143,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * @return the interface of the image view object.
      */
     @Override
-    public final IImageViewObject makeImage(final InputStream is, final double width, final double height) {
+    public IImageViewObject makeImage(final InputStream is, final double width, final double height) {
         return gameController.makeImage(is, width, height);
     }
 
@@ -157,7 +157,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * @return the interface of the line view object.
      */
     @Override
-    public final ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
+    public ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
         return gameController.makeLine(startX, startY, endX, endY);
     }
 
@@ -165,7 +165,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * Adds a life to the player.
      */
     @Override
-    public final void addLife() {
+    public void addLife() {
         gameController.addLife();
     }
 
