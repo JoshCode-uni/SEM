@@ -38,7 +38,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * @param is
      * @param kb          keyboard which controller the actions of the player.
      */
-    public Player(IGameObjects gameObjects, InputStream is, IKeyboard kb) {
+    public Player(final IGameObjects gameObjects, final InputStream is, final IKeyboard kb) {
         super(gameObjects);
 
         image = getGameObjects().makeImage(is, 100, 100);
@@ -55,7 +55,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public void checkCollision(IIntersectable obj2, long nanoFrameTime) {
+    public void checkCollision(final IIntersectable obj2, final long nanoFrameTime) {
         if (obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             if (image.intersects(bubble.getCircleViewObject())) {
@@ -70,7 +70,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public void update(long nanoFrameTime) {
+    public void update(final long nanoFrameTime) {
         if (keyboard.isMoveLeft()) {
             // move left
             double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
@@ -112,7 +112,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      *
      * @return the max speed.
      */
-    public static double getMAX_SPEED() {
+    public static double getMaxSpeed() {
         return MAX_SPEED;
     }
 
@@ -124,7 +124,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * @param startY      start Y.
      * @return the requested projectile.
      */
-    public Projectile makeProjectile(IGameObjects gameObjects, double startX, double startY) {
+    public Projectile makeProjectile(final IGameObjects gameObjects, final double startX, final double startY) {
         return new Projectile(gameObjects, startX, startY, getProjectileSpeedMultiplier(), getProjectileSpikeDelay());
     }
 
@@ -132,7 +132,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         return image;
     }
 
-    public void addModifier(AbstractPlayerDecorator newmod) {
+    public void addModifier(final AbstractPlayerDecorator newmod) {
         modifier = newmod.decorate(modifier);
     }
 
@@ -148,7 +148,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         return modifier.getProjectileSpikeDelay();
     }
 
-    public void setDoor(double xCoordinate) {
+    public void setDoor(final double xCoordinate) {
         //        System.out.println("add: xCoordinate = " + xCoordinate);
         if (xCoordinate > image.getStartX()) {
             rightDoor.add(xCoordinate);
@@ -157,7 +157,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         }
     }
 
-    public void removeDoor(double xCoordinate) {
+    public void removeDoor(final double xCoordinate) {
         //       System.out.println("remove: xCoordinate = " + xCoordinate);
         rightDoor.remove(xCoordinate);
         leftDoor.remove(xCoordinate);
@@ -181,11 +181,11 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         return res;
     }
 
-    void setLeftDoor(ArrayList<Double> leftDoor) {
+    void setLeftDoor(final ArrayList<Double> leftDoor) {
         this.leftDoor = leftDoor;
     }
 
-    void setRightDoor(ArrayList<Double> rightDoor) {
+    void setRightDoor(final ArrayList<Double> rightDoor) {
         this.rightDoor = rightDoor;
     }
 }
