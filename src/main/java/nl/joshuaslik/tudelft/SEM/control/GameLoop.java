@@ -27,6 +27,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 public class GameLoop extends AnimationTimer implements IDraw {
 
     private final Keyboard kb;
+    private static final int FIRST_FRAME_TIME = 165_000_000;
     private GameController gameController;
     private final GameObjects gameObjects;
     private long time = 0;
@@ -74,7 +75,12 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
         try {
             // update time
-            long frametime = this.time != 0 ? time - this.time : 165_000_000;
+            long frametime;
+            if (this.time != 0) {
+                frametime = time - this.time;
+            } else {
+                frametime = FIRST_FRAME_TIME;
+            }
             this.time = time;
 
             gameController.updateTime(frametime);
@@ -93,7 +99,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      *
      * @param gameController the view controller class.
      */
-    public final void setViewController(GameController gameController) {
+    public final void setViewController(final GameController gameController) {
         this.gameController = gameController;
     }
 
