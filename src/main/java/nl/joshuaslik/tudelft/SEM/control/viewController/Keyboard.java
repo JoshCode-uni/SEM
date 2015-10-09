@@ -91,4 +91,12 @@ public class Keyboard implements IKeyboard {
     public boolean isShoot() {
         return keyboard.get(shoot.ordinal());
     }
+    
+    Scene getScene() {
+    	return scene;
+    }
+        
+    void setBitSet(BitSet kb) {
+      	keyboard = kb;
+    }
 }
