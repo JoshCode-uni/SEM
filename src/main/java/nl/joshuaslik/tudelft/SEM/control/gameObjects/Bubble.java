@@ -9,6 +9,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.Time;
 
 /**
  * This class contains the position, speed and direction of a bubble. It
@@ -213,7 +214,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         dir = newDir;
 
         // apply gravity
-        vY += Launcher.GRAVITY * (nanoFrameTime / 1_000_000_000.0);
+        vY += Launcher.GRAVITY * (nanoFrameTime / Time.SECOND_NANO);
         vX = MAX_X_SPEED * dir.getXdirection();// Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
 
         // calculate new positions of the cirecles
@@ -235,8 +236,8 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         } else if (vY < -Y_MAX_SPEED) {
             vY = -Y_MAX_SPEED;
         }
-        nextX = circle.getCenterX() + vX * (nanoFrameTime / 1_000_000_000.0);
-        nextY = circle.getCenterY() + vY * (nanoFrameTime / 1_000_000_000.0);
+        nextX = circle.getCenterX() + vX * (nanoFrameTime / Time.SECOND_NANO);
+        nextY = circle.getCenterY() + vY * (nanoFrameTime / Time.SECOND_NANO);
     }
 
     /**

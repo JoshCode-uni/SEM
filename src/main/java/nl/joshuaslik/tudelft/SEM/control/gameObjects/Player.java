@@ -72,7 +72,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     public void update(long nanoFrameTime) {
         if (keyboard.isMoveLeft()) {
             // move left
-            double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier();
+            double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
             double leftBorder = getClosestLeftBorder();
             if (leftBorder < leftPos) {
                 image.setX(leftPos);
@@ -82,7 +82,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             image.setScaleX(1);
         } else if (keyboard.isMoveRight()) {
             // move right
-            double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / 1_000_000_000 * getMoveSpeedMultiplier();
+            double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
             double rightBorder = getClosestRightBorder();
             if (rightBorder - 100 > rightPos) {
                 image.setX(rightPos);

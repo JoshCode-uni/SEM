@@ -23,7 +23,7 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
 
     private final IImageViewObject pickupImage;
     private final static double FALL_SPEED = 300;
-    private double EXISTENCE_TIME = 5.0 * 1_000_000_000.0;
+    private double EXISTENCE_TIME = 5.0 * Time.SECOND_NANO;
 
     public AbstractPickup(IGameObjects gameObjects, InputStream is, double height, double width, double xCoordinate, double yCoordinate) {
         super(gameObjects);
@@ -44,7 +44,7 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
             destroy();
         }
 
-        pickupImage.setY(pickupImage.getStartY() + FALL_SPEED * nanoFrameTime / 1_000_000_000);
+        pickupImage.setY(pickupImage.getStartY() + FALL_SPEED * nanoFrameTime / Time.SECOND_NANO);
 
         // check collision with player:
         Player pl = getGameObjects().getPlayer();
