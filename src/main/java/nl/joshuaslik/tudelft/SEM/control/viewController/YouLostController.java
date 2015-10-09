@@ -8,9 +8,8 @@ import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 public class YouLostController implements IpopupController {
-
     @FXML
-    private Button mainMenuButton;
+    private Button mainMenuButton, tryAgainButton;
 
     private IviewController mainController;
     private PopupControl    popupControl;
@@ -69,5 +68,21 @@ public class YouLostController implements IpopupController {
     @Override
     public void setPopupControl(PopupControl popupControl) {
         this.popupControl = popupControl;
+    }
+    
+    /**
+    * FOR TESTING PURPOSES ONLY.
+    * @return view element
+    */
+    public Button getMainMenuButton() {
+        return mainMenuButton;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public Button getTryAgainButton() {
+        return tryAgainButton;
     }
 }

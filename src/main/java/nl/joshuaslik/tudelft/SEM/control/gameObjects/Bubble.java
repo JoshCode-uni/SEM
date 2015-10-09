@@ -64,7 +64,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @return the interaction point on the circle which is closest to p.
      */
     @Override
-    public final IntersectionPoint getClosestIntersection(final Point p) {
+    public IntersectionPoint getClosestIntersection(final Point p) {
         Point  thisCircle = new Point(nextX, nextY);
         double radDdist   = circle.getRadius() / p.distanceTo(thisCircle);
         double deltaX     = nextX - p.getxPos();
@@ -83,7 +83,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public final void update(final long nanoFrameTime) {
+    public void update(final long nanoFrameTime) {
 
         // check if hit ceiling, if so, destroy bubble
         if (nextY - circle.getRadius() - 10 < getGameObjects().getTopBorder()) {
@@ -197,7 +197,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
-    public final void collide(final ICollider obj2, final long nanoFrameTime) {
+    public void collide(final ICollider obj2, final long nanoFrameTime) {
         if (!(obj2 instanceof IIntersectable)) {
             return;
         }
@@ -223,7 +223,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public final void prepare(final long nanoFrameTime) {
+    public void prepare(final long nanoFrameTime) {
 
         long newNanoFrameTime = (long) (nanoFrameTime * getSpeedModifier());
 
@@ -260,7 +260,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     /**
      * Split a bubble if you pushed the button.
      */
-    public final void splitBubble() {
+    public void splitBubble() {
 
         GameLog.addInfoLog("Bubble hit by projectile at: (" + Double.toString(circle.getCenterX()) + Double.toString(circle.getCenterY())
                            + ")");
@@ -332,11 +332,11 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      *
      * @return the circle view object interface of this bubble.
      */
-    final ICircleViewObject getCircleViewObject() {
+    protected ICircleViewObject getCircleViewObject() {
         return circle;
     }
 
-    public final void addModifier(final AbstractBubbleDecorator newmod) {
+    public void addModifier(final AbstractBubbleDecorator newmod) {
         modifier = newmod.decorate(modifier);
     }
 

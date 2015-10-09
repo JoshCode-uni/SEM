@@ -9,7 +9,7 @@ import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 public class CongratsController implements IpopupController {
-
+    
     @FXML
     private Pane pane;
 
@@ -53,4 +53,11 @@ public class CongratsController implements IpopupController {
         this.popupControl = popupControl;
     }
 
+    /**
+    * FOR TESTING PURPOSES ONLY.
+    * @return view element
+    */
+    public Button getMainMenuButton() {
+       return mainMenuButton;
+    }
 }

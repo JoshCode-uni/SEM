@@ -236,4 +236,92 @@ public class MainMenuController implements IviewController {
         Levels.setCurrentLevel(4);
         GameController.loadView();
     }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final HBox getChooseLevelBox() {
+        return chooseLevelBox;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Pane getOptionsPane() {
+        return optionsPane;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Button getPlayButton() {
+        return playButton;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Button getChooseLevelButton() {
+        return chooseLevelButton;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Button getOptionsButton() {
+        return optionsButton;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Button getQuitButton() {
+        return quitButton;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Button getLevel1Button() {
+        return level1Button;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Button getLevel2Button() {
+        return level2Button;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Button getLevel3Button() {
+        return level3Button;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Button getLevel4Button() {
+        return level4Button;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return view element
+     */
+    public final Button getLevel5Button() {
+        return level5Button;
+    }
 }

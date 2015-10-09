@@ -63,7 +63,7 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
     /**
      * Should destory the door
      */
-    public final void destroy() {
+    public void destroy() {
         getGameObjects().getPlayer().removeDoor(xLeft);
         getGameObjects().getPlayer().removeDoor(xRight);
 

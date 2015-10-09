@@ -13,7 +13,7 @@ public class BubbleDoor extends AbstractDoor {
     }
 
     @Override
-    public final boolean isOpen() {
+    public boolean isOpen() {
         return getGameObjects().bubblesLeft() <= bubblesOtherSide;
     }
 

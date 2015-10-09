@@ -306,4 +306,8 @@ public class Levels {
     public static int getUnlockedLevel() {
         return unlockedLevel;
     }
+        
+    public static void setUnlockedLevel(int unlocked) {
+            unlockedLevel = unlocked;
+    }
 }

@@ -285,4 +285,20 @@ public class GameController implements IviewController {
         setLives(currentlives + 1);
         resetLives();
     }
+    
+    /**
+    * FOR TESTING PURPOSES ONLY.
+    * @return view element
+    */
+    public final Button getQuitButton() {
+       return quitButton;
+    }
+
+    /**
+    * FOR TESTING PURPOSES ONLY.
+    * @return view element
+    */
+    public final Button getMainMenuButton() {
+       return mainMenuButton;
+    }
 }
