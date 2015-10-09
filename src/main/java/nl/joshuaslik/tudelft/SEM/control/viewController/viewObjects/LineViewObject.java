@@ -146,5 +146,5 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
     public double getEndY() {
         return line.getEndY();
     }
-
+    
 }
