@@ -18,7 +18,7 @@ import nl.joshuaslik.tudelft.SEM.utility.Time;
  *
  * @author faris
  */
-public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepareUpdateable, ICollider, ICollideReceiver {
+public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepareable, ICollider, ICollideReceiver {
 
     // variables to keep track of the direction/speed/position
     private final ICircleViewObject circle;
@@ -31,7 +31,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     private double nextX;
     private double nextY;
 
-    private IBubbleModifier modifier = new BubbleModifier();
+    private IBubbleModifier modifier = new BubbleBaseModifier();
 
     /**
      * Create a bubble.
@@ -223,7 +223,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
-    public final void prepareUpdate(final long nanoFrameTime) {
+    public final void prepare(final long nanoFrameTime) {
 
         long newNanoFrameTime = (long) (nanoFrameTime * getSpeedModifier());
 
@@ -297,7 +297,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         getGameObjects().addObject(bubble2);
 
         // remove modifier
-        this.modifier = new BubbleModifier();
+        this.modifier = new BubbleBaseModifier();
     }
 
     /**
@@ -336,7 +336,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         return circle;
     }
 
-    public final void addModifier(final AbstractBubbleModifierDecorator newmod) {
+    public final void addModifier(final AbstractBubbleDecorator newmod) {
         modifier = newmod.decorate(modifier);
     }
 

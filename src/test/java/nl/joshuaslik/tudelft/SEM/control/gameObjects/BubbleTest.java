@@ -81,7 +81,7 @@ public class BubbleTest {
 	}
 	
 	/**
-	 * Test prepareUpdate and update method of class Bubble.
+	 * Test prepare and update method of class Bubble.
 	 */
 	@Test
 	public void testUpdate() {

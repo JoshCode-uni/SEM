@@ -5,7 +5,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 /**
  * Makes a door which can be removed.
  */
-public abstract class Door extends AbstractPhysicsObject implements IUpdateable {
+public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpdateable {
 
     //    private int MAX_OPEN_SPEED;
     //    private ImageViewObject texture;
@@ -27,7 +27,7 @@ public abstract class Door extends AbstractPhysicsObject implements IUpdateable 
      * @param bl
      * @param br
      */
-    public Door(final IGameObjects gameObjects, final Point ul, final Point ur, final Point bl, final Point br) {
+    public AbstractDoor(final IGameObjects gameObjects, final Point ul, final Point ur, final Point bl, final Point br) {
         super(gameObjects);
 
         up = new Line(gameObjects, ul.getxPos(), ul.getyPos(), ur.getxPos(), ur.getyPos());

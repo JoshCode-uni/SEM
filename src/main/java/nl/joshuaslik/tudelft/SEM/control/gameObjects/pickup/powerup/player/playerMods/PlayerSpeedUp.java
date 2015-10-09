@@ -10,7 +10,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.Abstr
 /**
  * @author faris
  */
-public class PlayerSpeedUp extends AbstractPlayerModifierDecorator<PlayerSpeedUp> {
+public class PlayerSpeedUp extends AbstractPlayerDecorator {
 
     @Override
     public double getMoveSpeedMultiplier() {

@@ -32,12 +32,12 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 public class GameObjects implements IUpdateable, IGameObjects {
 
     private final ArrayList<IUpdateable>        updateableObjects     = new ArrayList<>();
-    private final ArrayList<IPrepareUpdateable> prepUpdateableObjects = new ArrayList<>();
+    private final ArrayList<IPrepareable> prepUpdateableObjects = new ArrayList<>();
     private final ArrayList<ICollider>          colliderObjects       = new ArrayList<>();
     private final ArrayList<IIntersectable>     intersectableObjects  = new ArrayList<>();
 
-    private final ArrayList<PhysicsObject> addObjectBuffer    = new ArrayList<>();
-    private final ArrayList<PhysicsObject> removeObjectBuffer = new ArrayList<>();
+    private final ArrayList<IPhysicsObject> addObjectBuffer    = new ArrayList<>();
+    private final ArrayList<IPhysicsObject> removeObjectBuffer = new ArrayList<>();
 
     private final PickupGenerator   pickupGenerator = new PickupGenerator((IGameObjects) this);
     private final ArrayList<Bubble> bubbles         = new ArrayList<>();
@@ -84,8 +84,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
         removeBufferedDynamicObjects();
 
         // calculate next positions
-        for (IPrepareUpdateable e : prepUpdateableObjects) {
-            e.prepareUpdate(nanoFrameTime);
+        for (IPrepareable e : prepUpdateableObjects) {
+            e.prepare(nanoFrameTime);
         }
 
         // check for collisions
@@ -154,7 +154,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param level the level to initialize.
      */
     private void initializeLevel(final int level) {
-        for (PhysicsObject e : Levels.getLevelObjects(level, (IGameObjects) this)) {
+        for (IPhysicsObject e : Levels.getLevelObjects(level, (IGameObjects) this)) {
             addObject(e);
         }
     }
@@ -165,7 +165,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param object the Dynamic Object to add to the scene.
      */
     @Override
-    public final void addObject(final PhysicsObject object) {
+    public final void addObject(final IPhysicsObject object) {
         addObjectBuffer.add(object);
     }
 
@@ -175,7 +175,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param object the Dynamic Object to remove from the game.
      */
     @Override
-    public final void removeObject(final PhysicsObject object) {
+    public final void removeObject(final IPhysicsObject object) {
         removeObjectBuffer.add(object);
     }
 
@@ -183,13 +183,13 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Add all buffered dynamic objects to the scene.
      */
     private void addBufferedDynamicObjects() {
-        for (PhysicsObject object : addObjectBuffer) {
+        for (IPhysicsObject object : addObjectBuffer) {
 
             if (object instanceof IUpdateable) {
                 updateableObjects.add((IUpdateable) object);
             }
-            if (object instanceof IPrepareUpdateable) {
-                prepUpdateableObjects.add((IPrepareUpdateable) object);
+            if (object instanceof IPrepareable) {
+                prepUpdateableObjects.add((IPrepareable) object);
             }
             if (object instanceof IIntersectable) {
                 intersectableObjects.add((IIntersectable) object);
@@ -209,13 +209,13 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Remove all buffered dynamic objects from the game.
      */
     private void removeBufferedDynamicObjects() {
-        for (PhysicsObject object : removeObjectBuffer) {
+        for (IPhysicsObject object : removeObjectBuffer) {
 
             if (object instanceof IUpdateable) {
                 updateableObjects.remove((IUpdateable) object);
             }
-            if (object instanceof IPrepareUpdateable) {
-                prepUpdateableObjects.remove((IPrepareUpdateable) object);
+            if (object instanceof IPrepareable) {
+                prepUpdateableObjects.remove((IPrepareable) object);
             }
             if (object instanceof IIntersectable) {
                 intersectableObjects.remove((IIntersectable) object);
@@ -391,12 +391,12 @@ public class GameObjects implements IUpdateable, IGameObjects {
     }
 
     @Override
-    public final void handleModifierCollision(final IModifier mod, final boolean isPlayerPickup, final boolean isBubblePickup) {
+    public final void handleModifierCollision(final Object mod, final boolean isPlayerPickup, final boolean isBubblePickup) {
         if (isPlayerPickup) {
-            player.addModifier((AbstractPlayerModifierDecorator) mod);
+            player.addModifier((AbstractPlayerDecorator) mod);
         } else if (isBubblePickup) {
             for (Bubble b : bubbles) {
-                b.addModifier((AbstractBubbleModifierDecorator) mod);
+                b.addModifier((AbstractBubbleDecorator) mod);
             }
         }
     }
@@ -434,7 +434,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
         bubbles.add(bubble);
     }
 
-    final ArrayList<IPrepareUpdateable> getPrepareUpdateable() {
+    final ArrayList<IPrepareable> getPrepareUpdateable() {
         return prepUpdateableObjects;
     }
 

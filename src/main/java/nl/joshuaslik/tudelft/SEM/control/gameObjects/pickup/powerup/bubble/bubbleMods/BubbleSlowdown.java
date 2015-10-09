@@ -10,7 +10,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.Abstr
 /**
  * @author faris
  */
-public class BubbleSlowdown extends AbstractBubbleModifierDecorator {
+public class BubbleSlowdown extends AbstractBubbleDecorator {
 
     @Override
     public double getBubbleSpeedModifier() {

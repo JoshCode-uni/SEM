@@ -8,7 +8,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 /**
  * @author faris
  */
-public interface ICollider extends PhysicsObject {
+public interface ICollider extends IPhysicsObject {
 
     /**
      * Check if you collide with the object (and change directions accordingly).

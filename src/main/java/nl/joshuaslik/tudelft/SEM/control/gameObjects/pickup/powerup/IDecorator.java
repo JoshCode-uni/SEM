@@ -9,7 +9,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup;
  * @param <T>
  * @author faris
  */
-public interface IDecorator<T extends IModifier> {
+public interface IDecorator<T> {
 
     /**
      * Variable mod should be of the correct type. For example, if T is a Player
@@ -18,7 +18,7 @@ public interface IDecorator<T extends IModifier> {
      * @param mod should be of the correct type.
      * @return
      */
-    public T decorate(IModifier mod);
+    public T decorate(T mod);
 
     //    public abstract InputStream getImageStream();
     //    public abstract double getImageHeight();

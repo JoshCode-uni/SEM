@@ -13,7 +13,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
  *
  * @author faris
  */
-public abstract class AbstractPhysicsObject implements PhysicsObject {
+public abstract class AbstractPhysicsObject implements IPhysicsObject {
 
     private final IGameObjects gameObjects;
 

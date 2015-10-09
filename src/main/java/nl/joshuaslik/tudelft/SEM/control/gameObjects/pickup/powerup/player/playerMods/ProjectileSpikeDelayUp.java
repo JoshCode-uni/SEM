@@ -10,7 +10,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.Abstr
 /**
  * @author faris
  */
-public class ProjectileSpikeDelayUp extends AbstractPlayerModifierDecorator<ProjectileSpikeDelayUp> {
+public class ProjectileSpikeDelayUp extends AbstractPlayerDecorator {
 
     @Override
     public int getProjectileSpikeDelay() {
