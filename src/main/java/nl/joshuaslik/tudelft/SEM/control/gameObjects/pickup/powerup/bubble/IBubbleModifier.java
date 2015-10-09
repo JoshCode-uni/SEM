@@ -9,7 +9,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble;
 /**
  * @author faris
  */
-public interface IBubbleModifier {
-	
-	public double getBubbleSpeedMultiplier();
+public interface IBubbleModifier extends IModifier {
+
+    public double getBubbleSpeedModifier();
 }

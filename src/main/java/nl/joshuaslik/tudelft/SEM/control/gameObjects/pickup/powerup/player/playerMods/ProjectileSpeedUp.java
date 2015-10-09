@@ -10,20 +10,20 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.Abstr
 /**
  * @author faris
  */
-public class ProjectileSpeedUp extends AbstractPlayerDecorator {
-	
-	@Override
-	public double getProjectileSpeedMultiplier() {
-		return 1.3 * getChild().getProjectileSpeedMultiplier();
-	}
-	
-	@Override
-	public double getMoveSpeedMultiplier() {
-		return 1 * getChild().getMoveSpeedMultiplier();
-	}
-	
-	@Override
-	public int getProjectileSpikeDelay() {
-		return 0 + getChild().getProjectileSpikeDelay();
-	}
+public class ProjectileSpeedUp extends AbstractPlayerModifierDecorator<ProjectileSpikeDelayUp> {
+
+    @Override
+    public double getProjectileSpeedMultiplier() {
+        return 1.3 * getChild().getProjectileSpeedMultiplier();
+    }
+
+    @Override
+    public double getMoveSpeedMultiplier() {
+        return 1 * getChild().getMoveSpeedMultiplier();
+    }
+
+    @Override
+    public int getProjectileSpikeDelay() {
+        return 0 + getChild().getProjectileSpikeDelay();
+    }
 }
