@@ -1,25 +1,24 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.runners.MockitoJUnitRunner;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.verify;
 
 import java.io.InputStream;
-
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.doNothing;
 
 import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GameObjectsTest {
@@ -31,15 +30,14 @@ public class GameObjectsTest {
 	Keyboard kb;
 	
 	@Mock
-	ILineViewObject topL,botL,leftL,rightL;
-	
+	ILineViewObject topL, botL, leftL, rightL;
 	
 	GameObjects gameObjects;
 	
 	@Mock
 	InputStream is;
 	
-	@Mock 
+	@Mock
 	Projectile pj;
 	
 	@Mock
@@ -52,7 +50,7 @@ public class GameObjectsTest {
 	Point p1;
 	
 	@Mock
-	IPrepareUpdateable prepUp;
+	IPrepareable prepUp;
 	
 	@Mock
 	IUpdateable up;
@@ -60,7 +58,7 @@ public class GameObjectsTest {
 	@Mock
 	ICollider col;
 	
-	@Mock 
+	@Mock
 	IIntersectable intersectable;
 	
 	@Mock
@@ -69,14 +67,14 @@ public class GameObjectsTest {
 	GameObjects spyGameObjects;
 	
 	/**
-     * Setup the mocks.
-     */
+	 * Setup the mocks.
+	 */
 	@Before
 	public void setUp() {
-		gameObjects = new GameObjects(true,gl, 0, 100, 100, 0, 0, kb);
+		gameObjects = new GameObjects(true, gl, 0, 100, 100, 0, 0, kb);
 		spyGameObjects = Mockito.spy(gameObjects);
 	}
-
+	
 	/**
 	 * Tests if the gameObjects are updated correctly.
 	 */
@@ -87,12 +85,12 @@ public class GameObjectsTest {
 		spyGameObjects.getCollider().add(col);
 		spyGameObjects.getIntersectable().add(intersectable);
 		spyGameObjects.update(0);
-		verify(prepUp).prepareUpdate(0);
+		verify(prepUp).prepare(0);
 		verify(up).update(0);
-		verify(col).checkCollision(intersectable,0);
-	//	fail("Not yet implemented");
+		verify(col).checkCollision(intersectable, 0);
+		//	fail("Not yet implemented");
 	}
-
+	
 	/**
 	 * Tests if all bubbles are indeed destroyed.
 	 */
@@ -102,7 +100,7 @@ public class GameObjectsTest {
 		gameObjects.addBubbles(bl);
 		assertFalse(gameObjects.allBubblesDestroyed());
 	}
-
+	
 	/**
 	 * Tests if a projectile is added correctly.
 	 */
@@ -121,7 +119,7 @@ public class GameObjectsTest {
 		spyGameObjects.removeProjectile();
 		verify(spyGameObjects).removeObject(isA(Projectile.class));
 	}
-
+	
 	/**
 	 *
 	 */
@@ -130,17 +128,17 @@ public class GameObjectsTest {
 		//TODO: Implement
 		//fail("Not yet implemented");
 	}
-
+	
 	/**
 	 * Tests if points are correctly added.
 	 */
 	@Test
 	public void testAddPoints() {
-		assertEquals(gameObjects.getScore(),0);
+		assertEquals(gameObjects.getScore(), 0);
 		gameObjects.addPoints(50);
-		assertEquals(gameObjects.getScore(),50);
+		assertEquals(gameObjects.getScore(), 50);
 	}
-
+	
 	/**
 	 * Tests if a life is added correctly.
 	 */
@@ -149,15 +147,15 @@ public class GameObjectsTest {
 		gameObjects.addLife();
 		verify(gl).addLife();
 	}
-
+	
 	/**
 	 * Tests if the bubbles left are updated correctly.
 	 */
 	@Test
 	public void testBubblesLeft() {
-		assertEquals(gameObjects.bubblesLeft(),0);
+		assertEquals(gameObjects.bubblesLeft(), 0);
 		gameObjects.addBubbles(bl);
-		assertEquals(gameObjects.bubblesLeft(),1);
+		assertEquals(gameObjects.bubblesLeft(), 1);
 	}
 	
 	/**
@@ -165,7 +163,7 @@ public class GameObjectsTest {
 	 */
 	@Test
 	public void testMakeCircle() {
-		gameObjects.makeCircle(100,200,25);
+		gameObjects.makeCircle(100, 200, 25);
 		verify(gl).makeCircle(100, 200, 25);
 	}
 	
@@ -225,5 +223,5 @@ public class GameObjectsTest {
 		assertFalse(gameObjects.getPrepareUpdateable().contains(bl));
 		assertFalse(gameObjects.getIntersectable().contains(bl));
 	}
-
+	
 }
