@@ -36,7 +36,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * @param speed
      * @param delay
      */
-    public Projectile(IGameObjects gameObjects, double startX, double startY, double speed, int delay) {
+    public Projectile(final IGameObjects gameObjects, final double startX, final double startY, final double speed, final int delay) {
         super(gameObjects);
 
         growSpeed = 1000 * speed;
@@ -62,7 +62,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * @param nanoFrameTime the framerate (nanoseconds/frame).
      */
     @Override
-    public void update(long nanoFrameTime) {
+    public void update(final long nanoFrameTime) {
 
         // destroy line if it hit the ceiling
         if (line.getEndY() <= getGameObjects().getTopBorder() + 2) {
@@ -178,7 +178,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
-    public void collide(ICollider obj2, long nanoFrameTime) {
+    public void collide(final ICollider obj2, final long nanoFrameTime) {
         if (isActive && obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();

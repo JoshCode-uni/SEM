@@ -18,7 +18,7 @@ public class OptionsController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handlePlayButton(ActionEvent event) {
+    protected void handlePlayButton(final ActionEvent event) {
         GameLog.addInfoLog("Play button pressed from option menu");
         System.out.println("Play button pressed!");
         GameController.loadView();
@@ -30,7 +30,7 @@ public class OptionsController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleChooseLevelButton(ActionEvent event) {
+    protected void handleChooseLevelButton(final ActionEvent event) {
         GameLog.addInfoLog("Choose level button pressed from option menu");
         System.out.println("Choose Level button pressed!");
         //        ChooseLevelController.loadView();
@@ -42,7 +42,7 @@ public class OptionsController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleOptionsButton(ActionEvent event) {
+    protected void handleOptionsButton(final ActionEvent event) {
         GameLog.addInfoLog("Options button pressed from option menu");
         System.out.println("Options button pressed!");
         OptionsController.loadView();
@@ -54,7 +54,7 @@ public class OptionsController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleQuitButton(ActionEvent event) {
+    protected void handleQuitButton(final ActionEvent event) {
         GameLog.addInfoLog("Quit button pressed from option menu");
         System.out.println("Quit button pressed!");
         System.exit(0);
@@ -73,7 +73,7 @@ public class OptionsController implements IviewController {
      * @param scene the scene of this view.
      */
     @Override
-    public void start(Scene scene) {
+    public void start(final Scene scene) {
 
     }
 
@@ -83,7 +83,7 @@ public class OptionsController implements IviewController {
      * @param disabled if the buttons should be disabled.
      */
     @Override
-    public void setButtonsDisabled(boolean disabled) {
+    public void setButtonsDisabled(final boolean disabled) {
         // not currently needed
     }
 }
