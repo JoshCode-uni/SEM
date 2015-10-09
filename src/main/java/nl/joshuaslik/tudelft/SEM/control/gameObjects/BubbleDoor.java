@@ -6,13 +6,14 @@ public class BubbleDoor extends Door {
 
     private final int bubblesOtherSide;
 
-    public BubbleDoor(IGameObjects game, Point upperLeft, Point upperRight, Point bottomLeft, Point bottomRight, int bubblesOtherSide) {
+    public BubbleDoor(final IGameObjects game, final Point upperLeft, final Point upperRight, final Point bottomLeft,
+                      final Point bottomRight, int bubblesOtherSide) {
         super(game, upperLeft, upperRight, bottomLeft, bottomRight);
         this.bubblesOtherSide = bubblesOtherSide;
     }
 
     @Override
-    public boolean isOpen() {
+    public final boolean isOpen() {
         return getGameObjects().bubblesLeft() <= bubblesOtherSide;
     }
 
