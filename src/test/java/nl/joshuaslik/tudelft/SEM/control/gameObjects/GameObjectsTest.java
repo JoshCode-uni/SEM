@@ -31,81 +31,81 @@ public class GameObjectsTest {
 	
 	@Mock
 	ILineViewObject topL, botL, leftL, rightL;
-	
-	GameObjects gameObjects;
-	
-	@Mock
-	InputStream is;
-	
-	@Mock
-	Projectile pj;
-	
-	@Mock
-	Bubble bl;
-	
-	@Mock
-	Player p;
-	
-	@Mock
-	Point p1;
-	
-	@Mock
-	IPrepareable prepUp;
-	
-	@Mock
-	IUpdateable up;
-	
-	@Mock
-	ICollider col;
-	
-	@Mock
-	IIntersectable intersectable;
-	
-	@Mock
-	PickupGenerator pickupGenerator;
-	
-	GameObjects spyGameObjects;
-	
-	/**
-	 * Setup the mocks.
-	 */
-	@Before
-	public void setUp() {
-		gameObjects = new GameObjects(true, gl, 0, 100, 100, 0, 0, kb);
-		spyGameObjects = Mockito.spy(gameObjects);
-	}
-	
-	/**
-	 * Tests if the gameObjects are updated correctly.
-	 */
-	@Test
-	public void testUpdate() {
-		spyGameObjects.getPrepareUpdateable().add(prepUp);
-		spyGameObjects.getUpdateable().add(up);
-		spyGameObjects.getCollider().add(col);
-		spyGameObjects.getIntersectable().add(intersectable);
-		spyGameObjects.update(0);
-		verify(prepUp).prepare(0);
-		verify(up).update(0);
-		verify(col).checkCollision(intersectable, 0);
-		//	fail("Not yet implemented");
-	}
-	
-	/**
-	 * Tests if all bubbles are indeed destroyed.
-	 */
-	@Test
-	public void testAllBubblesDestroyed() {
-		assertTrue(gameObjects.allBubblesDestroyed());
-		gameObjects.addBubbles(bl);
-		assertFalse(gameObjects.allBubblesDestroyed());
-	}
-	
-	/**
-	 * Tests if a projectile is added correctly.
-	 */
-	@Test
-	public void testAddProjectile() {
+
+    private GameObjects gameObjects;
+
+    @Mock
+    InputStream is;
+
+    @Mock
+    Projectile pj;
+
+    @Mock
+    Bubble bl;
+
+    @Mock
+    Player p;
+
+    @Mock
+    Point p1;
+
+    @Mock
+    IPrepareable prepUp;
+
+    @Mock
+    IUpdateable up;
+
+    @Mock
+    ICollider col;
+
+    @Mock
+    IIntersectable intersectable;
+
+    @Mock
+    PickupGenerator pickupGenerator;
+
+    private GameObjects spyGameObjects;
+
+    /**
+     * Setup the mocks.
+     */
+    @Before
+    public void setUp() {
+        gameObjects = new GameObjects(true, gl, 0, 100, 100, 0, 0, kb);
+        spyGameObjects = Mockito.spy(gameObjects);
+    }
+
+    /**
+     * Tests if the gameObjects are updated correctly.
+     */
+    @Test
+    public void testUpdate() {
+        spyGameObjects.getPrepareUpdateable().add(prepUp);
+        spyGameObjects.getUpdateable().add(up);
+        spyGameObjects.getCollider().add(col);
+        spyGameObjects.getIntersectable().add(intersectable);
+        spyGameObjects.update(0);
+        verify(prepUp).prepare(0);
+        verify(up).update(0);
+        verify(col).checkCollision(intersectable, 0);
+        //	fail("Not yet implemented");
+    }
+
+    /**
+     * Tests if all bubbles are indeed destroyed.
+     */
+    @Test
+    public void testAllBubblesDestroyed() {
+        assertTrue(gameObjects.allBubblesDestroyed());
+        gameObjects.addBubbles(bl);
+        assertFalse(gameObjects.allBubblesDestroyed());
+    }
+
+    /**
+     * Tests if a projectile is added correctly.
+     */
+    @Test
+    public void testAddProjectile() {
 		spyGameObjects.addProjectile(pj);
 		verify(spyGameObjects).addObject(pj);
 	}

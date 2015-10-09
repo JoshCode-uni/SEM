@@ -305,7 +305,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      *
      * @return center point of this bubble.
      */
-    public final Point getPoint() {
+    private Point getPoint() {
         return new Point(circle.getCenterX(), circle.getCenterY());
     }
 
@@ -332,7 +332,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      *
      * @return the circle view object interface of this bubble.
      */
-    protected final ICircleViewObject getCircleViewObject() {
+    final ICircleViewObject getCircleViewObject() {
         return circle;
     }
 

@@ -26,67 +26,67 @@ public interface IGameObjects {
      *
      * @param object the Dynamic Object to add to the scene.
      */
-    public void addObject(IPhysicsObject object);
+    void addObject(IPhysicsObject object);
 
     /**
      * Add a Projectile to the game.
      *
      * @param projectile the Projectile to add to the scene.
      */
-    public void addProjectile(Projectile projectile);
+    void addProjectile(Projectile projectile);
 
     /**
      * Remove a Dynamic Object from the game.
      *
      * @param object the Dynamic Object to remove from the game.
      */
-    public void removeObject(IPhysicsObject object);
+    void removeObject(IPhysicsObject object);
 
     /**
      * Remove a Projectile from the game.
      */
-    public void removeProjectile();
+    void removeProjectile();
 
     /**
      * Get the min y value.
      *
      * @return min y value.
      */
-    public double getTopBorder();
+    double getTopBorder();
 
     /**
      * Get the maximum x value.
      *
      * @return max x value.
      */
-    public double getRightBorder();
+    double getRightBorder();
 
     /**
      * Get the maximum y value.
      *
      * @return max y value.
      */
-    public double getBottomBorder();
+    double getBottomBorder();
 
     /**
      * Get the minimum x value.
      *
      * @return min x value.
      */
-    public double getLeftBorder();
+    double getLeftBorder();
 
     /**
      * Check if there is currently a projectile spawned in the game.
      *
      * @return if there is currently a projectile spawned in the game.
      */
-    public boolean hasProjectile();
+    boolean hasProjectile();
 
     /**
      * Called when the player dies. Handles quiting the game and reducing the
      * amount of lives by 1.
      */
-    public void playerDied();
+    void playerDied();
 
     /**
      * Create a circle in the view.
@@ -96,7 +96,7 @@ public interface IGameObjects {
      * @param radius  the radius of the circle.
      * @return the interface of the circle view object.
      */
-    public ICircleViewObject makeCircle(double centerX, double centerY, double radius);
+    ICircleViewObject makeCircle(double centerX, double centerY, double radius);
 
     /**
      * Create a line in the view.
@@ -107,7 +107,7 @@ public interface IGameObjects {
      * @param endY   the y coordinate of the end point of the line.
      * @return the interface of the line view object.
      */
-    public ILineViewObject makeLine(double startX, double startY, double endX, double endY);
+    ILineViewObject makeLine(double startX, double startY, double endX, double endY);
 
     /**
      * Create an image in the view.
@@ -117,17 +117,17 @@ public interface IGameObjects {
      * @param width  the width of the image.
      * @return the interface of the image view object.
      */
-    public IImageViewObject makeImage(InputStream is, double height, double width);
+    IImageViewObject makeImage(InputStream is, double height, double width);
 
-    public Player getPlayer();
+    Player getPlayer();
 
-    public void handleModifierCollision(Object pickup, boolean isPlayerPickup, boolean isBubblePickup);
+    void handleModifierCollision(Object pickup, boolean isPlayerPickup, boolean isBubblePickup);
 
-    public void handleBubbleSplit(Point p);
+    void handleBubbleSplit(Point p);
 
-    public void addPoints(int points);
+    void addPoints(int points);
 
-    public void addLife();
+    void addLife();
 
-    public int bubblesLeft();
+    int bubblesLeft();
 }

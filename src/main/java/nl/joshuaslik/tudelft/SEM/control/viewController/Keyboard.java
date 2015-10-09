@@ -20,7 +20,7 @@ public class Keyboard implements IKeyboard {
     private static final KeyCode leftKey  = KeyCode.LEFT;
     private static final KeyCode rightKey = KeyCode.RIGHT;
     private static final KeyCode shoot    = KeyCode.SPACE;
-    Scene scene;
+    private Scene scene;
 
     /**
      * Create a keyboard which listens to keyboard events performed in the given

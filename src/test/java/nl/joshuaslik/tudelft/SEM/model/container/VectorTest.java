@@ -9,28 +9,34 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class VectorTest {
-	
-	Vector vec1, vec2, vec3, vec4, vec5, vec6;
-	Point p1, p2;
-	
-	/**
-	 * Setup Test
-	 */
-	@Before
-	public void setUp() {
-		vec1 = new Vector(5, 2);
-		vec2 = new Vector(5, 3);
-		vec3 = new Vector(5, 2);
-		vec4 = new Vector(5, -2);
-		vec5 = new Vector(-5, 2);
-		vec6 = new Vector(5, 0);
-		p1 = new Point(5, 1);
-		p2 = new Point(5, 6);
-	}
-	
-	/**
-	 * Test initialization
-	 */
+
+    private Vector vec1;
+    private Vector vec2;
+    private Vector vec3;
+    private Vector vec4;
+    private Vector vec5;
+    private Vector vec6;
+    private Point p1;
+    private Point p2;
+
+    /**
+     * Setup Test
+     */
+    @Before
+    public void setUp() {
+        vec1 = new Vector(5, 2);
+        vec2 = new Vector(5, 3);
+        vec3 = new Vector(5, 2);
+        vec4 = new Vector(5, -2);
+        vec5 = new Vector(-5, 2);
+        vec6 = new Vector(5, 0);
+        p1 = new Point(5, 1);
+        p2 = new Point(5, 6);
+    }
+
+    /**
+     * Test initialization
+     */
 	@Test
 	public void testVector() {
 		assertEquals(vec1, vec3);

@@ -30,7 +30,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 public class Launcher extends Application {
 
     public static final  int        SCREEN_WIDTH  = 600;
-    public static final  int        SCREEN_HEIGHT = 600;
+    private static final int        SCREEN_HEIGHT = 600;
     public static final  double     GRAVITY       = 700;
     public static final  double     ENERGY        = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
     private static final BorderPane BP            = new BorderPane();

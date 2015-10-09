@@ -57,74 +57,74 @@ public class PlayerTest {
 	
 	@Mock
 	ArrayList<Double> leftDoor, rightDoor;
-	
-	Player player;
-	
-	/**
-	 * Setup the mocks.
-	 */
-	@Before
-	public void setup() {
-		
-		// MOCK ALL DEPENDENCIES
-		when(gameObjects.makeImage(null, 100, 100)).thenReturn(image);
-		when(gameObjects.hasProjectile()).thenReturn(false);
-		
-		// the view will be a 10x10 square
-		when(gameObjects.getLeftBorder()).thenReturn(0.0);
-		when(gameObjects.getRightBorder()).thenReturn(10.0);
-		when(gameObjects.getTopBorder()).thenReturn(0.0);
-		when(gameObjects.getBottomBorder()).thenReturn(10.0);
-		
-		when(keyboard.isMoveLeft()).thenReturn(false);
-		when(keyboard.isMoveRight()).thenReturn(false);
-		when(keyboard.isShoot()).thenReturn(false);
-		
-		when(image.getStartX()).thenReturn(5.0);
-		when(image.getStartY()).thenReturn(9.0);
-		when(image.getEndX()).thenReturn(6.0);
-		when(image.getEndY()).thenReturn(10.0);
-		when(image.getHeight()).thenReturn(1.0);
-		
-		player = new Player(gameObjects, null, keyboard);
-	}
-	
-	/**
-	 * Test the constructor.
-	 */
-	@Test
-	public void testPlayerSetImageX() {
-		// player is initialize in setup
-		
-		// check if image x coordinate has been set to 5 exactly 1 time.
-		verify(image).setX(5);
-	}
-	
-	/**
-	 * Test the constructor.
-	 */
-	@Test
-	public void testPlayerSetImageY() {
-		// player is initialize in setup
-		
-		// check if image x coordinate has been set to 9 exactly 1 time.
-		verify(image).setY(9);
-	}
-	
-	/**
-	 * Test of checkCollision method, of class Player.
-	 */
-	@Test
-	public void testCheckCollision() {
-		// mock 2 additional objects
-		Bubble bubble = Mockito.mock(Bubble.class);
-		ICircleViewObject cvo = Mockito.mock(ICircleViewObject.class);
-		
-		when(bubble.getCircleViewObject()).thenReturn(cvo);
-		when(image.intersects(cvo)).thenReturn(true);
-		
-		// die twice so player loses all of his lives
-		player.checkCollision(bubble, 1);
+
+    private Player player;
+
+    /**
+     * Setup the mocks.
+     */
+    @Before
+    public void setup() {
+
+        // MOCK ALL DEPENDENCIES
+        when(gameObjects.makeImage(null, 100, 100)).thenReturn(image);
+        when(gameObjects.hasProjectile()).thenReturn(false);
+
+        // the view will be a 10x10 square
+        when(gameObjects.getLeftBorder()).thenReturn(0.0);
+        when(gameObjects.getRightBorder()).thenReturn(10.0);
+        when(gameObjects.getTopBorder()).thenReturn(0.0);
+        when(gameObjects.getBottomBorder()).thenReturn(10.0);
+
+        when(keyboard.isMoveLeft()).thenReturn(false);
+        when(keyboard.isMoveRight()).thenReturn(false);
+        when(keyboard.isShoot()).thenReturn(false);
+
+        when(image.getStartX()).thenReturn(5.0);
+        when(image.getStartY()).thenReturn(9.0);
+        when(image.getEndX()).thenReturn(6.0);
+        when(image.getEndY()).thenReturn(10.0);
+        when(image.getHeight()).thenReturn(1.0);
+
+        player = new Player(gameObjects, null, keyboard);
+    }
+
+    /**
+     * Test the constructor.
+     */
+    @Test
+    public void testPlayerSetImageX() {
+        // player is initialize in setup
+
+        // check if image x coordinate has been set to 5 exactly 1 time.
+        verify(image).setX(5);
+    }
+
+    /**
+     * Test the constructor.
+     */
+    @Test
+    public void testPlayerSetImageY() {
+        // player is initialize in setup
+
+        // check if image x coordinate has been set to 9 exactly 1 time.
+        verify(image).setY(9);
+    }
+
+    /**
+     * Test of checkCollision method, of class Player.
+     */
+    @Test
+    public void testCheckCollision() {
+        // mock 2 additional objects
+        Bubble            bubble = Mockito.mock(Bubble.class);
+        ICircleViewObject cvo    = Mockito.mock(ICircleViewObject.class);
+
+        when(bubble.getCircleViewObject()).thenReturn(cvo);
+        when(image.intersects(cvo)).thenReturn(true);
+
+        // die twice so player loses all of his lives
+        player.checkCollision(bubble, 1);
 		
 		// check if player died method is called
 		verify(gameObjects).playerDied();

@@ -20,7 +20,7 @@ public abstract class AbstractViewObject implements IViewObject {
      *
      * @param gc reference to the view in which this object will be drawn.
      */
-    public AbstractViewObject(GameController gc) {
+    AbstractViewObject(GameController gc) {
         this.gameController = gc;
     }
 

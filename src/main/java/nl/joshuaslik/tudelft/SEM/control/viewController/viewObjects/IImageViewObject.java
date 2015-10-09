@@ -16,12 +16,12 @@ public interface IImageViewObject extends IViewObject {
     /**
      * @param xCoordinate set the x coordinate of this image.
      */
-    public void setX(double xCoordinate);
+    void setX(double xCoordinate);
 
     /**
      * @param yCoordinate set the y coordinate of this image.
      */
-    public void setY(double yCoordinate);
+    void setY(double yCoordinate);
 
     /**
      * Check if this image intersects with the given view object.
@@ -29,49 +29,49 @@ public interface IImageViewObject extends IViewObject {
      * @param viewObject a view object.
      * @return if the image intersects with the view object.
      */
-    public boolean intersects(IViewObject viewObject);
+    boolean intersects(IViewObject viewObject);
 
     /**
      * Get the x coordinate of the start position of this image.
      *
      * @return x coordinate.
      */
-    public double getStartX();
+    double getStartX();
 
     /**
      * Get the y coordinate of the start position of this image.
      *
      * @return y coordinate.
      */
-    public double getStartY();
+    double getStartY();
 
     /**
      * Get the x coordinate of the end position of this image.
      *
      * @return x coordinate.
      */
-    public double getEndX();
+    double getEndX();
 
     /**
      * Get the y coordinate of the end position of this image.
      *
      * @return y coordinate.
      */
-    public double getEndY();
+    double getEndY();
 
     /**
      * Get the height of this image.
      *
      * @return the height.
      */
-    public double getHeight();
+    double getHeight();
 
     /**
      * Set the scale of this image.
      *
      * @param scale the scale.
      */
-    public void setScaleX(double scale);
+    void setScaleX(double scale);
 
     /**
      * Set the bounds outside of which the circle is not allowed to move.
@@ -81,5 +81,5 @@ public interface IImageViewObject extends IViewObject {
      * @param maxX maximum x coordinate value.
      * @param maxY maximum y coordinate value.
      */
-    public void setBounds(double minX, double minY, double maxX, double maxY);
+    void setBounds(double minX, double minY, double maxX, double maxY);
 }

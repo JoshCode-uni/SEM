@@ -21,7 +21,7 @@ public abstract class AbstractPlayerDecorator implements IPlayerModifier, IDecor
         return  this;
     }
 
-    public IPlayerModifier getChild() {
+    protected IPlayerModifier getChild() {
         return child;
     }
 }
