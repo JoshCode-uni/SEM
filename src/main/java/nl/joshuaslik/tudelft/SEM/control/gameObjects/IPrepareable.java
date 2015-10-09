@@ -8,7 +8,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 /**
  * @author faris
  */
-public interface IPrepareUpdateable extends PhysicsObject {
+public interface IPrepareable extends PhysicsObject {
 
     /**
      * Prepare for an update (if needed).
