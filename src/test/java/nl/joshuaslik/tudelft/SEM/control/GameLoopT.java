@@ -20,7 +20,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameLoop.class)
-public class GameLoopTest {
+public class GameLoopT {
 
     @Mock
     GameController gameController;
