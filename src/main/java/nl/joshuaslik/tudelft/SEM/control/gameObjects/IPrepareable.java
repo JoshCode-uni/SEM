@@ -10,10 +10,10 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
  */
 public interface IPrepareable extends IPhysicsObject {
 
-	/**
-	 * Prepare for an update (if needed).
-	 *
-	 * @param nanoFrameTime the framerate (nanoseconds/frame)
-	 */
-	public void prepare(final long nanoFrameTime);
+    /**
+     * Prepare for an update (if needed).
+     *
+     * @param nanoFrameTime the framerate (nanoseconds/frame)
+     */
+    public void prepare(final long nanoFrameTime);
 }

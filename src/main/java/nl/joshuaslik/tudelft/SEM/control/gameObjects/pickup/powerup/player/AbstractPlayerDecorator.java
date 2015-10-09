@@ -7,22 +7,21 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IDecorator;
 
-
 /**
- * 
  * @author faris
  */
 public abstract class AbstractPlayerDecorator implements IPlayerModifier, IDecorator<IPlayerModifier> {
-	
-	private IPlayerModifier child;
-	
-        @Override
-	public IPlayerModifier decorate(IPlayerModifier mod) {
-		child = mod;
-		return this;
-	}
-	
-	public IPlayerModifier getChild() {
-		return child;
-	}
+
+    private IPlayerModifier child;
+
+
+    @Override
+    public IPlayerModifier decorate(IPlayerModifier mod) {
+        child = (IPlayerModifier) mod;
+        return  this;
+    }
+
+    public IPlayerModifier getChild() {
+        return child;
+    }
 }

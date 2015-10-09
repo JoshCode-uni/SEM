@@ -37,13 +37,9 @@ public class GameControllerIT {
      */
     @Before
     public final void startGame() {
-        System.out.println("!!!");
         GameController.loadView();
-        System.out.println("!!!");
         controller = (GameController) Launcher.getController();
-        System.out.println("!!!");
         assert controller != null;
-        System.out.println("!!!");
     }
 
     /**
