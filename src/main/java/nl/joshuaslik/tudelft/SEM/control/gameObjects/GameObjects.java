@@ -32,20 +32,20 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
  */
 public class GameObjects implements IUpdateable, IGameObjects {
 
-    private final ArrayList<IUpdateable> updateableObjects = new ArrayList<>();
+    private final ArrayList<IUpdateable>        updateableObjects     = new ArrayList<>();
     private final ArrayList<IPrepareUpdateable> prepUpdateableObjects = new ArrayList<>();
-    private final ArrayList<ICollider> colliderObjects = new ArrayList<>();
-    private final ArrayList<IIntersectable> intersectableObjects = new ArrayList<>();
+    private final ArrayList<ICollider>          colliderObjects       = new ArrayList<>();
+    private final ArrayList<IIntersectable>     intersectableObjects  = new ArrayList<>();
 
-    private final ArrayList<PhysicsObject> addObjectBuffer = new ArrayList<>();
+    private final ArrayList<PhysicsObject> addObjectBuffer    = new ArrayList<>();
     private final ArrayList<PhysicsObject> removeObjectBuffer = new ArrayList<>();
 
-    private final PickupGenerator pickupGenerator = new PickupGenerator((IGameObjects) this);
-    private final ArrayList<Bubble> bubbles = new ArrayList<>();
+    private final PickupGenerator   pickupGenerator = new PickupGenerator((IGameObjects) this);
+    private final ArrayList<Bubble> bubbles         = new ArrayList<>();
     private Player player;
 
-    private boolean hasProjectile = false;
-    private Projectile projectile = null;
+    private boolean    hasProjectile = false;
+    private Projectile projectile    = null;
     private double topBorder, rightBorder, bottomBorder, leftBorder;
 
     private int score = 0;
@@ -64,7 +64,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param leftBorder   x value of the left border.
      * @param keyBoard
      */
-    public GameObjects(IDraw draw, int level, double topBorder, double rightBorder, double bottomBorder, double leftBorder, IKeyboard keyBoard) {
+    public GameObjects(IDraw draw, int level, double topBorder, double rightBorder, double bottomBorder, double leftBorder,
+                       IKeyboard keyBoard) {
         this.draw = draw;
         initializeBorders(topBorder, rightBorder, bottomBorder, leftBorder);
         initializePlayer(keyBoard);
@@ -421,7 +422,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
     //Methods for testing purposes
 
-    GameObjects(Boolean testing, IDraw draw, int level, double topBorder, double rightBorder, double bottomBorder, double leftBorder, IKeyboard keyBoard) {
+    GameObjects(Boolean testing, IDraw draw, int level, double topBorder, double rightBorder, double bottomBorder, double leftBorder,
+                IKeyboard keyBoard) {
         this.draw = draw;
         addBufferedDynamicObjects();
     }

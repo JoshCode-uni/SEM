@@ -17,7 +17,7 @@ public class CongratsController implements IpopupController {
     private Button mainMenuButton;
 
     private IviewController mainController;
-    private PopupControl popupControl;
+    private PopupControl    popupControl;
 
     /**
      * Start the pop-up when player has finished the game

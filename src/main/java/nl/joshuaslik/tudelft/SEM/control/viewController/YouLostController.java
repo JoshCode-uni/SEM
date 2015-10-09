@@ -13,7 +13,7 @@ public class YouLostController implements IpopupController {
     private Button mainMenuButton;
 
     private IviewController mainController;
-    private PopupControl popupControl;
+    private PopupControl    popupControl;
 
     /**
      * Handles clicking of the main menu button

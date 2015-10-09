@@ -25,10 +25,10 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     private IPlayerModifier modifier = new PlayerModifier();
     private final IImageViewObject image;
-    private final IKeyboard keyboard;
-    private static final double MAX_SPEED = 300;
-    private ArrayList<Double> leftDoor = new ArrayList<>();
-    private ArrayList<Double> rightDoor = new ArrayList<>();
+    private final IKeyboard        keyboard;
+    private static final double            MAX_SPEED = 300;
+    private              ArrayList<Double> leftDoor  = new ArrayList<>();
+    private              ArrayList<Double> rightDoor = new ArrayList<>();
     private final double playerXstart;
 
     /**

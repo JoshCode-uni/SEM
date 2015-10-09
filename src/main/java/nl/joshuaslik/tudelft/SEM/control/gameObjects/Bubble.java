@@ -165,27 +165,26 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         }
 
         // recalculate new circle position (with new directions)
-        vX = MAX_X_SPEED
-             * newDir.getXdirection();
+        vX = MAX_X_SPEED * newDir.getXdirection();
         // Math.sqrt(2 * Launcher.ENERGY - 2 * Launcher.GRAVITY * height) * dir.percentageXdirection();
 
         if (ip.hasSpeedVec()) {
             Vector speedVecOtherObj = ip.getSpeedVec();
             double xSpeedOtherObj = speedVecOtherObj.getX();
             double ySpeedOtherObj = speedVecOtherObj.getY();
-            
+
             if (xSpeedOtherObj * vX < 0) {
                 xSpeedOtherObj *= -1;
             } else {
                 xSpeedOtherObj *= 1;
             }
-            
+
             if (ySpeedOtherObj * vX < 0) {
                 ySpeedOtherObj *= -1;
             } else {
                 ySpeedOtherObj *= 1;
             }
-            
+
             vX = (vX + xSpeedOtherObj) / 2.0;
             vY = (vY + ySpeedOtherObj) / 2.0;
         }

@@ -22,7 +22,7 @@ public class YouWonController implements IpopupController {
     private Button mainMenuButton, nextLevelButton;
 
     private IviewController mainController;
-    private PopupControl popupControl;
+    private PopupControl    popupControl;
 
     /**
      * Start the pop-up when player has won

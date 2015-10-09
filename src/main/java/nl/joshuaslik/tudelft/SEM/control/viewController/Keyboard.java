@@ -17,9 +17,9 @@ public class Keyboard implements IKeyboard {
 
     private BitSet keyboard = new BitSet();
 
-    private static final KeyCode leftKey = KeyCode.LEFT;
+    private static final KeyCode leftKey  = KeyCode.LEFT;
     private static final KeyCode rightKey = KeyCode.RIGHT;
-    private static final KeyCode shoot = KeyCode.SPACE;
+    private static final KeyCode shoot    = KeyCode.SPACE;
     Scene scene;
 
     /**

@@ -28,8 +28,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
     private final Keyboard kb;
     private static final int FIRST_FRAME_TIME = 165_000_000;
-    private GameController gameController;
-    private final GameObjects gameObjects;
+    private       GameController gameController;
+    private final GameObjects    gameObjects;
     private long time = 0;
 
     /**

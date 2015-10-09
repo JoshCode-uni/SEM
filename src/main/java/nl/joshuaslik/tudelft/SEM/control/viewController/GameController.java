@@ -114,8 +114,8 @@ public class GameController implements IviewController {
     @Override
     public void start(Scene scene) {
 
-        int lvl = currentLevel + 1;
-        Image bg = new Image(Class.class.getResourceAsStream("/data/gui/img/backgroundForLevel" + lvl + ".jpg"));
+        int   lvl = currentLevel + 1;
+        Image bg  = new Image(Class.class.getResourceAsStream("/data/gui/img/backgroundForLevel" + lvl + ".jpg"));
         background.setImage(bg);
 
         //currentlives = player.getLives();

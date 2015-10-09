@@ -26,10 +26,10 @@ public enum EnumPowerupTypes {
     BUBBLE_SLOW_DOWN(BubbleSlowdown.class, "/data/gui/img/slowdown.png", false, true);
 
     private final Class<? extends IModifier> mod;
-    private final String imageName;
-    private final boolean playerPickup, bubblePickup;
+    private final String                     imageName;
+    private final boolean                    playerPickup, bubblePickup;
     private final static double imageHeight = 50;
-    private final static double imageWidth = 50;
+    private final static double imageWidth  = 50;
 
     private EnumPowerupTypes(Class<? extends IModifier> mod, String imageName, boolean playerPickup, boolean bubblePickup) {
         this.mod = mod;
@@ -39,9 +39,9 @@ public enum EnumPowerupTypes {
     }
 
     public static EnumPowerupTypes getRandomPowerup() {
-        EnumPowerupTypes[] mods = EnumPowerupTypes.values();
-        int AMOUNT_OF_MOD_TYPES = mods.length;
-        int selectedType = (new Random()).nextInt(AMOUNT_OF_MOD_TYPES);
+        EnumPowerupTypes[] mods                = EnumPowerupTypes.values();
+        int                AMOUNT_OF_MOD_TYPES = mods.length;
+        int                selectedType        = (new Random()).nextInt(AMOUNT_OF_MOD_TYPES);
 
         return mods[selectedType];
     }

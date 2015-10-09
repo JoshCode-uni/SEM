@@ -20,11 +20,11 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
 
     //    private final javafx.scene.shape.Line fxLine;
     private final ILineViewObject line;
-    private Point p1, p2;
+    private       Point           p1, p2;
     private final Vector dir;
 
     private final double growSpeed;
-    private double delay;
+    private       double delay;
     private boolean isActive = true;
 
     /**
@@ -71,7 +71,8 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
                 delay -= nanoFrameTime;
                 return;
             }
-            GameLog.addInfoLog("Projectile hit ceiling at: (" + Double.toString(line.getEndX()) + ", " + Double.toString(line.getEndY()) + ")");
+            GameLog.addInfoLog("Projectile hit ceiling at: (" + Double.toString(line.getEndX()) + ", " + Double.toString(line.getEndY())
+                               + ")");
             getGameObjects().removeProjectile();
             line.destroy();
             isActive = false;
@@ -95,8 +96,9 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      */
     @Override
     public IntersectionPoint getClosestIntersection(final Point p) {
-        Vector normal = dir.normal();
-        Point intersection = normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
+        Vector normal       = dir.normal();
+        Point  intersection =
+                normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
 
         if (intersection == null) {
             return new IntersectionPoint(Double.MAX_VALUE, Double.MAX_VALUE, new Vector(1, 1), Double.MAX_VALUE);
@@ -107,8 +109,8 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
 
         Point smallestXpoint = getSmallestXpoint();
         Point smallestYpoint = getSmallestYpoint();
-        Point largestXpoint = getLargestXpoint();
-        Point largestYpoint = getLargestYpoint();
+        Point largestXpoint  = getLargestXpoint();
+        Point largestYpoint  = getLargestYpoint();
 
         // assure the intersection point is on the line
         if (intersection.getxPos() < smallestXpoint.getxPos()) {
@@ -180,7 +182,8 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
         if (isActive && obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
-            GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX()) + ", " + Double.toString(line.getEndY()) + ")");
+            GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX()) + ", " + Double.toString(line.getEndY())
+                               + ")");
             getGameObjects().removeProjectile();
             line.destroy();
             isActive = false;
