@@ -20,52 +20,53 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameLoop.class)
-public class GameLoopTest {
-	
-	@Mock
-	GameController gameController;
-	
-	@Mock
-	Scene scene;
-	
-	GameObjects gameObjects;
-	
-	Keyboard kb;
-	
-	GameLoop gl, spyGL;
-	
-	/**
-	 * Setup mocks
-	 *
-	 * @throws Exception
-	 */
-	@Before
-	public void setUp() throws Exception {
-		kb = PowerMockito.mock(Keyboard.class);
-		gameObjects = PowerMockito.mock(GameObjects.class);
-		PowerMockito.whenNew(Keyboard.class).withArguments(scene).thenReturn(kb);
-		PowerMockito.whenNew(GameObjects.class).withAnyArguments().thenReturn(gameObjects);
-		gl = new GameLoop(gameController, 0, 25, 25, 0, 0, scene);
-		spyGL = Mockito.spy(gl);
-	}
-	
-	/**
-	 * Tests if GameLoop is correctly initialized
-	 */
-	@Test
-	public void testGameLoop() {
-		assertEquals(gl.getScore(), 0);
-	}
-	
-	/**
-	 * Tests if deaths are correctly handled.
-	 */
-	@Test
-	public void testPlayerDied() {
-		GameLoop spyGL = Mockito.spy(gl);
-		spyGL.playerDied();
-		Mockito.verify(spyGL).stop();
-		Mockito.verify(gameController).died();
+public class GameLoopT {
+
+    @Mock
+    GameController gameController;
+
+    @Mock
+    Scene scene;
+
+    private GameObjects gameObjects;
+
+    private Keyboard kb;
+
+    private GameLoop gl;
+    private GameLoop spyGL;
+
+    /**
+     * Setup mocks
+     *
+     * @throws Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+        kb = PowerMockito.mock(Keyboard.class);
+        gameObjects = PowerMockito.mock(GameObjects.class);
+        PowerMockito.whenNew(Keyboard.class).withArguments(scene).thenReturn(kb);
+        PowerMockito.whenNew(GameObjects.class).withAnyArguments().thenReturn(gameObjects);
+        gl = new GameLoop(gameController, 0, 25, 25, 0, 0, scene);
+        spyGL = Mockito.spy(gl);
+    }
+
+    /**
+     * Tests if GameLoop is correctly initialized
+     */
+    @Test
+    public void testGameLoop() {
+        assertEquals(gl.getScore(), 0);
+    }
+
+    /**
+     * Tests if deaths are correctly handled.
+     */
+    @Test
+    public void testPlayerDied() {
+        GameLoop spyGL = Mockito.spy(gl);
+        spyGL.playerDied();
+        Mockito.verify(spyGL).stop();
+        Mockito.verify(gameController).died();
 	}
 	
 	/**

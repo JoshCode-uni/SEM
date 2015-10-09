@@ -3,12 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup;
 
 /**
  * @author faris
  */
-public interface IBubbleModifier {
+public interface IModifier {
 
-    double getBubbleSpeedModifier();
 }

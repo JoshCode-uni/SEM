@@ -11,9 +11,9 @@ package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
  * @author faris
  */
 public interface IViewObject {
-	
-	/**
-	 * Remove the object from the view.
-	 */
-	public void destroy();
+
+    /**
+     * Remove the object from the view.
+     */
+    void destroy();
 }

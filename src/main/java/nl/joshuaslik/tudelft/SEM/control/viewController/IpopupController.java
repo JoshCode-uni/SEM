@@ -13,18 +13,18 @@ import javafx.scene.control.PopupControl;
  * @author faris
  */
 public interface IpopupController {
-	
-	/**
-	 * Set the controller class of the main view.
-	 *
-	 * @param controller the controller class of the main view.
-	 */
-	public void setMainViewController(IviewController controller);
-	
-	/**
-	 * Set the PopupControl class.
-	 *
-	 * @param popupControl PopupControl class.
-	 */
-	public void setPopupControl(PopupControl popupControl);
+
+    /**
+     * Set the controller class of the main view.
+     *
+     * @param controller the controller class of the main view.
+     */
+    void setMainViewController(IviewController controller);
+
+    /**
+     * Set the PopupControl class.
+     *
+     * @param popupControl PopupControl class.
+     */
+    void setPopupControl(PopupControl popupControl);
 }

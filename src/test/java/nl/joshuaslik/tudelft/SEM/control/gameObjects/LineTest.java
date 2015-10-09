@@ -16,55 +16,56 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LineTest {
-	
-	@Mock
-	IGameObjects gameObjects;
-	
-	@Mock
-	ILineViewObject line;
-	
-	@Mock
-	Point p;
-	
-	Line L, L2;
-	
-	/**
-	 * Setup mocks
-	 */
-	@Before
-	public void setUp() {
-		when(gameObjects.makeLine(0.0, 5.0, 15.0, 25.0)).thenReturn(line);
-		L = new Line(gameObjects, 0.0, 5.0, 15.0, 25.0);
-	}
-	
-	/**
-	 * Test constructor
-	 */
-	@Test
-	public void testSetStrokeWidth() {
-		verify(line).setStrokeWidth(10);
-	}
-	
-	/**
-	 * Test constructor
-	 */
-	@Test
-	public void testPoint1Set() {
-		assertEquals(L.getPoint1().getxPos(), 0.0, 0);
-		assertEquals(L.getPoint1().getyPos(), 5.0, 0);
-	}
-	
-	/**
-	 * Test constructor
-	 */
-	@Test
-	public void testPoint2Set() {
-		assertEquals(L.getPoint2().getxPos(), 15.0, 0);
-		assertEquals(L.getPoint2().getyPos(), 25.0, 0);
-	}
-	
-	/**
-	 * Test constructor
+
+    @Mock
+    IGameObjects gameObjects;
+
+    @Mock
+    ILineViewObject line;
+
+    @Mock
+    Point p;
+
+    private Line L;
+    private Line L2;
+
+    /**
+     * Setup mocks
+     */
+    @Before
+    public void setUp() {
+        when(gameObjects.makeLine(0.0, 5.0, 15.0, 25.0)).thenReturn(line);
+        L = new Line(gameObjects, 0.0, 5.0, 15.0, 25.0);
+    }
+
+    /**
+     * Test constructor
+     */
+    @Test
+    public void testSetStrokeWidth() {
+        verify(line).setStrokeWidth(10);
+    }
+
+    /**
+     * Test constructor
+     */
+    @Test
+    public void testPoint1Set() {
+        assertEquals(L.getPoint1().getxPos(), 0.0, 0);
+        assertEquals(L.getPoint1().getyPos(), 5.0, 0);
+    }
+
+    /**
+     * Test constructor
+     */
+    @Test
+    public void testPoint2Set() {
+        assertEquals(L.getPoint2().getxPos(), 15.0, 0);
+        assertEquals(L.getPoint2().getyPos(), 25.0, 0);
+    }
+
+    /**
+     * Test constructor
 	 */
 	@Test
 	public void testVectorSet() {

@@ -20,7 +20,7 @@ public class BubbleBaseModifierTest {
     @Test
     public void testGetBubbleSpeedMultiplier() {
         IBubbleModifier bubbleBaseMod = new BubbleBaseModifier();
-        assertEquals(1.0, bubbleBaseMod.getBubbleSpeedMultiplier(), 0.001);
+        assertEquals(1.0, bubbleBaseMod.getBubbleSpeedModifier(), 0.001);
     }
 
 }

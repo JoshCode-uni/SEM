@@ -25,38 +25,43 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameObjects.class)
 public class GameObjectsConstructorTest {
-	
-	GameObjects gameObjects;
-	PickupGenerator pg;
-	Line l1, l2, l3, l4;
-	ArrayList<IPhysicsObject> physicsObject = new ArrayList<>();
-	Bubble bubble;
-	//	Keyboard kb;
-	Player player;
-	Point p = new Point(0, 0);
-	
-	@Before
-	public void setUp() throws Exception {
-		suppress(methods(GameObjects.class, "initializeLevel"));
-		l1 = PowerMockito.mock(Line.class);
-		l2 = PowerMockito.mock(Line.class);
-		l3 = PowerMockito.mock(Line.class);
-		l4 = PowerMockito.mock(Line.class);
+
+    private GameObjects gameObjects;
+    PickupGenerator pg;
+    private Line l1;
+    private Line l2;
+    private Line l3;
+    private Line l4;
+    private ArrayList<IPhysicsObject> physicsObject = new ArrayList<>();
+    private Bubble bubble;
+    //	Keyboard kb;
+    private Player player;
+    Point p = new Point(0, 0);
+
+    @Before
+    public void setUp() throws Exception {
+        suppress(methods(GameObjects.class, "initializeLevel"));
+        l1 = PowerMockito.mock(Line.class);
+        l2 = PowerMockito.mock(Line.class);
+        l3 = PowerMockito.mock(Line.class);
+        l4 = PowerMockito.mock(Line.class);
 		
 /*		TODO: Fix TestInitializedLevel
  
  		PowerMockito.mockStatic(Levels.class);		
  		PowerMockito.when(Levels.getLevelObjects(Mockito.anyInt(), Mockito.any(GameObjects.class))).thenReturn(physicsObject);
 */
-		player = PowerMockito.mock(Player.class);
-		bubble = PowerMockito.mock(Bubble.class);
-		PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 10.0, 20.0, 5.0).thenReturn(l1);
-		PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 10.0, 5.0, 0.0).thenReturn(l2);
-		PowerMockito.whenNew(Line.class).withArguments(gameObjects, 20.0, 10.0, 20.0, 0.0).thenReturn(l3);
-		PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 0.0, 20.0, 0.0).thenReturn(l4);
-		PowerMockito.whenNew(Player.class).withArguments(Mockito.any(GameObjects.class), Mockito.any(InputStream.class), Mockito.any(Keyboard.class)).thenReturn(player);
-		physicsObject.add(bubble);
-		gameObjects = new GameObjects(null, 0, 10.0, 20.0, 0.0, 5.0, null);
+        player = PowerMockito.mock(Player.class);
+        bubble = PowerMockito.mock(Bubble.class);
+        PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 10.0, 20.0, 5.0).thenReturn(l1);
+        PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 10.0, 5.0, 0.0).thenReturn(l2);
+        PowerMockito.whenNew(Line.class).withArguments(gameObjects, 20.0, 10.0, 20.0, 0.0).thenReturn(l3);
+        PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 0.0, 20.0, 0.0).thenReturn(l4);
+        PowerMockito.whenNew(Player.class)
+                    .withArguments(Mockito.any(GameObjects.class), Mockito.any(InputStream.class), Mockito.any(Keyboard.class))
+                    .thenReturn(player);
+        physicsObject.add(bubble);
+        gameObjects = new GameObjects(null, 0, 10.0, 20.0, 0.0, 5.0, null);
 	}
 	
 	/**

@@ -22,70 +22,70 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class BubbleTest {
-	
-	@Mock
-	IGameObjects gameObjects;
-	
-	@Mock
-	ICircleViewObject circle;
-	
-	@Mock
-	ICircleViewObject circle2;
-	
-	@Mock
-	ICircleViewObject circle3;
-	
-	@Mock
-	Bubble bubble2;
-	
-	@Mock
-	AbstractBubbleDecorator mod;
-	
-	@Mock
-	Point p;
-	
-	Bubble bubble;
-	
-	Bubble spyBubble;
-	
-	@Before
-	public void setUp() {
-		when(gameObjects.makeCircle(250, 100, 50)).thenReturn(circle);
-		
-		when(gameObjects.getLeftBorder()).thenReturn(0.0);
-		when(gameObjects.getRightBorder()).thenReturn(500.0);
-		when(gameObjects.getTopBorder()).thenReturn(0.0);
-		when(gameObjects.getBottomBorder()).thenReturn(500.0);
-		when(circle.getCenterX()).thenReturn(250.0);
-		when(circle.getCenterY()).thenReturn(100.0);
-		when(circle.getRadius()).thenReturn(50.0);
-		bubble = new Bubble(gameObjects, new Point(250, 100), 50, new Vector(5, -2));
-	}
-	
-	/**
-	 * Test constructor
-	 */
-	@Test
-	public void testBubbleCircle() {
-		verify(circle).setRadius(50);
-		verify(circle).setBounds(0.0, 0.0, 500.0, 500.0);
-	}
-	
-	/**
-	 * Test constructor
-	 */
-	@Test
-	public void testBubbleVector() {
-		assertEquals(bubble.getDir(), new Vector(5, -2));
-		assertEquals(bubble.getDir(), bubble.getNewDir());
-	}
-	
-	/**
-	 * Test prepareUpdate and update method of class Bubble.
-	 */
-	@Test
-	public void testUpdate() {
-		assertEquals(bubble.getDir(), new Vector(5, -2));
+
+    @Mock
+    IGameObjects gameObjects;
+
+    @Mock
+    ICircleViewObject circle;
+
+    @Mock
+    ICircleViewObject circle2;
+
+    @Mock
+    ICircleViewObject circle3;
+
+    @Mock
+    Bubble bubble2;
+
+    @Mock
+    AbstractBubbleDecorator mod;
+
+    @Mock
+    Point p;
+
+    private Bubble bubble;
+
+    Bubble spyBubble;
+
+    @Before
+    public void setUp() {
+        when(gameObjects.makeCircle(250, 100, 50)).thenReturn(circle);
+
+        when(gameObjects.getLeftBorder()).thenReturn(0.0);
+        when(gameObjects.getRightBorder()).thenReturn(500.0);
+        when(gameObjects.getTopBorder()).thenReturn(0.0);
+        when(gameObjects.getBottomBorder()).thenReturn(500.0);
+        when(circle.getCenterX()).thenReturn(250.0);
+        when(circle.getCenterY()).thenReturn(100.0);
+        when(circle.getRadius()).thenReturn(50.0);
+        bubble = new Bubble(gameObjects, new Point(250, 100), 50, new Vector(5, -2));
+    }
+
+    /**
+     * Test constructor
+     */
+    @Test
+    public void testBubbleCircle() {
+        verify(circle).setRadius(50);
+        verify(circle).setBounds(0.0, 0.0, 500.0, 500.0);
+    }
+
+    /**
+     * Test constructor
+     */
+    @Test
+    public void testBubbleVector() {
+        assertEquals(bubble.getDir(), new Vector(5, -2));
+        assertEquals(bubble.getDir(), bubble.getNewDir());
+    }
+
+    /**
+     * Test prepare and update method of class Bubble.
+     */
+    @Test
+    public void testUpdate() {
+        assertEquals(bubble.getDir(), new Vector(5, -2));
 		bubble.prepare(5_000_000_000l);
 		assertEquals(900, bubble.getYvelocity(), 0);
 		assertEquals(150, bubble.getXvelocity(), 0);

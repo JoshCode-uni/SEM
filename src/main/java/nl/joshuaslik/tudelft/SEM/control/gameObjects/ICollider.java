@@ -8,13 +8,13 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 /**
  * @author faris
  */
-public interface ICollider extends IPhysicsObject {
+interface ICollider extends IPhysicsObject {
 
-	/**
-	 * Check if you collide with the object (and change directions accordingly).
-	 *
-	 * @param obj2          the object to check collision with.
-	 * @param nanoFrameTime the framerate (nanoseconds/frame)
-	 */
-	public void checkCollision(final IIntersectable obj2, final long nanoFrameTime);
+    /**
+     * Check if you collide with the object (and change directions accordingly).
+     *
+     * @param obj2          the object to check collision with.
+     * @param nanoFrameTime the framerate (nanoseconds/frame)
+     */
+    void checkCollision(final IIntersectable obj2, final long nanoFrameTime);
 }
