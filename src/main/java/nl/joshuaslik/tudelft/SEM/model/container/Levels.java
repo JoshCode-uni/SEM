@@ -20,7 +20,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.TimeDoor;
  */
 public class Levels {
 
-    private final static int AMOUNT_OF_IMPLEMENTED_LEVELS = 4;
+    private static final int AMOUNT_OF_IMPLEMENTED_LEVELS = 4;
     private static       int currentLevel                 = 0;
     private static       int unlockedLevel                = 0;
 
@@ -35,7 +35,7 @@ public class Levels {
      * @param gameObjects
      * @return the level.
      */
-    public static ArrayList<IPhysicsObject> getLevelObjects(int index, IGameObjects gameObjects) {
+    public static ArrayList<IPhysicsObject> getLevelObjects(final int index, final IGameObjects gameObjects) {
         switch (index) {
             case 0:
                 return createLevel0(gameObjects);
@@ -57,7 +57,7 @@ public class Levels {
      *
      * @return level 1.
      */
-    private static ArrayList<IPhysicsObject> createLevel0(IGameObjects gameObjects) {
+    private static ArrayList<IPhysicsObject> createLevel0(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level0 = new ArrayList<>();
 
         // create 1 bubble
@@ -75,7 +75,7 @@ public class Levels {
      *
      * @return level 2.
      */
-    private static ArrayList<IPhysicsObject> createLevel1(IGameObjects gameObjects) {
+    private static ArrayList<IPhysicsObject> createLevel1(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level1 = new ArrayList<>();
 
         // create 1st bubble
@@ -110,7 +110,7 @@ public class Levels {
      *
      * @return level 3.
      */
-    private static ArrayList<IPhysicsObject> createLevel2(IGameObjects gameObjects) {
+    private static ArrayList<IPhysicsObject> createLevel2(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level2 = new ArrayList<>();
 
         // create 1st bubble
@@ -151,7 +151,7 @@ public class Levels {
      *
      * @return level 4.
      */
-    private static ArrayList<IPhysicsObject> createLevel3(IGameObjects gameObjects) {
+    private static ArrayList<IPhysicsObject> createLevel3(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level3 = new ArrayList<>();
 
         // create 1st bubble
@@ -203,9 +203,9 @@ public class Levels {
      *
      * @return level 5.
      */
-    private static ArrayList<IPhysicsObject> createLevel4(IGameObjects gameObjects) {
+    private static ArrayList<IPhysicsObject> createLevel4(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level4 = new ArrayList<>();
-
+        
         // create 1st bubble
         Point  bubbleCenter    = new Point(100, 600);
         double bubbleRadius    = 80;
