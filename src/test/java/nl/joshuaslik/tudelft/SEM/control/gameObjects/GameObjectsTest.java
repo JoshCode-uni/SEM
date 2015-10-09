@@ -50,7 +50,7 @@ public class GameObjectsTest {
 	Point p1;
 	
 	@Mock
-	IPrepareUpdateable prepUp;
+	IPrepareable prepUp;
 	
 	@Mock
 	IUpdateable up;
@@ -85,7 +85,7 @@ public class GameObjectsTest {
 		spyGameObjects.getCollider().add(col);
 		spyGameObjects.getIntersectable().add(intersectable);
 		spyGameObjects.update(0);
-		verify(prepUp).prepareUpdate(0);
+		verify(prepUp).prepare(0);
 		verify(up).update(0);
 		verify(col).checkCollision(intersectable, 0);
 		//	fail("Not yet implemented");

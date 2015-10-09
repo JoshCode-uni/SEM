@@ -8,7 +8,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.IBubbleModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
@@ -39,7 +39,7 @@ public class BubbleTest {
 	Bubble bubble2;
 	
 	@Mock
-	AbstractBubbleModifierDecorator mod;
+	AbstractBubbleDecorator mod;
 	
 	@Mock
 	Point p;
@@ -86,7 +86,7 @@ public class BubbleTest {
 	@Test
 	public void testUpdate() {
 		assertEquals(bubble.getDir(), new Vector(5, -2));
-		bubble.prepareUpdate(5_000_000_000l);
+		bubble.prepare(5_000_000_000l);
 		assertEquals(900, bubble.getYvelocity(), 0);
 		assertEquals(150, bubble.getXvelocity(), 0);
 		bubble.update(5_000_000_000l);

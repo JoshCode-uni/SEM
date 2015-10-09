@@ -11,7 +11,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 /**
  * @author faris
  */
-public interface IIntersectable extends PhysicsObject {
+public interface IIntersectable extends IPhysicsObject {
 	
 	/**
 	 * Get the closest point of this object to point p.
@@ -20,5 +20,4 @@ public interface IIntersectable extends PhysicsObject {
 	 * @return closest point on the object to point p.
 	 */
 	public IntersectionPoint getClosestIntersection(final Point p);
-	
 }

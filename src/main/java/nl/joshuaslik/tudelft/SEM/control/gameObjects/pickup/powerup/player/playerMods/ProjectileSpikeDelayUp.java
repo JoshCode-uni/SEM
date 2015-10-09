@@ -5,12 +5,12 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 
 /**
  * @author faris
  */
-public class ProjectileSpikeDelayUp extends AbstractPlayerModifierDecorator<ProjectileSpikeDelayUp> {
+public class ProjectileSpikeDelayUp extends AbstractPlayerDecorator {
 	
 	@Override
 	public int getProjectileSpikeDelay() {

@@ -12,7 +12,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.AbstractPickup;
  * @param <T> type of the powerup
  * @author faris
  */
-public class Powerup<T extends IModifier> extends AbstractPickup {
+public class Powerup<T> extends AbstractPickup {
 	
 	private T mod;
 	private final EnumPowerupTypes pickupType;

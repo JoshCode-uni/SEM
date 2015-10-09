@@ -8,9 +8,9 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.PlayerModifier;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.PlayerBaseModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
@@ -22,7 +22,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  */
 public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider {
 	
-	private IPlayerModifier modifier = new PlayerModifier();
+	private IPlayerModifier modifier = new PlayerBaseModifier();
 	private final IImageViewObject image;
 	private final IKeyboard keyboard;
 	private static final double MAX_SPEED = 300;
@@ -131,7 +131,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 		return image;
 	}
 	
-	public void addModifier(AbstractPlayerModifierDecorator newmod) {
+	public void addModifier(AbstractPlayerDecorator newmod) {
 		modifier = newmod.decorate(modifier);
 	}
 	

@@ -31,9 +31,9 @@ public class BubbleDoorTest {
 	@Mock
 	Player player;
 	
-	Door door;
+	AbstractDoor door;
 	
-	Door spyDoor;
+	AbstractDoor spyDoor;
 	
 	/**
 	 * Setup mocks

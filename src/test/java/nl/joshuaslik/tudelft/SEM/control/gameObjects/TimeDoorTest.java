@@ -32,9 +32,9 @@ public class TimeDoorTest {
 	@Mock
 	Player player;
 	
-	Door door;
+	AbstractDoor door;
 	
-	Door spyDoor;
+	AbstractDoor spyDoor;
 	
 	/**
 	 * setup mocks

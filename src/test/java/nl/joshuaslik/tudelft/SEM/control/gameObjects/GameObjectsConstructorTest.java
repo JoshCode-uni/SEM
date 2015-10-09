@@ -10,8 +10,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import org.junit.Before;
@@ -29,7 +29,7 @@ public class GameObjectsConstructorTest {
 	GameObjects gameObjects;
 	PickupGenerator pg;
 	Line l1, l2, l3, l4;
-	ArrayList<PhysicsObject> physicsObject = new ArrayList<>();
+	ArrayList<IPhysicsObject> physicsObject = new ArrayList<>();
 	Bubble bubble;
 	//	Keyboard kb;
 	Player player;
@@ -93,10 +93,10 @@ public class GameObjectsConstructorTest {
 	 */
 	@Test
 	public void testhandleModifierCollision() {
-		PowerMockito.doNothing().when(player).addModifier(Mockito.any(AbstractPlayerModifierDecorator.class));
+		PowerMockito.doNothing().when(player).addModifier(Mockito.any(AbstractPlayerDecorator.class));
 		gameObjects.handleModifierCollision(null, true, false);
-		Mockito.verify(player, times(1)).addModifier(Mockito.any(AbstractPlayerModifierDecorator.class));
-		Mockito.verify(bubble, times(0)).addModifier(Mockito.any(AbstractBubbleModifierDecorator.class));
+		Mockito.verify(player, times(1)).addModifier(Mockito.any(AbstractPlayerDecorator.class));
+		Mockito.verify(bubble, times(0)).addModifier(Mockito.any(AbstractBubbleDecorator.class));
 	}
 	
 	/**
@@ -105,19 +105,19 @@ public class GameObjectsConstructorTest {
 	@Test
 	public void testHandleModifierCollisionBubble() {
 		gameObjects.addBubbles(bubble);
-		PowerMockito.doNothing().when(bubble).addModifier(Mockito.any(AbstractBubbleModifierDecorator.class));
+		PowerMockito.doNothing().when(bubble).addModifier(Mockito.any(AbstractBubbleDecorator.class));
 		gameObjects.handleModifierCollision(null, false, true);
-		Mockito.verify(bubble, times(1)).addModifier(Mockito.any(AbstractBubbleModifierDecorator.class));
-		Mockito.verify(player, times(0)).addModifier(Mockito.any(AbstractPlayerModifierDecorator.class));
+		Mockito.verify(bubble, times(1)).addModifier(Mockito.any(AbstractBubbleDecorator.class));
+		Mockito.verify(player, times(0)).addModifier(Mockito.any(AbstractPlayerDecorator.class));
 	}
 	
 	@Test
 	public void testHandleModifierCollisionNone() {
-		PowerMockito.doNothing().when(bubble).addModifier(Mockito.any(AbstractBubbleModifierDecorator.class));
-		PowerMockito.doNothing().when(player).addModifier(Mockito.any(AbstractPlayerModifierDecorator.class));
+		PowerMockito.doNothing().when(bubble).addModifier(Mockito.any(AbstractBubbleDecorator.class));
+		PowerMockito.doNothing().when(player).addModifier(Mockito.any(AbstractPlayerDecorator.class));
 		gameObjects.handleModifierCollision(null, false, false);
-		Mockito.verify(bubble, times(0)).addModifier(Mockito.any(AbstractBubbleModifierDecorator.class));
-		Mockito.verify(player, times(0)).addModifier(Mockito.any(AbstractPlayerModifierDecorator.class));
+		Mockito.verify(bubble, times(0)).addModifier(Mockito.any(AbstractBubbleDecorator.class));
+		Mockito.verify(player, times(0)).addModifier(Mockito.any(AbstractPlayerDecorator.class));
 		
 	}
 	

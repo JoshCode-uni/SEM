@@ -18,7 +18,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObj
  * @author faris
  */
 public interface IDraw {
-	
+
 	/**
 	 * Handle the event: player died.
 	 */

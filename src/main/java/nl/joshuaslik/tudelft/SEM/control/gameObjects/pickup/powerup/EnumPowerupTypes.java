@@ -25,13 +25,13 @@ public enum EnumPowerupTypes {
 	PROJECTILE_DELAY(ProjectileSpikeDelayUp.class, "/data/gui/img/spike.png", true, false),
 	BUBBLE_SLOW_DOWN(BubbleSlowdown.class, "/data/gui/img/slowdown.png", false, true);
 	
-	private final Class<? extends IModifier> mod;
+	private final Class mod;
 	private final String imageName;
 	private final boolean playerPickup, bubblePickup;
 	private final static double imageHeight = 50;
 	private final static double imageWidth = 50;
 	
-	private EnumPowerupTypes(Class<? extends IModifier> mod, String imageName, boolean playerPickup, boolean bubblePickup) {
+	private EnumPowerupTypes(Class mod, String imageName, boolean playerPickup, boolean bubblePickup) {
 		this.mod = mod;
 		this.imageName = imageName;
 		this.playerPickup = playerPickup;
