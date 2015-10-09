@@ -20,11 +20,11 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
 
     //    private final javafx.scene.shape.Line fxLine;
     private final ILineViewObject line;
-    private       Point           p1, p2;
+    private Point p1, p2;
     private final Vector dir;
 
     private final double growSpeed;
-    private       double delay;
+    private double delay;
     private boolean isActive = true;
 
     /**
@@ -36,7 +36,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * @param speed
      * @param delay
      */
-    public Projectile(IGameObjects gameObjects, double startX, double startY, double speed, int delay) {
+    public Projectile(final IGameObjects gameObjects, final double startX, final double startY, final double speed, final int delay) {
         super(gameObjects);
 
         growSpeed = 1000 * speed;
@@ -62,7 +62,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * @param nanoFrameTime the framerate (nanoseconds/frame).
      */
     @Override
-    public void update(long nanoFrameTime) {
+    public void update(final long nanoFrameTime) {
 
         // destroy line if it hit the ceiling
         if (line.getEndY() <= getGameObjects().getTopBorder() + 2) {
@@ -96,8 +96,8 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      */
     @Override
     public IntersectionPoint getClosestIntersection(final Point p) {
-        Vector normal       = dir.normal();
-        Point  intersection =
+        Vector normal = dir.normal();
+        Point intersection =
                 normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
 
         if (intersection == null) {
@@ -109,8 +109,8 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
 
         Point smallestXpoint = getSmallestXpoint();
         Point smallestYpoint = getSmallestYpoint();
-        Point largestXpoint  = getLargestXpoint();
-        Point largestYpoint  = getLargestYpoint();
+        Point largestXpoint = getLargestXpoint();
+        Point largestYpoint = getLargestYpoint();
 
         // assure the intersection point is on the line
         if (intersection.getxPos() < smallestXpoint.getxPos()) {
@@ -178,7 +178,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
-    public void collide(ICollider obj2, long nanoFrameTime) {
+    public void collide(final ICollider obj2, final long nanoFrameTime) {
         if (isActive && obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
