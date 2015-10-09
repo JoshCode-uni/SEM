@@ -31,20 +31,20 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
  */
 public class GameObjects implements IUpdateable, IGameObjects {
 
-    private final ArrayList<IUpdateable>        updateableObjects     = new ArrayList<>();
+    private final ArrayList<IUpdateable> updateableObjects = new ArrayList<>();
     private final ArrayList<IPrepareable> prepUpdateableObjects = new ArrayList<>();
-    private final ArrayList<ICollider>          colliderObjects       = new ArrayList<>();
-    private final ArrayList<IIntersectable>     intersectableObjects  = new ArrayList<>();
+    private final ArrayList<ICollider> colliderObjects = new ArrayList<>();
+    private final ArrayList<IIntersectable> intersectableObjects = new ArrayList<>();
 
-    private final ArrayList<IPhysicsObject> addObjectBuffer    = new ArrayList<>();
+    private final ArrayList<IPhysicsObject> addObjectBuffer = new ArrayList<>();
     private final ArrayList<IPhysicsObject> removeObjectBuffer = new ArrayList<>();
 
-    private final PickupGenerator   pickupGenerator = new PickupGenerator((IGameObjects) this);
-    private final ArrayList<Bubble> bubbles         = new ArrayList<>();
+    private final PickupGenerator pickupGenerator = new PickupGenerator((IGameObjects) this);
+    private final ArrayList<Bubble> bubbles = new ArrayList<>();
     private Player player;
 
-    private boolean    hasProjectile = false;
-    private Projectile projectile    = null;
+    private boolean hasProjectile = false;
+    private Projectile projectile = null;
     private double topBorder, rightBorder, bottomBorder, leftBorder;
 
     private int score = 0;
@@ -133,7 +133,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
     /**
      * Initialize the player.
-     *
      */
     private void initializePlayer(final IKeyboard keyBoard) {
         InputStream is;
@@ -420,10 +419,10 @@ public class GameObjects implements IUpdateable, IGameObjects {
     public int bubblesLeft() {
         return bubbles.size();
     }
-    
+
     //CHECKSTYLE.OFF
     //Methods for testing purposes
-        
+
     GameObjects(final Boolean testing, final IDraw draw, final int level, final double topBorder, final double rightBorder,
                 final double bottomBorder, final double leftBorder, IKeyboard keyBoard) {
         this.draw = draw;

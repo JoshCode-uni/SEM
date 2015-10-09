@@ -239,6 +239,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final HBox getChooseLevelBox() {
@@ -247,6 +248,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Pane getOptionsPane() {
@@ -255,6 +257,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Button getPlayButton() {
@@ -263,6 +266,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Button getChooseLevelButton() {
@@ -271,6 +275,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Button getOptionsButton() {
@@ -279,6 +284,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Button getQuitButton() {
@@ -287,6 +293,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Button getLevel1Button() {
@@ -295,6 +302,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Button getLevel2Button() {
@@ -303,6 +311,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Button getLevel3Button() {
@@ -311,6 +320,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Button getLevel4Button() {
@@ -319,6 +329,7 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public final Button getLevel5Button() {

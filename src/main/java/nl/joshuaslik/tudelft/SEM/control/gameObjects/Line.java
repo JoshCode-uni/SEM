@@ -13,7 +13,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 public class Line extends AbstractPhysicsObject implements IIntersectable {
 
     private final ILineViewObject line;
-    private final Point           p1, p2;
+    private final Point p1, p2;
     private final Vector dir;
 
     /**
@@ -43,8 +43,8 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
      */
     @Override
     public final IntersectionPoint getClosestIntersection(final Point p) {
-        Vector normal       = dir.normal();
-        Point  intersection =
+        Vector normal = dir.normal();
+        Point intersection =
                 normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
 
         if (intersection == null) {
@@ -56,8 +56,8 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
 
         Point smallestXpoint = getSmallestXpoint();
         Point smallestYpoint = getSmallestYpoint();
-        Point largestXpoint  = getLargestXpoint();
-        Point largestYpoint  = getLargestYpoint();
+        Point largestXpoint = getLargestXpoint();
+        Point largestYpoint = getLargestYpoint();
 
         // assure the intersection point is on the line
         if (intersection.getxPos() < smallestXpoint.getxPos()) {

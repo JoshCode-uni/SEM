@@ -22,7 +22,7 @@ public class YouWonController implements IpopupController {
     private Button mainMenuButton, nextLevelButton;
 
     private IviewController mainController;
-    private PopupControl    popupControl;
+    private PopupControl popupControl;
 
     /**
      * Start the pop-up when player has won
@@ -72,20 +72,22 @@ public class YouWonController implements IpopupController {
     public void setPopupControl(PopupControl popupControl) {
         this.popupControl = popupControl;
     }
-    
-    /**
-    * FOR TESTING PURPOSES ONLY.
-    * @return view element
-    */
-   public Button getMainMenuButton() {
-       return mainMenuButton;
-   }
 
-   /**
-    * FOR TESTING PURPOSES ONLY.
-    * @return view element
-    */
-   public Button getNextLevelButton() {
-       return nextLevelButton;
-   }
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     *
+     * @return view element
+     */
+    public Button getMainMenuButton() {
+        return mainMenuButton;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     *
+     * @return view element
+     */
+    public Button getNextLevelButton() {
+        return nextLevelButton;
+    }
 }
