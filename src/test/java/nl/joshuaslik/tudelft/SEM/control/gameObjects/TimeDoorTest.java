@@ -1,12 +1,15 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.isA;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.never;
 
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,29 +17,24 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
-import nl.joshuaslik.tudelft.SEM.model.container.Point;
-
 @RunWith(MockitoJUnitRunner.class)
 public class TimeDoorTest {
-
+	
 	@Mock
 	IGameObjects gameObjects;
 	
 	@Mock
-	Point p1,p2,p3,p4;
+	Point p1, p2, p3, p4;
 	
 	@Mock
-	ILineViewObject l1,l2,l3,l4;
+	ILineViewObject l1, l2, l3, l4;
 	
 	@Mock
 	Player player;
 	
+	AbstractDoor door;
 	
-	Door door;
-	
-	
-	Door spyDoor;
+	AbstractDoor spyDoor;
 	
 	/**
 	 * setup mocks
@@ -56,7 +54,7 @@ public class TimeDoorTest {
 		when(gameObjects.makeLine(5.0, 10.0, 5.0, 0.0)).thenReturn(l3);
 		when(gameObjects.makeLine(0.0, 0.0, 5.0, 0.0)).thenReturn(l4);
 		when(gameObjects.getPlayer()).thenReturn(player);
-		door = new TimeDoor(gameObjects,p1,p2,p3,p4,0,10);
+		door = new TimeDoor(gameObjects, p1, p2, p3, p4, 0, 10);
 	}
 	
 	/**
@@ -64,7 +62,7 @@ public class TimeDoorTest {
 	 */
 	@Test
 	public void testTimeDoor() {
-		verify(gameObjects,times(4)).addObject(isA(Line.class));
+		verify(gameObjects, times(4)).addObject(isA(Line.class));
 		verify(player).setDoor(0.0);
 		verify(player).setDoor(5.0);
 	}
@@ -100,9 +98,9 @@ public class TimeDoorTest {
 		spyDoor.update(0l);
 		verify(spyDoor).update(0l);
 		verify(spyDoor).isOpen();
-		verify(spyDoor,never()).destroy();
+		verify(spyDoor, never()).destroy();
 	}
-
+	
 	/**
 	 * Tests if everything is correctly removed when the door is destroyed.
 	 */

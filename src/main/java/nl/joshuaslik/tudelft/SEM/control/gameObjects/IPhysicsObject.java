@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 /**
+ * Object in the game.
  *
  * @author faris
  */
-public interface IModifier {
-    
+public interface IPhysicsObject {
 }
