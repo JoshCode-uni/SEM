@@ -22,7 +22,7 @@ public interface IDraw {
     /**
      * Handle the event: player died.
      */
-    public void playerDied();
+    void playerDied();
 
     /**
      * Create a circle in the view.
@@ -32,7 +32,7 @@ public interface IDraw {
      * @param radius  the radius of the circle.
      * @return the interface of the circle view object.
      */
-    public ICircleViewObject makeCircle(double centerX, double centerY, double radius);
+    ICircleViewObject makeCircle(double centerX, double centerY, double radius);
 
     /**
      * Create an image in the view.
@@ -42,7 +42,7 @@ public interface IDraw {
      * @param width  the width of the image.
      * @return the interface of the image view object.
      */
-    public IImageViewObject makeImage(InputStream is, double width, double height);
+    IImageViewObject makeImage(InputStream is, double width, double height);
 
     /**
      * Create a line in the view.
@@ -53,7 +53,7 @@ public interface IDraw {
      * @param endY   the y coordinate of the end point of the line.
      * @return the interface of the line view object.
      */
-    public ILineViewObject makeLine(double startX, double startY, double endX, double endY);
+    ILineViewObject makeLine(double startX, double startY, double endX, double endY);
 
-    public void addLife();
+    void addLife();
 }
