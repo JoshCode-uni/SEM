@@ -23,7 +23,7 @@ import org.junit.runner.RunWith;
  * @author Faris
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)
-public class MainMenuControllerIntegrationTest {
+public class MainMenuControllerIT {
 
     /**
      * Make sure system.exit() won't actually stop the application.
