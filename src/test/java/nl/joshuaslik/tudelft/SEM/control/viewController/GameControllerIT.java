@@ -47,8 +47,8 @@ public class GameControllerIT {
      * System.exit(0) will be called, because we are using the "ExpectedSystemExit" rule, we expect
      * a runtime exception.
      */
-    @Test(expected = RuntimeException.class)
     public void testHandleQuitButton() {
+        exit.expectSystemExitWithStatus(0);
         controller.getQuitButton().fire();
     }
 

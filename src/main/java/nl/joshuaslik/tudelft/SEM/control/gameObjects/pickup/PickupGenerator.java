@@ -38,8 +38,8 @@ public class PickupGenerator {
             gameObjects.addObject(powerup);
         } else {
             // create pickup
-            // 80% chance to get a coin, 20% chance to get a life.
-            if (rand.nextDouble() < 0.5) {
+            // 90% chance to get a coin, 10% chance to get a life.
+            if (rand.nextDouble() < 0.9) {
                 Coin coin = new Coin(gameObjects, p.getxPos(), p.getyPos());
                 gameObjects.addObject(coin);
             } else {
