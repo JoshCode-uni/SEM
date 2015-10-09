@@ -1,5 +1,8 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
+
+import java.io.InputStream;
+
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.Coin;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
 
@@ -11,8 +14,6 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.verify;
-
-import java.io.InputStream;
 
 @RunWith(MockitoJUnitRunner.class) 
 public class CoinTest {
