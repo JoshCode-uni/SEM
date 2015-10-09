@@ -10,7 +10,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 public class YouLostController implements IpopupController {
 	
 	@FXML
-	private Button mainMenuButton;
+	private Button mainMenuButton, tryAgainButton;
 	
 	private IviewController mainController;
 	private PopupControl popupControl;
@@ -21,7 +21,7 @@ public class YouLostController implements IpopupController {
 	 * @param event the click of the button
 	 */
 	@FXML
-	private void handleMainMenuButton(ActionEvent event) {
+	protected void handleMainMenuButton(ActionEvent event) {
 		GameLog.addInfoLog("Retry button pressed from you lost screen");
 		System.out.println("Retry button pressed!");
 		popupControl.hide();
@@ -34,7 +34,7 @@ public class YouLostController implements IpopupController {
 	 * @param event the click of the button
 	 */
 	@FXML
-	private void handleTryAgainButton(ActionEvent event) {
+	protected void handleTryAgainButton(ActionEvent event) {
 		GameLog.addInfoLog("Main menu button pressed from you lost screen");
 		System.out.println("Main Menu button pressed!");
 		popupControl.hide();
@@ -70,4 +70,20 @@ public class YouLostController implements IpopupController {
 	public void setPopupControl(PopupControl popupControl) {
 		this.popupControl = popupControl;
 	}
+
+        /**
+         * FOR TESTING PURPOSES ONLY.
+         * @return view element
+         */
+        public Button getMainMenuButton() {
+            return mainMenuButton;
+        }
+
+        /**
+         * FOR TESTING PURPOSES ONLY.
+         * @return view element
+         */
+        public Button getTryAgainButton() {
+            return tryAgainButton;
+        }
 }

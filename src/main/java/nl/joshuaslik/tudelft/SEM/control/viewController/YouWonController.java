@@ -37,7 +37,7 @@ public class YouWonController implements IpopupController {
 	 * @param event the click of the button
 	 */
 	@FXML
-	private void handleMainMenuButton(ActionEvent event) {
+	protected void handleMainMenuButton(ActionEvent event) {
 		GameLog.addInfoLog("Main menu button pressed from you won screen");
 		System.out.println("Main Menu button pressed!");
 		popupControl.hide();
@@ -49,9 +49,8 @@ public class YouWonController implements IpopupController {
 	 *
 	 * @param event the click of the button
 	 */
-	//Needs to change
 	@FXML
-	private void handleNextLevelButton(ActionEvent event) {
+	protected void handleNextLevelButton(ActionEvent event) {
 		GameLog.addInfoLog("Next level button pressed from you won screen");
 		System.out.println("Next level button pressed!");
 		popupControl.hide();
@@ -72,5 +71,20 @@ public class YouWonController implements IpopupController {
 	public void setPopupControl(PopupControl popupControl) {
 		this.popupControl = popupControl;
 	}
-	
+
+        /**
+         * FOR TESTING PURPOSES ONLY.
+         * @return view element
+         */
+        public Button getMainMenuButton() {
+            return mainMenuButton;
+        }
+
+        /**
+         * FOR TESTING PURPOSES ONLY.
+         * @return view element
+         */
+        public Button getNextLevelButton() {
+            return nextLevelButton;
+        }
 }

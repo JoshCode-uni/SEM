@@ -32,7 +32,7 @@ public class CongratsController implements IpopupController {
 	 * @param event the click of the button
 	 */
 	@FXML
-	private void handleMainMenuButton(ActionEvent event) {
+	protected void handleMainMenuButton(ActionEvent event) {
 		GameLog.addInfoLog("Main menu button pressed from congrats screen");
 		System.out.println("Main Menu button pressed!");
 		popupControl.hide();
@@ -52,5 +52,12 @@ public class CongratsController implements IpopupController {
 	public void setPopupControl(PopupControl popupControl) {
 		this.popupControl = popupControl;
 	}
-	
+
+        /**
+         * FOR TESTING PURPOSES ONLY.
+         * @return view element
+         */
+        public Button getMainMenuButton() {
+            return mainMenuButton;
+        }
 }
