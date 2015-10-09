@@ -40,7 +40,7 @@ public class Launcher extends Application {
         private static IviewController controller;
         private static IpopupController popupController;
         private static final Object LOCK = new Object();
-        private static boolean initilized = false;
+        private static boolean initialized = false;
         private static boolean hideViewForTesting = false;
         
 
@@ -49,17 +49,21 @@ public class Launcher extends Application {
      */
     @Override
     public void start(Stage primaryStage) {
-        GameLog.constructor();
-        loadView(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
+            GameLog.constructor();
+            loadView(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
 
-        Scene scene = new Scene(bp);
-        primaryStage.setScene(scene);
-        primaryStage.setFullScreen(true);
-        primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        if(!hideViewForTesting) {
-            primaryStage.show();
-        }
-		Launcher.stage = primaryStage;
+            Scene scene = new Scene(bp);
+            primaryStage.setScene(scene);
+            primaryStage.setFullScreen(true);
+            primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+            if(!hideViewForTesting) {
+                primaryStage.show();
+            }
+            Launcher.stage = primaryStage;
+            
+            synchronized (LOCK) {
+                initialized = true;
+            }
 	}
 	
 	/**
@@ -146,7 +150,7 @@ public class Launcher extends Application {
         public static void waitTillInitialized() {
             while (true) {
                 synchronized (LOCK) {
-                    if (initilized) {
+                    if (initialized) {
                         break;
                     }
                 }

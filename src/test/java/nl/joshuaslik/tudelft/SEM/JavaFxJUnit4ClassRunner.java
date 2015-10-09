@@ -31,7 +31,6 @@ public class JavaFxJUnit4ClassRunner extends BlockJUnit4ClassRunner {
      */
     public JavaFxJUnit4ClassRunner(final Class<?> clazz) throws InitializationError {
         super(clazz);
-
         JavaFxJUnit4Application.startJavaFx();
     }
 

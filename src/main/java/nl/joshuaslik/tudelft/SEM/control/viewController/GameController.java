@@ -69,7 +69,7 @@ public class GameController implements IviewController {
 	 * @param event the click of the button
 	 */
 	@FXML
-	private void handleQuitButton(ActionEvent event) {
+	protected void handleQuitButton(ActionEvent event) {
 		GameLog.addInfoLog("Quit button pressed from game screen");
 		System.out.println("Quit button pressed!");
 		System.exit(0);
@@ -81,7 +81,7 @@ public class GameController implements IviewController {
 	 * @param event the click of the button
 	 */
 	@FXML
-	private void handleMainMenuButton(ActionEvent event) {
+	protected void handleMainMenuButton(ActionEvent event) {
 		GameLog.addInfoLog("Main Menu button pressed from game screen");
 		System.out.println("Main Menu button pressed!");
 		gl.stop();
@@ -285,4 +285,20 @@ public class GameController implements IviewController {
 		setLives(currentlives + 1);
 		resetLives();
 	}
+        
+        /**
+         * FOR TESTING PURPOSES ONLY.
+         * @return view element
+         */
+        public final Button getQuitButton() {
+            return quitButton;
+        }
+
+        /**
+         * FOR TESTING PURPOSES ONLY.
+         * @return view element
+         */
+        public final Button getMainMenuButton() {
+            return mainMenuButton;
+        }
 }

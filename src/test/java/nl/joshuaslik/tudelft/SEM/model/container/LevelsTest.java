@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotEquals;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -21,6 +22,14 @@ public class LevelsTest {
 	@Mock
 	ICircleViewObject circle, circle2;
 	
+        /**
+         * Make sure we start with levels unlocked == 0.
+         */
+        @Before
+        public void initialize() {
+            Levels.setCurrentLevel(0);
+            Levels.setUnlockedLevel(0);
+        }
 
 	@Test
 	public void testAmountOfLevels() {
@@ -54,8 +63,8 @@ public class LevelsTest {
 	
 	@Test
 	public void testUnlockedLevel() {
-		assertEquals(Levels.getUnlockedLevel(), 1);
+		assertEquals(0, Levels.getUnlockedLevel());
 		Levels.nextLevel();
-		assertEquals(Levels.getUnlockedLevel(), 2);
+		assertEquals(1, Levels.getUnlockedLevel());
 	}
 }
