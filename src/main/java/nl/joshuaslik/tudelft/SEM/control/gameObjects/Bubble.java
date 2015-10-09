@@ -18,7 +18,7 @@ import nl.joshuaslik.tudelft.SEM.utility.Time;
  *
  * @author faris
  */
-public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepareUpdateable, ICollider, ICollideReceiver {
+public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepareable, ICollider, ICollideReceiver {
 
     // variables to keep track of the direction/speed/position
     private final ICircleViewObject circle;
