@@ -13,23 +13,23 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.AbstractPickup;
  * @author faris
  */
 public class Powerup<T extends IModifier> extends AbstractPickup {
-	
-	private T mod;
-	private final EnumPowerupTypes pickupType;
-	
-	public Powerup(IGameObjects gameObjects, EnumPowerupTypes pickupType, double xCoordinate, double yCoordinate) {
-		super(gameObjects, pickupType.getImageStream(), pickupType.getImageHeight(), pickupType.getImageWidth(), xCoordinate, yCoordinate);
-		this.pickupType = pickupType;
-		mod = (T) pickupType.getDecor();
-	}
-	
-	//    public T decorateModifier(T currentMod) {
-	//        return (T) ((IDecorator) mod).decorate(currentMod);
-	//    }
-	
-	@Override
-	public void handlePlayerCollision() {
-		destroy();
-		getGameObjects().handleModifierCollision(mod, pickupType.isPlayerPickup(), pickupType.isBubblePickup());
-	}
+
+    private T mod;
+    private final EnumPowerupTypes pickupType;
+
+    public Powerup(IGameObjects gameObjects, EnumPowerupTypes pickupType, double xCoordinate, double yCoordinate) {
+        super(gameObjects, pickupType.getImageStream(), pickupType.getImageHeight(), pickupType.getImageWidth(), xCoordinate, yCoordinate);
+        this.pickupType = pickupType;
+        mod = (T) pickupType.getDecor();
+    }
+
+    //    public T decorateModifier(T currentMod) {
+    //        return (T) ((IDecorator) mod).decorate(currentMod);
+    //    }
+
+    @Override
+    public void handlePlayerCollision() {
+        destroy();
+        getGameObjects().handleModifierCollision(mod, pickupType.isPlayerPickup(), pickupType.isBubblePickup());
+    }
 }

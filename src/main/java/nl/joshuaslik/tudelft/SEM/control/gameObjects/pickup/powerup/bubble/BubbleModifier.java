@@ -9,10 +9,10 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble;
  * @author faris
  */
 public class BubbleModifier implements IBubbleModifier {
-	
-	@Override
-	public double getBubbleSpeedModifier() {
-		return 1;
-	}
-	
+
+    @Override
+    public double getBubbleSpeedModifier() {
+        return 1;
+    }
+
 }

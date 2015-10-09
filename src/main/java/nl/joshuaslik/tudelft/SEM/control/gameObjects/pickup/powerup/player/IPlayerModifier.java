@@ -11,10 +11,10 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IModifier;
  * @author faris
  */
 public interface IPlayerModifier extends IModifier {
-	
-	public double getMoveSpeedMultiplier();
-	
-	public double getProjectileSpeedMultiplier();
-	
-	public int getProjectileSpikeDelay();
+
+    public double getMoveSpeedMultiplier();
+
+    public double getProjectileSpeedMultiplier();
+
+    public int getProjectileSpikeDelay();
 }

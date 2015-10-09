@@ -9,5 +9,5 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup;
  * @author faris
  */
 public interface IModifier {
-	
+
 }
