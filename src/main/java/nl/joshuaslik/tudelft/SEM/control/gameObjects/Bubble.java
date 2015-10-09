@@ -31,7 +31,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     private double nextX;
     private double nextY;
 
-    private IBubbleModifier modifier = new BubbleModifier();
+    private IBubbleModifier modifier = new BubbleBaseModifier();
 
     /**
      * Create a bubble.
@@ -297,7 +297,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         getGameObjects().addObject(bubble2);
 
         // remove modifier
-        this.modifier = new BubbleModifier();
+        this.modifier = new BubbleBaseModifier();
     }
 
     /**
@@ -336,7 +336,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         return circle;
     }
 
-    public final void addModifier(final AbstractBubbleModifierDecorator newmod) {
+    public final void addModifier(final AbstractBubbleDecorator newmod) {
         modifier = newmod.decorate(modifier);
     }
 
