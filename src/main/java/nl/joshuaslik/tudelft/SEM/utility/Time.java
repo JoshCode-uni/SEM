@@ -5,6 +5,6 @@ package nl.joshuaslik.tudelft.SEM.utility;
  */
 public class Time {
 
-    public static final long SECOND_NANO = 1_000_000_000;
+    public static final double SECOND_NANO = 1_000_000_000;
 
 }

@@ -12,7 +12,7 @@ public class BubbleBaseModifier implements IBubbleModifier {
 
     @Override
     public double getBubbleSpeedModifier() {
-        return 1;
+        return 1.0;
     }
 
 }
