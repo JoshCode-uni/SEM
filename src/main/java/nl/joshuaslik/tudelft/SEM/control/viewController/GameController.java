@@ -40,7 +40,7 @@ public class GameController implements IviewController {
 
     @FXML
     private Text livesText, levelText, scoreText;
-
+    
     @FXML
     private ImageView background;
     @FXML
