@@ -1,0 +1,87 @@
+package nl.joshuaslik.tudelft.SEM.control.viewController; 
+import static org.junit.Assert.*; 
+import javafx.event.EventHandler; 
+import javafx.event.EventType; 
+import javafx.scene.input.KeyCode; 
+import javafx.scene.input.KeyEvent; 
+import org.junit.Before; 
+import org.junit.Test; 
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock; 
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+
+import static org.mockito.Matchers.any; 
+import static org.mockito.Mockito.verify;
+
+import java.util.BitSet;
+
+import org.mockito.runners.MockitoJUnitRunner; 
+import javafx.scene.Scene; 
+
+@RunWith(MockitoJUnitRunner.class) 
+public class KeyboardTest { 
+	
+	@Mock 
+	EventHandler<KeyEvent> keyPressedEventHandler;
+	
+	@Mock 
+	EventHandler<KeyEvent> keyReleasedEventHandler; 
+	
+	@Mock
+	Scene scene; 
+	
+	@Mock
+	BitSet keyboardbitset;
+	
+	Keyboard keyboard, spyKeyboard; 
+	
+	@Mock
+	BitSet kb;
+	
+	/**
+	 * setup Tests.
+	 */
+	@Before 
+	public void setup() { 
+		MockitoAnnotations.initMocks(this);
+		keyboard = new Keyboard(scene);
+		keyboard.setBitSet(kb);
+	} 
+	
+	/**
+	 * Tests if keyboard is correctly initialized
+	 */
+	@Test 
+	public void testKeyboard() { 
+		assertEquals(scene,keyboard.getScene()); 
+	} 
+	
+	/**
+	 * Tests if ismoveleft is correctly handled
+	 */
+	@Test 
+	public void testIsMoveLeft() {
+		keyboard.isMoveLeft();
+		verify(kb).get(Mockito.anyInt());
+	}
+	
+	/**
+	 * Tests if ismoveright is correctly handled
+	 */
+	@Test 
+	public void testIsMoveRight() {
+		keyboard.isMoveRight();
+		verify(kb).get(Mockito.anyInt());
+	}
+	
+	/**
+	 * Tests if shooting is correctly handled
+	 */
+	@Test
+	public void testIsShoot() {
+		keyboard.isShoot();
+		verify(kb).get(Mockito.anyInt());
+	}
+}
