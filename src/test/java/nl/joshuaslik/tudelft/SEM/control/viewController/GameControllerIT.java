@@ -5,9 +5,10 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
+import static org.junit.Assert.assertTrue;
+
 import nl.joshuaslik.tudelft.SEM.JavaFxJUnit4ClassRunner;
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,7 +16,6 @@ import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.runner.RunWith;
 
 /**
- *
  * @author Faris
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)
@@ -26,7 +26,7 @@ public class GameControllerIT {
      */
     @Rule
     public final ExpectedSystemExit exit = ExpectedSystemExit.none();
-    
+
     /**
      * Controller of the main menu.
      */
@@ -44,7 +44,7 @@ public class GameControllerIT {
 
     /**
      * Test of handleQuitButton method, of class MainMenuController.
-     * System.exit(0) will be called, because we are using the "ExpectedSystemExit" rule, we expect 
+     * System.exit(0) will be called, because we are using the "ExpectedSystemExit" rule, we expect
      * a runtime exception.
      */
     @Test(expected = RuntimeException.class)

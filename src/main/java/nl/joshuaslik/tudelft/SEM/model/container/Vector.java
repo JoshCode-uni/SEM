@@ -68,8 +68,8 @@ public class Vector {
      * @return
      */
     public boolean positiveDirection(Point from, Point intersect) {
-        double dist      = from.distanceTo(intersect);
-        Point  moveDelta = new Point(from.getxPos() + 0.001 * this.x, from.getyPos() + 0.001 * this.y);
+        double dist = from.distanceTo(intersect);
+        Point moveDelta = new Point(from.getxPos() + 0.001 * this.x, from.getyPos() + 0.001 * this.y);
         return moveDelta.distanceTo(intersect) < dist;
     }
 

@@ -22,12 +22,12 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
 
     // variables to keep track of the direction/speed/position
     private final ICircleViewObject circle;
-    private       Vector            dir;
-    private       Vector            newDir;
+    private Vector dir;
+    private Vector newDir;
     private static final double MAX_X_SPEED = 150;
     private static final double Y_MAX_SPEED = 900;
-    private              double vX          = 0;
-    private              double vY          = 0;
+    private double vX = 0;
+    private double vY = 0;
     private double nextX;
     private double nextY;
 
@@ -65,14 +65,14 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      */
     @Override
     public IntersectionPoint getClosestIntersection(final Point p) {
-        Point  thisCircle = new Point(nextX, nextY);
-        double radDdist   = circle.getRadius() / p.distanceTo(thisCircle);
-        double deltaX     = nextX - p.getxPos();
-        double deltaY     = nextY - p.getyPos();
-        double x          = nextX - radDdist * deltaX;
-        double y          = nextY - radDdist * deltaY;
+        Point thisCircle = new Point(nextX, nextY);
+        double radDdist = circle.getRadius() / p.distanceTo(thisCircle);
+        double deltaX = nextX - p.getxPos();
+        double deltaY = nextY - p.getyPos();
+        double x = nextX - radDdist * deltaX;
+        double y = nextY - radDdist * deltaY;
 
-        Point  xy     = new Point(x, y);
+        Point xy = new Point(x, y);
         Vector normal = new Vector(x - nextX, y - nextY);
         return new IntersectionPoint(x, y, normal, xy.distanceTo(p));
     }
@@ -114,9 +114,9 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     public final void checkCollision(final IIntersectable obj2, final long nanoFrameTime) {
 
         // get the closest object to the circle (which we might hit)
-        Point             currentPos = new Point(circle.getCenterX(), circle.getCenterY());
-        Point             nextPos    = new Point(nextX, nextY);
-        IntersectionPoint ip         = obj2.getClosestIntersection(nextPos);
+        Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
+        Point nextPos = new Point(nextX, nextY);
+        IntersectionPoint ip = obj2.getClosestIntersection(nextPos);
 
         double curDist = currentPos.distanceTo(ip);
         double newDist = nextPos.distanceTo(ip);
@@ -201,11 +201,11 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         if (!(obj2 instanceof IIntersectable)) {
             return;
         }
-        Point             thisCirclePoint = new Point(circle.getCenterX(), circle.getCenterY());
-        IntersectionPoint ip              = ((IIntersectable) obj2).getClosestIntersection(thisCirclePoint);
+        Point thisCirclePoint = new Point(circle.getCenterX(), circle.getCenterY());
+        IntersectionPoint ip = ((IIntersectable) obj2).getClosestIntersection(thisCirclePoint);
 
         Point currentPos = new Point(circle.getCenterX(), circle.getCenterY());
-        Point nextPos    = new Point(nextX, nextY);
+        Point nextPos = new Point(nextX, nextY);
 
         double curDist = currentPos.distanceTo(ip);
         double newDist = nextPos.distanceTo(ip);
@@ -279,8 +279,8 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
 
         GameLog.addInfoLog("Bubble is split");
 
-        double xPos    = circle.getCenterX();
-        double yPos    = circle.getCenterY();
+        double xPos = circle.getCenterX();
+        double yPos = circle.getCenterY();
         Bubble bubble2 = new Bubble(getGameObjects(), new Point(xPos + 1.1 * newRadius, yPos), newRadius, new Vector(2, -5));
         circle.setCenterX(xPos - newRadius);
         circle.setRadius(newRadius);

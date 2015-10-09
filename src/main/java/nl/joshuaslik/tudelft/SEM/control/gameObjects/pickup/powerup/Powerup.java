@@ -14,7 +14,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.AbstractPickup;
  */
 public class Powerup<T extends IModifier> extends AbstractPickup {
 
-    private       T                mod;
+    private T mod;
     private final EnumPowerupTypes pickupType;
 
     public Powerup(IGameObjects gameObjects, EnumPowerupTypes pickupType, double xCoordinate, double yCoordinate) {

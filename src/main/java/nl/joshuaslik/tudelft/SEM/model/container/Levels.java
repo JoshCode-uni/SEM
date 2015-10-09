@@ -21,8 +21,8 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.TimeDoor;
 public class Levels {
 
     private final static int AMOUNT_OF_IMPLEMENTED_LEVELS = 4;
-    private static       int currentLevel                 = 0;
-    private static       int unlockedLevel                = 0;
+    private static int currentLevel = 0;
+    private static int unlockedLevel = 0;
 
     public static int amountOfLevels() {
         return AMOUNT_OF_IMPLEMENTED_LEVELS;
@@ -61,10 +61,10 @@ public class Levels {
         ArrayList<IPhysicsObject> level0 = new ArrayList<>();
 
         // create 1 bubble
-        Point  bubbleCenter    = new Point(200, 500);
-        double bubbleRadius    = 20;
+        Point bubbleCenter = new Point(200, 500);
+        double bubbleRadius = 20;
         Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble          = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
+        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
 
         level0.add(bubble);
         return level0;
@@ -79,16 +79,16 @@ public class Levels {
         ArrayList<IPhysicsObject> level1 = new ArrayList<>();
 
         // create 1st bubble
-        Point  bubbleCenter    = new Point(300, 200);
-        double bubbleRadius    = 20;
+        Point bubbleCenter = new Point(300, 200);
+        double bubbleRadius = 20;
         Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble          = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
+        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
 
         // create 2nd bubble
-        Point  bubble2Center    = new Point(1300, 650);
-        double bubble2Radius    = 40;
+        Point bubble2Center = new Point(1300, 650);
+        double bubble2Radius = 40;
         Vector bubble2Direction = new Vector(2, -5);
-        Bubble bubble2          = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
+        Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
 
         level1.add(bubble);
         level1.add(bubble2);
@@ -114,22 +114,22 @@ public class Levels {
         ArrayList<IPhysicsObject> level2 = new ArrayList<>();
 
         // create 1st bubble
-        Point  bubbleCenter    = new Point(300, 700);
-        double bubbleRadius    = 40;
+        Point bubbleCenter = new Point(300, 700);
+        double bubbleRadius = 40;
         Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble          = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
+        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
 
         // create 2nd bubble
-        Point  bubble2Center    = new Point(1200, 300);
-        double bubble2Radius    = 20;
+        Point bubble2Center = new Point(1200, 300);
+        double bubble2Radius = 20;
         Vector bubble2Direction = new Vector(2, -5);
-        Bubble bubble2          = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
+        Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
 
         // create 3rd bubble
-        Point  bubble3Center    = new Point(1400, 620);
-        double bubble3Radius    = 40;
+        Point bubble3Center = new Point(1400, 620);
+        double bubble3Radius = 40;
         Vector bubble3Direction = new Vector(2, -5);
-        Bubble bubble3          = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
+        Bubble bubble3 = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
 
         level2.add(bubble);
         level2.add(bubble2);
@@ -155,22 +155,22 @@ public class Levels {
         ArrayList<IPhysicsObject> level3 = new ArrayList<>();
 
         // create 1st bubble
-        Point  bubbleCenter    = new Point(100, 660);
-        double bubbleRadius    = 40;
+        Point bubbleCenter = new Point(100, 660);
+        double bubbleRadius = 40;
         Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble          = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
+        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
 
         // create 2nd bubble
-        Point  bubble2Center    = new Point(500, 620);
-        double bubble2Radius    = 80;
+        Point bubble2Center = new Point(500, 620);
+        double bubble2Radius = 80;
         Vector bubble2Direction = new Vector(2, -5);
-        Bubble bubble2          = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
+        Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
 
         // create 3rd bubble
-        Point  bubble3Center    = new Point(1300, 400);
-        double bubble3Radius    = 40;
+        Point bubble3Center = new Point(1300, 400);
+        double bubble3Radius = 40;
         Vector bubble3Direction = new Vector(2, -5);
-        Bubble bubble3          = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
+        Bubble bubble3 = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
 
         level3.add(bubble);
         level3.add(bubble2);
@@ -207,34 +207,34 @@ public class Levels {
         ArrayList<IPhysicsObject> level4 = new ArrayList<>();
 
         // create 1st bubble
-        Point  bubbleCenter    = new Point(100, 600);
-        double bubbleRadius    = 80;
+        Point bubbleCenter = new Point(100, 600);
+        double bubbleRadius = 80;
         Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble          = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
+        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
 
         // create 2nd bubble
-        Point  bubble2Center    = new Point(400, 700);
-        double bubble2Radius    = 40;
+        Point bubble2Center = new Point(400, 700);
+        double bubble2Radius = 40;
         Vector bubble2Direction = new Vector(-2, -5);
-        Bubble bubble2          = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
+        Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
 
         // create 3rd bubble
-        Point  bubble3Center    = new Point(700, 700);
-        double bubble3Radius    = 20;
+        Point bubble3Center = new Point(700, 700);
+        double bubble3Radius = 20;
         Vector bubble3Direction = new Vector(2, -5);
-        Bubble bubble3          = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
+        Bubble bubble3 = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
 
         // create 4rd bubble
-        Point  bubble4Center    = new Point(1300, 600);
-        double bubble4Radius    = 40;
+        Point bubble4Center = new Point(1300, 600);
+        double bubble4Radius = 40;
         Vector bubble4Direction = new Vector(2, -5);
-        Bubble bubble4          = new Bubble(gameObjects, bubble4Center, bubble4Radius, bubble4Direction);
+        Bubble bubble4 = new Bubble(gameObjects, bubble4Center, bubble4Radius, bubble4Direction);
 
         // create 5th bubble
-        Point  bubble5Center    = new Point(1600, 600);
-        double bubble5Radius    = 80;
+        Point bubble5Center = new Point(1600, 600);
+        double bubble5Radius = 80;
         Vector bubble5Direction = new Vector(2, -5);
-        Bubble bubble5          = new Bubble(gameObjects, bubble5Center, bubble5Radius, bubble5Direction);
+        Bubble bubble5 = new Bubble(gameObjects, bubble5Center, bubble5Radius, bubble5Direction);
 
         level4.add(bubble);
         level4.add(bubble2);
@@ -306,8 +306,8 @@ public class Levels {
     public static int getUnlockedLevel() {
         return unlockedLevel;
     }
-        
+
     public static void setUnlockedLevel(int unlocked) {
-            unlockedLevel = unlocked;
+        unlockedLevel = unlocked;
     }
 }

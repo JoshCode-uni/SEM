@@ -5,7 +5,6 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player;
 
-
 /**
  * @author faris
  */
