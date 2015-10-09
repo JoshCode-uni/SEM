@@ -14,6 +14,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.Playe
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.Time;
 
 /**
  * A class containing the position of the player. This class also controller the player.

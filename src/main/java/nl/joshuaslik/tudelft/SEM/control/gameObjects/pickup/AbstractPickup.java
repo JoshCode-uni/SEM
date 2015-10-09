@@ -12,6 +12,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IUpdateable;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
+import nl.joshuaslik.tudelft.SEM.utility.Time;
 
 /**
  * A pickup drops down in a straight line till it hits the ground. It also contains collision
