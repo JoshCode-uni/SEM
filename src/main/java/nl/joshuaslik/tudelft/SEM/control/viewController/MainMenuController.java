@@ -82,7 +82,7 @@ public class MainMenuController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handlePlayButton(ActionEvent event) {
+    protected void handlePlayButton(final ActionEvent event) {
         GameLog.addInfoLog("Play button pressed from main menu");
         System.out.println("Play button pressed!");
         GameController.loadView();
@@ -95,7 +95,7 @@ public class MainMenuController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleChooseLevelButton(ActionEvent event) {
+    protected void handleChooseLevelButton(final ActionEvent event) {
         GameLog.addInfoLog("Choose level button pressed from main menu");
         System.out.println("Choose Level button pressed!");
         chooseLevelBox.setVisible(!chooseLevelBox.isVisible());
@@ -107,7 +107,7 @@ public class MainMenuController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleOptionsButton(ActionEvent event) {
+    protected void handleOptionsButton(final ActionEvent event) {
         GameLog.addInfoLog("Options button pressed from main menu");
         System.out.println("Options button pressed!");
         optionsPane.setVisible(!optionsPane.isVisible());
@@ -119,7 +119,7 @@ public class MainMenuController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleQuitButton(ActionEvent event) {
+    protected void handleQuitButton(final ActionEvent event) {
         GameLog.addInfoLog("Quit button pressed from main menu");
         System.out.println("Quit button pressed!");
         System.exit(0);
@@ -140,7 +140,7 @@ public class MainMenuController implements IviewController {
      * @param scene the scene of this view.
      */
     @Override
-    public void start(Scene scene) {
+    public void start(final Scene scene) {
 
     }
 
@@ -150,7 +150,7 @@ public class MainMenuController implements IviewController {
      * @param score the score.
      * @param level the level.
      */
-    public static void setScore(int score, int level) {
+    public static void setScore(final int score, final int level) {
         if (scoresPerLevel.get(level) < score) {
             MainMenuController.scoresPerLevel.set(level, score);
         }
@@ -163,7 +163,7 @@ public class MainMenuController implements IviewController {
      * @param disabled if the buttons should be disabled.
      */
     @Override
-    public void setButtonsDisabled(boolean disabled) {
+    public void setButtonsDisabled(final boolean disabled) {
         playButton.setDisable(disabled);
         chooseLevelButton.setDisable(disabled);
         optionsButton.setDisable(disabled);
@@ -176,7 +176,7 @@ public class MainMenuController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleLevel1Button(ActionEvent event) {
+    protected void handleLevel1Button(final ActionEvent event) {
         GameLog.addInfoLog("Level 1 button pressed");
         System.out.println("Level 1 button pressed!");
         Levels.setCurrentLevel(0);
@@ -190,7 +190,7 @@ public class MainMenuController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleLevel2Button(ActionEvent event) {
+    protected void handleLevel2Button(final ActionEvent event) {
         GameLog.addInfoLog("Level 2 button pressed");
         System.out.println("Level 2 button pressed!");
         Levels.setCurrentLevel(1);
@@ -203,7 +203,7 @@ public class MainMenuController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleLevel3Button(ActionEvent event) {
+    protected void handleLevel3Button(final ActionEvent event) {
         GameLog.addInfoLog("Level 3 button pressed");
         System.out.println("Level 3 button pressed!");
         Levels.setCurrentLevel(2);
@@ -217,7 +217,7 @@ public class MainMenuController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleLevel4Button(ActionEvent event) {
+    protected void handleLevel4Button(final ActionEvent event) {
         GameLog.addInfoLog("Level 4 button pressed");
         System.out.println("Level 4 button pressed!");
         Levels.setCurrentLevel(3);
@@ -230,7 +230,7 @@ public class MainMenuController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    protected void handleLevel5Button(ActionEvent event) {
+    protected void handleLevel5Button(final ActionEvent event) {
         GameLog.addInfoLog("Level 5 button pressed");
         System.out.println("Level 5 button pressed!");
         Levels.setCurrentLevel(4);
