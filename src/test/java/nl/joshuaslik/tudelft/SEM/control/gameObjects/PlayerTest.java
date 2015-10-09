@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
@@ -53,7 +53,7 @@ public class PlayerTest {
 	Projectile projectile;
 	
 	@Mock
-	AbstractPlayerModifierDecorator mod;
+	AbstractPlayerDecorator mod;
 	
 	@Mock
 	ArrayList<Double> leftDoor, rightDoor;

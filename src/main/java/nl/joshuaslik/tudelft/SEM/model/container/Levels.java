@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.BubbleDoor;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.PhysicsObject;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.IPhysicsObject;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.TimeDoor;
 
 /**
@@ -35,7 +35,7 @@ public class Levels {
 	 * @param gameObjects
 	 * @return the level.
 	 */
-	public static ArrayList<PhysicsObject> getLevelObjects(int index, IGameObjects gameObjects) {
+	public static ArrayList<IPhysicsObject> getLevelObjects(int index, IGameObjects gameObjects) {
 		switch (index) {
 			case 0:
 				return createLevel0(gameObjects);
@@ -57,8 +57,8 @@ public class Levels {
 	 *
 	 * @return level 1.
 	 */
-	private static ArrayList<PhysicsObject> createLevel0(IGameObjects gameObjects) {
-		ArrayList<PhysicsObject> level0 = new ArrayList<>();
+	private static ArrayList<IPhysicsObject> createLevel0(IGameObjects gameObjects) {
+		ArrayList<IPhysicsObject> level0 = new ArrayList<>();
 		
 		// create 1 bubble
 		Point bubbleCenter = new Point(200, 500);
@@ -75,8 +75,8 @@ public class Levels {
 	 *
 	 * @return level 2.
 	 */
-	private static ArrayList<PhysicsObject> createLevel1(IGameObjects gameObjects) {
-		ArrayList<PhysicsObject> level1 = new ArrayList<>();
+	private static ArrayList<IPhysicsObject> createLevel1(IGameObjects gameObjects) {
+		ArrayList<IPhysicsObject> level1 = new ArrayList<>();
 		
 		// create 1st bubble
 		Point bubbleCenter = new Point(300, 200);
@@ -110,8 +110,8 @@ public class Levels {
 	 *
 	 * @return level 3.
 	 */
-	private static ArrayList<PhysicsObject> createLevel2(IGameObjects gameObjects) {
-		ArrayList<PhysicsObject> level2 = new ArrayList<>();
+	private static ArrayList<IPhysicsObject> createLevel2(IGameObjects gameObjects) {
+		ArrayList<IPhysicsObject> level2 = new ArrayList<>();
 		
 		// create 1st bubble
 		Point bubbleCenter = new Point(300, 700);
@@ -151,8 +151,8 @@ public class Levels {
 	 *
 	 * @return level 4.
 	 */
-	private static ArrayList<PhysicsObject> createLevel3(IGameObjects gameObjects) {
-		ArrayList<PhysicsObject> level3 = new ArrayList<>();
+	private static ArrayList<IPhysicsObject> createLevel3(IGameObjects gameObjects) {
+		ArrayList<IPhysicsObject> level3 = new ArrayList<>();
 		
 		// create 1st bubble
 		Point bubbleCenter = new Point(100, 660);
@@ -203,8 +203,8 @@ public class Levels {
 	 *
 	 * @return level 5.
 	 */
-	private static ArrayList<PhysicsObject> createLevel4(IGameObjects gameObjects) {
-		ArrayList<PhysicsObject> level4 = new ArrayList<>();
+	private static ArrayList<IPhysicsObject> createLevel4(IGameObjects gameObjects) {
+		ArrayList<IPhysicsObject> level4 = new ArrayList<>();
 		
 		// create 1st bubble
 		Point bubbleCenter = new Point(100, 600);
