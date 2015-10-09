@@ -14,11 +14,10 @@ public abstract class AbstractPlayerDecorator implements IPlayerModifier, IDecor
 
     private IPlayerModifier child;
 
-
     @Override
     public IPlayerModifier decorate(IPlayerModifier mod) {
         child = (IPlayerModifier) mod;
-        return  this;
+        return this;
     }
 
     protected IPlayerModifier getChild() {

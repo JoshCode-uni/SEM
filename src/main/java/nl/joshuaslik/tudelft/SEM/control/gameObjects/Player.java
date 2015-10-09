@@ -7,8 +7,8 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.PlayerBaseModifier;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
@@ -25,10 +25,10 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     private IPlayerModifier modifier = new PlayerBaseModifier();
     private final IImageViewObject image;
-    private final IKeyboard        keyboard;
-    private static final double            MAX_SPEED = 300;
-    private              ArrayList<Double> leftDoor  = new ArrayList<>();
-    private              ArrayList<Double> rightDoor = new ArrayList<>();
+    private final IKeyboard keyboard;
+    private static final double MAX_SPEED = 300;
+    private ArrayList<Double> leftDoor = new ArrayList<>();
+    private ArrayList<Double> rightDoor = new ArrayList<>();
     private final double playerXstart;
 
     /**

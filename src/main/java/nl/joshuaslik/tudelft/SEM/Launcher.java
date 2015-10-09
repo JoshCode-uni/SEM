@@ -29,20 +29,19 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  */
 public class Launcher extends Application {
 
-    public static final  int        SCREEN_WIDTH  = 600;
-    private static final int        SCREEN_HEIGHT = 600;
-    public static final  double     GRAVITY       = 700;
-    public static final  double     ENERGY        = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
-    private static final BorderPane BP            = new BorderPane();
+    public static final int SCREEN_WIDTH = 600;
+    private static final int SCREEN_HEIGHT = 600;
+    public static final double GRAVITY = 700;
+    public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
+    private static final BorderPane BP = new BorderPane();
     private static Stage stage;
-        
+
     // These controllers are only intended to be used for testing purposes:
     private static IviewController controller;
     private static IpopupController popupController;
     private static final Object LOCK = new Object();
     private static boolean initialized = false;
     private static boolean hideViewForTesting = false;
-
 
     /**
      * Start up the game.
@@ -56,7 +55,7 @@ public class Launcher extends Application {
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-        if(!hideViewForTesting) {
+        if (!hideViewForTesting) {
             primaryStage.show();
         }
         Launcher.stage = primaryStage;
@@ -123,10 +122,11 @@ public class Launcher extends Application {
     public static void main(final String[] args) {
         launch(args);
     }
-        
+
     /**
      * Get the controller of the last loaded view.
      * FOR TESTING PURPSOSES ONLY!
+     *
      * @return the view controller
      */
     public static IviewController getController() {
@@ -136,6 +136,7 @@ public class Launcher extends Application {
     /**
      * Get the controller of the last loaded popup.
      * FOR TESTING PURPSOSES ONLY!
+     *
      * @return the popup controller
      */
     public static IpopupController getPopupController() {
@@ -164,6 +165,7 @@ public class Launcher extends Application {
     /**
      * Hide the view for integration testing.
      * FOR TESTING PURPSOSES ONLY!
+     *
      * @param hideViewForTesting if the view must be hidden
      */
     public static void setHideViewForTesting(boolean hideViewForTesting) {

@@ -114,8 +114,8 @@ public class GameController implements IviewController {
     @Override
     public void start(Scene scene) {
 
-        int   lvl = currentLevel + 1;
-        Image bg  = new Image(Class.class.getResourceAsStream("/data/gui/img/backgroundForLevel" + lvl + ".jpg"));
+        int lvl = currentLevel + 1;
+        Image bg = new Image(Class.class.getResourceAsStream("/data/gui/img/backgroundForLevel" + lvl + ".jpg"));
         background.setImage(bg);
 
         //currentlives = player.getLives();
@@ -285,20 +285,22 @@ public class GameController implements IviewController {
         setLives(currentlives + 1);
         resetLives();
     }
-    
+
     /**
-    * FOR TESTING PURPOSES ONLY.
-    * @return view element
-    */
+     * FOR TESTING PURPOSES ONLY.
+     *
+     * @return view element
+     */
     public final Button getQuitButton() {
-       return quitButton;
+        return quitButton;
     }
 
     /**
-    * FOR TESTING PURPOSES ONLY.
-    * @return view element
-    */
+     * FOR TESTING PURPOSES ONLY.
+     *
+     * @return view element
+     */
     public final Button getMainMenuButton() {
-       return mainMenuButton;
+        return mainMenuButton;
     }
 }

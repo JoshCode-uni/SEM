@@ -8,11 +8,12 @@ import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 public class YouLostController implements IpopupController {
+
     @FXML
     private Button mainMenuButton, tryAgainButton;
 
     private IviewController mainController;
-    private PopupControl    popupControl;
+    private PopupControl popupControl;
 
     /**
      * Handles clicking of the main menu button
@@ -69,17 +70,19 @@ public class YouLostController implements IpopupController {
     public void setPopupControl(PopupControl popupControl) {
         this.popupControl = popupControl;
     }
-    
+
     /**
-    * FOR TESTING PURPOSES ONLY.
-    * @return view element
-    */
+     * FOR TESTING PURPOSES ONLY.
+     *
+     * @return view element
+     */
     public Button getMainMenuButton() {
         return mainMenuButton;
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return view element
      */
     public Button getTryAgainButton() {

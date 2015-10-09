@@ -18,10 +18,10 @@ public class GameLog {
      * than 1MB it will reset the file
      */
     public static void constructor() {
-        File    dir    = new File("logs");
+        File dir = new File("logs");
         boolean mkdirs = dir.mkdirs();
 
-        File    log       = new File("logs/Log.log");
+        File log = new File("logs/Log.log");
         boolean logDelete = false;
         if (log.length() > 1_000_000) {
             logDelete = log.delete();
