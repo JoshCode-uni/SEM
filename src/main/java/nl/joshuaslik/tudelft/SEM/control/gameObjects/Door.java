@@ -5,7 +5,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 /**
  * Makes a door which can be removed.
  */
-abstract public class Door extends AbstractPhysicsObject implements IUpdateable {
+public abstract class Door extends AbstractPhysicsObject implements IUpdateable {
 
     //    private int MAX_OPEN_SPEED;
     //    private ImageViewObject texture;
@@ -27,7 +27,7 @@ abstract public class Door extends AbstractPhysicsObject implements IUpdateable 
      * @param bl
      * @param br
      */
-    public Door(IGameObjects gameObjects, Point ul, Point ur, Point bl, Point br) {
+    public Door(final IGameObjects gameObjects, final Point ul, final Point ur, final Point bl, final Point br) {
         super(gameObjects);
 
         up = new Line(gameObjects, ul.getxPos(), ul.getyPos(), ur.getxPos(), ur.getyPos());
@@ -54,7 +54,7 @@ abstract public class Door extends AbstractPhysicsObject implements IUpdateable 
     public abstract boolean isOpen();
 
     @Override
-    public void update(long nanoFrameTime) {
+    public final void update(final long nanoFrameTime) {
         if (isOpen()) {
             destroy();
         }
@@ -63,7 +63,7 @@ abstract public class Door extends AbstractPhysicsObject implements IUpdateable 
     /**
      * Should destory the door
      */
-    public void destroy() {
+    public final void destroy() {
         getGameObjects().getPlayer().removeDoor(xLeft);
         getGameObjects().getPlayer().removeDoor(xRight);
 
