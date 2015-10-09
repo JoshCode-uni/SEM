@@ -6,14 +6,16 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 
 import java.io.InputStream;
+
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 
 /**
- * This class can be used to add a image to the view and update the properties 
+ * This class can be used to add a image to the view and update the properties
  * of that image.
+ *
  * @author faris
  */
 public class ImageViewObject extends AbstractViewObject implements IImageViewObject {
@@ -24,19 +26,19 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
 
     /**
      * Create an image.
-     * @param is the input stream of the image file.
-     * @param width the width of the image.
+     *
+     * @param is     the input stream of the image file.
+     * @param width  the width of the image.
      * @param height the height of the image.
-     * @param gc a reference to the view in which this image will be drawn.
+     * @param gc     a reference to the view in which this image will be drawn.
      */
-    public ImageViewObject(InputStream is, double width, 
-            double height, GameController gc) {
+    public ImageViewObject(InputStream is, double width, double height, GameController gc) {
         super(gc);
         Image img = new Image(is, width, height, true, true);
         this.image = new ImageView(img);
         gc.drawNode(image);
     }
-    
+
     /**
      * @return this node.
      */
@@ -63,17 +65,18 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
 
     /**
      * Check if this image intersects with the given view object.
+     *
      * @param viewObject a view object.
      * @return if the image intersects with the view object.
      */
     @Override
     public boolean intersects(IViewObject viewObject) {
-        return image.intersects(
-                ((AbstractViewObject)viewObject).getNode().getLayoutBounds());
+        return image.intersects(((AbstractViewObject) viewObject).getNode().getLayoutBounds());
     }
 
     /**
      * Get the x coordinate of the start position of this image.
+     *
      * @return x coordinate.
      */
     @Override
@@ -83,6 +86,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
 
     /**
      * Get the y coordinate of the start position of this image.
+     *
      * @return y coordinate.
      */
     @Override
@@ -92,6 +96,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
 
     /**
      * Get the x coordinate of the end position of this image.
+     *
      * @return x coordinate.
      */
     @Override
@@ -101,6 +106,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
 
     /**
      * Get the y coordinate of the end position of this image.
+     *
      * @return y coordinate.
      */
     @Override
@@ -110,6 +116,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
 
     /**
      * Set the scale of this image.
+     *
      * @param scale the scale.
      */
     @Override
@@ -119,6 +126,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
 
     /**
      * Get the height of this image.
+     *
      * @return the height.
      */
     @Override
@@ -128,6 +136,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
 
     /**
      * Set the bounds outside of which the circle is not allowed to move.
+     *
      * @param minX minimum x coordinate value.
      * @param minY minimum y coordinate value.
      * @param maxX maximum x coordinate value.
@@ -141,36 +150,38 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
         this.maxX = maxX;
         this.maxY = maxY - getHeight();
     }
-    
+
     /**
      * Check if the x coordinate is outside of the set bounds.
+     *
      * @param xCoordinate the x coordinate to check.
      * @return the same as the parameter if inside, or on the bounds if otherwise
      * outside of the bounds
      */
-    private double checkXBounds(double xCoordinate){
-        if(!bounds)
+    private double checkXBounds(double xCoordinate) {
+        if (!bounds)
             return xCoordinate;
-        if(xCoordinate > maxX)
+        if (xCoordinate > maxX)
             return maxX;
-        else if(xCoordinate < minX)
+        else if (xCoordinate < minX)
             return minX;
         else
             return xCoordinate;
     }
-    
+
     /**
      * Check if the y coordinate is outside of the set bounds.
+     *
      * @param yCoordinate the y coordinate to check.
      * @return the same as the parameter if inside, or on the bounds if otherwise
      * outside of the bounds
      */
-    private double checkYBounds(double yCoordinate){
-        if(!bounds)
+    private double checkYBounds(double yCoordinate) {
+        if (!bounds)
             return yCoordinate;
-        if(yCoordinate > maxY)
+        if (yCoordinate > maxY)
             return maxY;
-        else if(yCoordinate < minY)
+        else if (yCoordinate < minY)
             return minY;
         else
             return yCoordinate;

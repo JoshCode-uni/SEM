@@ -8,6 +8,7 @@ package nl.joshuaslik.tudelft.SEM.control;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.GameObjects;
@@ -26,30 +27,29 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 public class GameLoop extends AnimationTimer implements IDraw {
 
     private final Keyboard kb;
+    private static final int FIRST_FRAME_TIME = 165_000_000;
     private GameController gameController;
     private final GameObjects gameObjects;
     private long time = 0;
 
     /**
-     *
      * @param gameController the controller of the game view.
-     * @param currentLevel the current level.
-     * @param top y value of the top border.
-     * @param right x value of the right border.
-     * @param bottom y value of the bottom border.
-     * @param left x value of the left border.
-     * @param scene the scene of the game (to add a keylistener to).
+     * @param currentLevel   the current level.
+     * @param top            y value of the top border.
+     * @param right          x value of the right border.
+     * @param bottom         y value of the bottom border.
+     * @param left           x value of the left border.
+     * @param scene          the scene of the game (to add a keylistener to).
      */
-    public GameLoop(GameController gameController, int currentLevel, double top,
-            double right, double bottom, double left, Scene scene) {
+    public GameLoop(final GameController gameController, final int currentLevel, final double top, final double right, final double bottom,
+                    final double left, final Scene scene) {
         this.gameController = gameController;
         kb = new Keyboard(scene);
-        gameObjects = new GameObjects((IDraw) this, currentLevel, top, right,
-                bottom, left, kb);
+        gameObjects = new GameObjects((IDraw) this, currentLevel, top, right, bottom, left, kb);
     }
 
     @Override
-    public void start() {
+    public final void start() {
         super.start();
         kb.addListeners();
     }
@@ -66,7 +66,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * @param time the current time.
      */
     @Override
-    public void handle(long time) {
+    public final void handle(final long time) {
 
         if (gameObjects.allBubblesDestroyed()) {
             gameController.levelCompleted();
@@ -75,14 +75,18 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
         try {
             // update time
-            long frametime = this.time != 0 ? time - this.time : 165_000_000;
+            long frametime;
+            if (this.time != 0) {
+                frametime = time - this.time;
+            } else {
+                frametime = FIRST_FRAME_TIME;
+            }
             this.time = time;
 
             gameController.updateTime(frametime);
             gameObjects.update(frametime);
 
-        }
-        catch (Exception ex) {
+        } catch (Exception ex) {
             stop();
             GameLog.addErrorLog("Exception in game loop");
             GameLog.addErrorLog(ex.getMessage());
@@ -95,7 +99,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      *
      * @param gameController the view controller class.
      */
-    public void setViewController(GameController gameController) {
+    public final void setViewController(final GameController gameController) {
         this.gameController = gameController;
     }
 
@@ -104,10 +108,13 @@ public class GameLoop extends AnimationTimer implements IDraw {
      *
      * @return the score.
      */
-    public int getScore() {
+    public final int getScore() {
         return gameObjects.getScore();
     }
 
+    /**
+     * Tells gameController the player has died
+     */
     @Override
     public void playerDied() {
         stop();
@@ -116,46 +123,58 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
     /**
      * Create a circle in the view.
+     *
      * @param centerX the x coordinate of the center of the circle.
      * @param centerY the y coordinate of the center of the circle.
-     * @param radius the radius of the circle.
+     * @param radius  the radius of the circle.
      * @return the interface of the circle view object.
      */
     @Override
-    public ICircleViewObject makeCircle(double centerX, double centerY,
-            double radius) {
+    public ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
         return gameController.makeCircle(centerX, centerY, radius);
     }
 
-     /**
+    /**
      * Create an image in the view.
-     * @param is the input stream of the image.
+     *
+     * @param is     the input stream of the image.
      * @param height the height of the image.
-     * @param width the width of the image.
+     * @param width  the width of the image.
      * @return the interface of the image view object.
      */
     @Override
-    public IImageViewObject makeImage(InputStream is, double width,
-            double height) {
+    public IImageViewObject makeImage(final InputStream is, final double width, final double height) {
         return gameController.makeImage(is, width, height);
     }
 
     /**
      * Create a line in the view.
+     *
      * @param startX the x coordinate of the start point of the line.
      * @param startY the y coordinate of the start point of the line.
-     * @param endX the x coordinate of the end point of the line.
-     * @param endY the y coordinate of the end point of the line.
+     * @param endX   the x coordinate of the end point of the line.
+     * @param endY   the y coordinate of the end point of the line.
      * @return the interface of the line view object.
      */
     @Override
-    public ILineViewObject makeLine(double startX, double startY, double endX,
-            double endY) {
+    public ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
         return gameController.makeLine(startX, startY, endX, endY);
     }
-    
+
+    /**
+     * Adds a life to the player.
+     */
     @Override
     public void addLife() {
         gameController.addLife();
+    }
+
+    /**
+     * Returns a gamecontroller.
+     *
+     * @return gameController
+     */
+    final GameController getGameController() {
+        return gameController;
     }
 }

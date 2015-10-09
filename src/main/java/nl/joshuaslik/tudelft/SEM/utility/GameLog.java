@@ -20,7 +20,7 @@ public class GameLog {
     public static void constructor() {
         File dir = new File("logs");
         boolean mkdirs = dir.mkdirs();
-        
+
         File log = new File("logs/Log.log");
         boolean logDelete = false;
         if (log.length() > 1_000_000) {
@@ -35,8 +35,7 @@ public class GameLog {
             pw.println("Deleted old log = " + logDelete);
             pw.print("\n");
             initialized = true;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -106,5 +105,36 @@ public class GameLog {
     private static String getCurrentTime() {
         Date now = new Date();
         return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").format(now) + " ";
+    }
+
+    /**
+     * Methods built for testing purposes.
+     */
+
+    /**
+     * Set the printWriter.
+     *
+     * @param printWriter
+     */
+    static void setPrintWriter(PrintWriter printWriter) {
+        pw = printWriter;
+    }
+
+    /**
+     * Set the logger initialization.
+     *
+     * @param b
+     */
+    static void setInitialization(boolean b) {
+        initialized = b;
+    }
+
+    /**
+     * Get the logger initialization.
+     *
+     * @return
+     */
+    static boolean getInitialization() {
+        return initialized;
     }
 }

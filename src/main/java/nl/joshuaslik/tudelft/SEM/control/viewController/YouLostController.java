@@ -10,7 +10,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 public class YouLostController implements IpopupController {
 
     @FXML
-    private Button mainMenuButton;
+    private Button mainMenuButton, tryAgainButton;
 
     private IviewController mainController;
     private PopupControl popupControl;
@@ -21,7 +21,7 @@ public class YouLostController implements IpopupController {
      * @param event the click of the button
      */
     @FXML
-    private void handleMainMenuButton(ActionEvent event) {
+    private void handleMainMenuButton(final ActionEvent event) {
         GameLog.addInfoLog("Retry button pressed from you lost screen");
         System.out.println("Retry button pressed!");
         popupControl.hide();
@@ -34,7 +34,7 @@ public class YouLostController implements IpopupController {
      * @param event the click of the button
      */
     @FXML
-    private void handleTryAgainButton(ActionEvent event) {
+    private void handleTryAgainButton(final ActionEvent event) {
         GameLog.addInfoLog("Main menu button pressed from you lost screen");
         System.out.println("Main Menu button pressed!");
         popupControl.hide();
@@ -47,7 +47,7 @@ public class YouLostController implements IpopupController {
      *
      * @param controller the controller class of the currently loaded view.
      */
-    public static void loadPopup(IviewController controller) {
+    public static void loadPopup(final IviewController controller) {
         Launcher.loadPopup(controller, Class.class.getResource("/data/gui/pages/YouLost.fxml"));
     }
 
@@ -57,7 +57,7 @@ public class YouLostController implements IpopupController {
      * @param controller the main view controller.
      */
     @Override
-    public void setMainViewController(IviewController controller) {
+    public void setMainViewController(final IviewController controller) {
         mainController = controller;
     }
 
@@ -67,7 +67,25 @@ public class YouLostController implements IpopupController {
      * @param popupControl PopupControl.
      */
     @Override
-    public void setPopupControl(PopupControl popupControl) {
+    public void setPopupControl(final PopupControl popupControl) {
         this.popupControl = popupControl;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     *
+     * @return view element
+     */
+    public Button getMainMenuButton() {
+        return mainMenuButton;
+    }
+
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     *
+     * @return view element
+     */
+    public Button getTryAgainButton() {
+        return tryAgainButton;
     }
 }

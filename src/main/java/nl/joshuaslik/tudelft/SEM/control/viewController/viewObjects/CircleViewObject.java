@@ -10,8 +10,9 @@ import javafx.scene.shape.Circle;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 
 /**
- * This class can be used to add a circle to the view and update the properties 
+ * This class can be used to add a circle to the view and update the properties
  * of that circle.
+ *
  * @author faris
  */
 public class CircleViewObject extends AbstractViewObject implements ICircleViewObject {
@@ -22,18 +23,18 @@ public class CircleViewObject extends AbstractViewObject implements ICircleViewO
 
     /**
      * Create a circle.
+     *
      * @param centerX the x coordinate of the center of the circle.
      * @param centerY the y coordinate of the center of the circle.
-     * @param radius the radius of the circle.
-     * @param gc a reference to the view in which this circle should be drawn.
+     * @param radius  the radius of the circle.
+     * @param gc      a reference to the view in which this circle should be drawn.
      */
-    public CircleViewObject(double centerX, double centerY, double radius, 
-            GameController gc) {
+    public CircleViewObject(double centerX, double centerY, double radius, GameController gc) {
         super(gc);
         this.circle = new Circle(centerX, centerY, radius);
         gc.drawNode(circle);
     }
-    
+
     /**
      * @return the node of this circle.
      */
@@ -44,6 +45,7 @@ public class CircleViewObject extends AbstractViewObject implements ICircleViewO
 
     /**
      * Set the x coordinate of the center of the circle.
+     *
      * @param xCoordinate the x coordinate.
      */
     @Override
@@ -53,6 +55,7 @@ public class CircleViewObject extends AbstractViewObject implements ICircleViewO
 
     /**
      * Set the y coordinate of the center of the circle.
+     *
      * @param yCoordinate the y coordinate.
      */
     @Override
@@ -62,6 +65,7 @@ public class CircleViewObject extends AbstractViewObject implements ICircleViewO
 
     /**
      * Set the radius of the circle.
+     *
      * @param radius the radius.
      */
     @Override
@@ -95,6 +99,7 @@ public class CircleViewObject extends AbstractViewObject implements ICircleViewO
 
     /**
      * Set the bounds outside of which the circle is not allowed to move.
+     *
      * @param minX minimum x coordinate value.
      * @param minY minimum y coordinate value.
      * @param maxX maximum x coordinate value.
@@ -108,36 +113,38 @@ public class CircleViewObject extends AbstractViewObject implements ICircleViewO
         this.maxX = maxX;
         this.maxY = maxY;
     }
-    
+
     /**
      * Check if the x coordinate is outside of the set bounds.
+     *
      * @param xCoordinate the x coordinate to check.
      * @return the same as the parameter if inside, or on the bounds if otherwise
      * outside of the bounds
      */
-    private double checkXBounds(double xCoordinate){
-        if(!bounds)
+    private double checkXBounds(double xCoordinate) {
+        if (!bounds)
             return xCoordinate;
-        if(xCoordinate > maxX)
+        if (xCoordinate > maxX)
             return maxX;
-        else if(xCoordinate < minX)
+        else if (xCoordinate < minX)
             return minX;
         else
             return xCoordinate;
     }
-    
+
     /**
      * Check if the y coordinate is outside of the set bounds.
+     *
      * @param yCoordinate the y coordinate to check.
      * @return the same as the parameter if inside, or on the bounds if otherwise
      * outside of the bounds
      */
-    private double checkYBounds(double yCoordinate){
-        if(!bounds)
+    private double checkYBounds(double yCoordinate) {
+        if (!bounds)
             return yCoordinate;
-        if(yCoordinate > maxY)
+        if (yCoordinate > maxY)
             return maxY;
-        else if(yCoordinate < minY)
+        else if (yCoordinate < minY)
             return minY;
         else
             return yCoordinate;

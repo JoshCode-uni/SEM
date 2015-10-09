@@ -10,11 +10,11 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IModifier;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerater;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleModifierDecorator;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerModifierDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
@@ -32,14 +32,14 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 public class GameObjects implements IUpdateable, IGameObjects {
 
     private final ArrayList<IUpdateable> updateableObjects = new ArrayList<>();
-    private final ArrayList<IPrepareUpdateable> prepUpdateableObjects = new ArrayList<>();
+    private final ArrayList<IPrepareable> prepUpdateableObjects = new ArrayList<>();
     private final ArrayList<ICollider> colliderObjects = new ArrayList<>();
     private final ArrayList<IIntersectable> intersectableObjects = new ArrayList<>();
 
-    private final ArrayList<PhysicsObject> addObjectBuffer = new ArrayList<>();
-    private final ArrayList<PhysicsObject> removeObjectBuffer = new ArrayList<>();
-    
-    private final PickupGenerater pickupGenerater = new PickupGenerater((IGameObjects) this);
+    private final ArrayList<IPhysicsObject> addObjectBuffer = new ArrayList<>();
+    private final ArrayList<IPhysicsObject> removeObjectBuffer = new ArrayList<>();
+
+    private final PickupGenerator pickupGenerator = new PickupGenerator((IGameObjects) this);
     private final ArrayList<Bubble> bubbles = new ArrayList<>();
     private Player player;
 
@@ -54,17 +54,17 @@ public class GameObjects implements IUpdateable, IGameObjects {
     /**
      * Construct all required objects for the given level.
      *
-     * @param draw interface to the drawing class which allows us to draw the
-     * game objects.
-     * @param level the current level.
-     * @param topBorder y value of the top border.
-     * @param rightBorder x value of the right border.
+     * @param draw         interface to the drawing class which allows us to draw the
+     *                     game objects.
+     * @param level        the current level.
+     * @param topBorder    y value of the top border.
+     * @param rightBorder  x value of the right border.
      * @param bottomBorder y value of the bottom border.
-     * @param leftBorder x value of the left border.
+     * @param leftBorder   x value of the left border.
      * @param keyBoard
      */
-    public GameObjects(IDraw draw, int level, double topBorder, double rightBorder,
-            double bottomBorder, double leftBorder, IKeyboard keyBoard) {
+    public GameObjects(final IDraw draw, final int level, final double topBorder, final double rightBorder, final double bottomBorder,
+                       final double leftBorder, final IKeyboard keyBoard) {
         this.draw = draw;
         initializeBorders(topBorder, rightBorder, bottomBorder, leftBorder);
         initializePlayer(keyBoard);
@@ -78,21 +78,23 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param nanoFrameTime the time of a frame in nanoseconds.
      */
     @Override
-    public void update(long nanoFrameTime) {
+    public void update(final long nanoFrameTime) {
         // only add/remove objects at the beginning of each update
         addBufferedDynamicObjects();
         removeBufferedDynamicObjects();
 
         // calculate next positions
-        for (IPrepareUpdateable e : prepUpdateableObjects) {
-            e.prepareUpdate(nanoFrameTime);
+        for (IPrepareable e : prepUpdateableObjects) {
+            e.prepare(nanoFrameTime);
         }
 
         // check for collisions
-        for(ICollider collider : colliderObjects) {
-            for(IIntersectable intersectable : intersectableObjects)
-                if(intersectable != collider)
+        for (ICollider collider : colliderObjects) {
+            for (IIntersectable intersectable : intersectableObjects) {
+                if (intersectable != collider) {
                     collider.checkCollision(intersectable, nanoFrameTime);
+                }
+            }
         }
 
         // update positions based on the calculated positions (which might've
@@ -105,26 +107,21 @@ public class GameObjects implements IUpdateable, IGameObjects {
     /**
      * Initialize the borders of the game.
      *
-     * @param topBorder y value of the top border.
-     * @param rightBorder x value of the right border.
+     * @param topBorder    y value of the top border.
+     * @param rightBorder  x value of the right border.
      * @param bottomBorder y value of the bottom border.
-     * @param leftBorder x value of the left border.
+     * @param leftBorder   x value of the left border.
      */
-    private void initializeBorders(double topBorder, double rightBorder,
-            double bottomBorder, double leftBorder) {
+    private void initializeBorders(final double topBorder, final double rightBorder, final double bottomBorder, final double leftBorder) {
 
         // add top, left, right and bottom lines
-        Line top = new Line((IGameObjects) this, leftBorder, topBorder,
-                rightBorder, topBorder);
+        Line top = new Line((IGameObjects) this, leftBorder, topBorder, rightBorder, topBorder);
 
-        Line left = new Line((IGameObjects) this, leftBorder, topBorder,
-                leftBorder, bottomBorder);
+        Line left = new Line((IGameObjects) this, leftBorder, topBorder, leftBorder, bottomBorder);
 
-        Line right = new Line((IGameObjects) this, rightBorder, topBorder,
-                rightBorder, bottomBorder);
+        Line right = new Line((IGameObjects) this, rightBorder, topBorder, rightBorder, bottomBorder);
 
-        Line bottom = new Line((IGameObjects) this, leftBorder, bottomBorder,
-                rightBorder, bottomBorder);
+        Line bottom = new Line((IGameObjects) this, leftBorder, bottomBorder, rightBorder, bottomBorder);
 
         addObject(top);
         addObject(left);
@@ -136,15 +133,12 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
     /**
      * Initialize the player.
-     *
-     * @param scene the scene of the game (to add a keylistener to).
      */
-    private void initializePlayer(IKeyboard keyBoard) {
+    private void initializePlayer(final IKeyboard keyBoard) {
         InputStream is;
         try {
             is = getClass().getResource("/data/gui/img/penguin.png").openStream();
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
             return;
         }
@@ -158,8 +152,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @param level the level to initialize.
      */
-    private void initializeLevel(int level) {
-        for (PhysicsObject e : Levels.getLevelObjects(level, (IGameObjects) this)) {
+    private void initializeLevel(final int level) {
+        for (IPhysicsObject e : Levels.getLevelObjects(level, (IGameObjects) this)) {
             addObject(e);
         }
     }
@@ -170,7 +164,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param object the Dynamic Object to add to the scene.
      */
     @Override
-    public void addObject(PhysicsObject object) {
+    public void addObject(final IPhysicsObject object) {
         addObjectBuffer.add(object);
     }
 
@@ -180,7 +174,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param object the Dynamic Object to remove from the game.
      */
     @Override
-    public void removeObject(PhysicsObject object) {
+    public void removeObject(final IPhysicsObject object) {
         removeObjectBuffer.add(object);
     }
 
@@ -188,13 +182,13 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Add all buffered dynamic objects to the scene.
      */
     private void addBufferedDynamicObjects() {
-        for (PhysicsObject object : addObjectBuffer) {
+        for (IPhysicsObject object : addObjectBuffer) {
 
             if (object instanceof IUpdateable) {
                 updateableObjects.add((IUpdateable) object);
             }
-            if (object instanceof IPrepareUpdateable) {
-                prepUpdateableObjects.add((IPrepareUpdateable) object);
+            if (object instanceof IPrepareable) {
+                prepUpdateableObjects.add((IPrepareable) object);
             }
             if (object instanceof IIntersectable) {
                 intersectableObjects.add((IIntersectable) object);
@@ -214,13 +208,13 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Remove all buffered dynamic objects from the game.
      */
     private void removeBufferedDynamicObjects() {
-        for (PhysicsObject object : removeObjectBuffer) {
+        for (IPhysicsObject object : removeObjectBuffer) {
 
             if (object instanceof IUpdateable) {
                 updateableObjects.remove((IUpdateable) object);
             }
-            if (object instanceof IPrepareUpdateable) {
-                prepUpdateableObjects.remove((IPrepareUpdateable) object);
+            if (object instanceof IPrepareable) {
+                prepUpdateableObjects.remove((IPrepareable) object);
             }
             if (object instanceof IIntersectable) {
                 intersectableObjects.remove((IIntersectable) object);
@@ -240,12 +234,12 @@ public class GameObjects implements IUpdateable, IGameObjects {
     /**
      * Set the bounds of the game.
      *
-     * @param top min y value.
-     * @param right max x value.
+     * @param top    min y value.
+     * @param right  max x value.
      * @param bottom max y value.
-     * @param left min x value.
+     * @param left   min x value.
      */
-    private void setGameBounds(double top, double right, double bottom, double left) {
+    private void setGameBounds(final double top, final double right, final double bottom, final double left) {
         topBorder = top;
         rightBorder = right;
         bottomBorder = bottom;
@@ -334,7 +328,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param projectile the projectile to add.
      */
     @Override
-    public void addProjectile(Projectile projectile) {
+    public void addProjectile(final Projectile projectile) {
         addObject(projectile);
         this.projectile = projectile;
         hasProjectile = true;
@@ -355,12 +349,11 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @param centerX the x coordinate of the center of the circle.
      * @param centerY the y coordinate of the center of the circle.
-     * @param radius the radius of the circle.
+     * @param radius  the radius of the circle.
      * @return the interface of the circle view object.
      */
     @Override
-    public ICircleViewObject makeCircle(double centerX, double centerY,
-            double radius) {
+    public ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
         return draw.makeCircle(centerX, centerY, radius);
     }
 
@@ -369,27 +362,25 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @param startX the x coordinate of the start point of the line.
      * @param startY the y coordinate of the start point of the line.
-     * @param endX the x coordinate of the end point of the line.
-     * @param endY the y coordinate of the end point of the line.
+     * @param endX   the x coordinate of the end point of the line.
+     * @param endY   the y coordinate of the end point of the line.
      * @return the interface of the line view object.
      */
     @Override
-    public ILineViewObject makeLine(double startX, double startY,
-            double endX, double endY) {
+    public ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
         return draw.makeLine(startX, startY, endX, endY);
     }
 
     /**
      * Create an image in the view.
      *
-     * @param is the input stream of the image.
+     * @param is     the input stream of the image.
      * @param height the height of the image.
-     * @param width the width of the image.
+     * @param width  the width of the image.
      * @return the interface of the image view object.
      */
     @Override
-    public IImageViewObject makeImage(InputStream is, double height,
-            double width) {
+    public IImageViewObject makeImage(final InputStream is, final double height, final double width) {
         return draw.makeImage(is, width, height);
     }
 
@@ -399,22 +390,23 @@ public class GameObjects implements IUpdateable, IGameObjects {
     }
 
     @Override
-    public void handleModifierCollision(IModifier mod, boolean isPlayerPickup, boolean isBubblePickup) {
-        if(isPlayerPickup) {
-            player.addModifier((AbstractPlayerModifierDecorator) mod);
-        } else if(isBubblePickup) {
-            for(Bubble b : bubbles)
-                b.addModifier((AbstractBubbleModifierDecorator) mod);
+    public void handleModifierCollision(final Object mod, final boolean isPlayerPickup, final boolean isBubblePickup) {
+        if (isPlayerPickup) {
+            player.addModifier((AbstractPlayerDecorator) mod);
+        } else if (isBubblePickup) {
+            for (Bubble b : bubbles) {
+                b.addModifier((AbstractBubbleDecorator) mod);
+            }
         }
-    }
-    
-    @Override
-    public void handleBubbleSplit(Point p) {
-        pickupGenerater.generatePickup(p);
     }
 
     @Override
-    public void addPoints(int points) {
+    public void handleBubbleSplit(final Point p) {
+        pickupGenerator.generatePickup(p);
+    }
+
+    @Override
+    public void addPoints(final int points) {
         score += points;
     }
 
@@ -422,9 +414,39 @@ public class GameObjects implements IUpdateable, IGameObjects {
     public void addLife() {
         draw.addLife();
     }
-    
+
     @Override
     public int bubblesLeft() {
         return bubbles.size();
     }
+
+    //CHECKSTYLE.OFF
+    //Methods for testing purposes
+
+    GameObjects(final Boolean testing, final IDraw draw, final int level, final double topBorder, final double rightBorder,
+                final double bottomBorder, final double leftBorder, IKeyboard keyBoard) {
+        this.draw = draw;
+        addBufferedDynamicObjects();
+    }
+
+    protected void addBubbles(final Bubble bubble) {
+        bubbles.add(bubble);
+    }
+
+    protected ArrayList<IPrepareable> getPrepareUpdateable() {
+        return prepUpdateableObjects;
+    }
+
+    protected ArrayList<IUpdateable> getUpdateable() {
+        return updateableObjects;
+    }
+
+    protected ArrayList<ICollider> getCollider() {
+        return colliderObjects;
+    }
+
+    protected ArrayList<IIntersectable> getIntersectable() {
+        return intersectableObjects;
+    }
+    //CHECKSTYLE.ON
 }

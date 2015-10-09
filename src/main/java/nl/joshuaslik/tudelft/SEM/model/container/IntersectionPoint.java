@@ -21,9 +21,9 @@ public class IntersectionPoint extends Point {
     /**
      * Create an intersection point.
      *
-     * @param xPos x position.
-     * @param yPos y position.
-     * @param normal normal.
+     * @param xPos     x position.
+     * @param yPos     y position.
+     * @param normal   normal.
      * @param distance distance.
      */
     public IntersectionPoint(double xPos, double yPos, Vector normal, double distance) {
@@ -85,6 +85,7 @@ public class IntersectionPoint extends Point {
 
     /**
      * Check if this and obj are equal.
+     *
      * @param obj the object to compare to.
      * @return if the objects are equal.
      */
@@ -102,6 +103,5 @@ public class IntersectionPoint extends Point {
         }
         return super.equals(obj);
     }
-    
-    
+
 }

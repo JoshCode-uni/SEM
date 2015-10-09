@@ -15,21 +15,20 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
     private final ILineViewObject line;
     private final Point p1, p2;
     private final Vector dir;
+
     /**
-     * 
      * @param gameObjects
      * @param startX
      * @param startY
      * @param endX
-     * @param endY 
+     * @param endY
      */
-    public Line(IGameObjects gameObjects, double startX, double startY, double endX, 
-            double endY) {
+    public Line(final IGameObjects gameObjects, final double startX, final double startY, final double endX, final double endY) {
         super(gameObjects);
-        
+
         line = getGameObjects().makeLine(startX, startY, endX, endY);
         line.setStrokeWidth(10);
-        
+
         this.p1 = new Point(startX, startY);
         this.p2 = new Point(endX, endY);
 
@@ -43,9 +42,10 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
      * @return intersection point on the line, which is closest to point p.
      */
     @Override
-    public IntersectionPoint getClosestIntersection(final Point p) {
+    public final IntersectionPoint getClosestIntersection(final Point p) {
         Vector normal = dir.normal();
-        Point intersection = normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
+        Point intersection =
+                normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
 
         if (intersection == null) {
             return new IntersectionPoint(Double.MAX_VALUE, Double.MAX_VALUE, new Vector(1, 1), Double.MAX_VALUE);
@@ -108,9 +108,24 @@ public class Line extends AbstractPhysicsObject implements IIntersectable {
     private Point getLargestXpoint() {
         return p1.getxPos() < p2.getxPos() ? p2 : p1;
     }
-    
-    public void destroy() {
+
+    /**
+     * Destroys the line object
+     */
+    public final void destroy() {
         getGameObjects().removeObject(this);
         line.destroy();
+    }
+
+    public final Point getPoint1() {
+        return p1;
+    }
+
+    public final Point getPoint2() {
+        return p2;
+    }
+
+    public final Vector getVector() {
+        return dir;
     }
 }

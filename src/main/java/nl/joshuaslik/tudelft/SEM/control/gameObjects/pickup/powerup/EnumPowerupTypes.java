@@ -9,13 +9,13 @@ import java.io.InputStream;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.bubbleMods.BubbleSlowdown;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.PlayerSpeedUp;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.ProjectileSpeedUp;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.ProjectileSpikeDelayUp;
 
 /**
- *
  * @author faris
  */
 public enum EnumPowerupTypes {
@@ -25,13 +25,13 @@ public enum EnumPowerupTypes {
     PROJECTILE_DELAY(ProjectileSpikeDelayUp.class, "/data/gui/img/spike.png", true, false),
     BUBBLE_SLOW_DOWN(BubbleSlowdown.class, "/data/gui/img/slowdown.png", false, true);
 
-    private final Class<? extends IModifier> mod;
+    private final Class mod;
     private final String imageName;
     private final boolean playerPickup, bubblePickup;
     private final static double imageHeight = 50;
     private final static double imageWidth = 50;
 
-    private EnumPowerupTypes(Class<? extends IModifier> mod, String imageName, boolean playerPickup, boolean bubblePickup) {
+    private EnumPowerupTypes(Class mod, String imageName, boolean playerPickup, boolean bubblePickup) {
         this.mod = mod;
         this.imageName = imageName;
         this.playerPickup = playerPickup;
@@ -42,13 +42,13 @@ public enum EnumPowerupTypes {
         EnumPowerupTypes[] mods = EnumPowerupTypes.values();
         int AMOUNT_OF_MOD_TYPES = mods.length;
         int selectedType = (new Random()).nextInt(AMOUNT_OF_MOD_TYPES);
-        
+
         return mods[selectedType];
     }
-    
-//    public IModifier getMod() {
-//        return mod.;
-//    }
+
+    //    public IModifier getMod() {
+    //        return mod.;
+    //    }
 
     public InputStream getImageStream() {
         return getClass().getResourceAsStream(imageName);
@@ -73,8 +73,7 @@ public enum EnumPowerupTypes {
     public IDecorator getDecor() {
         try {
             return (IDecorator) mod.newInstance();
-        }
-        catch (InstantiationException | IllegalAccessException ex) {
+        } catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(EnumPowerupTypes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

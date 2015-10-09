@@ -5,21 +5,21 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.Powerup;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.EnumPowerupTypes;
 import java.util.Random;
+
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.EnumPowerupTypes;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.Powerup;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
- *
  * @author faris
  */
-public class PickupGenerater {
+public class PickupGenerator {
 
     private final IGameObjects gameObjects;
 
-    public PickupGenerater(IGameObjects gameObjects) {
+    public PickupGenerator(IGameObjects gameObjects) {
         this.gameObjects = gameObjects;
     }
 
@@ -34,11 +34,10 @@ public class PickupGenerater {
         // 40% chance for a pickup and 60% chance for a powerup:
         if (rand.nextDouble() < 0.6) {
             // create powerup
-            Powerup powerup = new Powerup(gameObjects, EnumPowerupTypes.getRandomPowerup(),
-                    p.getxPos(), p.getyPos());
+            Powerup powerup = new Powerup(gameObjects, EnumPowerupTypes.getRandomPowerup(), p.getxPos(), p.getyPos());
             gameObjects.addObject(powerup);
         } else {
-        // create pickup
+            // create pickup
             // 80% chance to get a coin, 20% chance to get a life.
             if (rand.nextDouble() < 0.5) {
                 Coin coin = new Coin(gameObjects, p.getxPos(), p.getyPos());

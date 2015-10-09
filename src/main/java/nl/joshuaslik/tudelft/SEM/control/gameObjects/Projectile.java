@@ -18,7 +18,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  */
 public class Projectile extends AbstractPhysicsObject implements IUpdateable, ICollideReceiver {
 
-//    private final javafx.scene.shape.Line fxLine;
+    //    private final javafx.scene.shape.Line fxLine;
     private final ILineViewObject line;
     private Point p1, p2;
     private final Vector dir;
@@ -31,13 +31,12 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * Create a projectile.
      *
      * @param gameObjects
-     * @param startX start x coordinate of the projectile.
-     * @param startY start y coordinate of the projectile.
+     * @param startX      start x coordinate of the projectile.
+     * @param startY      start y coordinate of the projectile.
      * @param speed
      * @param delay
      */
-    public Projectile(IGameObjects gameObjects, double startX, double startY, double speed,
-            int delay) {
+    public Projectile(final IGameObjects gameObjects, final double startX, final double startY, final double speed, final int delay) {
         super(gameObjects);
 
         growSpeed = 1000 * speed;
@@ -54,8 +53,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
         line.setColor(0.2, 0.1, 0.1);
         line.setOpacity(0.8);
 
-        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX)
-                + ", " + Double.toString(startY) + ")");
+        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) + ", " + Double.toString(startY) + ")");
     }
 
     /**
@@ -64,7 +62,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * @param nanoFrameTime the framerate (nanoseconds/frame).
      */
     @Override
-    public void update(long nanoFrameTime) {
+    public void update(final long nanoFrameTime) {
 
         // destroy line if it hit the ceiling
         if (line.getEndY() <= getGameObjects().getTopBorder() + 2) {
@@ -73,9 +71,8 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
                 delay -= nanoFrameTime;
                 return;
             }
-            GameLog.addInfoLog("Projectile hit ceiling at: ("
-                    + Double.toString(line.getEndX()) + ", "
-                    + Double.toString(line.getEndY()) + ")");
+            GameLog.addInfoLog("Projectile hit ceiling at: (" + Double.toString(line.getEndX()) + ", " + Double.toString(line.getEndY())
+                               + ")");
             getGameObjects().removeProjectile();
             line.destroy();
             isActive = false;
@@ -100,7 +97,8 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
     @Override
     public IntersectionPoint getClosestIntersection(final Point p) {
         Vector normal = dir.normal();
-        Point intersection = normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
+        Point intersection =
+                normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
 
         if (intersection == null) {
             return new IntersectionPoint(Double.MAX_VALUE, Double.MAX_VALUE, new Vector(1, 1), Double.MAX_VALUE);
@@ -176,20 +174,39 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      * Called when a dynamic object collides with this projectile. If it is a bubble we will split
      * the bubble.
      *
-     * @param obj2 the dynamic object which collided with this projectile.
+     * @param obj2          the dynamic object which collided with this projectile.
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
-    public void collide(ICollider obj2, long nanoFrameTime) {
+    public void collide(final ICollider obj2, final long nanoFrameTime) {
         if (isActive && obj2 instanceof Bubble) {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
-            GameLog.addInfoLog("Projectile hit bubble at: ("
-                    + Double.toString(line.getEndX()) + ", "
-                    + Double.toString(line.getEndY()) + ")");
+            GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX()) + ", " + Double.toString(line.getEndY())
+                               + ")");
             getGameObjects().removeProjectile();
             line.destroy();
             isActive = false;
         }
+    }
+
+    public Vector getVector() {
+        return dir;
+    }
+
+    public Point getPoint1() {
+        return p1;
+    }
+
+    public Point getPoint2() {
+        return p2;
+    }
+
+    public double getDelay() {
+        return delay;
+    }
+
+    public double getGrowSpeed() {
+        return growSpeed;
     }
 }

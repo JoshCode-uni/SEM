@@ -2,12 +2,11 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
-public class TimeDoor extends Door {
+public class TimeDoor extends AbstractDoor {
 
     private long waitTime;
 
-    public TimeDoor(IGameObjects game, Point upperLeft, Point upperRight, Point bottomLeft,
-            Point bottomRight, long starttime, long delay) {
+    public TimeDoor(IGameObjects game, Point upperLeft, Point upperRight, Point bottomLeft, Point bottomRight, long starttime, long delay) {
         super(game, upperLeft, upperRight, bottomLeft, bottomRight);
         waitTime = delay - starttime;
     }

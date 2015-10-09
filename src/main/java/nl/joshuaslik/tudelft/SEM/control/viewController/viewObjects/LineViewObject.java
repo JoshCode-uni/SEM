@@ -13,6 +13,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 /**
  * This class can be used to add a line to the view and update the properties of
  * that line.
+ *
  * @author faris
  */
 public class LineViewObject extends AbstractViewObject implements ILineViewObject {
@@ -21,19 +22,19 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
 
     /**
      * Create a line.
+     *
      * @param startX x coordinate of the start position of the line.
      * @param startY y coordinate of the start position of the line.
-     * @param endX x coordinate of the end position of the line.
-     * @param endY y coordinate of the end position of the line.
-     * @param gc a reference to the controller of the view of this line.
+     * @param endX   x coordinate of the end position of the line.
+     * @param endY   y coordinate of the end position of the line.
+     * @param gc     a reference to the controller of the view of this line.
      */
-    public LineViewObject(double startX, double startY, double endX, 
-            double endY, GameController gc) {
+    public LineViewObject(double startX, double startY, double endX, double endY, GameController gc) {
         super(gc);
         this.line = new Line(startX, startY, endX, endY);
         gc.drawNode(line);
     }
-    
+
     /**
      * @return this node.
      */
@@ -44,6 +45,7 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
 
     /**
      * Set the x coordinate of the start position of the line.
+     *
      * @param xCoordinate x coordinate.
      */
     @Override
@@ -53,6 +55,7 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
 
     /**
      * Set the y coordinate of the start position of the line.
+     *
      * @param yCoordinate y coordinate.
      */
     @Override
@@ -62,6 +65,7 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
 
     /**
      * Set the x coordinate of the end position of the line.
+     *
      * @param xCoordinate x coordinate.
      */
     @Override
@@ -71,6 +75,7 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
 
     /**
      * Set the y coordinate of the end position of the line.
+     *
      * @param yCoordinate y coordinate.
      */
     @Override
@@ -80,6 +85,7 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
 
     /**
      * Set the width of the line.
+     *
      * @param width width of the line.
      */
     @Override
@@ -89,9 +95,10 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
 
     /**
      * Set the color of the line/
-     * @param red value between 0 and 1.
+     *
+     * @param red   value between 0 and 1.
      * @param green value between 0 and 1.
-     * @param blue value between 0 and 1.
+     * @param blue  value between 0 and 1.
      */
     @Override
     public void setColor(double red, double green, double blue) {
@@ -100,6 +107,7 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
 
     /**
      * Set the opacity.
+     *
      * @param opacity value between 0 and 1.
      */
     @Override
@@ -138,5 +146,5 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
     public double getEndY() {
         return line.getEndY();
     }
-    
+
 }

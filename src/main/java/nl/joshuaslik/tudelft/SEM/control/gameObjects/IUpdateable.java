@@ -11,12 +11,12 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
  *
  * @author faris
  */
-public interface IUpdateable extends PhysicsObject {
+public interface IUpdateable extends IPhysicsObject {
 
     /**
      * Update the object.
      *
      * @param nanoFrameTime nanoFrameTime the framerate (nanoseconds/frame)
      */
-    public abstract void update(final long nanoFrameTime);
+    void update(final long nanoFrameTime);
 }
