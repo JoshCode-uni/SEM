@@ -8,19 +8,22 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class IntersectionPointTest {
-	
-	IntersectionPoint point1, point2, point3, point4;
-	Point point5;
-	
-	/**
-	 * Setup test.
-	 */
-	@Before
-	public void beforeTest() {
-		point1 = new IntersectionPoint(20, 20, new Vector(5, 2), 50);
-		point2 = new IntersectionPoint(20, 20, new Vector(5, 2), 50);
-		point3 = new IntersectionPoint(20, 20, new Vector(5, 2), 60);
-		point4 = new IntersectionPoint(20, 20, null, 60);
+
+    private IntersectionPoint point1;
+    private IntersectionPoint point2;
+    private IntersectionPoint point3;
+    private IntersectionPoint point4;
+    private Point point5;
+
+    /**
+     * Setup test.
+     */
+    @Before
+    public void beforeTest() {
+        point1 = new IntersectionPoint(20, 20, new Vector(5, 2), 50);
+        point2 = new IntersectionPoint(20, 20, new Vector(5, 2), 50);
+        point3 = new IntersectionPoint(20, 20, new Vector(5, 2), 60);
+        point4 = new IntersectionPoint(20, 20, null, 60);
 		point5 = new Point(20, 20);
 	}
 	

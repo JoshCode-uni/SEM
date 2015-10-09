@@ -305,7 +305,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      *
      * @return center point of this bubble.
      */
-    public final Point getPoint() {
+    private Point getPoint() {
         return new Point(circle.getCenterX(), circle.getCenterY());
     }
 

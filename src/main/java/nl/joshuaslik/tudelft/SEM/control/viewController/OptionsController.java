@@ -63,7 +63,7 @@ public class OptionsController implements IviewController {
     /**
      * Load this view.
      */
-    public static void loadView() {
+    private static void loadView() {
         Launcher.loadView(Class.class.getResource("/data/gui/pages/Options.fxml"));
     }
 

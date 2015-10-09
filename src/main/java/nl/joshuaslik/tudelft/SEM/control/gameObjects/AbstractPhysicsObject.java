@@ -22,7 +22,7 @@ public abstract class AbstractPhysicsObject implements IPhysicsObject {
      *
      * @param gameObjects game objects interface.
      */
-    public AbstractPhysicsObject(final IGameObjects gameObjects) {
+    protected AbstractPhysicsObject(final IGameObjects gameObjects) {
         this.gameObjects = gameObjects;
     }
 

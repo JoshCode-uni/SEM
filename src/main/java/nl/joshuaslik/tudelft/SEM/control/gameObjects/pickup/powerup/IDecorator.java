@@ -18,7 +18,7 @@ public interface IDecorator<T> {
      * @param mod should be of the correct type.
      * @return
      */
-    public T decorate(T mod);
+    T decorate(T mod);
 
     //    public abstract InputStream getImageStream();
     //    public abstract double getImageHeight();

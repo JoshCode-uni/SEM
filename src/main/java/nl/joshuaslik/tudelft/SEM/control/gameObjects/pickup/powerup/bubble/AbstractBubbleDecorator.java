@@ -22,7 +22,7 @@ public abstract class AbstractBubbleDecorator implements IBubbleModifier, IDecor
         return this;
     }
 
-    public IBubbleModifier getChild() {
+    protected IBubbleModifier getChild() {
         return child;
     }
 }

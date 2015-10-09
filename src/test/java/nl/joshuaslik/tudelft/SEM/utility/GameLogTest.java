@@ -18,34 +18,34 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameLog.class)
 public class GameLogTest {
-	
-	StringWriter sw;
-	PrintWriter pw;
-	String date = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
-	
-	/**
-	 * Setup the test.
-	 *
-	 * @throws Exception
-	 */
-	@Before
-	public void setup() throws Exception {
-		sw = new StringWriter();
-		pw = new PrintWriter(sw);
-		GameLog.setPrintWriter(pw);
-		GameLog.setInitialization(true);
-		PowerMockito.spy(GameLog.class);
-		PowerMockito.doReturn(date).when(GameLog.class, "getCurrentTime");
-	}
-	
-	/**
-	 * Tests if the correct information is logged by the error logger.
-	 */
-	@Test
-	public void testAddErrorLog() {
-		String randomString = UUID.randomUUID().toString();
-		GameLog.addErrorLog(randomString);
-		assertTrue(sw.toString().contains(date));
+
+    private StringWriter sw;
+    private PrintWriter  pw;
+    private String date = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
+
+    /**
+     * Setup the test.
+     *
+     * @throws Exception
+     */
+    @Before
+    public void setup() throws Exception {
+        sw = new StringWriter();
+        pw = new PrintWriter(sw);
+        GameLog.setPrintWriter(pw);
+        GameLog.setInitialization(true);
+        PowerMockito.spy(GameLog.class);
+        PowerMockito.doReturn(date).when(GameLog.class, "getCurrentTime");
+    }
+
+    /**
+     * Tests if the correct information is logged by the error logger.
+     */
+    @Test
+    public void testAddErrorLog() {
+        String randomString = UUID.randomUUID().toString();
+        GameLog.addErrorLog(randomString);
+        assertTrue(sw.toString().contains(date));
 		assertTrue(sw.toString().contains("[ERROR] " + randomString));
 	}
 	

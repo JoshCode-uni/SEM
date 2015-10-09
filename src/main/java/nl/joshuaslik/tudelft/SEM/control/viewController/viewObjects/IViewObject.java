@@ -15,5 +15,5 @@ public interface IViewObject {
     /**
      * Remove the object from the view.
      */
-    public void destroy();
+    void destroy();
 }

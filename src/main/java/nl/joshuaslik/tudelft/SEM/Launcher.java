@@ -29,20 +29,20 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  */
 public class Launcher extends Application {
 
-	public static final int SCREEN_WIDTH = 600;
-	public static final int SCREEN_HEIGHT = 600;
-	public static final double GRAVITY = 700;
-	public static final double ENERGY = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
-//	private static final BorderPane bp = new BorderPane();
-	private static Stage stage;
+    public static final  int        SCREEN_WIDTH  = 600;
+    private static final int        SCREEN_HEIGHT = 600;
+    public static final  double     GRAVITY       = 700;
+    public static final  double     ENERGY        = GRAVITY * SCREEN_HEIGHT; // E = .5v2 + gh
+    private static final BorderPane BP            = new BorderPane();
+    private static Stage stage;
         
-        // These controllers are only intended to be used for testing purposes:
-        private static IviewController controller;
-        private static IpopupController popupController;
-        private static final Object LOCK = new Object();
-        private static boolean initialized = false;
-        private static boolean hideViewForTesting = false;
-        private static final BorderPane BP            = new BorderPane();
+    // These controllers are only intended to be used for testing purposes:
+    private static IviewController controller;
+    private static IpopupController popupController;
+    private static final Object LOCK = new Object();
+    private static boolean initialized = false;
+    private static boolean hideViewForTesting = false;
+
 
     /**
      * Start up the game.

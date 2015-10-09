@@ -18,5 +18,5 @@ public interface IUpdateable extends IPhysicsObject {
      *
      * @param nanoFrameTime nanoFrameTime the framerate (nanoseconds/frame)
      */
-    public abstract void update(final long nanoFrameTime);
+    void update(final long nanoFrameTime);
 }
