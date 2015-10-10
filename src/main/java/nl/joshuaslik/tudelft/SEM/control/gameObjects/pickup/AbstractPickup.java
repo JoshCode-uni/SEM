@@ -61,7 +61,7 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
         return pickupImage;
     }
 
-    protected void destroy() {
+    public void destroy() {
         pickupImage.destroy();
         getGameObjects().removeObject(this);
     }

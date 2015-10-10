@@ -46,10 +46,6 @@ public enum EnumPowerupTypes {
         return mods[selectedType];
     }
 
-    //    public IModifier getMod() {
-    //        return mod.;
-    //    }
-
     public InputStream getImageStream() {
         return getClass().getResourceAsStream(imageName);
     }

@@ -22,9 +22,12 @@ public class PickupGenerator {
     public PickupGenerator(IGameObjects gameObjects) {
         this.gameObjects = gameObjects;
     }
-
+    
     public void generatePickup(Point p) {
-        Random rand = new Random();
+        generatePickup(p, new Random());
+    }
+
+    public void generatePickup(Point p, Random rand) {
 
         // 50% chance to create a pickup
         if (!rand.nextBoolean()) {
