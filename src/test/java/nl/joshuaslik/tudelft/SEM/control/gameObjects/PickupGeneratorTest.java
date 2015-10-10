@@ -1,6 +1,6 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
-import static org.junit.Assert.*;
+import java.io.InputStream;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
@@ -10,84 +10,106 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.Coin;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.Life;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.Powerup;
+import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import static org.mockito.Mockito.when;
+import org.mockito.runners.MockitoJUnit44Runner;
 
-
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(PickupGenerator.class)
+@RunWith(MockitoJUnit44Runner.class)
 public class PickupGeneratorTest {
 
-	IGameObjects igo = Mockito.mock(IGameObjects.class);
-	Point p = Mockito.mock(Point.class);
-	Powerup powerup = Mockito.mock(Powerup.class);
-	PickupGenerator pg;
-	Coin coin = Mockito.mock(Coin.class);
-	Life life = Mockito.mock(Life.class);
-	Random rnd;
-	@Before
-	public void setup() throws Exception {
-		rnd = PowerMockito.mock(Random.class);
-		PowerMockito.whenNew(Random.class).withAnyArguments().thenReturn(rnd);
-		PowerMockito.whenNew(Powerup.class).withAnyArguments().thenReturn(powerup);
-		PowerMockito.whenNew(Coin.class).withAnyArguments().thenReturn(coin);
-		PowerMockito.whenNew(Life.class).withAnyArguments().thenReturn(life);
-		pg = new PickupGenerator(igo);
-		
-	}
-	
-	/**
-	 * Tests if no pickup is spawned under the right circumstances
-	 */
-	@Test
-	public void testNoPickup() {
-		Mockito.when(rnd.nextBoolean()).thenReturn(false);
+    @Mock
+    IGameObjects igo;
 
-		pg.generatePickup(p);
-		verify(igo, times(0)).addObject(powerup);
-	}
-	
-	/**
-	 * Tests if a powerup is spawned under the right circumstances
-	 * @throws Exception
-	 */
-	@Test
-	public void testPowerup() throws Exception {
+    @Mock
+    Point point;
 
-		Mockito.when(rnd.nextBoolean()).thenReturn(true);
-		Mockito.when(rnd.nextDouble()).thenReturn(0.5);
-		pg.generatePickup(p);
-		verify(igo, times(1)).addObject(powerup);
-	}
-	
-	/**
-	 * Tests if a coin is dropped under the right circumstances
-	 */
-	@Test
-	public void testCoin() {
-		Mockito.when(rnd.nextBoolean()).thenReturn(true);
-		Mockito.when(rnd.nextDouble()).thenReturn(0.7);
-		Mockito.when(rnd.nextDouble()).thenReturn(0.4);
-		pg.generatePickup(p);
-		verify(igo, times(1)).addObject(powerup);
-	}
+    @Mock
+    Powerup powerup;
 
-	/**
-	 * Tests if a life is dropped under the right circumstances
-	 */
-	@Test
-	public void testLife() {
-		Mockito.when(rnd.nextBoolean()).thenReturn(true);
-		Mockito.when(rnd.nextDouble()).thenReturn(0.7);
-		Mockito.when(rnd.nextDouble()).thenReturn(0.6);
-		pg.generatePickup(p);
-		verify(igo, times(1)).addObject(life);
-	}
+    PickupGenerator pg;
+
+    @Mock
+    Coin coin;
+
+    @Mock
+    Life life;
+
+    Random rnd;
+
+    @Mock
+    IImageViewObject image;
+
+    /**
+     * Initialize mocks.
+     */
+    @Before
+    public void setup() {
+        when(igo.getLeftBorder()).thenReturn(0.0);
+        when(igo.getRightBorder()).thenReturn(10.0);
+        when(igo.getTopBorder()).thenReturn(0.0);
+        when(igo.getBottomBorder()).thenReturn(10.0);
+        when(igo.makeImage(Mockito.any(InputStream.class), Mockito.any(Double.class),
+                Mockito.any(Double.class))).thenReturn(image);
+
+        pg = new PickupGenerator(igo);
+
+    }
+
+    /**
+     * Tests if no pickup is spawned under the right circumstances
+     */
+    @Test
+    public void testNoPickup() {
+        Random rand = Mockito.mock(Random.class);
+        when(rand.nextBoolean()).thenReturn(Boolean.FALSE);
+
+        pg.generatePickup(point, rand);
+        verify(igo, times(0)).addObject(Mockito.any());
+    }
+
+    /**
+     * Tests if a powerup is spawned under the right circumstances
+     */
+    @Test
+    public void testPowerup() {
+        Random rand = Mockito.mock(Random.class);
+        when(rand.nextBoolean()).thenReturn(Boolean.TRUE);
+        when(rand.nextDouble()).thenReturn(0.0);
+        pg.generatePickup(point, rand);
+
+        verify(igo, times(1)).addObject(Mockito.any(Powerup.class));
+    }
+
+    /**
+     * Tests if a coin is dropped under the right circumstances
+     */
+    @Test
+    public void testCoin() {
+        Random rand = Mockito.mock(Random.class);
+        when(rand.nextBoolean()).thenReturn(Boolean.TRUE);
+        when(rand.nextDouble()).thenReturn(1.0, 0.0);
+        pg.generatePickup(point, rand);
+
+        verify(igo, times(1)).addObject(Mockito.any(Coin.class));
+    }
+
+    /**
+     * Tests if a life is dropped under the right circumstances
+     */
+    @Test
+    public void testLife() {
+        Random rand = Mockito.mock(Random.class);
+        when(rand.nextBoolean()).thenReturn(Boolean.TRUE);
+        when(rand.nextDouble()).thenReturn(1.0, 1.0);
+        pg.generatePickup(point, rand);
+
+        verify(igo, times(1)).addObject(Mockito.any(Life.class));
+    }
 }

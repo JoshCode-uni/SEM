@@ -12,10 +12,9 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Mockito.when;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class LevelsTest {
-	
+
 	@Mock
 	IGameObjects gameObjects;
 	

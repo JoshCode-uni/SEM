@@ -15,9 +15,6 @@ public class IntersectionPointTest {
     private IntersectionPoint point4;
     private Point point5;
 
-    /**
-     * Setup test.
-     */
     @Before
     public void beforeTest() {
         point1 = new IntersectionPoint(20, 20, new Vector(5, 2), 50);
@@ -81,5 +78,4 @@ public class IntersectionPointTest {
 		point1.setSpeedVec(new Vector(7, 2));
 		assertEquals(new Vector(7, 2), point1.getSpeedVec());
 	}
-	
 }

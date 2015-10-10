@@ -19,11 +19,8 @@ public class VectorTest {
     private Point p1;
     private Point p2;
 
-    /**
-     * Setup Test
-     */
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         vec1 = new Vector(5, 2);
         vec2 = new Vector(5, 3);
         vec3 = new Vector(5, 2);
@@ -108,5 +105,4 @@ public class VectorTest {
 	public void testToString() {
 		assertEquals("Vector{x=5.0, y=2.0}", vec1.toString());
 	}
-	
 }

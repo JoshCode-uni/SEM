@@ -5,6 +5,7 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
+import java.lang.reflect.InvocationTargetException;
 import nl.joshuaslik.tudelft.SEM.JavaFxJUnit4ClassRunner;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
@@ -83,8 +84,9 @@ public class MainMenuControllerIT {
      * System.exit(0) will be called, because we are using the "ExpectedSystemExit" rule, we expect 
      * a runtime exception.
      */
-    @Test(expected = RuntimeException.class)
+    @Test(expected=RuntimeException.class)
     public final void testHandleQuitButton() {
+        exit.expectSystemExitWithStatus(0);
         controller.getQuitButton().fire();
     }
 

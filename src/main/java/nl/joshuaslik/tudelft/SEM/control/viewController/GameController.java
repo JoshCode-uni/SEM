@@ -40,7 +40,7 @@ public class GameController implements IviewController {
 
     @FXML
     private Text livesText, levelText, scoreText;
-
+    
     @FXML
     private ImageView background;
     @FXML
@@ -69,7 +69,7 @@ public class GameController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    private void handleQuitButton(ActionEvent event) {
+    private void handleQuitButton(final ActionEvent event) {
         GameLog.addInfoLog("Quit button pressed from game screen");
         System.out.println("Quit button pressed!");
         System.exit(0);
@@ -81,7 +81,7 @@ public class GameController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    private void handleMainMenuButton(ActionEvent event) {
+    private void handleMainMenuButton(final ActionEvent event) {
         GameLog.addInfoLog("Main Menu button pressed from game screen");
         System.out.println("Main Menu button pressed!");
         gl.stop();
@@ -112,10 +112,12 @@ public class GameController implements IviewController {
      * @param scene the scene which this view is loaded into.
      */
     @Override
-    public void start(Scene scene) {
+    public void start(final Scene scene) {
 
         int lvl = currentLevel + 1;
-        Image bg = new Image(Class.class.getResourceAsStream("/data/gui/img/backgroundForLevel" + lvl + ".jpg"));
+        Image bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
+        assert(bg != null);
+        assert(background != null);
         background.setImage(bg);
 
         //currentlives = player.getLives();
@@ -143,7 +145,7 @@ public class GameController implements IviewController {
      *
      * @param n node to draw.
      */
-    public void drawNode(Node n) {
+    public void drawNode(final Node n) {
         gameObjects.getChildren().add(n);
     }
 
@@ -152,7 +154,7 @@ public class GameController implements IviewController {
      *
      * @param n node to remove.
      */
-    public void removeNode(Node n) {
+    public void removeNode(final Node n) {
         gameObjects.getChildren().remove(n);
     }
 
@@ -161,7 +163,7 @@ public class GameController implements IviewController {
      *
      * @param nanoTimePassed the framerate (nanoseconds/frame)
      */
-    public void updateTime(Long nanoTimePassed) {
+    public void updateTime(final Long nanoTimePassed) {
 
         timeLeft -= nanoTimePassed;
         if (timeLeft <= 0) {
@@ -220,7 +222,7 @@ public class GameController implements IviewController {
      *
      * @param level
      */
-    private static void setLevel(int level) {
+    private static void setLevel(final int level) {
         GameController.currentLevel = level;
     }
 
@@ -229,7 +231,7 @@ public class GameController implements IviewController {
      *
      * @param lives
      */
-    private static void setLives(int lives) {
+    private static void setLives(final int lives) {
         GameController.currentlives = lives;
     }
 
@@ -239,7 +241,7 @@ public class GameController implements IviewController {
      * @param disabled if the buttons should be disabled.
      */
     @Override
-    public void setButtonsDisabled(boolean disabled) {
+    public void setButtonsDisabled(final boolean disabled) {
         quitButton.setDisable(disabled);
         mainMenuButton.setDisable(disabled);
     }
@@ -252,7 +254,7 @@ public class GameController implements IviewController {
      * @param radius  the radius of the circle.
      * @return the interface of the circle view object.
      */
-    public ICircleViewObject makeCircle(double centerX, double centerY, double radius) {
+    public ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
         return new CircleViewObject(centerX, centerY, radius, this);
     }
 
@@ -264,7 +266,7 @@ public class GameController implements IviewController {
      * @param width  the width of the image.
      * @return the interface of the image view object.
      */
-    public IImageViewObject makeImage(InputStream is, double width, double height) {
+    public IImageViewObject makeImage(final InputStream is, final double width, final double height) {
         return new ImageViewObject(is, width, height, this);
     }
 
@@ -277,7 +279,7 @@ public class GameController implements IviewController {
      * @param endY   the y coordinate of the end point of the line.
      * @return the interface of the line view object.
      */
-    public ILineViewObject makeLine(double startX, double startY, double endX, double endY) {
+    public ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
         return new LineViewObject(startX, startY, endX, endY, this);
     }
 

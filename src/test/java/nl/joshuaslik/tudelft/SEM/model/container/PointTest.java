@@ -12,19 +12,13 @@ public class PointTest {
     private Point point2;
     private Point point3;
 
-    /**
-     * setup Test
-     */
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         point1 = new Point(20, 20);
         point2 = new Point(25, 25);
         point3 = new Point(20, 20);
     }
 
-    /**
-     * Tests initialization.
-     */
     @Test
     public void testPoint() {
 		assertEquals(point1, point3);
@@ -87,5 +81,4 @@ public class PointTest {
 	public void testToString() {
 		assertEquals("Position: (x: 20.0, y: 20.0)", point1.toString());
 	}
-	
 }

@@ -22,9 +22,12 @@ public class PickupGenerator {
     public PickupGenerator(IGameObjects gameObjects) {
         this.gameObjects = gameObjects;
     }
-
+    
     public void generatePickup(Point p) {
-        Random rand = new Random();
+        generatePickup(p, new Random());
+    }
+
+    public void generatePickup(Point p, Random rand) {
 
         // 50% chance to create a pickup
         if (!rand.nextBoolean()) {
@@ -38,8 +41,8 @@ public class PickupGenerator {
             gameObjects.addObject(powerup);
         } else {
             // create pickup
-            // 80% chance to get a coin, 20% chance to get a life.
-            if (rand.nextDouble() < 0.5) {
+            // 90% chance to get a coin, 10% chance to get a life.
+            if (rand.nextDouble() < 0.9) {
                 Coin coin = new Coin(gameObjects, p.getxPos(), p.getyPos());
                 gameObjects.addObject(coin);
             } else {
