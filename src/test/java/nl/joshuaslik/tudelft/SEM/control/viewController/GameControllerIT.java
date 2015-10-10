@@ -37,7 +37,8 @@ public class GameControllerIT {
      */
     @Before
     public final void startGame() {
-        GameController.loadView();
+        MainMenuController.loadView();
+        ((MainMenuController) Launcher.getController()).getPlayButton().fire();
         controller = (GameController) Launcher.getController();
         assert controller != null;
     }
@@ -46,8 +47,10 @@ public class GameControllerIT {
      * Test of handleQuitButton method, of class MainMenuController.
      * System.exit(0) will be called, because we are using the "ExpectedSystemExit" rule, we expect
      * a runtime exception.
+     * @throws java.lang.InterruptedException ignore.
      */
-    public void testHandleQuitButton() {
+    @Test(expected=RuntimeException.class)
+    public void testHandleQuitButton() throws InterruptedException {
         exit.expectSystemExitWithStatus(0);
         controller.getQuitButton().fire();
     }
