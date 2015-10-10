@@ -1,10 +1,12 @@
-package nl.joshuaslik.tudelft.SEM.control.gameObjects;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup;
 
 import java.io.InputStream;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.times;
 
 import java.util.Random;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.AbstractPickup;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.Coin;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.Life;
@@ -111,5 +113,14 @@ public class PickupGeneratorTest {
         pg.generatePickup(point, rand);
 
         verify(igo, times(1)).addObject(Mockito.any(Life.class));
+    }
+    
+    /**
+     * Test other methods.
+     */
+    @Test
+    public void testOther() {
+        pg.generatePickup(point);
+        verify(igo, Mockito.atMost(1)).addObject(Mockito.any(AbstractPickup.class));
     }
 }

@@ -1,9 +1,8 @@
-package nl.joshuaslik.tudelft.SEM.control.gameObjects;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods;
 
 import static org.junit.Assert.*;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.PlayerBaseModifier;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.ProjectileSpeedUp;
 
 import org.junit.Test;
 

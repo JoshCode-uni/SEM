@@ -1,4 +1,4 @@
-package nl.joshuaslik.tudelft.SEM.control.gameObjects;
+package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player;
 
 import static org.junit.Assert.*;
 
