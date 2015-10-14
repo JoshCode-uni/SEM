@@ -10,7 +10,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -33,13 +32,10 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 public class GameController implements IviewController {
 
     @FXML
-    private Pane pane;
-
-    @FXML
     private Rectangle timeRectangle, negativeTimeRectangle;
 
     @FXML
-    private Text livesText, levelText, scoreText;
+    private Text levelText, scoreText;
     
     @FXML
     private ImageView background;
@@ -50,7 +46,7 @@ public class GameController implements IviewController {
     private Button quitButton, mainMenuButton;
 
     @FXML
-    private Line top, right, bottom, left;
+    private Line top, bottom;
     @FXML
     private Group gameObjects;
 
@@ -59,7 +55,6 @@ public class GameController implements IviewController {
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
 
     private static int currentlives = 5;
-//    private static int currentLevel = 0;
 
     private long timeLeft;
 
