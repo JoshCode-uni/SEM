@@ -23,10 +23,7 @@
 			</door>
 		</doors>
 		<players>
-			<spawnarea>
-				<widthbound xl="###" xr="###" />
-				<heightbound yl="###" yr="###" />
-			</spawnarea>
+			<spawnarea xl="0" xr="1920" />
 		</players>
 	</level>
 	 -->
@@ -41,10 +38,7 @@
 		<doors>
 		</doors>
 		<players>
-			<spawnarea>
-				<widthbound xl="0" xr="1920" />
-				<heightbound yl="" yr="" />
-			</spawnarea>
+			<spawnarea xl="0" xr="1920" />
 		</players>
 	</level>
 
@@ -71,10 +65,7 @@
 			</door>
 		</doors>
 		<players>
-			<spawnarea>
-				<widthbound xl="0" xr="1920" />
-				<heightbound yl="" yr="" />
-			</spawnarea>
+			<spawnarea xl="0" xr="1920" />
 		</players>
 	</level>
 	
