@@ -15,6 +15,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 import nl.joshuaslik.tudelft.SEM.utility.Time;
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  * A class containing the position of the player. This class also controller the player.
@@ -56,7 +57,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      */
     @Override
     public void checkCollision(final IIntersectable obj2, final long nanoFrameTime) {
-        if (obj2 instanceof Bubble) {
+        if (Bubble.class.isAssignableFrom(obj2.getClass())) {
             Bubble bubble = (Bubble) obj2;
             if (image.intersects(bubble.getCircleViewObject())) {
                 getGameObjects().playerDied();

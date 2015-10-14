@@ -19,6 +19,6 @@ interface IIntersectable extends IPhysicsObject {
      * @param p point to get closest location to.
      * @return closest point on the object to point p.
      */
-    IntersectionPoint getClosestIntersection(final Point p);
+    public IntersectionPoint getClosestIntersection(final Point p);
 
 }
