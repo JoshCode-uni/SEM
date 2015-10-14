@@ -2,7 +2,6 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.io.InputStream;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -64,7 +63,7 @@ public class GameController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    private void handleQuitButton(final ActionEvent event) {
+    private void handleQuitButton() {
         GameLog.addInfoLog("Quit button pressed from game screen");
         System.out.println("Quit button pressed!");
         System.exit(0);
@@ -76,7 +75,7 @@ public class GameController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    private void handleMainMenuButton(final ActionEvent event) {
+    private void handleMainMenuButton() {
         GameLog.addInfoLog("Main Menu button pressed from game screen");
         System.out.println("Main Menu button pressed!");
         gl.stop();
@@ -268,6 +267,9 @@ public class GameController implements IviewController {
         return new LineViewObject(startX, startY, endX, endY, this);
     }
 
+    /**
+     * Add a life.
+     */
     public void addLife() {
         setLives(currentlives + 1);
         resetLives();
@@ -278,7 +280,7 @@ public class GameController implements IviewController {
      *
      * @return view element
      */
-    public final Button getQuitButton() {
+    protected final Button getQuitButton() {
         return quitButton;
     }
 
@@ -287,7 +289,7 @@ public class GameController implements IviewController {
      *
      * @return view element
      */
-    public final Button getMainMenuButton() {
+    protected final Button getMainMenuButton() {
         return mainMenuButton;
     }
 }

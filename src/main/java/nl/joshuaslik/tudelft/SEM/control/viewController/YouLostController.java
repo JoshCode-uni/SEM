@@ -1,6 +1,5 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
@@ -17,11 +16,9 @@ public class YouLostController implements IpopupController {
 
     /**
      * Handles clicking of the main menu button
-     *
-     * @param event the click of the button
      */
     @FXML
-    private void handleMainMenuButton(final ActionEvent event) {
+    private void handleMainMenuButton() {
         GameLog.addInfoLog("Retry button pressed from you lost screen");
         System.out.println("Retry button pressed!");
         popupControl.hide();
@@ -30,11 +27,9 @@ public class YouLostController implements IpopupController {
 
     /**
      * Handles clicking of the try again button
-     *
-     * @param event the click of the button
      */
     @FXML
-    private void handleTryAgainButton(final ActionEvent event) {
+    private void handleTryAgainButton() {
         GameLog.addInfoLog("Main menu button pressed from you lost screen");
         System.out.println("Main Menu button pressed!");
         popupControl.hide();
@@ -76,7 +71,7 @@ public class YouLostController implements IpopupController {
      *
      * @return view element
      */
-    public Button getMainMenuButton() {
+    protected Button getMainMenuButton() {
         return mainMenuButton;
     }
 
@@ -85,7 +80,7 @@ public class YouLostController implements IpopupController {
      *
      * @return view element
      */
-    public Button getTryAgainButton() {
+    protected Button getTryAgainButton() {
         return tryAgainButton;
     }
 }
