@@ -61,7 +61,7 @@ public class GameObjectsConstructorTest {
                     .withArguments(Mockito.any(GameObjects.class), Mockito.any(InputStream.class), Mockito.any(Keyboard.class))
                     .thenReturn(player);
         physicsObject.add(bubble);
-        gameObjects = new GameObjects(null, 0, 10.0, 20.0, 0.0, 5.0, null);
+        gameObjects = new GameObjects(null, 10.0, 20.0, 0.0, 5.0, null);
 	}
 	
 	/**

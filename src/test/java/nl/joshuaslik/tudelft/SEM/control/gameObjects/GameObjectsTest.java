@@ -71,7 +71,7 @@ public class GameObjectsTest {
      */
     @Before
     public void setUp() {
-        gameObjects = new GameObjects(true, gl, 0, 100, 100, 0, 0, kb);
+        gameObjects = new GameObjects(gl);
         spyGameObjects = Mockito.spy(gameObjects);
     }
 

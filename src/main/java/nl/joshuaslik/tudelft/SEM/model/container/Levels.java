@@ -31,12 +31,11 @@ public class Levels {
     /**
      * Get level of [index].
      *
-     * @param index       the index of the level.
      * @param gameObjects
      * @return the level.
      */
-    public static ArrayList<IPhysicsObject> getLevelObjects(final int index, final IGameObjects gameObjects) {
-        switch (index) {
+    public static ArrayList<IPhysicsObject> getLevelObjects(final IGameObjects gameObjects) {
+        switch (currentLevel) {
             case 0:
                 return createLevel0(gameObjects);
             case 1:
