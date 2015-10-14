@@ -10,6 +10,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  * A class which holds the information of a projectile which is shot by the palyer.
@@ -179,7 +180,7 @@ public class Projectile extends AbstractPhysicsObject implements IUpdateable, IC
      */
     @Override
     public void collide(final ICollider obj2, final long nanoFrameTime) {
-        if (isActive && obj2 instanceof Bubble) {
+        if (isActive && Bubble.class.isAssignableFrom(obj2.getClass())) {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
             GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX()) + ", " + Double.toString(line.getEndY())
