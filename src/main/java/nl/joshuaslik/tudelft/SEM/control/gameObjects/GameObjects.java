@@ -22,6 +22,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewOb
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  * Game objects stores all objects of a level and updates them. It also keeps
@@ -56,19 +57,18 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @param draw         interface to the drawing class which allows us to draw the
      *                     game objects.
-     * @param level        the current level.
      * @param topBorder    y value of the top border.
      * @param rightBorder  x value of the right border.
      * @param bottomBorder y value of the bottom border.
      * @param leftBorder   x value of the left border.
      * @param keyBoard
      */
-    public GameObjects(final IDraw draw, final int level, final double topBorder, final double rightBorder, final double bottomBorder,
+    public GameObjects(final IDraw draw, final double topBorder, final double rightBorder, final double bottomBorder,
                        final double leftBorder, final IKeyboard keyBoard) {
         this.draw = draw;
         initializeBorders(topBorder, rightBorder, bottomBorder, leftBorder);
         initializePlayer(keyBoard);
-        initializeLevel(level);
+        initializeLevel();
         addBufferedDynamicObjects();
     }
 
@@ -152,8 +152,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @param level the level to initialize.
      */
-    private void initializeLevel(final int level) {
-        for (IPhysicsObject e : Levels.getLevelObjects(level, (IGameObjects) this)) {
+    private void initializeLevel() {
+        for (IPhysicsObject e : Levels.getLevelObjects((IGameObjects) this)) {
             addObject(e);
         }
     }
@@ -184,20 +184,23 @@ public class GameObjects implements IUpdateable, IGameObjects {
     private void addBufferedDynamicObjects() {
         for (IPhysicsObject object : addObjectBuffer) {
 
-            if (object instanceof IUpdateable) {
+            if(object == null)
+                continue;
+            
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
                 updateableObjects.add((IUpdateable) object);
             }
-            if (object instanceof IPrepareable) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IPrepareable.class)) {
                 prepUpdateableObjects.add((IPrepareable) object);
             }
-            if (object instanceof IIntersectable) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IIntersectable.class)) {
                 intersectableObjects.add((IIntersectable) object);
             }
-            if (object instanceof ICollider) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
                 colliderObjects.add((ICollider) object);
             }
 
-            if (object instanceof Bubble) {
+            if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.add((Bubble) object);
             }
         }
@@ -210,20 +213,23 @@ public class GameObjects implements IUpdateable, IGameObjects {
     private void removeBufferedDynamicObjects() {
         for (IPhysicsObject object : removeObjectBuffer) {
 
-            if (object instanceof IUpdateable) {
+            if(object == null)
+                continue;
+            
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
                 updateableObjects.remove((IUpdateable) object);
             }
-            if (object instanceof IPrepareable) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IPrepareable.class)) {
                 prepUpdateableObjects.remove((IPrepareable) object);
             }
-            if (object instanceof IIntersectable) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IIntersectable.class)) {
                 intersectableObjects.remove((IIntersectable) object);
             }
-            if (object instanceof ICollider) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
                 colliderObjects.remove((ICollider) object);
             }
 
-            if (object instanceof Bubble) {
+            if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.remove((Bubble) object);
                 score += 10;
             }
@@ -423,8 +429,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
     //CHECKSTYLE.OFF
     //Methods for testing purposes
 
-    GameObjects(final Boolean testing, final IDraw draw, final int level, final double topBorder, final double rightBorder,
-                final double bottomBorder, final double leftBorder, IKeyboard keyBoard) {
+    GameObjects(final IDraw draw) {
         this.draw = draw;
         addBufferedDynamicObjects();
     }

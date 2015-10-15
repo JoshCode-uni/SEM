@@ -2,12 +2,14 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.util.ArrayList;
 
-import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
@@ -17,26 +19,27 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  * Controller for the main menu UI.
  *
  * @author Bastijn
+ * @author Faris
  */
 public class MainMenuController implements IviewController {
 
     @FXML
-    private Pane pane;
-
-    @FXML
     private HBox chooseLevelBox;
+    
+    @FXML
+    private VBox gameModeBox;
 
     @FXML
     private Pane optionsPane;
 
     @FXML
-    private Button playButton, chooseLevelButton, optionsButton, quitButton;
+    private Button playButton, chooseLevelButton, optionsButton, quitButton, classicButton, survivalButton;
 
     @FXML
     private Text totalScore;
 
     @FXML
-    private Button level1Button, level2Button, level3Button, level4Button, level5Button, mainMenuButton;
+    private Button level1Button, level2Button, level3Button, level4Button, level5Button;
 
     private static final ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
 
@@ -50,6 +53,9 @@ public class MainMenuController implements IviewController {
      * Initialize.
      */
     public void initialize() {
+    	
+		showGameModeButtons();
+		
         totalScore.setText("Total Score: " + calculateTotalScore());
         level5Button.setDisable(true);
         level4Button.setDisable(true);
@@ -68,6 +74,38 @@ public class MainMenuController implements IviewController {
         }
     }
 
+    /**
+     * showGameModeButtons
+     * Let game mode buttons be only shown when play button is hovered over
+     */
+    private void showGameModeButtons() {
+    	gameModeBox.setVisible(false);
+		playButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				gameModeBox.setVisible(true);
+			}
+		});
+		gameModeBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				gameModeBox.setVisible(true);
+			}
+		});
+		playButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				gameModeBox.setVisible(false);
+			}
+		});
+		gameModeBox.setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				gameModeBox.setVisible(false);
+			}
+		});
+	}
+
+	/**
+     * Calculate the total score.
+     * @return the total score.
+     */
     private static int calculateTotalScore() {
         int score = 0;
         for (int e : scoresPerLevel) {
@@ -78,24 +116,41 @@ public class MainMenuController implements IviewController {
 
     /**
      * Handles clicking of the start button
-     *
-     * @param event the click of the button
      */
     @FXML
-    protected void handlePlayButton(final ActionEvent event) {
+    protected void handlePlayButton() {
         GameLog.addInfoLog("Play button pressed from main menu");
         System.out.println("Play button pressed!");
+        gameModeBox.setVisible(!gameModeBox.isVisible());
+    }
+    
+    /**
+     * Handles clicking of the classic mode button
+     */
+    @FXML
+    protected void handleClassicButton() {
+        GameLog.addInfoLog("Classic button pressed from main menu");
+        System.out.println("Classic button pressed!");
         GameController.loadView();
+    }
+    
+    /**
+     * Handles clicking of the survival mode button
+     */
+    @FXML
+    protected void handleSurvivalButton() {
+        GameLog.addInfoLog("Survival button pressed from main menu");
+        System.out.println("Survival button pressed!");
+        // ENTER SURVIVAL MODE
+        // NOT YET IMPLEMENTED!!!!!!!!!!!!
     }
 
     /**
      * Handles clicking of the choose level button. Toggles choose button
      * visibility.
-     *
-     * @param event the click of the button
      */
     @FXML
-    protected void handleChooseLevelButton(final ActionEvent event) {
+    protected void handleChooseLevelButton() {
         GameLog.addInfoLog("Choose level button pressed from main menu");
         System.out.println("Choose Level button pressed!");
         chooseLevelBox.setVisible(!chooseLevelBox.isVisible());
@@ -103,11 +158,9 @@ public class MainMenuController implements IviewController {
 
     /**
      * Handles clicking of the options button
-     *
-     * @param event the click of the button
      */
     @FXML
-    protected void handleOptionsButton(final ActionEvent event) {
+    protected void handleOptionsButton() {
         GameLog.addInfoLog("Options button pressed from main menu");
         System.out.println("Options button pressed!");
         optionsPane.setVisible(!optionsPane.isVisible());
@@ -115,11 +168,9 @@ public class MainMenuController implements IviewController {
 
     /**
      * Handles clicking of the quit button
-     *
-     * @param event the click of the button
      */
     @FXML
-    protected void handleQuitButton(final ActionEvent event) {
+    protected void handleQuitButton() {
         GameLog.addInfoLog("Quit button pressed from main menu");
         System.out.println("Quit button pressed!");
         System.exit(0);
@@ -172,11 +223,9 @@ public class MainMenuController implements IviewController {
 
     /**
      * Handles clicking of the Level 1 button
-     *
-     * @param event the click of the button
      */
     @FXML
-    protected void handleLevel1Button(final ActionEvent event) {
+    protected void handleLevel1Button() {
         GameLog.addInfoLog("Level 1 button pressed");
         System.out.println("Level 1 button pressed!");
         Levels.setCurrentLevel(0);
@@ -186,11 +235,9 @@ public class MainMenuController implements IviewController {
 
     /**
      * Handles clicking of the Level 2 button
-     *
-     * @param event the click of the button
      */
     @FXML
-    protected void handleLevel2Button(final ActionEvent event) {
+    protected void handleLevel2Button() {
         GameLog.addInfoLog("Level 2 button pressed");
         System.out.println("Level 2 button pressed!");
         Levels.setCurrentLevel(1);
@@ -199,11 +246,9 @@ public class MainMenuController implements IviewController {
 
     /**
      * Handles clicking of the Level 3 button
-     *
-     * @param event the click of the button
      */
     @FXML
-    protected void handleLevel3Button(final ActionEvent event) {
+    protected void handleLevel3Button() {
         GameLog.addInfoLog("Level 3 button pressed");
         System.out.println("Level 3 button pressed!");
         Levels.setCurrentLevel(2);
@@ -213,11 +258,9 @@ public class MainMenuController implements IviewController {
 
     /**
      * Handles clicking of the Level 4 button
-     *
-     * @param event the click of the button
      */
     @FXML
-    protected void handleLevel4Button(final ActionEvent event) {
+    protected void handleLevel4Button() {
         GameLog.addInfoLog("Level 4 button pressed");
         System.out.println("Level 4 button pressed!");
         Levels.setCurrentLevel(3);
@@ -226,11 +269,9 @@ public class MainMenuController implements IviewController {
 
     /**
      * Handles clicking of the Level 5 button
-     *
-     * @param event the click of the button
      */
     @FXML
-    protected void handleLevel5Button(final ActionEvent event) {
+    protected void handleLevel5Button() {
         GameLog.addInfoLog("Level 5 button pressed");
         System.out.println("Level 5 button pressed!");
         Levels.setCurrentLevel(4);
@@ -242,7 +283,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final HBox getChooseLevelBox() {
+    protected final HBox getChooseLevelBox() {
         return chooseLevelBox;
     }
 
@@ -251,7 +292,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Pane getOptionsPane() {
+    protected final Pane getOptionsPane() {
         return optionsPane;
     }
 
@@ -260,7 +301,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Button getPlayButton() {
+    protected final Button getPlayButton() {
         return playButton;
     }
 
@@ -269,7 +310,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Button getChooseLevelButton() {
+    protected final Button getChooseLevelButton() {
         return chooseLevelButton;
     }
 
@@ -278,7 +319,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Button getOptionsButton() {
+    protected final Button getOptionsButton() {
         return optionsButton;
     }
 
@@ -287,7 +328,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Button getQuitButton() {
+    protected final Button getQuitButton() {
         return quitButton;
     }
 
@@ -296,7 +337,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Button getLevel1Button() {
+    protected final Button getLevel1Button() {
         return level1Button;
     }
 
@@ -305,7 +346,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Button getLevel2Button() {
+    protected final Button getLevel2Button() {
         return level2Button;
     }
 
@@ -314,7 +355,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Button getLevel3Button() {
+    protected final Button getLevel3Button() {
         return level3Button;
     }
 
@@ -323,7 +364,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Button getLevel4Button() {
+    protected final Button getLevel4Button() {
         return level4Button;
     }
 
@@ -332,7 +373,7 @@ public class MainMenuController implements IviewController {
      *
      * @return view element
      */
-    public final Button getLevel5Button() {
+    protected final Button getLevel5Button() {
         return level5Button;
     }
 }

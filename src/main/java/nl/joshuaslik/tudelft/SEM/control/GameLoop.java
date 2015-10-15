@@ -34,18 +34,17 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
     /**
      * @param gameController the controller of the game view.
-     * @param currentLevel   the current level.
      * @param top            y value of the top border.
      * @param right          x value of the right border.
      * @param bottom         y value of the bottom border.
      * @param left           x value of the left border.
      * @param scene          the scene of the game (to add a keylistener to).
      */
-    public GameLoop(final GameController gameController, final int currentLevel, final double top, final double right, final double bottom,
+    public GameLoop(final GameController gameController, final double top, final double right, final double bottom,
                     final double left, final Scene scene) {
         this.gameController = gameController;
         kb = new Keyboard(scene);
-        gameObjects = new GameObjects((IDraw) this, currentLevel, top, right, bottom, left, kb);
+        gameObjects = new GameObjects((IDraw) this, top, right, bottom, left, kb);
     }
 
     @Override

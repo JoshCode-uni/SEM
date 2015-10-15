@@ -2,7 +2,6 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.io.InputStream;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -10,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -33,13 +31,10 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 public class GameController implements IviewController {
 
     @FXML
-    private Pane pane;
-
-    @FXML
     private Rectangle timeRectangle, negativeTimeRectangle;
 
     @FXML
-    private Text livesText, levelText, scoreText;
+    private Text levelText, scoreText;
     
     @FXML
     private ImageView background;
@@ -50,7 +45,7 @@ public class GameController implements IviewController {
     private Button quitButton, mainMenuButton;
 
     @FXML
-    private Line top, right, bottom, left;
+    private Line top, bottom;
     @FXML
     private Group gameObjects;
 
@@ -59,7 +54,6 @@ public class GameController implements IviewController {
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
 
     private static int currentlives = 5;
-    private static int currentLevel = 0;
 
     private long timeLeft;
 
@@ -69,7 +63,7 @@ public class GameController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    private void handleQuitButton(final ActionEvent event) {
+    private void handleQuitButton() {
         GameLog.addInfoLog("Quit button pressed from game screen");
         System.out.println("Quit button pressed!");
         System.exit(0);
@@ -81,7 +75,7 @@ public class GameController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    private void handleMainMenuButton(final ActionEvent event) {
+    private void handleMainMenuButton() {
         GameLog.addInfoLog("Main Menu button pressed from game screen");
         System.out.println("Main Menu button pressed!");
         gl.stop();
@@ -114,19 +108,19 @@ public class GameController implements IviewController {
     @Override
     public void start(final Scene scene) {
 
-        int lvl = currentLevel + 1;
+        int lvl = Levels.getCurrentLevel() + 1;
         Image bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
         assert(bg != null);
         assert(background != null);
         background.setImage(bg);
 
         //currentlives = player.getLives();
-        levelText.setText("Level " + Integer.toString(currentLevel + 1));
+        levelText.setText("Level " + Integer.toString(lvl));
         timeLeft = MAX_TIME;
 
         resetLives();
 
-        gl = new GameLoop(this, currentLevel, top.getStartY(), top.getEndX(), bottom.getStartY(), top.getStartX(), scene);
+        gl = new GameLoop(this, top.getStartY(), top.getEndX(), bottom.getStartY(), top.getStartX(), scene);
 
         gl.setViewController(this);
 
@@ -188,9 +182,8 @@ public class GameController implements IviewController {
         gl.stop();
         gl = null;
         Levels.nextLevel();
-        setLevel(currentLevel + 1);
 
-        if (currentLevel < 5) {
+        if (Levels.getCurrentLevel() < 5) {
             YouWonController.loadPopup(this);
         } else {
             CongratsController.loadPopup(this);
@@ -215,15 +208,6 @@ public class GameController implements IviewController {
             YouLostController.loadPopup(this);
             setLives(3);
         }
-    }
-
-    /**
-     * Disable all buttons. Select the level which should be played.
-     *
-     * @param level
-     */
-    private static void setLevel(final int level) {
-        GameController.currentLevel = level;
     }
 
     /**
@@ -283,6 +267,9 @@ public class GameController implements IviewController {
         return new LineViewObject(startX, startY, endX, endY, this);
     }
 
+    /**
+     * Add a life.
+     */
     public void addLife() {
         setLives(currentlives + 1);
         resetLives();
@@ -293,7 +280,7 @@ public class GameController implements IviewController {
      *
      * @return view element
      */
-    public final Button getQuitButton() {
+    protected final Button getQuitButton() {
         return quitButton;
     }
 
@@ -302,7 +289,7 @@ public class GameController implements IviewController {
      *
      * @return view element
      */
-    public final Button getMainMenuButton() {
+    protected final Button getMainMenuButton() {
         return mainMenuButton;
     }
 }

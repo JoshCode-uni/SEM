@@ -70,9 +70,9 @@ public class ProjectileTest {
     @Test
     public void testPointsInitialized() {
         assertEquals(projectile.getPoint1().getxPos(), 0, 0);
-        assertEquals(projectile.getPoint1().getyPos(), 1, 0);
-		assertEquals(projectile.getPoint2().getxPos(), 0, 0);
-		assertEquals(projectile.getPoint2().getyPos(), 11, 0);
+        assertEquals(projectile.getPoint1().getyPos(), -1, 0);
+        assertEquals(projectile.getPoint2().getxPos(), 0, 0);
+        assertEquals(projectile.getPoint2().getyPos(), -2, 0);
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class ProjectileTest {
 	 */
 	@Test
 	public void testVectorInitialized() {
-		assertEquals(projectile.getVector(), new Vector(0, 10));
+		assertEquals(projectile.getVector(), new Vector(0, -1));
 	}
 	
 	/**
@@ -122,7 +122,7 @@ public class ProjectileTest {
 	public void testGetClosestIntersectionLargeY() {
 		when(p.getxPos()).thenReturn(50d);
 		when(p.getyPos()).thenReturn(25d);
-		assertEquals(projectile.getClosestIntersection(p), new IntersectionPoint(0.0, 11.0, projectile.getVector().normal(), Double.MAX_VALUE));
+		assertEquals(projectile.getClosestIntersection(p), new IntersectionPoint(0.0, -1.0, projectile.getVector().normal(), Double.MAX_VALUE));
 	}
 	
 	/**
@@ -132,7 +132,8 @@ public class ProjectileTest {
 	public void testGetClosestIntersectionSmallY() {
 		when(p.getxPos()).thenReturn(0d);
 		when(p.getyPos()).thenReturn(0d);
-		assertEquals(projectile.getClosestIntersection(p), new IntersectionPoint(0, 1, projectile.getVector().normal(), Double.MAX_VALUE));
+		assertEquals(new IntersectionPoint(0, -1, projectile.getVector().normal(), 
+                        Double.MAX_VALUE), projectile.getClosestIntersection(p));
 	}
 	
 	/**

@@ -10,6 +10,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 import nl.joshuaslik.tudelft.SEM.utility.Time;
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  * This class contains the position, speed and direction of a bubble. It
@@ -128,7 +129,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
                 collide(ip, nanoFrameTime);
             }
             //notify the other object to collide with this object
-            if (obj2 instanceof ICollideReceiver) {
+            if (ClassUtils.getAllInterfaces(obj2.getClass()).contains(ICollideReceiver.class)) {
                 ((ICollideReceiver) obj2).collide(this, nanoFrameTime);
             }
             if (newDist < curDist) {
@@ -198,9 +199,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      */
     @Override
     public void collide(final ICollider obj2, final long nanoFrameTime) {
-        if (!(obj2 instanceof IIntersectable)) {
-            return;
-        }
+
         Point thisCirclePoint = new Point(circle.getCenterX(), circle.getCenterY());
         IntersectionPoint ip = ((IIntersectable) obj2).getClosestIntersection(thisCirclePoint);
 
