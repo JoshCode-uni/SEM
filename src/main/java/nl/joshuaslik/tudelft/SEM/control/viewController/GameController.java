@@ -112,7 +112,7 @@ public class GameController implements IviewController {
 
         int lvl = Levels.getCurrentLevel() + 1;
         Image bg;
-        if(!GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL)) {
+        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
             bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
         } else {
             bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel1.jpg"));
@@ -136,7 +136,7 @@ public class GameController implements IviewController {
     }
 
     private void resetLives() {
-        if(!GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL)) {
+        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
             Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + GameInfo.getInstance().getLives() + ".png"));
             lives.setImage(image);
         } else {
@@ -170,7 +170,7 @@ public class GameController implements IviewController {
      */
     public void updateTime(final Long nanoTimePassed) {
 
-        if(!GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL)) {
+        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
             timeLeft -= nanoTimePassed;
             if (timeLeft <= 0) {
                 died();
@@ -215,7 +215,7 @@ public class GameController implements IviewController {
         int ilives = gi.getLives() - 1;
         gi.loseLife();
 
-        if (ilives >= 0 && !GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL)) {
+        if (ilives >= 0 && !PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
             GameController.loadView();
         } else {
             YouLostController.loadPopup(this);

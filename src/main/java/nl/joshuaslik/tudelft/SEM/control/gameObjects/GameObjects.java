@@ -113,8 +113,9 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Add a random bubble with a chance of 1/300 (~once every 5 seconds) at a random location.
      */
     private void checkSurvivalMode() {
-        if(!GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL))
+        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
             return;
+        }
         if(allBubblesDestroyed() || (Math.random() < 1.0 / 300.0 && bubblesLeft() < 10)) {
             Point topLeft = Levels.getCircleSpawnPointTopLeft();
             Point bottomRight = Levels.getCircleSpawnPointBottomRight();
@@ -211,7 +212,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param level the level to initialize.
      */
     private void initializeLevel() {
-        if(!GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL)) {
+        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
             for (IPhysicsObject e : Levels.getLevelObjects((IGameObjects) this)) {
                 addObject(e);
             }

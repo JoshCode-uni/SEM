@@ -69,7 +69,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     @Override
     public final void handle(final long time) {
 
-        if (!GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL) && 
+        if (!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode()) && 
                 gameObjects.allBubblesDestroyed()) {
             gameController.levelCompleted();
             return;
