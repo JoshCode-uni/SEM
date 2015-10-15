@@ -22,6 +22,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObj
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -110,7 +111,13 @@ public class GameController implements IviewController {
     public void start(final Scene scene) {
 
         int lvl = Levels.getCurrentLevel() + 1;
-        Image bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
+        Image bg;
+        if(!GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL)) {
+            bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
+        } else {
+            bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel1.jpg"));
+        }
+        
         assert(bg != null);
         assert(background != null);
         background.setImage(bg);
@@ -129,8 +136,13 @@ public class GameController implements IviewController {
     }
 
     private void resetLives() {
-        Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + GameInfo.getInstance().getLives() + ".png"));
-        lives.setImage(image);
+        if(!GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL)) {
+            Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + GameInfo.getInstance().getLives() + ".png"));
+            lives.setImage(image);
+        } else {
+            Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart0.png"));
+            lives.setImage(image);
+        }
     }
 
     /**
@@ -158,15 +170,16 @@ public class GameController implements IviewController {
      */
     public void updateTime(final Long nanoTimePassed) {
 
-        timeLeft -= nanoTimePassed;
-        if (timeLeft <= 0) {
-            died();
-            return;
+        if(!GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL)) {
+            timeLeft -= nanoTimePassed;
+            if (timeLeft <= 0) {
+                died();
+                return;
+            }
+            timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft / 
+                    (double) MAX_TIME));
         }
-
         scoreText.setText("Score: " + gl.getScore());
-        timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft / (double) MAX_TIME));
-
     }
 
     /**
@@ -202,7 +215,7 @@ public class GameController implements IviewController {
         int ilives = gi.getLives() - 1;
         gi.loseLife();
 
-        if (ilives >= 0) {
+        if (ilives >= 0 && !GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SURVIVAL)) {
             GameController.loadView();
         } else {
             YouLostController.loadPopup(this);

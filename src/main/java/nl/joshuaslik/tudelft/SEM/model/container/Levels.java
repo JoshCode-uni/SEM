@@ -33,7 +33,7 @@ public class Levels {
      * @return top left.
      */
     public static Point getCircleSpawnPointTopLeft() {
-        return new Point(100, 100);
+        return new Point(100, 350);
     }
 
     /**
@@ -41,9 +41,13 @@ public class Levels {
      * @return bottom right.
      */
     public static Point getCircleSpawnPointBottomRight() {
-        return new Point(1800, 300);
+        return new Point(1800, 450);
     }
 
+    public static ArrayList<IPhysicsObject> getSurvivalLevelObjects(final IGameObjects gameObjects) {
+        return createLevel0(gameObjects);
+    }
+    
     /**
      * Get level of [index].
      *

@@ -10,5 +10,5 @@ package nl.joshuaslik.tudelft.SEM.model.container;
  * @author Faris
  */
 public enum PlayerMode {
-    SINGLE_PLAYER, MULTI_PLAYER_COOP, MULTI_PLAYER_VERSUS;
+    SINGLE_PLAYER, MULTI_PLAYER_COOP, MULTI_PLAYER_VERSUS, SURVIVAL;
 }
