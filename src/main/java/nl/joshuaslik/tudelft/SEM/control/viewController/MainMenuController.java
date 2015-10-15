@@ -82,6 +82,13 @@ public class MainMenuController implements IviewController {
      */
     private void showGameModeButtons() {
     	gameModeBox.setVisible(false);
+    	
+		playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				gameModeBox.setVisible(true);
+			}
+		});
+    	
 		playButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				gameModeBox.setVisible(true);
