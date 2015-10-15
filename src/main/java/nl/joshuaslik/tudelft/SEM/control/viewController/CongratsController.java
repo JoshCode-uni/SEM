@@ -39,15 +39,27 @@ public class CongratsController implements IpopupController {
         MainMenuController.loadView();
     }
 
+    /**
+     * Load the popup.
+     * @param controller the main view controller.
+     */
     public static void loadPopup(final IviewController controller) {
         Launcher.loadPopup(controller, Class.class.getResource("/data/gui/pages/Congrats.fxml"));
     }
 
+    /**
+     * Set the main view controller.
+     * @param controller the main view controller.
+     */
     @Override
     public void setMainViewController(final IviewController controller) {
         mainController = controller;
     }
 
+    /**
+     * Set the popup controller.
+     * @param popupControl the popup controller.
+     */
     @Override
     public void setPopupControl(final PopupControl popupControl) {
         this.popupControl = popupControl;
@@ -58,7 +70,7 @@ public class CongratsController implements IpopupController {
      *
      * @return view element
      */
-    public Button getMainMenuButton() {
+    protected Button getMainMenuButton() {
         return mainMenuButton;
     }
 }

@@ -1,10 +1,8 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
-import javafx.scene.layout.Pane;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
@@ -14,9 +12,6 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  * @author Bastijn
  */
 public class YouWonController implements IpopupController {
-
-    @FXML
-    private Pane pane;
 
     @FXML
     private Button mainMenuButton, nextLevelButton;
@@ -33,11 +28,9 @@ public class YouWonController implements IpopupController {
 
     /**
      * Handles clicking of the main menu button
-     *
-     * @param event the click of the button
      */
     @FXML
-    private void handleMainMenuButton(final ActionEvent event) {
+    private void handleMainMenuButton() {
         GameLog.addInfoLog("Main menu button pressed from you won screen");
         System.out.println("Main Menu button pressed!");
         popupControl.hide();
@@ -46,12 +39,10 @@ public class YouWonController implements IpopupController {
 
     /**
      * Handles clicking of the next level button
-     *
-     * @param event the click of the button
      */
     //Needs to change
     @FXML
-    private void handleNextLevelButton(final ActionEvent event) {
+    private void handleNextLevelButton() {
         GameLog.addInfoLog("Next level button pressed from you won screen");
         System.out.println("Next level button pressed!");
         popupControl.hide();
@@ -78,7 +69,7 @@ public class YouWonController implements IpopupController {
      *
      * @return view element
      */
-    public Button getMainMenuButton() {
+    protected Button getMainMenuButton() {
         return mainMenuButton;
     }
 
@@ -87,7 +78,7 @@ public class YouWonController implements IpopupController {
      *
      * @return view element
      */
-    public Button getNextLevelButton() {
+    protected Button getNextLevelButton() {
         return nextLevelButton;
     }
 }
