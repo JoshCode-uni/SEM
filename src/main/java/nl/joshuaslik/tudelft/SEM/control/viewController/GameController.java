@@ -20,6 +20,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewOb
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
@@ -53,7 +54,7 @@ public class GameController implements IviewController {
 
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
 
-    private static int currentlives = 5;
+//    private static int currentlives = 5;
 
     private long timeLeft;
 
@@ -128,9 +129,7 @@ public class GameController implements IviewController {
     }
 
     private void resetLives() {
-        if (currentlives > 10)
-            currentlives = 10;
-        Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + currentlives + ".png"));
+        Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + GameInfo.getInstance().getLives() + ".png"));
         lives.setImage(image);
     }
 
@@ -178,7 +177,7 @@ public class GameController implements IviewController {
         GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
         GameLog.addInfoLog("level score: " + totalScore);
 
-        MainMenuController.setScore(totalScore, Levels.getCurrentLevel());
+        GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
         gl.stop();
         gl = null;
         Levels.nextLevel();
@@ -199,24 +198,16 @@ public class GameController implements IviewController {
         gl.stop();
         gl = null;
 
-        setLives(currentlives - 1);
+        GameInfo gi = GameInfo.getInstance();
+        int ilives = gi.getLives() - 1;
+        gi.loseLife();
 
-        if (currentlives >= 0) {
+        if (ilives >= 0) {
             GameController.loadView();
-            System.out.println("lives: " + currentlives);
         } else {
             YouLostController.loadPopup(this);
-            setLives(3);
+            gi.resetLives();
         }
-    }
-
-    /**
-     * Select the lives the player has.
-     *
-     * @param lives
-     */
-    private static void setLives(final int lives) {
-        GameController.currentlives = lives;
     }
 
     /**
@@ -271,7 +262,7 @@ public class GameController implements IviewController {
      * Add a life.
      */
     public void addLife() {
-        setLives(currentlives + 1);
+        GameInfo.getInstance().addLife();
         resetLives();
     }
 

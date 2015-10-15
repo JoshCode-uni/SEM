@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
@@ -35,19 +36,19 @@ public class MainMenuController implements IviewController {
     @FXML
     private Button level1Button, level2Button, level3Button, level4Button, level5Button;
 
-    private static final ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
-
-    static {
-        for (int i = 0; i < Levels.amountOfLevels() + 1; i++) {
-            scoresPerLevel.add(0);
-        }
-    }
+//    private static final ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
+//
+//    static {
+//        for (int i = 0; i < Levels.amountOfLevels() + 1; i++) {
+//            scoresPerLevel.add(0);
+//        }
+//    }
 
     /**
      * Initialize.
      */
     public void initialize() {
-        totalScore.setText("Total Score: " + calculateTotalScore());
+        totalScore.setText("Total Score: " + GameInfo.getInstance().getTotalScore());
         level5Button.setDisable(true);
         level4Button.setDisable(true);
         level3Button.setDisable(true);
@@ -65,17 +66,17 @@ public class MainMenuController implements IviewController {
         }
     }
 
-    /**
-     * Calculate the total score.
-     * @return the total score.
-     */
-    private static int calculateTotalScore() {
-        int score = 0;
-        for (int e : scoresPerLevel) {
-            score += e;
-        }
-        return score;
-    }
+//    /**
+//     * Calculate the total score.
+//     * @return the total score.
+//     */
+//    private static int calculateTotalScore() {
+//        int score = 0;
+//        for (int e : scoresPerLevel) {
+//            score += e;
+//        }
+//        return score;
+//    }
 
     /**
      * Handles clicking of the start button
@@ -137,18 +138,18 @@ public class MainMenuController implements IviewController {
 
     }
 
-    /**
-     * Set the score of a level.
-     *
-     * @param score the score.
-     * @param level the level.
-     */
-    public static void setScore(final int score, final int level) {
-        if (scoresPerLevel.get(level) < score) {
-            MainMenuController.scoresPerLevel.set(level, score);
-        }
-        GameLog.addInfoLog("new total score: " + calculateTotalScore());
-    }
+//    /**
+//     * Set the score of a level.
+//     *
+//     * @param score the score.
+//     * @param level the level.
+//     */
+//    public static void setScore(final int score, final int level) {
+//        if (scoresPerLevel.get(level) < score) {
+//            MainMenuController.scoresPerLevel.set(level, score);
+//        }
+//        GameLog.addInfoLog("new total score: " + calculateTotalScore());
+//    }
 
     /**
      * Disable the buttons of this view.
