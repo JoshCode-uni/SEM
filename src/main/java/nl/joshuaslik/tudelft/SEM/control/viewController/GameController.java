@@ -277,19 +277,15 @@ public class GameController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getQuitButton() {
-        return quitButton;
+    protected final void fireQuitButton() {
+        quitButton.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getMainMenuButton() {
-        return mainMenuButton;
+    protected final void fireMainMenuButton() {
+         mainMenuButton.fire();
     }
 }

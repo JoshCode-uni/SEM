@@ -38,7 +38,7 @@ public class GameControllerIT {
     @Before
     public final void startGame() {
         MainMenuController.loadView();
-        ((MainMenuController) Launcher.getController()).getPlayButton().fire();
+        ((MainMenuController) Launcher.getController()).firePlayButton();
         controller = (GameController) Launcher.getController();
         assert controller != null;
     }
@@ -52,7 +52,7 @@ public class GameControllerIT {
     @Test(expected=RuntimeException.class)
     public void testHandleQuitButton() throws InterruptedException {
         exit.expectSystemExitWithStatus(0);
-        controller.getQuitButton().fire();
+        controller.fireQuitButton();
     }
 
     /**
@@ -60,7 +60,7 @@ public class GameControllerIT {
      */
     @Test
     public void testHandleMainMenuButton() {
-        controller.getMainMenuButton().fire();
+        controller.fireMainMenuButton();
         assertTrue(Launcher.getController() instanceof MainMenuController);
     }
 }

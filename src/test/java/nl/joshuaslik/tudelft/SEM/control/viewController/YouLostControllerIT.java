@@ -40,7 +40,7 @@ public class YouLostControllerIT {
      */
     @Test
     public void testHandleMainMenuButton() {
-        controller.getMainMenuButton().fire();
+        controller.fireMainMenuButton();
         assertTrue(Launcher.getController() instanceof MainMenuController);
     }
 
@@ -49,7 +49,7 @@ public class YouLostControllerIT {
      */
     @Test
     public void testHandleTryAgainButton() {
-        controller.getTryAgainButton().fire();
+        controller.fireTryAgainButton();
         assertTrue(Launcher.getController() instanceof GameController);
     }
 }
