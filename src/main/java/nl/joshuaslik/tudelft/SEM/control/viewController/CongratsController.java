@@ -67,10 +67,8 @@ public class CongratsController implements IpopupController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected Button getMainMenuButton() {
-        return mainMenuButton;
+    protected void fireMainMenuButton() {
+        mainMenuButton.fire();
     }
 }

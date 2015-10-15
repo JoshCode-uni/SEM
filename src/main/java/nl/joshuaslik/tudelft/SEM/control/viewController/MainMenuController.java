@@ -12,6 +12,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
@@ -41,13 +42,13 @@ public class MainMenuController implements IviewController {
     @FXML
     private Button level1Button, level2Button, level3Button, level4Button, level5Button;
 
-    private static final ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
-
-    static {
-        for (int i = 0; i < Levels.amountOfLevels() + 1; i++) {
-            scoresPerLevel.add(0);
-        }
-    }
+//    private static final ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
+//
+//    static {
+//        for (int i = 0; i < Levels.amountOfLevels() + 1; i++) {
+//            scoresPerLevel.add(0);
+//        }
+//    }
 
     /**
      * Initialize.
@@ -55,8 +56,9 @@ public class MainMenuController implements IviewController {
     public void initialize() {
     	
 		showGameModeButtons();
-		
-        totalScore.setText("Total Score: " + calculateTotalScore());
+
+        totalScore.setText("Total Score: " + GameInfo.getInstance().getTotalScore());
+        
         level5Button.setDisable(true);
         level4Button.setDisable(true);
         level3Button.setDisable(true);
@@ -102,17 +104,17 @@ public class MainMenuController implements IviewController {
 		});
 	}
 
-	/**
-     * Calculate the total score.
-     * @return the total score.
-     */
-    private static int calculateTotalScore() {
-        int score = 0;
-        for (int e : scoresPerLevel) {
-            score += e;
-        }
-        return score;
-    }
+//    /**
+//     * Calculate the total score.
+//     * @return the total score.
+//     */
+//    private static int calculateTotalScore() {
+//        int score = 0;
+//        for (int e : scoresPerLevel) {
+//            score += e;
+//        }
+//        return score;
+//    }
 
     /**
      * Handles clicking of the start button
@@ -195,18 +197,18 @@ public class MainMenuController implements IviewController {
 
     }
 
-    /**
-     * Set the score of a level.
-     *
-     * @param score the score.
-     * @param level the level.
-     */
-    public static void setScore(final int score, final int level) {
-        if (scoresPerLevel.get(level) < score) {
-            MainMenuController.scoresPerLevel.set(level, score);
-        }
-        GameLog.addInfoLog("new total score: " + calculateTotalScore());
-    }
+//    /**
+//     * Set the score of a level.
+//     *
+//     * @param score the score.
+//     * @param level the level.
+//     */
+//    public static void setScore(final int score, final int level) {
+//        if (scoresPerLevel.get(level) < score) {
+//            MainMenuController.scoresPerLevel.set(level, score);
+//        }
+//        GameLog.addInfoLog("new total score: " + calculateTotalScore());
+//    }
 
     /**
      * Disable the buttons of this view.
@@ -298,82 +300,69 @@ public class MainMenuController implements IviewController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getPlayButton() {
-        return playButton;
+    protected final void firePlayButton() {
+        playButton.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getChooseLevelButton() {
-        return chooseLevelButton;
+    protected final void fireChooseLevelButton() {
+        chooseLevelButton.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getOptionsButton() {
-        return optionsButton;
+    protected final void fireOptionsButton() {
+        optionsButton.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getQuitButton() {
-        return quitButton;
+    protected final void fireQuitButton() {
+        quitButton.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getLevel1Button() {
-        return level1Button;
+    protected final void fireLevel1Button() {
+        level1Button.setDisable(false);
+        level1Button.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getLevel2Button() {
-        return level2Button;
+    protected final void fireLevel2Button() {
+        level2Button.setDisable(false);
+        level2Button.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getLevel3Button() {
-        return level3Button;
+    protected final void fireLevel3Button() {
+        level3Button.setDisable(false);
+        level3Button.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getLevel4Button() {
-        return level4Button;
+    protected final void fireLevel4Button() {
+        level4Button.setDisable(false);
+        level4Button.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected final Button getLevel5Button() {
-        return level5Button;
+    protected final void fireLevel5Button() {
+        level5Button.setDisable(false);
+        level5Button.fire();
     }
 }

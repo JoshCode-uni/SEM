@@ -67,20 +67,16 @@ public class YouLostController implements IpopupController {
     }
 
     /**
-     * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
+     * FOR TESTING PURPOSES ONLY
      */
-    protected Button getMainMenuButton() {
-        return mainMenuButton;
+    protected void fireMainMenuButton() {
+        mainMenuButton.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected Button getTryAgainButton() {
-        return tryAgainButton;
+    protected void fireTryAgainButton() {
+        tryAgainButton.fire();
     }
 }

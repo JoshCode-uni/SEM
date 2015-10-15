@@ -66,19 +66,15 @@ public class YouWonController implements IpopupController {
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected Button getMainMenuButton() {
-        return mainMenuButton;
+    protected void fireMainMenuButton() {
+        mainMenuButton.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    protected Button getNextLevelButton() {
-        return nextLevelButton;
+    protected void fireNextLevelButton() {
+        nextLevelButton.fire();
     }
 }
