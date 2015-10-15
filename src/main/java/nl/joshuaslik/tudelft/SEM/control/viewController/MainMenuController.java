@@ -34,7 +34,7 @@ public class MainMenuController implements IviewController {
     private Pane optionsPane;
 
     @FXML
-    private Button playButton, chooseLevelButton, optionsButton, quitButton, classicButton, survivalButton;
+    private Button playButton, chooseLevelButton, optionsButton, quitButton;
 
     @FXML
     private Text totalScore;
