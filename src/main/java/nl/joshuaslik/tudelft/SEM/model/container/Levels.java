@@ -27,6 +27,22 @@ public class Levels {
     public static int amountOfLevels() {
         return AMOUNT_OF_IMPLEMENTED_LEVELS;
     }
+    
+    /**
+     * Get the top left spawn point of the bubbles in survival mode.
+     * @return top left.
+     */
+    public static Point getCircleSpawnPointTopLeft() {
+        return new Point(100, 100);
+    }
+
+    /**
+     * Get the bottom right spawn point of the bubbles in survival mode.
+     * @return bottom right.
+     */
+    public static Point getCircleSpawnPointBottomRight() {
+        return new Point(1800, 300);
+    }
 
     /**
      * Get level of [index].
