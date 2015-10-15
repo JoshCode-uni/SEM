@@ -140,7 +140,7 @@ public class MainMenuController implements IviewController {
     protected void handleClassicButton() {
         GameLog.addInfoLog("Classic button pressed from main menu");
         System.out.println("Classic button pressed!");
-        GameController.loadView();
+        GameplayChoicesController.loadPopup(this);
     }
     
     /**
