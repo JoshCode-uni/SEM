@@ -21,6 +21,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObj
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.GameMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
@@ -112,7 +113,7 @@ public class GameController implements IviewController {
 
         int lvl = Levels.getCurrentLevel() + 1;
         Image bg;
-        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
         } else {
             bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel1.jpg"));
@@ -136,7 +137,7 @@ public class GameController implements IviewController {
     }
 
     private void resetLives() {
-        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + GameInfo.getInstance().getLives() + ".png"));
             lives.setImage(image);
         } else {
@@ -170,7 +171,7 @@ public class GameController implements IviewController {
      */
     public void updateTime(final Long nanoTimePassed) {
 
-        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             timeLeft -= nanoTimePassed;
             if (timeLeft <= 0) {
                 died();
@@ -215,7 +216,7 @@ public class GameController implements IviewController {
         int ilives = gi.getLives() - 1;
         gi.loseLife();
 
-        if (ilives >= 0 && !PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
+        if (ilives >= 0 && !GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             GameController.loadView();
         } else {
             YouLostController.loadPopup(this);

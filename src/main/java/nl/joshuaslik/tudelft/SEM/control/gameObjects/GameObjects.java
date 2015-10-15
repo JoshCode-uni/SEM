@@ -21,6 +21,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewO
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.GameMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
@@ -113,7 +114,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Add a random bubble with a chance of 1/300 (~once every 5 seconds) at a random location.
      */
     private void checkSurvivalMode() {
-        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             return;
         }
         if(allBubblesDestroyed() || (Math.random() < 1.0 / 300.0 && bubblesLeft() < 10)) {
@@ -212,7 +213,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param level the level to initialize.
      */
     private void initializeLevel() {
-        if(!PlayerMode.SURVIVAL.equals(GameInfo.getInstance().getPlayerMode())) {
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             for (IPhysicsObject e : Levels.getLevelObjects((IGameObjects) this)) {
                 addObject(e);
             }
