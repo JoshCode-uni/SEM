@@ -2,11 +2,14 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
@@ -22,12 +25,15 @@ public class MainMenuController implements IviewController {
 
     @FXML
     private HBox chooseLevelBox;
+    
+    @FXML
+    private VBox gameModeBox;
 
     @FXML
     private Pane optionsPane;
 
     @FXML
-    private Button playButton, chooseLevelButton, optionsButton, quitButton;
+    private Button playButton, chooseLevelButton, optionsButton, quitButton, classicButton, survivalButton;
 
     @FXML
     private Text totalScore;
@@ -47,6 +53,9 @@ public class MainMenuController implements IviewController {
      * Initialize.
      */
     public void initialize() {
+    	
+		showGameModeButtons();
+		
         totalScore.setText("Total Score: " + calculateTotalScore());
         level5Button.setDisable(true);
         level4Button.setDisable(true);
@@ -66,6 +75,34 @@ public class MainMenuController implements IviewController {
     }
 
     /**
+     * showGameModeButtons
+     * Let game mode buttons be only shown when play button is hovered over
+     */
+    private void showGameModeButtons() {
+    	gameModeBox.setVisible(false);
+		playButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				gameModeBox.setVisible(true);
+			}
+		});
+		gameModeBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				gameModeBox.setVisible(true);
+			}
+		});
+		playButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				gameModeBox.setVisible(false);
+			}
+		});
+		gameModeBox.setOnMouseExited(new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent me) {
+				gameModeBox.setVisible(false);
+			}
+		});
+	}
+
+	/**
      * Calculate the total score.
      * @return the total score.
      */
@@ -84,7 +121,28 @@ public class MainMenuController implements IviewController {
     protected void handlePlayButton() {
         GameLog.addInfoLog("Play button pressed from main menu");
         System.out.println("Play button pressed!");
+        gameModeBox.setVisible(!gameModeBox.isVisible());
+    }
+    
+    /**
+     * Handles clicking of the classic mode button
+     */
+    @FXML
+    protected void handleClassicButton() {
+        GameLog.addInfoLog("Classic button pressed from main menu");
+        System.out.println("Classic button pressed!");
         GameController.loadView();
+    }
+    
+    /**
+     * Handles clicking of the survival mode button
+     */
+    @FXML
+    protected void handleSurvivalButton() {
+        GameLog.addInfoLog("Survival button pressed from main menu");
+        System.out.println("Survival button pressed!");
+        // ENTER SURVIVAL MODE
+        // NOT YET IMPLEMENTED!!!!!!!!!!!!
     }
 
     /**
