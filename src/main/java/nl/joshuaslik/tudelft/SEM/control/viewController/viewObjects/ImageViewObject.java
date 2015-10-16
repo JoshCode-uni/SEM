@@ -8,6 +8,7 @@ package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 import java.io.InputStream;
 
 import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
@@ -36,6 +37,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
         super(gc);
         Image img = new Image(is, width, height, true, true);
         this.image = new ImageView(img);
+
         gc.drawNode(image);
     }
 
@@ -45,6 +47,21 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
     @Override
     protected Node getNode() {
         return image;
+    }
+    
+    /**
+     * Set the hsb.
+     * @param hue           hue.
+     * @param saturation    saturation.
+     * @param brightness    brightness.
+     */
+    @Override
+    public void adjustHSB(double hue, double saturation, double brightness) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(brightness);
+        colorAdjust.setHue(hue);
+        colorAdjust.setSaturation(saturation);
+        image.setEffect(colorAdjust);
     }
 
     /**

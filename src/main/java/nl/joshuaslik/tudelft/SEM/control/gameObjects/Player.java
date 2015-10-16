@@ -50,6 +50,9 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         this.p2=p2;
         keyboard = kb;
         playerXstart = image.getStartX();
+        
+        if(p2)
+            image.adjustHSB(-0.30, 1.0, 0.35);
     }
 
     /**
