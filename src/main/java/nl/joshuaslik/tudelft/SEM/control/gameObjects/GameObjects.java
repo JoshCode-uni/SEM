@@ -21,9 +21,11 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewO
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.GameMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
@@ -85,6 +87,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     @Override
     public void update(final long nanoFrameTime) {
+        checkSurvivalMode();
+        
         // only add/remove objects at the beginning of each update
         addBufferedDynamicObjects();
         removeBufferedDynamicObjects();
@@ -108,6 +112,60 @@ public class GameObjects implements IUpdateable, IGameObjects {
         for (IUpdateable e : updateableObjects) {
             e.update(nanoFrameTime);
         }
+    }
+    
+    /**
+     * Add a random bubble with a chance of 1/300 (~once every 5 seconds) at a random location.
+     */
+    private void checkSurvivalMode() {
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+            return;
+        }
+        if(allBubblesDestroyed() || (Math.random() < 1.0 / 300.0 && bubblesLeft() < 10)) {
+            Point topLeft = Levels.getCircleSpawnPointTopLeft();
+            Point bottomRight = Levels.getCircleSpawnPointBottomRight();
+            int x = (int) getRandomBetween(topLeft.getxPos(), bottomRight.getxPos());
+            int y = (int) getRandomBetween(topLeft.getyPos(), bottomRight.getyPos());
+            spawnBubble(new Point(x, y), randomBubbleSize());
+        }
+    }
+    
+    /**
+     * Get a random value between a and b.
+     * @param a a number.
+     * @param b a number.
+     * @return a number between a and b.
+     */
+    private double getRandomBetween(double a, double b) {
+        if(a < b) {
+            return (a + (b - a) * Math.random());
+        } else {
+            return (b + (a - b) * Math.random());
+        }
+    }
+    
+    /**
+     * Returns either 20, 40 or 80. 40: 50%, 20: 25%, 80: 25% chance.
+     * @return 20, 40 or 80.
+     */
+    private int randomBubbleSize() {
+        double random = Math.random();
+        if (random < 0.5) {
+            return 40;
+        } else if (random < 0.75) {
+            return 20;
+        } else {
+            return 80;
+        }
+    }
+    
+    /**
+     * Create a bubble at the specified location.
+     * @param location a point.
+     */
+    private void spawnBubble(Point location, int size) {
+        Bubble b = new Bubble(this, location, size, new Vector(1, 0));
+        addObject(b);
     }
 
     /**
@@ -167,8 +225,14 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param level the level to initialize.
      */
     private void initializeLevel() {
-        for (IPhysicsObject e : Levels.getLevelObjects((IGameObjects) this)) {
-            addObject(e);
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+            for (IPhysicsObject e : Levels.getLevelObjects((IGameObjects) this)) {
+                addObject(e);
+            }
+        } else {
+            for (IPhysicsObject e : Levels.getSurvivalLevelObjects((IGameObjects) this)) {
+                addObject(e);
+            }
         }
     }
 

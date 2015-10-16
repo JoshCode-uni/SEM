@@ -17,6 +17,8 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.GameMode;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -67,7 +69,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
     @Override
     public final void handle(final long time) {
 
-        if (gameObjects.allBubblesDestroyed()) {
+        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode()) && 
+                gameObjects.allBubblesDestroyed()) {
             gameController.levelCompleted();
             return;
         }
