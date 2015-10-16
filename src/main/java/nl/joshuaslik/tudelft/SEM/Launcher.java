@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameplayChoicesController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
@@ -49,7 +50,7 @@ public class Launcher extends Application {
     @Override
     public void start(final Stage primaryStage) {
         GameLog.constructor();
-        loadView(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
+        IviewController mainV = loadView(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
         Scene scene = new Scene(BP);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
@@ -60,6 +61,9 @@ public class Launcher extends Application {
         Launcher.stage = primaryStage;
         synchronized (LOCK) {
             initialized = true;
+        }
+        if (!hideViewForTesting) {
+            GameplayChoicesController.loadPopup(mainV);
         }
     }
 

@@ -105,7 +105,7 @@ public class MainMenuController implements IviewController {
         System.out.println("Classic button pressed!");
         
         GameInfo.getInstance().setClassicMode();
-        GameplayChoicesController.loadPopup(this);
+        GameController.loadView();
 
     }
     
