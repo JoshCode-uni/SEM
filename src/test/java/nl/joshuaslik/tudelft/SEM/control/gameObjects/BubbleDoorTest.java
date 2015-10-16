@@ -8,6 +8,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +32,9 @@ public class BubbleDoorTest {
 
     @Mock
     Player player;
+    
+    @Mock
+    Player player2;
 
     private AbstractDoor door;
 
@@ -53,7 +58,10 @@ public class BubbleDoorTest {
         when(gameObjects.makeLine(5.0, 10.0, 5.0, 0.0)).thenReturn(l3);
         when(gameObjects.makeLine(0.0, 0.0, 5.0, 0.0)).thenReturn(l4);
         when(gameObjects.getPlayer()).thenReturn(player);
+        when(gameObjects.getPlayer2()).thenReturn(player2);
         door = new BubbleDoor(gameObjects, p1, p2, p3, p4, 1);
+        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
+
     }
 
     /**

@@ -55,10 +55,15 @@ public abstract class AbstractLine extends AbstractPhysicsObject {
         }
         double distance = intersection.distanceTo(new Point(0, 0));
         intersection = new Point(intersection.getxPos() + p.getxPos(), intersection.getyPos() + p.getyPos());
-        applyBounds(intersection);
+        intersection = applyBounds(intersection);
         return new IntersectionPoint(intersection.getxPos(), intersection.getyPos(), normal, distance);
     }
     
+    /**
+     * Make sure the point isn't outside of the bounds.
+     * @param intersection point.
+     * @return point with bounds applied.
+     */
     private Point applyBounds(final Point intersection) {
         Point res = intersection;
         Point smallestXpoint = getSmallestXpoint();

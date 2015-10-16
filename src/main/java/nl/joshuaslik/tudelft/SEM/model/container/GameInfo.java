@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class GameInfo {
 
     private static GameInfo gameInfo;
-    private PlayerMode playerMode;
+    private PlayerMode playerMode = PlayerMode.SINGLE_PLAYER;
     private GameMode gameMode = GameMode.CLASSIC;
     private int lives = 3;
     private final ArrayList<Integer> levelScoresplayer1;

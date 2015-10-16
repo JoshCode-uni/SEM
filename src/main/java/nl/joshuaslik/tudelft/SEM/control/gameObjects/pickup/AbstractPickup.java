@@ -12,6 +12,8 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IUpdateable;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.Time;
 
 /**
@@ -46,10 +48,16 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
         }
         pickupImage.setY(pickupImage.getStartY() + FALL_SPEED * nanoFrameTime / Time.SECOND_NANO);
         Player pl = getGameObjects().getPlayer();
+        
         if (pickupImage.intersects(pl.getImage())) {
             handlePlayerCollision();
         }
-
+        if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
+        	Player pl2 = getGameObjects().getPlayer2();
+        	if (pickupImage.intersects(pl2.getImage())) {
+        		handlePlayerCollision();
+        	}
+        }
     }
 
     public IImageViewObject getPickupImage() {

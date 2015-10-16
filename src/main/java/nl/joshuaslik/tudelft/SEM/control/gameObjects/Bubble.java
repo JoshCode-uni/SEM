@@ -216,8 +216,8 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * Split a bubble if you pushed the button.
      */
     public void splitBubble() {
-        GameLog.addInfoLog("Bubble hit by projectile at: (" + Double.toString(circle.getCenterX()) + 
-                Double.toString(circle.getCenterY()) + ")");
+        GameLog.addInfoLog("Bubble hit by projectile at: (" + Double.toString(circle.getCenterX()) + Double.toString(circle.getCenterY())
+                           + ")");
         getGameObjects().handleBubbleSplit(getPoint());
         double newRadius = circle.getRadius() / 2.0;
         if (newRadius < 10) {
@@ -225,20 +225,24 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
             circle.destroy();
             return;
         }
-        createSplitBubble(new Point(circle.getCenterX() + 1.1 * newRadius, circle.getCenterY()), 
-                (int) newRadius, new Vector(2, -5));
-        splitted((int) newRadius);
-        getGameObjects().addPoints(10);
+        if (newRadius < 20) {
+            newRadius = 10;
+        }
+        double xPos = circle.getCenterX();
+        double yPos = circle.getCenterY();
+        createSplitBubble(new Point(xPos + 1.1 * newRadius, yPos), newRadius, new Vector(2, -5));
+        splitted(newRadius, new Point(xPos, yPos));
     }
     
     /**
      * Adjust some variables so bubble is split correctly
      * @param newRadius the new radius.
+     * @param oldcenter    the old center point.
      */
-    private void splitted(int newRadius) {
-        circle.setCenterX(circle.getCenterX() - newRadius);
+    private void splitted(double newRadius, Point oldcenter) {
+        circle.setCenterX(oldcenter.getxPos() - newRadius);
         circle.setRadius(newRadius);
-        circle.setCenterY(circle.getCenterY());
+        circle.setCenterY(oldcenter.getyPos());
         this.newDir = new Vector(-2, -5);
         this.vX = -MAX_X_SPEED;
         this.vY = -Y_MAX_SPEED / 1.5;
@@ -251,7 +255,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @param radius the radius of the bubble.
      * @param vector the vector of the direction of the bubble.
      */
-    private void createSplitBubble(final Point center, final int radius, final Vector vector) {
+    private void createSplitBubble(final Point center, final double radius, final Vector vector) {
         Bubble bubble2 = new Bubble(getGameObjects(), center, radius, vector);
         bubble2.vY = -200 + this.vY / 4;
         bubble2.vX = MAX_X_SPEED;
