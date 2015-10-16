@@ -86,7 +86,6 @@ public class MainMenuController implements IviewController {
 				gameModeBox.setVisible(true);
 			}
 		});
-    	
 		playButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent me) {
 				gameModeBox.setVisible(true);
@@ -138,8 +137,10 @@ public class MainMenuController implements IviewController {
     protected void handleClassicButton() {
         GameLog.addInfoLog("Classic button pressed from main menu");
         System.out.println("Classic button pressed!");
+        
         GameInfo.getInstance().setClassicMode();
-        GameController.loadView();
+        GameplayChoicesController.loadPopup(this);
+
     }
     
     /**
@@ -149,6 +150,7 @@ public class MainMenuController implements IviewController {
     protected void handleSurvivalButton() {
         GameLog.addInfoLog("Survival button pressed from main menu");
         System.out.println("Survival button pressed!");
+        
         GameInfo.getInstance().setSurvivalMode();
         GameController.loadView();
     }
