@@ -68,7 +68,7 @@ public class PlayerTest {
 
         // MOCK ALL DEPENDENCIES
         when(gameObjects.makeImage(null, 100, 100)).thenReturn(image);
-        when(gameObjects.hasProjectile()).thenReturn(false);
+        when(gameObjects.hasProjectile(Mockito.anyBoolean())).thenReturn(false);
 
         // the view will be a 10x10 square
         when(gameObjects.getLeftBorder()).thenReturn(0.0);
@@ -76,9 +76,9 @@ public class PlayerTest {
         when(gameObjects.getTopBorder()).thenReturn(0.0);
         when(gameObjects.getBottomBorder()).thenReturn(10.0);
 
-        when(keyboard.isMoveLeft()).thenReturn(false);
-        when(keyboard.isMoveRight()).thenReturn(false);
-        when(keyboard.isShoot()).thenReturn(false);
+        when(keyboard.isMoveLeft(false)).thenReturn(false);
+        when(keyboard.isMoveRight(false)).thenReturn(false);
+        when(keyboard.isShoot(false)).thenReturn(false);
 
         when(image.getStartX()).thenReturn(5.0);
         when(image.getStartY()).thenReturn(9.0);
@@ -86,7 +86,7 @@ public class PlayerTest {
         when(image.getEndY()).thenReturn(10.0);
         when(image.getHeight()).thenReturn(1.0);
 
-        player = new Player(gameObjects, null, keyboard);
+        player = new Player(gameObjects, null, keyboard,false);
     }
 
     /**
@@ -135,7 +135,7 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testUpdateMoveLeft() {
-		when(keyboard.isMoveLeft()).thenReturn(true);
+		when(keyboard.isMoveLeft(false)).thenReturn(true);
 		player.update(10_000_000); // 10ms in ns
 		
 		// verify that the correct new X coordinate and X scale are set.
@@ -148,7 +148,7 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testUpdateMoveLeftWall() {
-		when(keyboard.isMoveLeft()).thenReturn(true);
+		when(keyboard.isMoveLeft(false)).thenReturn(true);
 		
 		player.update(100_000_000);
 		verify(image).setX(5);
@@ -160,7 +160,7 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testUpdateMoveRight() {
-		when(keyboard.isMoveRight()).thenReturn(true);
+		when(keyboard.isMoveRight(false)).thenReturn(true);
 		when(image.getStartX()).thenReturn(-190.0);
 		player.update(0l);
 		verify(image).setX(5.0);
@@ -172,7 +172,7 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testUpdateMoveRightWall() {
-		when(keyboard.isMoveRight()).thenReturn(true);
+		when(keyboard.isMoveRight(false)).thenReturn(true);
 		player.update(100_000_000); // 10ms in ns
 		
 		// verify that the correct new X coordinate and X scale are set.
@@ -185,7 +185,7 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testUpdateShootBulletCreation() {
-		when(keyboard.isShoot()).thenReturn(true);
+		when(keyboard.isShoot(false)).thenReturn(true);
 		
 		// mock the makeProjectile class of the player
 		Player spyPlayer = Mockito.spy(player);
@@ -204,7 +204,7 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testUpdateShootBulletLocation() {
-		when(keyboard.isShoot()).thenReturn(true);
+		when(keyboard.isShoot(false)).thenReturn(true);
 		
 		// mock the makeProjectile class of the player
 		Player spyPlayer = Mockito.spy(player);
@@ -275,7 +275,7 @@ public class PlayerTest {
 		Iterator<Double> doorIterator = Mockito.mock(Iterator.class);
 		when(doorIterator.hasNext()).thenReturn(true, true, false);
 		when(doorIterator.next()).thenReturn(3.0).thenReturn(12.0);
-		when(keyboard.isMoveLeft()).thenReturn(true);
+		when(keyboard.isMoveLeft(false)).thenReturn(true);
 		player.setLeftDoor(leftDoor);
 		when(image.getStartX()).thenReturn(10.0);
 		System.out.println(image.getStartX());
@@ -294,7 +294,7 @@ public class PlayerTest {
 		Iterator<Double> doorIterator = Mockito.mock(Iterator.class);
 		when(doorIterator.hasNext()).thenReturn(true, true, false);
 		when(doorIterator.next()).thenReturn(17.0).thenReturn(20.0);
-		when(keyboard.isMoveRight()).thenReturn(true);
+		when(keyboard.isMoveRight(false)).thenReturn(true);
 		player.setRightDoor(rightDoor);
 		when(gameObjects.getRightBorder()).thenReturn(20.0);
 		when(image.getStartX()).thenReturn(30.0);

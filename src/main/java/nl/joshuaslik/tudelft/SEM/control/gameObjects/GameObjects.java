@@ -20,7 +20,9 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import org.apache.commons.lang3.ClassUtils;
 
@@ -43,9 +45,12 @@ public class GameObjects implements IUpdateable, IGameObjects {
     private final PickupGenerator pickupGenerator = new PickupGenerator((IGameObjects) this);
     private final ArrayList<Bubble> bubbles = new ArrayList<>();
     private Player player;
+    private Player player2;
 
-    private boolean hasProjectile = false;
+    private boolean p1HasProjectile = false;
+    private boolean p2HasProjectile = false;
     private Projectile projectile = null;
+    private Projectile projectile2 = null;
     private double topBorder, rightBorder, bottomBorder, leftBorder;
 
     private int score = 0;
@@ -136,15 +141,23 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     private void initializePlayer(final IKeyboard keyBoard) {
         InputStream is;
+        InputStream is2;
         try {
             is = getClass().getResource("/data/gui/img/penguin.png").openStream();
+            is2 = getClass().getResource("/data/gui/img/penguin.png").openStream();
         } catch (IOException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
             return;
         }
-
-        player = new Player((IGameObjects) this, is, keyBoard);
-        addObject(player);
+        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
+       	player = new Player((IGameObjects) this, is, keyBoard, false);
+       	addObject(player);
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
+        	
+        	player2 = new Player((IGameObjects) this, is2, keyBoard, true);
+        	addObject(player2);
+        	
+        }
     }
 
     /**
@@ -231,7 +244,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
             if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.remove((Bubble) object);
-                score += 10;
+           //     score += 10;
             }
         }
         removeObjectBuffer.clear();
@@ -316,8 +329,11 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @return if the game currently has a spawned projectile.
      */
     @Override
-    public boolean hasProjectile() {
-        return hasProjectile;
+    public boolean hasProjectile(boolean p2) {
+        if(!p2){
+        	return p1HasProjectile;
+        }
+        return p2HasProjectile;
     }
 
     /**
@@ -336,18 +352,31 @@ public class GameObjects implements IUpdateable, IGameObjects {
     @Override
     public void addProjectile(final Projectile projectile) {
         addObject(projectile);
-        this.projectile = projectile;
-        hasProjectile = true;
+        if(projectile.getPlayer().equals(player)){
+        	this.projectile = projectile;
+        	p1HasProjectile = true;
+        }
+        if(projectile.getPlayer().equals(player2)){
+        	this.projectile2 = projectile;
+        	p2HasProjectile = true;
+        }
     }
 
     /**
      * Remove the projectile from the game.
      */
     @Override
-    public void removeProjectile() {
-        removeObject(projectile);
-        this.projectile = null;
-        hasProjectile = false;
+    public void removeProjectile(boolean p2) {
+        if(!p2){
+        	removeObject(projectile);
+        	this.projectile = null;
+        	p1HasProjectile = false;
+        }
+        if(p2) {
+        	removeObject(projectile2);
+        	this.projectile2 = null;
+        	p2HasProjectile = false;
+        }
     }
 
     /**
@@ -395,6 +424,11 @@ public class GameObjects implements IUpdateable, IGameObjects {
         return player;
     }
 
+    @Override
+    public Player getPlayer2() {
+    	return player2;
+    }
+    
     @Override
     public void handleModifierCollision(final Object mod, final boolean isPlayerPickup, final boolean isBubblePickup) {
         if (isPlayerPickup) {

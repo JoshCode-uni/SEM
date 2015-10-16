@@ -15,19 +15,19 @@ public interface IKeyboard {
      *
      * @return true if left arrow is pressed, otherwise false.
      */
-    boolean isMoveLeft();
+    boolean isMoveLeft(boolean p2);
 
     /**
      * Check if right arrow is pressed.
      *
      * @return true if right arraow is pressed, otherwise false.
      */
-    boolean isMoveRight();
+    boolean isMoveRight(boolean p2);
 
     /**
      * Check if spacebar is pressed.
      *
      * @return true if spacebar is pressed, otherwise false.
      */
-    boolean isShoot();
+    boolean isShoot(boolean p2);
 }

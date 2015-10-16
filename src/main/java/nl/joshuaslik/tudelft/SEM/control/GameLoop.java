@@ -110,7 +110,15 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public final int getScore() {
         return gameObjects.getScore();
     }
+    
+    public final int getPlayer1Score() {
+    	return gameObjects.getPlayer().getScore();
+    }
 
+	public final int getPlayer2Score() {
+		return gameObjects.getPlayer2().getScore();
+	}
+	
     /**
      * Tells gameController the player has died
      */
@@ -176,4 +184,5 @@ public class GameLoop extends AnimationTimer implements IDraw {
     final GameController getGameController() {
         return gameController;
     }
+
 }

@@ -58,7 +58,7 @@ public class GameObjectsConstructorTest {
         PowerMockito.whenNew(Line.class).withArguments(gameObjects, 20.0, 10.0, 20.0, 0.0).thenReturn(l3);
         PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 0.0, 20.0, 0.0).thenReturn(l4);
         PowerMockito.whenNew(Player.class)
-                    .withArguments(Mockito.any(GameObjects.class), Mockito.any(InputStream.class), Mockito.any(Keyboard.class))
+                    .withArguments(Mockito.any(GameObjects.class), Mockito.any(InputStream.class), Mockito.any(Keyboard.class),Mockito.anyBoolean())
                     .thenReturn(player);
         physicsObject.add(bubble);
         gameObjects = new GameObjects(null, 10.0, 20.0, 0.0, 5.0, null);
@@ -71,7 +71,8 @@ public class GameObjectsConstructorTest {
 	public void testConstructor() {
 		assertEquals(0, gameObjects.getScore());
 		assertEquals(0, gameObjects.bubblesLeft());
-		assertFalse(gameObjects.hasProjectile());
+		assertFalse(gameObjects.hasProjectile(false));
+		assertFalse(gameObjects.hasProjectile(true));
 	}
 	
 	/**

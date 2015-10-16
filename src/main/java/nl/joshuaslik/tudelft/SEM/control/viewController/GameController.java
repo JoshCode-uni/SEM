@@ -22,6 +22,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObj
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -173,11 +174,21 @@ public class GameController implements IviewController {
      * Called when a level is completed
      */
     public void levelCompleted() {
-        int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
-        GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
-        GameLog.addInfoLog("level score: " + totalScore);
+    	if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER)){
+    		int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
+    		GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
+    		GameLog.addInfoLog("level score: " + totalScore);
+    		GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
+    	} else if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)) {
 
-        GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
+    		int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
+    		GameLog.addInfoLog("Players completed level: " + Levels.getCurrentLevel());
+    		GameLog.addInfoLog("Player 1 score:"+ gl.getPlayer1Score());
+    		GameLog.addInfoLog("Player 2 score:"+ gl.getPlayer2Score());
+    		GameLog.addInfoLog("level score: " + totalScore);
+    		GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+    		GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+    	}
         gl.stop();
         gl = null;
         Levels.nextLevel();

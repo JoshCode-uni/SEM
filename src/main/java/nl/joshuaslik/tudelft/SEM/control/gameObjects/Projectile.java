@@ -20,6 +20,7 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
     private final double growSpeed;
     private double delay;
     private boolean isActive = true;
+    private Player player;
 
     /**
      * Create a projectile.
@@ -48,7 +49,7 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
     
     @Override
     public void destroy() {
-        getGameObjects().removeProjectile();
+        getGameObjects().removeProjectile(player.getP2());
         line.destroy();
     }
 
@@ -97,9 +98,10 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
         if (isActive && Bubble.class.isAssignableFrom(obj2.getClass())) {
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
+            player.addPoints(10);
             GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX()) + ", " + Double.toString(line.getEndY())
                                + ")");
-            getGameObjects().removeProjectile();
+            getGameObjects().removeProjectile(player.getP2());
             line.destroy();
             isActive = false;
         }
@@ -119,5 +121,13 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
      */
     public double getGrowSpeed() {
         return growSpeed;
+    }
+    
+    public void setPlayer(Player player) {
+    	this.player = player;
+    }
+    
+    public Player getPlayer(){
+    	return player;
     }
 }
