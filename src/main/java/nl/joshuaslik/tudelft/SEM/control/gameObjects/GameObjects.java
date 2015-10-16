@@ -244,7 +244,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
             if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.remove((Bubble) object);
-           //     score += 10;
+                score += 10;
             }
         }
         removeObjectBuffer.clear();

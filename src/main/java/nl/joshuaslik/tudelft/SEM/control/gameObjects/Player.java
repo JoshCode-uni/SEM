@@ -15,7 +15,6 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 import nl.joshuaslik.tudelft.SEM.utility.Time;
-import org.apache.commons.lang3.ClassUtils;
 
 /**
  * A class containing the position of the player. This class also controller the player.
@@ -43,14 +42,12 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      */
     public Player(final IGameObjects gameObjects, final InputStream is, final IKeyboard kb, boolean p2) {
         super(gameObjects);
-
         image = getGameObjects().makeImage(is, 100, 100);
         image.setX((getGameObjects().getRightBorder() - getGameObjects().getLeftBorder()) / 2.0);
         image.setY(getGameObjects().getBottomBorder() - image.getHeight());
         this.p2=p2;
         keyboard = kb;
         playerXstart = image.getStartX();
-        
         if(p2)
             image.adjustHSB(-0.30, 1.0, 0.35);
     }
@@ -79,41 +76,56 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     @Override
     public void update(final long nanoFrameTime) {
         if (keyboard.isMoveLeft(p2)) {
-            // move left
-            double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
-            double leftBorder = getClosestLeftBorder();
-            if (leftBorder < leftPos) {
-                image.setX(leftPos);
-            } else {
-                image.setX(leftBorder);
-            }
-            image.setScaleX(1);
+            moveLeft(nanoFrameTime);
         } else if (keyboard.isMoveRight(p2)) {
-            // move right
-            double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
-            double rightBorder = getClosestRightBorder();
-            if (rightBorder - 100 > rightPos) {
-                image.setX(rightPos);
-            } else {
-             /*   System.out.println("rightBorder = " + rightBorder);
-                System.out.println("image.getStartX() = " + image.getStartX());
-                System.out.println("image.getEndX() = " + image.getEndX());
-                System.out.println("rightPos = " + rightPos);*/
-                image.setX(rightBorder - 100);
-            }
-            image.setScaleX(-1);
+            moveRight(nanoFrameTime);
         }
-
         if (keyboard.isShoot(p2) && !getGameObjects().hasProjectile(p2)) {
-            double bulletX = (image.getStartX() + image.getEndX()) / 2.0;
-            double bulletY = image.getEndY();
-
-            //shoot
-            GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX) + ", " + Double.toString(bulletY) + ")");
-            Projectile proj = makeProjectile(getGameObjects(), bulletX, bulletY);
-            proj.setPlayer(this);
-            getGameObjects().addProjectile(proj);
+            shoot(nanoFrameTime);
         }
+    }
+    
+    /**
+     * Move left.
+     * @param nanoFrameTime the framerate (nanoseconds/frame)
+     */
+    private void moveLeft(final long nanoFrameTime) {
+        double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
+        double leftBorder = getClosestLeftBorder();
+        if (leftBorder < leftPos) {
+            image.setX(leftPos);
+        } else {
+            image.setX(leftBorder);
+        }
+        image.setScaleX(1);
+    }
+    
+    /**
+     * Move right.
+     * @param nanoFrameTime the framerate (nanoseconds/frame)
+     */
+    private void moveRight(final long nanoFrameTime) {
+        double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
+        double rightBorder = getClosestRightBorder();
+        if (rightBorder - 100 > rightPos) {
+            image.setX(rightPos);
+        } else {
+            image.setX(rightBorder - 100);
+        }
+        image.setScaleX(-1);
+    }
+    
+    /**
+     * Shoot.
+     * @param nanoFrameTime the framerate (nanoseconds/frame)
+     */
+    private void shoot(final long nanoFrameTime) {
+        double bulletX = (image.getStartX() + image.getEndX()) / 2.0;
+        double bulletY = image.getEndY();
+        GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX) + ", " + Double.toString(bulletY) + ")");
+        Projectile proj = makeProjectile(getGameObjects(), bulletX, bulletY);
+        proj.setPlayer(this);
+        getGameObjects().addProjectile(proj);
     }
 
     /**
