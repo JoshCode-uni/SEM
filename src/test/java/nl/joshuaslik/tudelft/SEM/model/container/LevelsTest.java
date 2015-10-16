@@ -39,7 +39,7 @@ public class LevelsTest {
 	@Test
 	public void testGetLevel0() {
 		when(gameObjects.makeCircle(200, 500, 20)).thenReturn(circle);
-		assertEquals(Levels.getLevelObjects(0, gameObjects).size(), 1);
+		assertEquals(Levels.getLevelObjects(gameObjects).size(), 1);
 	}
 	
 	@Test

@@ -82,4 +82,12 @@ public interface IImageViewObject extends IViewObject {
      * @param maxY maximum y coordinate value.
      */
     void setBounds(double minX, double minY, double maxX, double maxY);
+    
+    /**
+     * Set the hsb.
+     * @param hue           hue.
+     * @param saturation    saturation.
+     * @param brightness    brightness.
+     */
+    void adjustHSB(double hue, double saturation, double brightness);
 }

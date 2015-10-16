@@ -2,7 +2,6 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import java.io.InputStream;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -10,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -22,7 +20,10 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewOb
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.LineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.GameMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -33,13 +34,10 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 public class GameController implements IviewController {
 
     @FXML
-    private Pane pane;
-
-    @FXML
     private Rectangle timeRectangle, negativeTimeRectangle;
 
     @FXML
-    private Text livesText, levelText, scoreText;
+    private Text levelText, scoreText, scoreTextPlayer2;
     
     @FXML
     private ImageView background;
@@ -50,7 +48,7 @@ public class GameController implements IviewController {
     private Button quitButton, mainMenuButton;
 
     @FXML
-    private Line top, right, bottom, left;
+    private Line top, bottom;
     @FXML
     private Group gameObjects;
 
@@ -58,8 +56,6 @@ public class GameController implements IviewController {
 
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
 
-    private static int currentlives = 5;
-    private static int currentLevel = 0;
 
     private long timeLeft;
 
@@ -69,7 +65,7 @@ public class GameController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    private void handleQuitButton(final ActionEvent event) {
+    private void handleQuitButton() {
         GameLog.addInfoLog("Quit button pressed from game screen");
         System.out.println("Quit button pressed!");
         System.exit(0);
@@ -81,7 +77,7 @@ public class GameController implements IviewController {
      * @param event the click of the button
      */
     @FXML
-    private void handleMainMenuButton(final ActionEvent event) {
+    private void handleMainMenuButton() {
         GameLog.addInfoLog("Main Menu button pressed from game screen");
         System.out.println("Main Menu button pressed!");
         gl.stop();
@@ -113,31 +109,33 @@ public class GameController implements IviewController {
      */
     @Override
     public void start(final Scene scene) {
-
-        int lvl = currentLevel + 1;
-        Image bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
+        int lvl = Levels.getCurrentLevel() + 1;
+        Image bg;
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+            bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
+        } else {
+            bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel1.jpg"));
+        }
+        
         assert(bg != null);
         assert(background != null);
         background.setImage(bg);
-
-        //currentlives = player.getLives();
-        levelText.setText("Level " + Integer.toString(currentLevel + 1));
+        levelText.setText("Level " + Integer.toString(lvl));
         timeLeft = MAX_TIME;
-
         resetLives();
-
-        gl = new GameLoop(this, currentLevel, top.getStartY(), top.getEndX(), bottom.getStartY(), top.getStartX(), scene);
-
+        gl = new GameLoop(this, top.getStartY(), top.getEndX(), bottom.getStartY(), top.getStartX(), scene);
         gl.setViewController(this);
-
         gl.start();
     }
 
     private void resetLives() {
-        if (currentlives > 10)
-            currentlives = 10;
-        Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + currentlives + ".png"));
-        lives.setImage(image);
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+            Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + GameInfo.getInstance().getLives() + ".png"));
+            lives.setImage(image);
+        } else {
+            Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart0.png"));
+            lives.setImage(image);
+        }
     }
 
     /**
@@ -164,36 +162,60 @@ public class GameController implements IviewController {
      * @param nanoTimePassed the framerate (nanoseconds/frame)
      */
     public void updateTime(final Long nanoTimePassed) {
-
-        timeLeft -= nanoTimePassed;
-        if (timeLeft <= 0) {
-            died();
-            return;
+        GameInfo gi = GameInfo.getInstance();
+        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+            timeLeft -= nanoTimePassed;
+            if (timeLeft <= 0) {
+                died();
+                return;
+            }
+            timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft
+                    / (double) MAX_TIME));
         }
-
-        scoreText.setText("Score: " + gl.getScore());
-        timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft / (double) MAX_TIME));
-
+        if(!gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+            scoreText.setText("Score: " + gl.getScore());
+        } else {
+            scoreText.setText("Score of " + gi.getPlayerNames().get(0) + ": " + gl.getPlayer1Score());
+            scoreTextPlayer2.setText("Score of " + gi.getPlayerNames().get(1) + ": " + gl.getPlayer2Score());
+        }
     }
 
     /**
      * Called when a level is completed
      */
     public void levelCompleted() {
-        int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
-        GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
-        GameLog.addInfoLog("level score: " + totalScore);
-
-        MainMenuController.setScore(totalScore, Levels.getCurrentLevel());
+        logLevelCompletedData();
         gl.stop();
         gl = null;
         Levels.nextLevel();
-        setLevel(currentLevel + 1);
 
-        if (currentLevel < 5) {
+        if (Levels.getCurrentLevel() < 5) {
             YouWonController.loadPopup(this);
         } else {
             CongratsController.loadPopup(this);
+        }
+    }
+    
+    /**
+     * Log player completed level data.
+     */
+    private void logLevelCompletedData() {
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER)) {
+            int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
+            GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
+            GameLog.addInfoLog("level score: " + totalScore);
+            GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
+        } else if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)) {
+            int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
+            GameLog.addInfoLog("Players completed level: " + Levels.getCurrentLevel());
+            GameLog.addInfoLog("Player 1 score:" + gl.getPlayer1Score());
+            GameLog.addInfoLog("Player 2 score:" + gl.getPlayer2Score());
+            GameLog.addInfoLog("level score: " + totalScore);
+            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+        } else {
+            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), gl.getPlayer1Score());
+            GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), gl.getPlayer2Score());
         }
     }
 
@@ -205,34 +227,15 @@ public class GameController implements IviewController {
         System.out.println("Player died");
         gl.stop();
         gl = null;
-
-        setLives(currentlives - 1);
-
-        if (currentlives >= 0) {
+        GameInfo gi = GameInfo.getInstance();
+        int ilives = gi.getLives() - 1;
+        gi.loseLife();
+        if (ilives >= 0 && !GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             GameController.loadView();
-            System.out.println("lives: " + currentlives);
         } else {
             YouLostController.loadPopup(this);
-            setLives(3);
+            gi.resetLives();
         }
-    }
-
-    /**
-     * Disable all buttons. Select the level which should be played.
-     *
-     * @param level
-     */
-    private static void setLevel(final int level) {
-        GameController.currentLevel = level;
-    }
-
-    /**
-     * Select the lives the player has.
-     *
-     * @param lives
-     */
-    private static void setLives(final int lives) {
-        GameController.currentlives = lives;
     }
 
     /**
@@ -283,26 +286,25 @@ public class GameController implements IviewController {
         return new LineViewObject(startX, startY, endX, endY, this);
     }
 
+    /**
+     * Add a life.
+     */
     public void addLife() {
-        setLives(currentlives + 1);
+        GameInfo.getInstance().addLife();
         resetLives();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    public final Button getQuitButton() {
-        return quitButton;
+    protected final void fireQuitButton() {
+        quitButton.fire();
     }
 
     /**
      * FOR TESTING PURPOSES ONLY.
-     *
-     * @return view element
      */
-    public final Button getMainMenuButton() {
-        return mainMenuButton;
+    protected final void fireMainMenuButton() {
+         mainMenuButton.fire();
     }
 }

@@ -7,8 +7,6 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import nl.joshuaslik.tudelft.SEM.JavaFxJUnit4ClassRunner;
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import nl.joshuaslik.tudelft.SEM.model.container.Levels;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.Before;
@@ -41,7 +39,7 @@ public class YouWonControllerIT {
      */
     @Test
     public void testHandleMainMenuButton() {
-        controller.getMainMenuButton().fire();
+        controller.fireMainMenuButton();
         assertTrue(Launcher.getController() instanceof MainMenuController);
     }
 
@@ -50,7 +48,7 @@ public class YouWonControllerIT {
      */
     @Test
     public void testHandleNextLevelButton() {
-        controller.getNextLevelButton().fire();
+        controller.fireNextLevelButton();
         assertTrue(Launcher.getController() instanceof GameController);
     }
 }

@@ -30,36 +30,43 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private ArrayList<Double> leftDoor = new ArrayList<>();
     private ArrayList<Double> rightDoor = new ArrayList<>();
     private final double playerXstart;
+    private boolean p2;
+    private boolean isDead = false;
+    private int score = 0;
 
     /**
      * Create a player.
      *
      * @param gameObjects
      * @param is
-     * @param kb          keyboard which controller the actions of the player.
+     * @param kb keyboard which controller the actions of the player.
      */
-    public Player(final IGameObjects gameObjects, final InputStream is, final IKeyboard kb) {
+    public Player(final IGameObjects gameObjects, final InputStream is, final IKeyboard kb, boolean p2) {
         super(gameObjects);
-
         image = getGameObjects().makeImage(is, 100, 100);
         image.setX((getGameObjects().getRightBorder() - getGameObjects().getLeftBorder()) / 2.0);
         image.setY(getGameObjects().getBottomBorder() - image.getHeight());
+        this.p2 = p2;
         keyboard = kb;
         playerXstart = image.getStartX();
+        if (p2) {
+            image.adjustHSB(-0.30, 1.0, 0.35);
+        }
     }
 
     /**
      * Check if the player has collided with anything. Not implemented.
      *
-     * @param obj2          object to check collision with
+     * @param obj2 object to check collision with
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
     public void checkCollision(final IIntersectable obj2, final long nanoFrameTime) {
-        if (obj2 instanceof Bubble) {
+        if (Bubble.class.isAssignableFrom(obj2.getClass())) {
             Bubble bubble = (Bubble) obj2;
             if (image.intersects(bubble.getCircleViewObject())) {
                 getGameObjects().playerDied();
+                isDead = true;
             }
         }
     }
@@ -71,40 +78,58 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      */
     @Override
     public void update(final long nanoFrameTime) {
-        if (keyboard.isMoveLeft()) {
-            // move left
-            double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
-            double leftBorder = getClosestLeftBorder();
-            if (leftBorder < leftPos) {
-                image.setX(leftPos);
-            } else {
-                image.setX(leftBorder);
-            }
-            image.setScaleX(1);
-        } else if (keyboard.isMoveRight()) {
-            // move right
-            double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
-            double rightBorder = getClosestRightBorder();
-            if (rightBorder - 100 > rightPos) {
-                image.setX(rightPos);
-            } else {
-             /*   System.out.println("rightBorder = " + rightBorder);
-                System.out.println("image.getStartX() = " + image.getStartX());
-                System.out.println("image.getEndX() = " + image.getEndX());
-                System.out.println("rightPos = " + rightPos);*/
-                image.setX(rightBorder - 100);
-            }
-            image.setScaleX(-1);
+        if (keyboard.isMoveLeft(p2)) {
+            moveLeft(nanoFrameTime);
+        } else if (keyboard.isMoveRight(p2)) {
+            moveRight(nanoFrameTime);
         }
-
-        if (keyboard.isShoot() && !getGameObjects().hasProjectile()) {
-            double bulletX = (image.getStartX() + image.getEndX()) / 2.0;
-            double bulletY = image.getEndY();
-
-            //shoot
-            GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX) + ", " + Double.toString(bulletY) + ")");
-            getGameObjects().addProjectile(makeProjectile(getGameObjects(), bulletX, bulletY));
+        if (keyboard.isShoot(p2) && !getGameObjects().hasProjectile(p2)) {
+            shoot();
         }
+    }
+
+    /**
+     * Move left.
+     *
+     * @param nanoFrameTime the framerate (nanoseconds/frame)
+     */
+    private void moveLeft(final long nanoFrameTime) {
+        double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
+        double leftBorder = getClosestLeftBorder();
+        if (leftBorder < leftPos) {
+            image.setX(leftPos);
+        } else {
+            image.setX(leftBorder);
+        }
+        image.setScaleX(1);
+    }
+
+    /**
+     * Move right.
+     *
+     * @param nanoFrameTime the framerate (nanoseconds/frame)
+     */
+    private void moveRight(final long nanoFrameTime) {
+        double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
+        double rightBorder = getClosestRightBorder();
+        if (rightBorder - 100 > rightPos) {
+            image.setX(rightPos);
+        } else {
+            image.setX(rightBorder - 100);
+        }
+        image.setScaleX(-1);
+    }
+
+    /**
+     * Shoot.
+     */
+    private void shoot() {
+        double bulletX = (image.getStartX() + image.getEndX()) / 2.0;
+        double bulletY = image.getEndY();
+        GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX) + ", " + Double.toString(bulletY) + ")");
+        Projectile proj = makeProjectile(getGameObjects(), bulletX, bulletY);
+        proj.setPlayer(this);
+        getGameObjects().addProjectile(proj);
     }
 
     /**
@@ -120,8 +145,8 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * Method for testing purposes. Avoiding object creation.
      *
      * @param gameObjects game object.
-     * @param startX      start X.
-     * @param startY      start Y.
+     * @param startX start X.
+     * @param startY start Y.
      * @return the requested projectile.
      */
     public Projectile makeProjectile(final IGameObjects gameObjects, final double startX, final double startY) {
@@ -149,7 +174,6 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     }
 
     public void setDoor(final double xCoordinate) {
-        //        System.out.println("add: xCoordinate = " + xCoordinate);
         if (xCoordinate > image.getStartX()) {
             rightDoor.add(xCoordinate);
         } else {
@@ -158,7 +182,6 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     }
 
     public void removeDoor(final double xCoordinate) {
-        //       System.out.println("remove: xCoordinate = " + xCoordinate);
         rightDoor.remove(xCoordinate);
         leftDoor.remove(xCoordinate);
     }
@@ -166,8 +189,9 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private double getClosestLeftBorder() {
         double res = getGameObjects().getLeftBorder();
         for (double e : leftDoor) {
-            if (e > res && e < playerXstart)
+            if (e > res && e < playerXstart) {
                 res = e;
+            }
         }
         return res;
     }
@@ -175,8 +199,9 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private double getClosestRightBorder() {
         double res = getGameObjects().getRightBorder();
         for (double e : rightDoor) {
-            if (e < res && e > playerXstart)
+            if (e < res && e > playerXstart) {
                 res = e;
+            }
         }
         return res;
     }
@@ -187,5 +212,21 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     void setRightDoor(final ArrayList<Double> rightDoor) {
         this.rightDoor = rightDoor;
+    }
+
+    public boolean getP2() {
+        return p2;
+    }
+
+    public void addPoints(int n) {
+        score += n;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 }

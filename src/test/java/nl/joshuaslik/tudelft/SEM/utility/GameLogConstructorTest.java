@@ -40,10 +40,8 @@ public class GameLogConstructorTest {
      */
     @Test
     public void testConstructor() {
-		GameLog.constructor();
-		Mockito.verify(pw).print("\n\n\n");
-		Mockito.verify(pw, times(3)).println(Mockito.any(String.class));
-		Mockito.verify(pw).print("\n");
-		assertTrue(GameLog.getInitialization());
-	}
+        GameLog.constructor();
+        Mockito.verify(pw, times(3)).println(Mockito.any(String.class));
+        assertTrue(GameLog.getInitialization());
+    }
 }

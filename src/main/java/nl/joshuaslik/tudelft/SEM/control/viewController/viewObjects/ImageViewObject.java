@@ -8,6 +8,7 @@ package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 import java.io.InputStream;
 
 import javafx.scene.Node;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
@@ -45,6 +46,21 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
     @Override
     protected Node getNode() {
         return image;
+    }
+    
+    /**
+     * Set the hsb.
+     * @param hue           hue.
+     * @param saturation    saturation.
+     * @param brightness    brightness.
+     */
+    @Override
+    public void adjustHSB(double hue, double saturation, double brightness) {
+        ColorAdjust colorAdjust = new ColorAdjust();
+        colorAdjust.setBrightness(brightness);
+        colorAdjust.setHue(hue);
+        colorAdjust.setSaturation(saturation);
+        image.setEffect(colorAdjust);
     }
 
     /**
@@ -159,14 +175,16 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
      * outside of the bounds
      */
     private double checkXBounds(double xCoordinate) {
-        if (!bounds)
+        if (!bounds) {
             return xCoordinate;
-        if (xCoordinate > maxX)
+        }
+        if (xCoordinate > maxX) {
             return maxX;
-        else if (xCoordinate < minX)
+        } else if (xCoordinate < minX) {
             return minX;
-        else
+        } else {
             return xCoordinate;
+        }
     }
 
     /**
@@ -177,13 +195,15 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
      * outside of the bounds
      */
     private double checkYBounds(double yCoordinate) {
-        if (!bounds)
+        if (!bounds) {
             return yCoordinate;
-        if (yCoordinate > maxY)
+        }
+        if (yCoordinate > maxY) {
             return maxY;
-        else if (yCoordinate < minY)
+        } else if (yCoordinate < minY) {
             return minY;
-        else
+        } else {
             return yCoordinate;
+        }
     }
 }

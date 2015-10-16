@@ -43,8 +43,9 @@ public interface IGameObjects {
 
     /**
      * Remove a Projectile from the game.
+     * @param p2 if this is the projectile of player 2.
      */
-    void removeProjectile();
+    void removeProjectile(boolean p2);
 
     /**
      * Get the min y value.
@@ -79,7 +80,7 @@ public interface IGameObjects {
      *
      * @return if there is currently a projectile spawned in the game.
      */
-    boolean hasProjectile();
+    boolean hasProjectile(boolean p2);
 
     /**
      * Called when the player dies. Handles quiting the game and reducing the
@@ -129,4 +130,6 @@ public interface IGameObjects {
     void addLife();
 
     int bubblesLeft();
+
+	Player getPlayer2();
 }

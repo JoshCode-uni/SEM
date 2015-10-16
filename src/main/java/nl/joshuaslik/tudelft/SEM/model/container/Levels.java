@@ -27,16 +27,35 @@ public class Levels {
     public static int amountOfLevels() {
         return AMOUNT_OF_IMPLEMENTED_LEVELS;
     }
+    
+    /**
+     * Get the top left spawn point of the bubbles in survival mode.
+     * @return top left.
+     */
+    public static Point getCircleSpawnPointTopLeft() {
+        return new Point(100, 350);
+    }
 
+    /**
+     * Get the bottom right spawn point of the bubbles in survival mode.
+     * @return bottom right.
+     */
+    public static Point getCircleSpawnPointBottomRight() {
+        return new Point(1800, 450);
+    }
+
+    public static ArrayList<IPhysicsObject> getSurvivalLevelObjects(final IGameObjects gameObjects) {
+        return createLevel0(gameObjects);
+    }
+    
     /**
      * Get level of [index].
      *
-     * @param index       the index of the level.
      * @param gameObjects
      * @return the level.
      */
-    public static ArrayList<IPhysicsObject> getLevelObjects(final int index, final IGameObjects gameObjects) {
-        switch (index) {
+    public static ArrayList<IPhysicsObject> getLevelObjects(final IGameObjects gameObjects) {
+        switch (currentLevel) {
             case 0:
                 return createLevel0(gameObjects);
             case 1:
@@ -59,14 +78,7 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel0(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level0 = new ArrayList<>();
-
-        // create 1 bubble
-        Point bubbleCenter = new Point(200, 500);
-        double bubbleRadius = 20;
-        Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
-
-        level0.add(bubble);
+        level0.add(new Bubble(gameObjects, new Point(200, 500), 20, new Vector(-2, -5)));
         return level0;
     }
 
@@ -77,31 +89,10 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel1(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level1 = new ArrayList<>();
-
-        // create 1st bubble
-        Point bubbleCenter = new Point(300, 200);
-        double bubbleRadius = 20;
-        Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
-
-        // create 2nd bubble
-        Point bubble2Center = new Point(1300, 650);
-        double bubble2Radius = 40;
-        Vector bubble2Direction = new Vector(2, -5);
-        Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
-
-        level1.add(bubble);
-        level1.add(bubble2);
-
-        // Create timeDoor
-        Point ul = new Point(1050, 30);
-        Point ur = new Point(1150, 30);
-        Point bl = new Point(1050, 851);
-        Point br = new Point(1150, 851);
-
-        TimeDoor timeDoor = new TimeDoor(gameObjects, ul, ur, bl, br, 0, 5_000_000_000l);
-
-        level1.add(timeDoor);
+        level1.add(new Bubble(gameObjects, new Point(300, 200), 20, new Vector(-2, -5)));
+        level1.add(new Bubble(gameObjects, new Point(1300, 650), 40, new Vector(2, -5)));
+        level1.add(new TimeDoor(gameObjects, new Point(1050, 30), new Point(1150, 30), 
+                new Point(1050, 851), new Point(1150, 851), 0, 5_000_000_000l));
         return level1;
     }
 
@@ -112,37 +103,11 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel2(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level2 = new ArrayList<>();
-
-        // create 1st bubble
-        Point bubbleCenter = new Point(300, 700);
-        double bubbleRadius = 40;
-        Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
-
-        // create 2nd bubble
-        Point bubble2Center = new Point(1200, 300);
-        double bubble2Radius = 20;
-        Vector bubble2Direction = new Vector(2, -5);
-        Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
-
-        // create 3rd bubble
-        Point bubble3Center = new Point(1400, 620);
-        double bubble3Radius = 40;
-        Vector bubble3Direction = new Vector(2, -5);
-        Bubble bubble3 = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
-
-        level2.add(bubble);
-        level2.add(bubble2);
-        level2.add(bubble3);
-
-        // Create bubbleDoor
-        Point ul = new Point(1050, 30);
-        Point ur = new Point(1150, 30);
-        Point bl = new Point(1050, 851);
-        Point br = new Point(1150, 851);
-
-        BubbleDoor bubbleDoor = new BubbleDoor(gameObjects, ul, ur, bl, br, 2);
-        level2.add(bubbleDoor);
+        level2.add(new Bubble(gameObjects, new Point(300, 700), 40, new Vector(-2, -5)));
+        level2.add(new Bubble(gameObjects, new Point(1200, 300), 20, new Vector(2, -5)));
+        level2.add(new Bubble(gameObjects, new Point(1400, 620), 40, new Vector(2, -5)));
+        level2.add(new BubbleDoor(gameObjects, new Point(1050, 30), 
+                new Point(1150, 30), new Point(1050, 851), new Point(1150, 851), 2));
         return level2;
     }
 
@@ -153,48 +118,13 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel3(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level3 = new ArrayList<>();
-
-        // create 1st bubble
-        Point bubbleCenter = new Point(100, 660);
-        double bubbleRadius = 40;
-        Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
-
-        // create 2nd bubble
-        Point bubble2Center = new Point(500, 620);
-        double bubble2Radius = 80;
-        Vector bubble2Direction = new Vector(2, -5);
-        Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
-
-        // create 3rd bubble
-        Point bubble3Center = new Point(1300, 400);
-        double bubble3Radius = 40;
-        Vector bubble3Direction = new Vector(2, -5);
-        Bubble bubble3 = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
-
-        level3.add(bubble);
-        level3.add(bubble2);
-        level3.add(bubble3);
-
-        // Create timeDoor
-        Point ul = new Point(250, 30);
-        Point ur = new Point(350, 30);
-        Point bl = new Point(250, 851);
-        Point br = new Point(350, 851);
-
-        TimeDoor timeDoor = new TimeDoor(gameObjects, ul, ur, bl, br, 0, 10_000_000_000l);
-
-        // Create bubbleDoor
-        Point ul2 = new Point(1050, 30);
-        Point ur2 = new Point(1150, 30);
-        Point bl2 = new Point(1050, 851);
-        Point br2 = new Point(1150, 851);
-
-        BubbleDoor bubbleDoor = new BubbleDoor(gameObjects, ul2, ur2, bl2, br2, 1);
-
-        level3.add(timeDoor);
-        level3.add(bubbleDoor);
-
+        level3.add(new Bubble(gameObjects, new Point(100, 660), 40, new Vector(-2, -5)));
+        level3.add(new Bubble(gameObjects, new Point(500, 620), 80, new Vector(2, -5)));
+        level3.add(new Bubble(gameObjects, new Point(1300, 400), 40, new Vector(2, -5)));
+        level3.add(new TimeDoor(gameObjects, new Point(250, 30), new Point(350, 30), 
+                new Point(250, 851), new Point(350, 851), 0, 10_000_000_000l));
+        level3.add(new BubbleDoor(gameObjects, new Point(1050, 30), new Point(1150, 30), 
+                new Point(1050, 851), new Point(1150, 851), 1));
         return level3;
     }
 
@@ -205,80 +135,19 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel4(final IGameObjects gameObjects) {
         ArrayList<IPhysicsObject> level4 = new ArrayList<>();
-        
-        // create 1st bubble
-        Point bubbleCenter = new Point(100, 600);
-        double bubbleRadius = 80;
-        Vector bubbleDirection = new Vector(-2, -5);
-        Bubble bubble = new Bubble(gameObjects, bubbleCenter, bubbleRadius, bubbleDirection);
-
-        // create 2nd bubble
-        Point bubble2Center = new Point(400, 700);
-        double bubble2Radius = 40;
-        Vector bubble2Direction = new Vector(-2, -5);
-        Bubble bubble2 = new Bubble(gameObjects, bubble2Center, bubble2Radius, bubble2Direction);
-
-        // create 3rd bubble
-        Point bubble3Center = new Point(700, 700);
-        double bubble3Radius = 20;
-        Vector bubble3Direction = new Vector(2, -5);
-        Bubble bubble3 = new Bubble(gameObjects, bubble3Center, bubble3Radius, bubble3Direction);
-
-        // create 4rd bubble
-        Point bubble4Center = new Point(1300, 600);
-        double bubble4Radius = 40;
-        Vector bubble4Direction = new Vector(2, -5);
-        Bubble bubble4 = new Bubble(gameObjects, bubble4Center, bubble4Radius, bubble4Direction);
-
-        // create 5th bubble
-        Point bubble5Center = new Point(1600, 600);
-        double bubble5Radius = 80;
-        Vector bubble5Direction = new Vector(2, -5);
-        Bubble bubble5 = new Bubble(gameObjects, bubble5Center, bubble5Radius, bubble5Direction);
-
-        level4.add(bubble);
-        level4.add(bubble2);
-        level4.add(bubble3);
-        level4.add(bubble4);
-        level4.add(bubble5);
-
-        // Create timeDoor
-        Point ul = new Point(200, 30);
-        Point ur = new Point(300, 30);
-        Point bl = new Point(200, 851);
-        Point br = new Point(300, 851);
-
-        TimeDoor timeDoor = new TimeDoor(gameObjects, ul, ur, bl, br, 0, 6_000_000_000l);
-
-        // Create timeDoor
-        Point ul2 = new Point(500, 30);
-        Point ur2 = new Point(600, 30);
-        Point bl2 = new Point(500, 851);
-        Point br2 = new Point(600, 851);
-
-        TimeDoor timeDoor2 = new TimeDoor(gameObjects, ul2, ur2, bl2, br2, 0, 3_000_000_000l);
-
-        // Create timeDoor
-        Point ul3 = new Point(1100, 30);
-        Point ur3 = new Point(1200, 30);
-        Point bl3 = new Point(1100, 851);
-        Point br3 = new Point(1200, 851);
-
-        TimeDoor timeDoor3 = new TimeDoor(gameObjects, ul3, ur3, bl3, br3, 0, 3_000_000_000l);
-
-        // Create timeDoor
-        Point ul4 = new Point(1400, 30);
-        Point ur4 = new Point(1500, 30);
-        Point bl4 = new Point(1400, 851);
-        Point br4 = new Point(1500, 851);
-
-        TimeDoor timeDoor4 = new TimeDoor(gameObjects, ul4, ur4, bl4, br4, 0, 6_000_000_000l);
-
-        level4.add(timeDoor);
-        level4.add(timeDoor2);
-        level4.add(timeDoor3);
-        level4.add(timeDoor4);
-
+        level4.add(new Bubble(gameObjects, new Point(100, 600), 80, new Vector(-2, -5)));
+        level4.add(new Bubble(gameObjects, new Point(400, 700), 40, new Vector(-2, -5)));
+        level4.add(new Bubble(gameObjects, new Point(700, 700), 20, new Vector(2, -5)));
+        level4.add(new Bubble(gameObjects, new Point(1300, 600), 40, new Vector(2, -5)));
+        level4.add(new Bubble(gameObjects, new Point(1600, 600), 80, new Vector(2, -5)));
+        level4.add(new TimeDoor(gameObjects, new Point(200, 30), new Point(300, 30), 
+                new Point(200, 851), new Point(300, 851), 0, 6_000_000_000l));
+        level4.add(new TimeDoor(gameObjects, new Point(500, 30), new Point(600, 30), 
+                new Point(500, 851), new Point(600, 851), 0, 3_000_000_000l));
+        level4.add(new TimeDoor(gameObjects, new Point(1100, 30), new Point(1200, 30), 
+                new Point(1100, 851), new Point(1200, 851), 0, 3_000_000_000l));
+        level4.add(new TimeDoor(gameObjects, new Point(1400, 30), new Point(1500, 30), 
+                new Point(1400, 851), new Point(1500, 851), 0, 6_000_000_000l));
         return level4;
     }
 

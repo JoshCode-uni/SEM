@@ -3,7 +3,10 @@ import static org.junit.Assert.*;
 import javafx.event.EventHandler; 
 import javafx.event.EventType; 
 import javafx.scene.input.KeyCode; 
-import javafx.scene.input.KeyEvent; 
+import javafx.scene.input.KeyEvent;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
+
 import org.junit.Before; 
 import org.junit.Test; 
 import org.junit.runner.RunWith;
@@ -48,6 +51,7 @@ public class KeyboardTest {
 		MockitoAnnotations.initMocks(this);
 		keyboard = new Keyboard(scene);
 		keyboard.setBitSet(kb);
+        GameInfo.getInstance().setPlayerMode(PlayerMode.SINGLE_PLAYER);
 	} 
 	
 	/**
@@ -63,7 +67,7 @@ public class KeyboardTest {
 	 */
 	@Test 
 	public void testIsMoveLeft() {
-		keyboard.isMoveLeft();
+		keyboard.isMoveLeft(false);
 		verify(kb).get(Mockito.anyInt());
 	}
 	
@@ -72,7 +76,7 @@ public class KeyboardTest {
 	 */
 	@Test 
 	public void testIsMoveRight() {
-		keyboard.isMoveRight();
+		keyboard.isMoveRight(false);
 		verify(kb).get(Mockito.anyInt());
 	}
 	
@@ -81,7 +85,7 @@ public class KeyboardTest {
 	 */
 	@Test
 	public void testIsShoot() {
-		keyboard.isShoot();
+		keyboard.isShoot(false);
 		verify(kb).get(Mockito.anyInt());
 	}
 }

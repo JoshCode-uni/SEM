@@ -20,8 +20,13 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.GameMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
+import nl.joshuaslik.tudelft.SEM.model.container.Vector;
+import org.apache.commons.lang3.ClassUtils;
 
 /**
  * Game objects stores all objects of a level and updates them. It also keeps
@@ -42,9 +47,13 @@ public class GameObjects implements IUpdateable, IGameObjects {
     private final PickupGenerator pickupGenerator = new PickupGenerator((IGameObjects) this);
     private final ArrayList<Bubble> bubbles = new ArrayList<>();
     private Player player;
+    private Player player2;
 
-    private boolean hasProjectile = false;
+    private boolean p1HasProjectile = false;
+    private boolean p2HasProjectile = false;
+    private boolean isActive = true;
     private Projectile projectile = null;
+    private Projectile projectile2 = null;
     private double topBorder, rightBorder, bottomBorder, leftBorder;
 
     private int score = 0;
@@ -56,19 +65,18 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @param draw         interface to the drawing class which allows us to draw the
      *                     game objects.
-     * @param level        the current level.
      * @param topBorder    y value of the top border.
      * @param rightBorder  x value of the right border.
      * @param bottomBorder y value of the bottom border.
      * @param leftBorder   x value of the left border.
      * @param keyBoard
      */
-    public GameObjects(final IDraw draw, final int level, final double topBorder, final double rightBorder, final double bottomBorder,
+    public GameObjects(final IDraw draw, final double topBorder, final double rightBorder, final double bottomBorder,
                        final double leftBorder, final IKeyboard keyBoard) {
         this.draw = draw;
         initializeBorders(topBorder, rightBorder, bottomBorder, leftBorder);
         initializePlayer(keyBoard);
-        initializeLevel(level);
+        initializeLevel();
         addBufferedDynamicObjects();
     }
 
@@ -79,16 +87,12 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     @Override
     public void update(final long nanoFrameTime) {
-        // only add/remove objects at the beginning of each update
+        checkSurvivalMode();
         addBufferedDynamicObjects();
         removeBufferedDynamicObjects();
-
-        // calculate next positions
         for (IPrepareable e : prepUpdateableObjects) {
             e.prepare(nanoFrameTime);
         }
-
-        // check for collisions
         for (ICollider collider : colliderObjects) {
             for (IIntersectable intersectable : intersectableObjects) {
                 if (intersectable != collider) {
@@ -96,12 +100,63 @@ public class GameObjects implements IUpdateable, IGameObjects {
                 }
             }
         }
-
-        // update positions based on the calculated positions (which might've
-        // been changed by a collision)
         for (IUpdateable e : updateableObjects) {
             e.update(nanoFrameTime);
         }
+    }
+    
+    /**
+     * Add a random bubble with a chance of 1/300 (~once every 5 seconds) at a random location.
+     */
+    private void checkSurvivalMode() {
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+            return;
+        }
+        if(allBubblesDestroyed() || (Math.random() < 1.0 / 300.0 && bubblesLeft() < 10)) {
+            Point topLeft = Levels.getCircleSpawnPointTopLeft();
+            Point bottomRight = Levels.getCircleSpawnPointBottomRight();
+            int x = (int) getRandomBetween(topLeft.getxPos(), bottomRight.getxPos());
+            int y = (int) getRandomBetween(topLeft.getyPos(), bottomRight.getyPos());
+            spawnBubble(new Point(x, y), randomBubbleSize());
+        }
+    }
+    
+    /**
+     * Get a random value between a and b.
+     * @param a a number.
+     * @param b a number.
+     * @return a number between a and b.
+     */
+    private double getRandomBetween(double a, double b) {
+        if(a < b) {
+            return (a + (b - a) * Math.random());
+        } else {
+            return (b + (a - b) * Math.random());
+        }
+    }
+    
+    /**
+     * Returns either 20, 40 or 80. 40: 50%, 20: 25%, 80: 25% chance.
+     * @return 20, 40 or 80.
+     */
+    private int randomBubbleSize() {
+        double random = Math.random();
+        if (random < 0.5) {
+            return 40;
+        } else if (random < 0.75) {
+            return 20;
+        } else {
+            return 80;
+        }
+    }
+    
+    /**
+     * Create a bubble at the specified location.
+     * @param location a point.
+     */
+    private void spawnBubble(Point location, int size) {
+        Bubble b = new Bubble(this, location, size, new Vector(1, 0));
+        addObject(b);
     }
 
     /**
@@ -113,21 +168,14 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param leftBorder   x value of the left border.
      */
     private void initializeBorders(final double topBorder, final double rightBorder, final double bottomBorder, final double leftBorder) {
-
-        // add top, left, right and bottom lines
         Line top = new Line((IGameObjects) this, leftBorder, topBorder, rightBorder, topBorder);
-
         Line left = new Line((IGameObjects) this, leftBorder, topBorder, leftBorder, bottomBorder);
-
         Line right = new Line((IGameObjects) this, rightBorder, topBorder, rightBorder, bottomBorder);
-
         Line bottom = new Line((IGameObjects) this, leftBorder, bottomBorder, rightBorder, bottomBorder);
-
         addObject(top);
         addObject(left);
         addObject(right);
         addObject(bottom);
-
         setGameBounds(topBorder, rightBorder, bottomBorder, leftBorder);
     }
 
@@ -135,16 +183,21 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Initialize the player.
      */
     private void initializePlayer(final IKeyboard keyBoard) {
-        InputStream is;
+        InputStream is, is2;
         try {
             is = getClass().getResource("/data/gui/img/penguin.png").openStream();
+            is2 = getClass().getResource("/data/gui/img/penguin.png").openStream();
         } catch (IOException ex) {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
             return;
         }
-
-        player = new Player((IGameObjects) this, is, keyBoard);
-        addObject(player);
+       	player = new Player((IGameObjects) this, is, keyBoard, false);
+       	addObject(player);
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || 
+                GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+        	player2 = new Player((IGameObjects) this, is2, keyBoard, true);
+        	addObject(player2);
+        }
     }
 
     /**
@@ -152,9 +205,15 @@ public class GameObjects implements IUpdateable, IGameObjects {
      *
      * @param level the level to initialize.
      */
-    private void initializeLevel(final int level) {
-        for (IPhysicsObject e : Levels.getLevelObjects(level, (IGameObjects) this)) {
-            addObject(e);
+    private void initializeLevel() {
+        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+            for (IPhysicsObject e : Levels.getLevelObjects((IGameObjects) this)) {
+                addObject(e);
+            }
+        } else {
+            for (IPhysicsObject e : Levels.getSurvivalLevelObjects((IGameObjects) this)) {
+                addObject(e);
+            }
         }
     }
 
@@ -183,21 +242,21 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     private void addBufferedDynamicObjects() {
         for (IPhysicsObject object : addObjectBuffer) {
-
-            if (object instanceof IUpdateable) {
+            if(object == null)
+                continue;
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
                 updateableObjects.add((IUpdateable) object);
             }
-            if (object instanceof IPrepareable) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IPrepareable.class)) {
                 prepUpdateableObjects.add((IPrepareable) object);
             }
-            if (object instanceof IIntersectable) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IIntersectable.class)) {
                 intersectableObjects.add((IIntersectable) object);
             }
-            if (object instanceof ICollider) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
                 colliderObjects.add((ICollider) object);
             }
-
-            if (object instanceof Bubble) {
+            if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.add((Bubble) object);
             }
         }
@@ -209,21 +268,21 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     private void removeBufferedDynamicObjects() {
         for (IPhysicsObject object : removeObjectBuffer) {
-
-            if (object instanceof IUpdateable) {
+            if(object == null)
+                continue;
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
                 updateableObjects.remove((IUpdateable) object);
             }
-            if (object instanceof IPrepareable) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IPrepareable.class)) {
                 prepUpdateableObjects.remove((IPrepareable) object);
             }
-            if (object instanceof IIntersectable) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IIntersectable.class)) {
                 intersectableObjects.remove((IIntersectable) object);
             }
-            if (object instanceof ICollider) {
+            if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
                 colliderObjects.remove((ICollider) object);
             }
-
-            if (object instanceof Bubble) {
+            if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.remove((Bubble) object);
                 score += 10;
             }
@@ -307,11 +366,15 @@ public class GameObjects implements IUpdateable, IGameObjects {
     /**
      * Check if the game currently has a spawned projectile.
      *
+     * @param p2 if this method is called by player 2.
      * @return if the game currently has a spawned projectile.
      */
     @Override
-    public boolean hasProjectile() {
-        return hasProjectile;
+    public boolean hasProjectile(boolean p2) {
+        if(!p2){
+        	return p1HasProjectile;
+        }
+        return p2HasProjectile;
     }
 
     /**
@@ -319,7 +382,25 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     @Override
     public void playerDied() {
-        draw.playerDied();
+    	if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
+    		if(player.isDead()&&player2.isDead()){
+    			draw.playerDied();
+    			isActive=false;
+    		}
+    		if(player.isDead()){
+    			removeObject(player);
+    			player.getImage().destroy();
+    		}
+    		if(player2.isDead()){
+    			removeObject(player2);
+    			player2.getImage().destroy();
+    		}
+    		
+    	}
+    	else if(isActive){
+    		draw.playerDied();
+    		isActive=false;
+    	}
     }
 
     /**
@@ -330,18 +411,31 @@ public class GameObjects implements IUpdateable, IGameObjects {
     @Override
     public void addProjectile(final Projectile projectile) {
         addObject(projectile);
-        this.projectile = projectile;
-        hasProjectile = true;
+        if(projectile.getPlayer().equals(player)){
+        	this.projectile = projectile;
+        	p1HasProjectile = true;
+        }
+        if(projectile.getPlayer().equals(player2)){
+        	this.projectile2 = projectile;
+        	p2HasProjectile = true;
+        }
     }
 
     /**
      * Remove the projectile from the game.
      */
     @Override
-    public void removeProjectile() {
-        removeObject(projectile);
-        this.projectile = null;
-        hasProjectile = false;
+    public void removeProjectile(boolean p2) {
+        if(!p2){
+        	removeObject(projectile);
+        	this.projectile = null;
+        	p1HasProjectile = false;
+        }
+        if(p2) {
+        	removeObject(projectile2);
+        	this.projectile2 = null;
+        	p2HasProjectile = false;
+        }
     }
 
     /**
@@ -390,6 +484,11 @@ public class GameObjects implements IUpdateable, IGameObjects {
     }
 
     @Override
+    public Player getPlayer2() {
+    	return player2;
+    }
+    
+    @Override
     public void handleModifierCollision(final Object mod, final boolean isPlayerPickup, final boolean isBubblePickup) {
         if (isPlayerPickup) {
             player.addModifier((AbstractPlayerDecorator) mod);
@@ -423,8 +522,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
     //CHECKSTYLE.OFF
     //Methods for testing purposes
 
-    GameObjects(final Boolean testing, final IDraw draw, final int level, final double topBorder, final double rightBorder,
-                final double bottomBorder, final double leftBorder, IKeyboard keyBoard) {
+    GameObjects(final IDraw draw) {
         this.draw = draw;
         addBufferedDynamicObjects();
     }

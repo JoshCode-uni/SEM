@@ -122,14 +122,16 @@ public class CircleViewObject extends AbstractViewObject implements ICircleViewO
      * outside of the bounds
      */
     private double checkXBounds(double xCoordinate) {
-        if (!bounds)
+        if (!bounds) {
             return xCoordinate;
-        if (xCoordinate > maxX)
+        }
+        if (xCoordinate > maxX) {
             return maxX;
-        else if (xCoordinate < minX)
+        } else if (xCoordinate < minX) {
             return minX;
-        else
+        } else {
             return xCoordinate;
+        }
     }
 
     /**
@@ -140,13 +142,15 @@ public class CircleViewObject extends AbstractViewObject implements ICircleViewO
      * outside of the bounds
      */
     private double checkYBounds(double yCoordinate) {
-        if (!bounds)
+        if (!bounds) {
             return yCoordinate;
-        if (yCoordinate > maxY)
+        }
+        if (yCoordinate > maxY) {
             return maxY;
-        else if (yCoordinate < minY)
+        } else if (yCoordinate < minY) {
             return minY;
-        else
+        } else {
             return yCoordinate;
+        }
     }
 }
