@@ -16,6 +16,7 @@ public class GameInfo {
 
     private static GameInfo gameInfo;
     private PlayerMode playerMode;
+    private GameMode gameMode = GameMode.CLASSIC;
     private int lives = 3;
     private final ArrayList<Integer> levelScoresplayer1;
     private final ArrayList<Integer> levelScoresPlayer2;
@@ -49,6 +50,15 @@ public class GameInfo {
      */
     public PlayerMode getPlayerMode() {
         return playerMode;
+    }
+    
+    /**
+     * Get a copy of the game mode.
+     *
+     * @return the game mode.
+     */
+    public GameMode getGameMode() {
+        return gameMode;
     }
 
     /**
@@ -209,5 +219,19 @@ public class GameInfo {
         while(list.size() < size) {
             list.add("");
         }
+    }
+    
+    /**
+     * Switch to the classical mode.
+     */
+    public void setClassicMode() {
+        gameMode = GameMode.CLASSIC;
+    }
+    
+    /**
+     * Switch to the survival mode.
+     */
+    public void setSurvivalMode() {
+        gameMode = GameMode.SURVIVAL;
     }
 }
