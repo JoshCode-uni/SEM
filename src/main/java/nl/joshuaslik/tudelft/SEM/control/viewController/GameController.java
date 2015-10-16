@@ -37,7 +37,7 @@ public class GameController implements IviewController {
     private Rectangle timeRectangle, negativeTimeRectangle;
 
     @FXML
-    private Text levelText, scoreText;
+    private Text levelText, scoreText, scoreTextPlayer2;
     
     @FXML
     private ImageView background;
@@ -162,6 +162,7 @@ public class GameController implements IviewController {
      * @param nanoTimePassed the framerate (nanoseconds/frame)
      */
     public void updateTime(final Long nanoTimePassed) {
+        GameInfo gi = GameInfo.getInstance();
         if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             timeLeft -= nanoTimePassed;
             if (timeLeft <= 0) {
@@ -171,7 +172,12 @@ public class GameController implements IviewController {
             timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft
                     / (double) MAX_TIME));
         }
-        scoreText.setText("Score: " + gl.getScore());
+        if(!gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+            scoreText.setText("Score: " + gl.getScore());
+        } else {
+            scoreText.setText("Score of " + gi.getPlayerNames().get(0) + ": " + gl.getPlayer1Score());
+            scoreTextPlayer2.setText("Score of " + gi.getPlayerNames().get(1) + ": " + gl.getPlayer2Score());
+        }
     }
 
     /**
@@ -207,6 +213,9 @@ public class GameController implements IviewController {
             GameLog.addInfoLog("level score: " + totalScore);
             GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
             GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+        } else {
+            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), gl.getPlayer1Score());
+            GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), gl.getPlayer2Score());
         }
     }
 

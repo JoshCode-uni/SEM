@@ -51,6 +51,7 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
         
         if (pickupImage.intersects(pl.getImage())) {
             handlePlayerCollision();
+            return;
         }
         if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
         	Player pl2 = getGameObjects().getPlayer2();

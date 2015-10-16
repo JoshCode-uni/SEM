@@ -169,7 +169,7 @@ public class MainMenuController implements IviewController {
     @Override
     public void start(final Scene scene) {
         GameInfo gi = GameInfo.getInstance();
-        if(!gi.getPlayerMode().equals(PlayerMode.SINGLE_PLAYER)) {
+        if(gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
             totalScore.setVisible(false);
             p1Score.setText("Score player 1: " + gi.getPlayer1Score());
             p2Score.setText("Score player 2: " + gi.getPlayer2Score());

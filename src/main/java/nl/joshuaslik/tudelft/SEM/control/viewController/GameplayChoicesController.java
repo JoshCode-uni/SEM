@@ -43,7 +43,6 @@ public class GameplayChoicesController implements IpopupController {
 	private void prepareGame() {
         String username1 = user1.getText();
         String username2 = user2.getText();
-
         if (!(username1.equals(""))) {
             if ((username1.equals(""))) {
                 return;
@@ -69,7 +68,6 @@ public class GameplayChoicesController implements IpopupController {
                 default:
                     throw new AssertionError();
             }
-
             GameInfo.getInstance().setPlayerName(0, username1);
             popupControl.hide();
             mainController.setButtonsDisabled(false);
