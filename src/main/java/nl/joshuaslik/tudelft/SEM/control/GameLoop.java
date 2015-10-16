@@ -32,7 +32,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     private static final int FIRST_FRAME_TIME = 165_000_000;
     private GameController gameController;
     private final GameObjects gameObjects;
-    private long time = 0;
+    private long oldTime = 0;
 
     /**
      * @param gameController the controller of the game view.
@@ -49,12 +49,18 @@ public class GameLoop extends AnimationTimer implements IDraw {
         gameObjects = new GameObjects((IDraw) this, top, right, bottom, left, kb);
     }
 
+    /**
+     * Start the gameloop.
+     */
     @Override
     public final void start() {
         super.start();
         kb.addListeners();
     }
 
+    /**
+     * Stop the gameloop.
+     */
     @Override
     public void stop() {
         super.stop();
@@ -68,26 +74,29 @@ public class GameLoop extends AnimationTimer implements IDraw {
      */
     @Override
     public final void handle(final long time) {
-
-        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode()) && 
-                gameObjects.allBubblesDestroyed()) {
+        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())
+                && gameObjects.allBubblesDestroyed()) {
             gameController.levelCompleted();
             return;
         }
-
+        long frametime;
+        if (this.oldTime != 0) {
+            frametime = time - this.oldTime;
+        } else {
+            frametime = FIRST_FRAME_TIME;
+        }
+        this.oldTime = time;
+        updateGameObjects(frametime);
+    }
+    
+    /**
+     * Update the game objects.
+     * @param frametime the time of a frame in ns.
+     */
+    private void updateGameObjects(long frametime) {
         try {
-            // update time
-            long frametime;
-            if (this.time != 0) {
-                frametime = time - this.time;
-            } else {
-                frametime = FIRST_FRAME_TIME;
-            }
-            this.time = time;
-
             gameController.updateTime(frametime);
             gameObjects.update(frametime);
-
         } catch (Exception ex) {
             stop();
             GameLog.addErrorLog("Exception in game loop");
@@ -114,13 +123,21 @@ public class GameLoop extends AnimationTimer implements IDraw {
         return gameObjects.getScore();
     }
     
+    /**
+     * Get the score of player 1.
+     * @return the score.
+     */
     public final int getPlayer1Score() {
     	return gameObjects.getPlayer().getScore();
     }
 
-	public final int getPlayer2Score() {
-		return gameObjects.getPlayer2().getScore();
-	}
+    /**
+     * Get the score of player 1.
+     * @return the score.
+     */
+    public final int getPlayer2Score() {
+        return gameObjects.getPlayer2().getScore();
+    }
 	
     /**
      * Tells gameController the player has died
@@ -187,5 +204,4 @@ public class GameLoop extends AnimationTimer implements IDraw {
     final GameController getGameController() {
         return gameController;
     }
-
 }

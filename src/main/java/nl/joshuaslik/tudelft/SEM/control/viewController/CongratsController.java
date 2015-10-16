@@ -1,29 +1,22 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
-import javafx.scene.layout.Pane;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 public class CongratsController implements IpopupController {
 
     @FXML
-    private Pane pane;
-
-    @FXML
     private Button mainMenuButton;
 
-    private IviewController mainController;
     private PopupControl popupControl;
 
     /**
      * Start the pop-up when player has finished the game
      */
     public void start() {
-
     }
 
     /**
@@ -32,7 +25,7 @@ public class CongratsController implements IpopupController {
      * @param event the click of the button
      */
     @FXML
-    private void handleMainMenuButton(final ActionEvent event) {
+    private void handleMainMenuButton() {
         GameLog.addInfoLog("Main menu button pressed from congrats screen");
         System.out.println("Main Menu button pressed!");
         popupControl.hide();
@@ -53,7 +46,6 @@ public class CongratsController implements IpopupController {
      */
     @Override
     public void setMainViewController(final IviewController controller) {
-        mainController = controller;
     }
 
     /**

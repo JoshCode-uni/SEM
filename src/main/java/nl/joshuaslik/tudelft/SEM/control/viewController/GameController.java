@@ -37,7 +37,7 @@ public class GameController implements IviewController {
     private Rectangle timeRectangle, negativeTimeRectangle;
 
     @FXML
-    private Text levelText, scoreText;
+    private Text levelText, scoreText, scoreTextPlayer2;
     
     @FXML
     private ImageView background;
@@ -56,7 +56,6 @@ public class GameController implements IviewController {
 
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
 
-//    private static int currentlives = 5;
 
     private long timeLeft;
 
@@ -110,7 +109,6 @@ public class GameController implements IviewController {
      */
     @Override
     public void start(final Scene scene) {
-
         int lvl = Levels.getCurrentLevel() + 1;
         Image bg;
         if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
@@ -122,17 +120,11 @@ public class GameController implements IviewController {
         assert(bg != null);
         assert(background != null);
         background.setImage(bg);
-
-        //currentlives = player.getLives();
         levelText.setText("Level " + Integer.toString(lvl));
         timeLeft = MAX_TIME;
-
         resetLives();
-
         gl = new GameLoop(this, top.getStartY(), top.getEndX(), bottom.getStartY(), top.getStartX(), scene);
-
         gl.setViewController(this);
-
         gl.start();
     }
 
@@ -170,44 +162,29 @@ public class GameController implements IviewController {
      * @param nanoTimePassed the framerate (nanoseconds/frame)
      */
     public void updateTime(final Long nanoTimePassed) {
-
-        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+        GameInfo gi = GameInfo.getInstance();
+        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             timeLeft -= nanoTimePassed;
             if (timeLeft <= 0) {
                 died();
                 return;
             }
-            timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft / 
-                    (double) MAX_TIME));
+            timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft
+                    / (double) MAX_TIME));
         }
-        scoreText.setText("Score: " + gl.getScore());
+        if(!gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+            scoreText.setText("Score: " + gl.getScore());
+        } else {
+            scoreText.setText("Score of " + gi.getPlayerNames().get(0) + ": " + gl.getPlayer1Score());
+            scoreTextPlayer2.setText("Score of " + gi.getPlayerNames().get(1) + ": " + gl.getPlayer2Score());
+        }
     }
 
     /**
      * Called when a level is completed
      */
     public void levelCompleted() {
-    	if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER)){
-    		int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
-    		GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
-    		GameLog.addInfoLog("level score: " + totalScore);
-    		GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
-    	} else if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)) {
-
-    		int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
-    		GameLog.addInfoLog("Players completed level: " + Levels.getCurrentLevel());
-    		GameLog.addInfoLog("Player 1 score:"+ gl.getPlayer1Score());
-    		GameLog.addInfoLog("Player 2 score:"+ gl.getPlayer2Score());
-    		GameLog.addInfoLog("level score: " + totalScore);
-    		GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
-    		GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), totalScore);
-    	} else if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
-    		GameLog.addInfoLog("Players completed level:" + Levels.getCurrentLevel());
-    		GameLog.addInfoLog("Player 1 score:"+ gl.getPlayer1Score());
-    		GameLog.addInfoLog("Player 2 score:"+ gl.getPlayer2Score());
-    		GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), gl.getPlayer1Score());
-    		GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), gl.getPlayer2Score());
-    	}
+        logLevelCompletedData();
         gl.stop();
         gl = null;
         Levels.nextLevel();
@@ -216,6 +193,29 @@ public class GameController implements IviewController {
             YouWonController.loadPopup(this);
         } else {
             CongratsController.loadPopup(this);
+        }
+    }
+    
+    /**
+     * Log player completed level data.
+     */
+    private void logLevelCompletedData() {
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER)) {
+            int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
+            GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
+            GameLog.addInfoLog("level score: " + totalScore);
+            GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
+        } else if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)) {
+            int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
+            GameLog.addInfoLog("Players completed level: " + Levels.getCurrentLevel());
+            GameLog.addInfoLog("Player 1 score:" + gl.getPlayer1Score());
+            GameLog.addInfoLog("Player 2 score:" + gl.getPlayer2Score());
+            GameLog.addInfoLog("level score: " + totalScore);
+            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+        } else {
+            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), gl.getPlayer1Score());
+            GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), gl.getPlayer2Score());
         }
     }
 
@@ -227,11 +227,9 @@ public class GameController implements IviewController {
         System.out.println("Player died");
         gl.stop();
         gl = null;
-
         GameInfo gi = GameInfo.getInstance();
         int ilives = gi.getLives() - 1;
         gi.loseLife();
-
         if (ilives >= 0 && !GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             GameController.loadView();
         } else {

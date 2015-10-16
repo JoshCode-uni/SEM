@@ -31,17 +31,14 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
      */
     AbstractDoor(final IGameObjects gameObjects, final Point ul, final Point ur, final Point bl, final Point br) {
         super(gameObjects);
-
         up = new Line(gameObjects, ul.getxPos(), ul.getyPos(), ur.getxPos(), ur.getyPos());
         left = new Line(gameObjects, ul.getxPos(), ul.getyPos(), bl.getxPos(), bl.getyPos());
         right = new Line(gameObjects, ur.getxPos(), ur.getyPos(), br.getxPos(), br.getyPos());
         down = new Line(gameObjects, bl.getxPos(), bl.getyPos(), br.getxPos(), br.getyPos());
-
         gameObjects.addObject(up);
         gameObjects.addObject(left);
         gameObjects.addObject(right);
         gameObjects.addObject(down);
-
         xLeft = ul.getxPos();
         xRight = ur.getxPos();
         gameObjects.getPlayer().setDoor(xLeft);
@@ -80,7 +77,6 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
         left.destroy();
         right.destroy();
         down.destroy();
-
         getGameObjects().removeObject(this);
     }
 }

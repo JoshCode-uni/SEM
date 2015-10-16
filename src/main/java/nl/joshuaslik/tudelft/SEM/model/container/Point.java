@@ -12,8 +12,8 @@ package nl.joshuaslik.tudelft.SEM.model.container;
  */
 public class Point {
 
-    private final double xPos; // stores x position
-    private final double yPos; // stores y position
+    private final double xPos;
+    private final double yPos;
 
     /**
      * Create a point.

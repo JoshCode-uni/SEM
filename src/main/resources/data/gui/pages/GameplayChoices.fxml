@@ -29,22 +29,12 @@
                         <Font name="Buxton Sketch" size="96.0" />
                     </font>
                 </Text>
-                <Button fx:id="returnButton" layoutX="14.0" layoutY="418.0" mnemonicParsing="false" onAction="#handleReturnButton" prefHeight="72.0" prefWidth="123.0" text="Return">
-                    <font>
-                        <Font name="Buxton Sketch" size="11.0" />
-                    </font>
-                    <padding>
-                        <Insets top="5.0" />
-                    </padding>
-                </Button>
                 <Button fx:id="startButton" layoutX="216.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="100.0" prefWidth="214.0" stylesheets="@MainMenu.css" text="Start" textAlignment="CENTER">
                     <font>
                         <Font name="Buxton Sketch" size="23.0" />
                     </font>
                 </Button>
             <Separator layoutX="319.0" layoutY="128.0" orientation="VERTICAL" prefHeight="230.0" prefWidth="5.0" />
-            <ChoiceBox fx:id="SingleMultiChoice" layoutX="52.0" layoutY="142.0" prefHeight="81.0" prefWidth="232.0" />
-            <ChoiceBox fx:id="CoopVersusChoice" layoutX="52.0" layoutY="258.0" prefHeight="81.0" prefWidth="232.0" />
             <TextField fx:id="user1" layoutX="364.0" layoutY="177.0" prefHeight="54.0" prefWidth="239.0" />
             <Label layoutX="364.0" layoutY="128.0" prefHeight="54.0" prefWidth="239.0" text="Name Player 1:" textAlignment="CENTER">
                <font>
@@ -52,7 +42,7 @@
                </font>
             </Label>
             <TextField fx:id="user2" layoutX="364.0" layoutY="280.0" prefHeight="54.0" prefWidth="239.0" />
-            <Label layoutX="364.0" layoutY="235.0" prefHeight="45.0" prefWidth="239.0" text="Name Player 2:">
+            <Label fx:id="player2Label" layoutX="364.0" layoutY="235.0" prefHeight="45.0" prefWidth="239.0" text="Name Player 2:">
                <font>
                   <Font size="35.0" />
                </font>
@@ -62,11 +52,13 @@
                   <Font size="35.0" />
                </font>
             </Label>
-            <Label layoutX="52.0" layoutY="216.0" prefHeight="54.0" prefWidth="239.0" text="Gamemode" textAlignment="CENTER">
+            <Label fx:id="gameModeLabel" layoutX="52.0" layoutY="216.0" prefHeight="54.0" prefWidth="239.0" text="Gamemode" textAlignment="CENTER">
                <font>
                   <Font size="35.0" />
                </font>
             </Label>
+            <ComboBox fx:id="coopVersusChoice" layoutX="52.0" layoutY="258.0" prefWidth="150.0" />
+            <ComboBox fx:id="SingleMultiChoice" layoutX="52.0" layoutY="143.0" prefWidth="150.0" />
             </children>
         </Pane>
     </children>

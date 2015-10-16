@@ -1,55 +1,32 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import nl.joshuaslik.tudelft.SEM.control.GameLoop;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
-import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PopupControl;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.util.StringConverter;
 
 public class GameplayChoicesController implements IpopupController {
 
+    @FXML
+    private Label player2Label, gameModeLabel;
+    
 	@FXML
-	private Button startButton, returnButton;
-
-	@FXML
-	private ChoiceBox<String> SingleMultiChoice, CoopVersusChoice;
-
+	private ComboBox SingleMultiChoice, coopVersusChoice;
+        
 	@FXML
 	private TextField user1, user2;
 
 	private IviewController mainController;
 	private PopupControl popupControl;
-
-	/**
-	 * Initialize things on this pop-up
-	 */
-	public void start(final Scene scene) {
-
-	}
-
-	/**
-	 * Handles clicking on the return button
-	 */
-	@FXML
-	private void handleReturnButton() {
-		GameLog.addInfoLog("Return button pressed from gameplay screen");
-		System.out.println("Return button pressed!");
-		popupControl.hide();
-		mainController.setButtonsDisabled(false);
-	}
-
+        
 	/**
 	 * Handles clicking of the start button
 	 */
@@ -64,33 +41,38 @@ public class GameplayChoicesController implements IpopupController {
 	 * Handles the choices of the player for the instance of the game
 	 */
 	private void prepareGame() {
-		String username1 = user1.getText();
-		String username2 = user2.getText();
+        String username1 = user1.getText();
+        String username2 = user2.getText();
+        if (!(username1.equals(""))) {
+            if ((username1.equals(""))) {
+                return;
+            }
+            switch (SingleMultiChoice.getSelectionModel().getSelectedIndex()) {
+                case 0:
+                    GameInfo.getInstance().setPlayerMode(PlayerMode.SINGLE_PLAYER);
+                    break;
+                case 1:
+                    if (!username2.equals("")) {
+                        GameInfo.getInstance().setPlayerName(1, username2);
+                        if (coopVersusChoice.getValue().equals("Co-op")) {
+                            GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
 
-		if (!(SingleMultiChoice.getValue().equals(null)) && !(username1.equals(""))) {
-			if (SingleMultiChoice.getValue().equals("Single Player") && !(username1.equals(""))) {
-				GameInfo.getInstance().setPlayerMode(PlayerMode.SINGLE_PLAYER);
-			}
-
-			if (SingleMultiChoice.getValue().equals("Multiplayer") && !(CoopVersusChoice.getValue() == (null))
-					&& !(username2.equals(""))) {
-				if (CoopVersusChoice.getValue().equals("Co-op")) {
-					GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
-
-				}
-				if (CoopVersusChoice.getValue().equals("Versus")) {
-					GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_VERSUS);
-
-				}
-				GameInfo.getInstance().setPlayerName(1, username2);
-			}
-
-			GameInfo.getInstance().setPlayerName(0, username1);
-			popupControl.hide();
-			mainController.setButtonsDisabled(false);
-			GameController.loadView();
-		}
-	}
+                        }
+                        if (coopVersusChoice.getValue().equals("Versus")) {
+                            GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_VERSUS);
+                        }
+                    } else {
+                        return;
+                    }
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+            GameInfo.getInstance().setPlayerName(0, username1);
+            popupControl.hide();
+            mainController.setButtonsDisabled(false);
+        }
+    }
 
 	/**
 	 * Load the Gameplay popup
@@ -99,6 +81,7 @@ public class GameplayChoicesController implements IpopupController {
 	 *            the controller class of the currently loaded view.
 	 */
 	public static void loadPopup(final IviewController controller) {
+            
 		Launcher.loadPopup(controller,
 				Class.class.getResource("/data/gui/pages/GameplayChoices.fxml"));
 	}
@@ -114,12 +97,27 @@ public class GameplayChoicesController implements IpopupController {
 		this.popupControl = popupControl;
 		SingleMultiChoice.setItems(FXCollections.observableArrayList(
 				"Single Player", "Multiplayer"));
-		CoopVersusChoice.setItems(FXCollections.observableArrayList("Co-op",
+		coopVersusChoice.setItems(FXCollections.observableArrayList("Co-op",
 				"Versus"));
-
-		// if (SingleMultiChoice.getValue().equals("Single Player")) {
-		// CoopVersusChoice.setDisable(true);
-		// }
+                SingleMultiChoice.addEventHandler(ActionEvent.ACTION, onSelected);
+                SingleMultiChoice.getSelectionModel().select(0);
+                coopVersusChoice.getSelectionModel().select(0);
+                user2.setVisible(false);
+                player2Label.setVisible(false);
+                gameModeLabel.setVisible(false);
+                coopVersusChoice.setVisible(false);
 	}
+        
+        /**
+     * This is an event handler class definition, which will be triggered when
+     * an items in the dropdown list is selected.
+     */
+    private final EventHandler onSelected = (EventHandler<ActionEvent>) (ActionEvent t) -> {
+        boolean visible = SingleMultiChoice.getSelectionModel().getSelectedIndex() == 1;
+        user2.setVisible(visible);
+        player2Label.setVisible(visible);
+        gameModeLabel.setVisible(visible);
+        coopVersusChoice.setVisible(visible);
+    };
 
 }

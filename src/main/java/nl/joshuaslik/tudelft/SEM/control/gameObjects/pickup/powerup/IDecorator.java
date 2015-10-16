@@ -19,8 +19,4 @@ public interface IDecorator<T> {
      * @return
      */
     T decorate(T mod);
-
-    //    public abstract InputStream getImageStream();
-    //    public abstract double getImageHeight();
-    //    public abstract double getImageWidth();
 }
