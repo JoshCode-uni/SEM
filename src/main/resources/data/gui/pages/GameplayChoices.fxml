@@ -37,7 +37,7 @@
                         <Insets top="5.0" />
                     </padding>
                 </Button>
-                <Button fx:id="playButton" layoutX="216.0" layoutY="368.0" mnemonicParsing="false" onAction="#handlePlayButton" prefHeight="100.0" prefWidth="214.0" stylesheets="@MainMenu.css" text="Play" textAlignment="CENTER">
+                <Button fx:id="startButton" layoutX="216.0" layoutY="368.0" mnemonicParsing="false" onAction="#handleStartButton" prefHeight="100.0" prefWidth="214.0" stylesheets="@MainMenu.css" text="Start" textAlignment="CENTER">
                     <font>
                         <Font name="Buxton Sketch" size="23.0" />
                     </font>
@@ -45,13 +45,13 @@
             <Separator layoutX="319.0" layoutY="128.0" orientation="VERTICAL" prefHeight="230.0" prefWidth="5.0" />
             <ChoiceBox fx:id="SingleMultiChoice" layoutX="36.0" layoutY="163.0" prefHeight="62.0" prefWidth="250.0" />
             <ChoiceBox fx:id="CoopVersusChoice" layoutX="36.0" layoutY="272.0" prefHeight="62.0" prefWidth="250.0" />
-            <TextField layoutX="364.0" layoutY="177.0" prefHeight="54.0" prefWidth="239.0" />
+            <TextField fx:id="user1" layoutX="364.0" layoutY="177.0" prefHeight="54.0" prefWidth="239.0" />
             <Label layoutX="364.0" layoutY="128.0" prefHeight="54.0" prefWidth="239.0" text="Name Player 1:" textAlignment="CENTER">
                <font>
                   <Font size="35.0" />
                </font>
             </Label>
-            <TextField layoutX="364.0" layoutY="280.0" prefHeight="54.0" prefWidth="239.0" />
+            <TextField fx:id="user2" layoutX="364.0" layoutY="280.0" prefHeight="54.0" prefWidth="239.0" />
             <Label layoutX="364.0" layoutY="235.0" prefHeight="45.0" prefWidth="239.0" text="Name Player 2:">
                <font>
                   <Font size="35.0" />

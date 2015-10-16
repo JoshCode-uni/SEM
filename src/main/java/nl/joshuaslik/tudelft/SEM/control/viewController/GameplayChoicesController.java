@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.PopupControl;
 import javafx.scene.image.Image;
 import javafx.util.StringConverter;
@@ -17,12 +18,12 @@ import javafx.util.StringConverter;
 public class GameplayChoicesController implements IpopupController {
 	
     @FXML
-    private Button playButton, returnButton;
+    private Button startButton, returnButton;
     
     @FXML
     private ChoiceBox<String> SingleMultiChoice;
     @FXML
-    private ChoiceBox CoopVersusChoice;
+    private ChoiceBox<String> CoopVersusChoice;
 
     private IviewController mainController;
     private PopupControl popupControl;
@@ -31,8 +32,10 @@ public class GameplayChoicesController implements IpopupController {
      * Initialize things on this pop-up
      */
     public void start(final Scene scene) {
+   	SingleMultiChoice.setItems(FXCollections.observableArrayList("Single Player", "Multi Player"));	
    	
-		
+   //	CoopVersusChoice.setItems(FXCollections.observableArrayList("Co-op", "Versus"));
+
     }
     
     /**
@@ -50,7 +53,7 @@ public class GameplayChoicesController implements IpopupController {
      * Handles clicking of the start button
      */
     @FXML
-    private void handlePlayButton() {
+    private void handleStartButton() {
         GameLog.addInfoLog("Play button pressed from gameplay screen");
         System.out.println("Play button pressed!");
         popupControl.hide();
@@ -65,6 +68,7 @@ public class GameplayChoicesController implements IpopupController {
      */
     public static void loadPopup(final IviewController controller) {
         Launcher.loadPopup(controller, Class.class.getResource("/data/gui/pages/GameplayChoices.fxml"));
+ 
     }
 
 	@Override

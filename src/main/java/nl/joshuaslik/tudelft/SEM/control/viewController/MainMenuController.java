@@ -150,8 +150,7 @@ public class MainMenuController implements IviewController {
     protected void handleSurvivalButton() {
         GameLog.addInfoLog("Survival button pressed from main menu");
         System.out.println("Survival button pressed!");
-        // ENTER SURVIVAL MODE
-        // NOT YET IMPLEMENTED!!!!!!!!!!!!
+
     }
 
     /**
