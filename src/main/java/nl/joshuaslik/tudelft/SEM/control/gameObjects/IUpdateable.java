@@ -6,8 +6,7 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 /**
- * Interface to be implemented by all objects which should be updated by the
- * GameLoop.
+ * Interface to be implemented by all objects which should be updated by the GameLoop.
  *
  * @author faris
  */

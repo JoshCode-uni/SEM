@@ -6,8 +6,7 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 
 /**
- * This interface defines the methods which should be implemented by the line
- * object class.
+ * This interface defines the methods which should be implemented by the line object class.
  *
  * @author faris
  */
@@ -71,9 +70,9 @@ public interface ILineViewObject extends IViewObject {
     /**
      * Set the color of the line/
      *
-     * @param red   value between 0 and 1.
+     * @param red value between 0 and 1.
      * @param green value between 0 and 1.
-     * @param blue  value between 0 and 1.
+     * @param blue value between 0 and 1.
      */
     void setColor(double red, double green, double blue);
 

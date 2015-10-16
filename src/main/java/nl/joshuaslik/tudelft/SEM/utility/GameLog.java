@@ -13,14 +13,12 @@ public class GameLog {
     private static boolean initialized = false;
 
     /**
-     * Constructs the logs directory and logfile if it is not created yet
-     * Constructs a PrintWriter to write to the logfile If the log gets bigger
-     * than 1MB it will reset the file
+     * Constructs the logs directory and logfile if it is not created yet Constructs a PrintWriter
+     * to write to the logfile If the log gets bigger than 1MB it will reset the file
      */
     public static void constructor() {
         File dir = new File("logs");
         boolean mkdirs = dir.mkdirs();
-
         File log = new File("logs/Log.log");
         boolean logDelete = false;
         if (log.length() > 1_000_000) {
@@ -29,17 +27,14 @@ public class GameLog {
         try {
             FileWriter fw = new FileWriter(log, true);
             pw = new PrintWriter(fw, true);
-            pw.print("\n\n\n");
-            pw.println("GAME STARTED AT: " + getCurrentTime());
+            pw.println("\n\n\n" + "GAME STARTED AT: " + getCurrentTime());
             pw.println("Created directory = " + mkdirs);
-            pw.println("Deleted old log = " + logDelete);
-            pw.print("\n");
+            pw.println("Deleted old log = " + logDelete + "\n");
             initialized = true;
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     /**
@@ -110,7 +105,6 @@ public class GameLog {
     /**
      * Methods built for testing purposes.
      */
-
     /**
      * Set the printWriter.
      *

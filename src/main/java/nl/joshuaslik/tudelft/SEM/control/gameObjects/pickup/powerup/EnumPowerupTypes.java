@@ -69,7 +69,8 @@ public enum EnumPowerupTypes {
     public IDecorator getDecor() {
         try {
             return (IDecorator) mod.newInstance();
-        } catch (InstantiationException | IllegalAccessException ex) {
+        }
+        catch (InstantiationException | IllegalAccessException ex) {
             Logger.getLogger(EnumPowerupTypes.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;

@@ -5,7 +5,6 @@
  */
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import java.lang.reflect.InvocationTargetException;
 import nl.joshuaslik.tudelft.SEM.JavaFxJUnit4ClassRunner;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
@@ -55,7 +54,7 @@ public class MainMenuControllerIT {
      */
     @Test
     public final void testHandlePlayButton() {
-        controller.getPlayButton().fire();
+        controller.firePlayButton();
         assertTrue(Launcher.getController() instanceof GameController);
     }
 
@@ -65,7 +64,7 @@ public class MainMenuControllerIT {
     @Test
     public final void testHandleChooseLevelButton() {
         assertFalse(controller.getChooseLevelBox().isVisible());
-        controller.getChooseLevelButton().fire();
+        controller.fireChooseLevelButton();
         assertTrue(controller.getChooseLevelBox().isVisible());
     }
 
@@ -75,19 +74,18 @@ public class MainMenuControllerIT {
     @Test
     public final void testHandleOptionsButton() {
         assertFalse(controller.getOptionsPane().isVisible());
-        controller.getOptionsButton().fire();
+        controller.fireOptionsButton();
         assertTrue(controller.getOptionsPane().isVisible());
     }
 
     /**
-     * Test of handleQuitButton method, of class MainMenuController.
-     * System.exit(0) will be called, because we are using the "ExpectedSystemExit" rule, we expect 
-     * a runtime exception.
+     * Test of handleQuitButton method, of class MainMenuController. System.exit(0) will be called,
+     * because we are using the "ExpectedSystemExit" rule, we expect a runtime exception.
      */
-    @Test(expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public final void testHandleQuitButton() {
         exit.expectSystemExitWithStatus(0);
-        controller.getQuitButton().fire();
+        controller.fireQuitButton();
     }
 
     /**
@@ -95,7 +93,7 @@ public class MainMenuControllerIT {
      */
     @Test
     public final void testHandleLevel1Button() {
-        controller.getLevel1Button().fire();
+        controller.fireLevel1Button();
         assertTrue(Launcher.getController() instanceof GameController);
         assertEquals(0, Levels.getCurrentLevel());
     }
@@ -105,8 +103,7 @@ public class MainMenuControllerIT {
      */
     @Test
     public final void testHandleLevel2Button() {
-        controller.getLevel2Button().setDisable(false);
-        controller.getLevel2Button().fire();
+        controller.fireLevel2Button();
         assertTrue(Launcher.getController() instanceof GameController);
         assertEquals(1, Levels.getCurrentLevel());
     }
@@ -116,8 +113,7 @@ public class MainMenuControllerIT {
      */
     @Test
     public final void testHandleLevel3Button() {
-        controller.getLevel3Button().setDisable(false);
-        controller.getLevel3Button().fire();
+        controller.fireLevel3Button();
         assertTrue(Launcher.getController() instanceof GameController);
         assertEquals(2, Levels.getCurrentLevel());
     }
@@ -128,8 +124,7 @@ public class MainMenuControllerIT {
     @Test
     @SuppressWarnings("checkstyle:magicnumber")
     public final void testHandleLevel4Button() {
-        controller.getLevel4Button().setDisable(false);
-        controller.getLevel4Button().fire();
+        controller.fireLevel4Button();
         assertTrue(Launcher.getController() instanceof GameController);
         assertEquals(3, Levels.getCurrentLevel());
     }
@@ -140,8 +135,7 @@ public class MainMenuControllerIT {
     @Test
     @SuppressWarnings("checkstyle:magicnumber")
     public final void testHandleLevel5Button() {
-        controller.getLevel5Button().setDisable(false);
-        controller.getLevel5Button().fire();
+        controller.fireLevel5Button();
         assertTrue(Launcher.getController() instanceof GameController);
         assertEquals(4, Levels.getCurrentLevel());
     }

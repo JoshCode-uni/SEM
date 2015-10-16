@@ -12,15 +12,11 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup;
 public interface IDecorator<T> {
 
     /**
-     * Variable mod should be of the correct type. For example, if T is a Player
-     * modifier, mod should be an instance of IPlayerModifier
+     * Variable mod should be of the correct type. For example, if T is a Player modifier, mod
+     * should be an instance of IPlayerModifier
      *
      * @param mod should be of the correct type.
      * @return
      */
     T decorate(T mod);
-
-    //    public abstract InputStream getImageStream();
-    //    public abstract double getImageHeight();
-    //    public abstract double getImageWidth();
 }

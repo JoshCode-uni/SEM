@@ -9,6 +9,8 @@ import java.io.InputStream;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.GameObjects;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.Time;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -36,6 +38,9 @@ public class AbstractPickupTest {
     @Mock
     private Player pl;
 
+    @Mock
+    private Player pl2;
+
     private AbstractPickup pickup;
 
     /**
@@ -46,6 +51,7 @@ public class AbstractPickupTest {
         when(gameObjects.makeImage(Mockito.any(InputStream.class), Mockito.anyDouble(),
                 Mockito.anyDouble())).thenReturn(image);
         pickup = new Coin(gameObjects, 0, 0);
+        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
     }
 
     /**
@@ -61,9 +67,13 @@ public class AbstractPickupTest {
     @Test
     public void testUpdate() {
         when(gameObjects.getPlayer()).thenReturn(pl);
+        when(gameObjects.getPlayer2()).thenReturn(pl2);
         IImageViewObject image2 = Mockito.mock(IImageViewObject.class);
+        IImageViewObject image3 = Mockito.mock(IImageViewObject.class);
         when(pl.getImage()).thenReturn(image2);
+        when(pl2.getImage()).thenReturn(image3);
         when(image.intersects(image2)).thenReturn(false);
+        when(image.intersects(image3)).thenReturn(false);
         pickup.update((long) Time.SECOND_NANO);
         verify(image).setY(300.0);
     }
@@ -74,9 +84,13 @@ public class AbstractPickupTest {
     @Test
     public void testUpdateIntersection() {
         when(gameObjects.getPlayer()).thenReturn(pl);
+        when(gameObjects.getPlayer2()).thenReturn(pl2);
         IImageViewObject image2 = Mockito.mock(IImageViewObject.class);
+        IImageViewObject image3 = Mockito.mock(IImageViewObject.class);
         when(pl.getImage()).thenReturn(image2);
+        when(pl2.getImage()).thenReturn(image3);
         when(image.intersects(image2)).thenReturn(true);
+        when(image.intersects(image3)).thenReturn(false);
         AbstractPickup spyPickup = Mockito.spy(pickup);
         spyPickup.update((long) Time.SECOND_NANO);
         verify(spyPickup).handlePlayerCollision();

@@ -108,14 +108,14 @@
                         <lineRate>90</lineRate>
                         <haltOnFailure>false</haltOnFailure>
                         <totalBranchRate>0</totalBranchRate>
-                        <totalLineRate>85</totalLineRate>
+                        <totalLineRate>75</totalLineRate>
                         <packageLineRate>0</packageLineRate>
                         <packageBranchRate>0</packageBranchRate>
                         <regexes>
                             <regex>
                                 <pattern>nl.joshuaslik.tudelft.SEM.control.viewController.*</pattern>
                                 <branchRate>0</branchRate>
-                                <lineRate>60</lineRate>
+                                <lineRate>0</lineRate>
                             </regex>
                         </regexes>
                     </check>
@@ -134,6 +134,11 @@
     </build>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

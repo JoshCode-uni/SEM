@@ -13,8 +13,8 @@ interface ICollideReceiver extends IPhysicsObject, IIntersectable {
     /**
      * Notify a dynamic object of the fact that we collided with it.
      *
-     * @param obj2          the dynamic object with which you collided.
+     * @param obj2 the dynamic object with which you collided.
      * @param nanoFrameTime the frame time in nano seconds.
      */
-    void collide(final ICollider obj2, final long nanoFrameTime);
+    public void collide(final ICollider obj2, final long nanoFrameTime);
 }

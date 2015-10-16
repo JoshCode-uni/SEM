@@ -114,7 +114,7 @@ public class PickupGeneratorTest {
 
         verify(igo, times(1)).addObject(Mockito.any(Life.class));
     }
-    
+
     /**
      * Test other methods.
      */

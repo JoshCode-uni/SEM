@@ -29,7 +29,7 @@ public class GameLogConstructorTest {
     public void setup() throws Exception {
         pw = PowerMockito.mock(PrintWriter.class);
         PowerMockito.whenNew(PrintWriter.class).withParameterTypes(Writer.class)
-                    .withArguments(Mockito.any(Writer.class), Mockito.anyBoolean()).thenReturn(pw);
+                .withArguments(Mockito.any(Writer.class), Mockito.anyBoolean()).thenReturn(pw);
         Mockito.doCallRealMethod().when(pw).print(Mockito.any(Object.class));
         Mockito.doCallRealMethod().when(pw).println(Mockito.any(Object.class));
 
@@ -40,10 +40,8 @@ public class GameLogConstructorTest {
      */
     @Test
     public void testConstructor() {
-		GameLog.constructor();
-		Mockito.verify(pw).print("\n\n\n");
-		Mockito.verify(pw, times(3)).println(Mockito.any(String.class));
-		Mockito.verify(pw).print("\n");
-		assertTrue(GameLog.getInitialization());
-	}
+        GameLog.constructor();
+        Mockito.verify(pw, times(3)).println(Mockito.any(String.class));
+        assertTrue(GameLog.getInitialization());
+    }
 }

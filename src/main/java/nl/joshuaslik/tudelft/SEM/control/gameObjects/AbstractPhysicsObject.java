@@ -6,10 +6,9 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 /**
- * This class can be extended instead of IPhysicsObject if no other abstract
- * classes have to be extended. It implements some of the functionality of the
- * IPhysicsObject. This class is intended to be extended whenever possible, to
- * avoid duplicate code.
+ * This class can be extended instead of IPhysicsObject if no other abstract classes have to be
+ * extended. It implements some of the functionality of the IPhysicsObject. This class is intended
+ * to be extended whenever possible, to avoid duplicate code.
  *
  * @author faris
  */
@@ -27,8 +26,8 @@ public abstract class AbstractPhysicsObject implements IPhysicsObject {
     }
 
     /**
-     * Get the game objects interface which allows you to perform a limited
-     * amount of methods of the game objects class.
+     * Get the game objects interface which allows you to perform a limited amount of methods of the
+     * game objects class.
      *
      * @return the game objects interface.
      */

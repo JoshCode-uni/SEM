@@ -14,32 +14,33 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith(MockitoJUnitRunner.class) 
+@RunWith(MockitoJUnitRunner.class)
 public class LifeTest {
 
-	@Mock
-	GameObjects go;
-	
-	@Mock
-	ImageViewObject image;
-	
-	Life life;
-	@Before
-	public void setup() {
-		Mockito.when(go.makeImage(Mockito.any(InputStream.class), Mockito.anyDouble(), Mockito.anyDouble())).thenReturn(image);
-		Mockito.when(go.getLeftBorder()).thenReturn(0.0);
-		Mockito.when(go.getRightBorder()).thenReturn(100.0);
-		Mockito.when(go.getTopBorder()).thenReturn(0.0);
-		Mockito.when(go.getBottomBorder()).thenReturn(100.0);
-		life = new Life(go, 400, 400);
-	}
-	
-	@Test
-	public void testHandlePlayerCollision() {
-		Life spyLife = Mockito.spy(life);
-		spyLife.handlePlayerCollision();
-		verify(spyLife).destroy();
-		verify(go).addLife();
-	}
+    @Mock
+    GameObjects go;
+
+    @Mock
+    ImageViewObject image;
+
+    Life life;
+
+    @Before
+    public void setup() {
+        Mockito.when(go.makeImage(Mockito.any(InputStream.class), Mockito.anyDouble(), Mockito.anyDouble())).thenReturn(image);
+        Mockito.when(go.getLeftBorder()).thenReturn(0.0);
+        Mockito.when(go.getRightBorder()).thenReturn(100.0);
+        Mockito.when(go.getTopBorder()).thenReturn(0.0);
+        Mockito.when(go.getBottomBorder()).thenReturn(100.0);
+        life = new Life(go, 400, 400);
+    }
+
+    @Test
+    public void testHandlePlayerCollision() {
+        Life spyLife = Mockito.spy(life);
+        spyLife.handlePlayerCollision();
+        verify(spyLife).destroy();
+        verify(go).addLife();
+    }
 
 }

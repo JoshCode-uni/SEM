@@ -13,6 +13,8 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.Powerup;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
+ * Useful to create a random pickup.
+ *
  * @author faris
  */
 public class PickupGenerator {
@@ -22,26 +24,19 @@ public class PickupGenerator {
     public PickupGenerator(IGameObjects gameObjects) {
         this.gameObjects = gameObjects;
     }
-    
+
     public void generatePickup(Point p) {
         generatePickup(p, new Random());
     }
 
     public void generatePickup(Point p, Random rand) {
-
-        // 50% chance to create a pickup
         if (!rand.nextBoolean()) {
             return;
         }
-
-        // 40% chance for a pickup and 60% chance for a powerup:
         if (rand.nextDouble() < 0.6) {
-            // create powerup
             Powerup powerup = new Powerup(gameObjects, EnumPowerupTypes.getRandomPowerup(), p.getxPos(), p.getyPos());
             gameObjects.addObject(powerup);
         } else {
-            // create pickup
-            // 90% chance to get a coin, 10% chance to get a life.
             if (rand.nextDouble() < 0.9) {
                 Coin coin = new Coin(gameObjects, p.getxPos(), p.getyPos());
                 gameObjects.addObject(coin);
