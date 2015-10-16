@@ -13,6 +13,8 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import org.junit.Before;
 import org.junit.Test;
@@ -40,7 +42,8 @@ public class GameObjectsConstructorTest {
 
     @Before
     public void setUp() throws Exception {
-        suppress(methods(GameObjects.class, "initializeLevel"));
+    	GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
+    	suppress(methods(GameObjects.class, "initializeLevel"));
         l1 = PowerMockito.mock(Line.class);
         l2 = PowerMockito.mock(Line.class);
         l3 = PowerMockito.mock(Line.class);
@@ -69,6 +72,7 @@ public class GameObjectsConstructorTest {
 	 */
 	@Test
 	public void testConstructor() {
+
 		assertEquals(0, gameObjects.getScore());
 		assertEquals(0, gameObjects.bubblesLeft());
 		assertFalse(gameObjects.hasProjectile(false));

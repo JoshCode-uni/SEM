@@ -45,6 +45,7 @@ public class BubbleDoorTest {
      */
     @Before
     public void setUp() {
+        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);;
         when(p1.getxPos()).thenReturn(0.0);
         when(p1.getyPos()).thenReturn(10.0);
         when(p2.getxPos()).thenReturn(5.0);
@@ -60,7 +61,6 @@ public class BubbleDoorTest {
         when(gameObjects.getPlayer()).thenReturn(player);
         when(gameObjects.getPlayer2()).thenReturn(player2);
         door = new BubbleDoor(gameObjects, p1, p2, p3, p4, 1);
-        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
 
     }
 
