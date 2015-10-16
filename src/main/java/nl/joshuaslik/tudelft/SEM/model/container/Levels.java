@@ -27,9 +27,10 @@ public class Levels {
     public static int amountOfLevels() {
         return AMOUNT_OF_IMPLEMENTED_LEVELS;
     }
-    
+
     /**
      * Get the top left spawn point of the bubbles in survival mode.
+     *
      * @return top left.
      */
     public static Point getCircleSpawnPointTopLeft() {
@@ -38,6 +39,7 @@ public class Levels {
 
     /**
      * Get the bottom right spawn point of the bubbles in survival mode.
+     *
      * @return bottom right.
      */
     public static Point getCircleSpawnPointBottomRight() {
@@ -47,7 +49,7 @@ public class Levels {
     public static ArrayList<IPhysicsObject> getSurvivalLevelObjects(final IGameObjects gameObjects) {
         return createLevel0(gameObjects);
     }
-    
+
     /**
      * Get level of [index].
      *
@@ -91,7 +93,7 @@ public class Levels {
         ArrayList<IPhysicsObject> level1 = new ArrayList<>();
         level1.add(new Bubble(gameObjects, new Point(300, 200), 20, new Vector(-2, -5)));
         level1.add(new Bubble(gameObjects, new Point(1300, 650), 40, new Vector(2, -5)));
-        level1.add(new TimeDoor(gameObjects, new Point(1050, 30), new Point(1150, 30), 
+        level1.add(new TimeDoor(gameObjects, new Point(1050, 30), new Point(1150, 30),
                 new Point(1050, 851), new Point(1150, 851), 0, 5_000_000_000l));
         return level1;
     }
@@ -106,7 +108,7 @@ public class Levels {
         level2.add(new Bubble(gameObjects, new Point(300, 700), 40, new Vector(-2, -5)));
         level2.add(new Bubble(gameObjects, new Point(1200, 300), 20, new Vector(2, -5)));
         level2.add(new Bubble(gameObjects, new Point(1400, 620), 40, new Vector(2, -5)));
-        level2.add(new BubbleDoor(gameObjects, new Point(1050, 30), 
+        level2.add(new BubbleDoor(gameObjects, new Point(1050, 30),
                 new Point(1150, 30), new Point(1050, 851), new Point(1150, 851), 2));
         return level2;
     }
@@ -121,9 +123,9 @@ public class Levels {
         level3.add(new Bubble(gameObjects, new Point(100, 660), 40, new Vector(-2, -5)));
         level3.add(new Bubble(gameObjects, new Point(500, 620), 80, new Vector(2, -5)));
         level3.add(new Bubble(gameObjects, new Point(1300, 400), 40, new Vector(2, -5)));
-        level3.add(new TimeDoor(gameObjects, new Point(250, 30), new Point(350, 30), 
+        level3.add(new TimeDoor(gameObjects, new Point(250, 30), new Point(350, 30),
                 new Point(250, 851), new Point(350, 851), 0, 10_000_000_000l));
-        level3.add(new BubbleDoor(gameObjects, new Point(1050, 30), new Point(1150, 30), 
+        level3.add(new BubbleDoor(gameObjects, new Point(1050, 30), new Point(1150, 30),
                 new Point(1050, 851), new Point(1150, 851), 1));
         return level3;
     }
@@ -140,13 +142,13 @@ public class Levels {
         level4.add(new Bubble(gameObjects, new Point(700, 700), 20, new Vector(2, -5)));
         level4.add(new Bubble(gameObjects, new Point(1300, 600), 40, new Vector(2, -5)));
         level4.add(new Bubble(gameObjects, new Point(1600, 600), 80, new Vector(2, -5)));
-        level4.add(new TimeDoor(gameObjects, new Point(200, 30), new Point(300, 30), 
+        level4.add(new TimeDoor(gameObjects, new Point(200, 30), new Point(300, 30),
                 new Point(200, 851), new Point(300, 851), 0, 6_000_000_000l));
-        level4.add(new TimeDoor(gameObjects, new Point(500, 30), new Point(600, 30), 
+        level4.add(new TimeDoor(gameObjects, new Point(500, 30), new Point(600, 30),
                 new Point(500, 851), new Point(600, 851), 0, 3_000_000_000l));
-        level4.add(new TimeDoor(gameObjects, new Point(1100, 30), new Point(1200, 30), 
+        level4.add(new TimeDoor(gameObjects, new Point(1100, 30), new Point(1200, 30),
                 new Point(1100, 851), new Point(1200, 851), 0, 3_000_000_000l));
-        level4.add(new TimeDoor(gameObjects, new Point(1400, 30), new Point(1500, 30), 
+        level4.add(new TimeDoor(gameObjects, new Point(1400, 30), new Point(1500, 30),
                 new Point(1400, 851), new Point(1500, 851), 0, 6_000_000_000l));
         return level4;
     }

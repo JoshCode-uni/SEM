@@ -10,5 +10,6 @@ package nl.joshuaslik.tudelft.SEM.model.container;
  * @author Faris
  */
 public enum GameMode {
+
     CLASSIC, SURVIVAL;
 }

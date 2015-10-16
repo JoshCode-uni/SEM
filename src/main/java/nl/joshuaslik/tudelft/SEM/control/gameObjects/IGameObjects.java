@@ -13,8 +13,8 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObj
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
- * Interface which defines which methods may be accessed by the objects inside
- * the GameObjects class.
+ * Interface which defines which methods may be accessed by the objects inside the GameObjects
+ * class.
  *
  * @author faris
  */
@@ -43,6 +43,7 @@ public interface IGameObjects {
 
     /**
      * Remove a Projectile from the game.
+     *
      * @param p2 if this is the projectile of player 2.
      */
     void removeProjectile(boolean p2);
@@ -83,8 +84,7 @@ public interface IGameObjects {
     boolean hasProjectile(boolean p2);
 
     /**
-     * Called when the player dies. Handles quiting the game and reducing the
-     * amount of lives by 1.
+     * Called when the player dies. Handles quiting the game and reducing the amount of lives by 1.
      */
     void playerDied();
 
@@ -93,7 +93,7 @@ public interface IGameObjects {
      *
      * @param centerX the x coordinate of the center of the circle.
      * @param centerY the y coordinate of the center of the circle.
-     * @param radius  the radius of the circle.
+     * @param radius the radius of the circle.
      * @return the interface of the circle view object.
      */
     ICircleViewObject makeCircle(double centerX, double centerY, double radius);
@@ -103,8 +103,8 @@ public interface IGameObjects {
      *
      * @param startX the x coordinate of the start point of the line.
      * @param startY the y coordinate of the start point of the line.
-     * @param endX   the x coordinate of the end point of the line.
-     * @param endY   the y coordinate of the end point of the line.
+     * @param endX the x coordinate of the end point of the line.
+     * @param endY the y coordinate of the end point of the line.
      * @return the interface of the line view object.
      */
     ILineViewObject makeLine(double startX, double startY, double endX, double endY);
@@ -112,9 +112,9 @@ public interface IGameObjects {
     /**
      * Create an image in the view.
      *
-     * @param is     the input stream of the image.
+     * @param is the input stream of the image.
      * @param height the height of the image.
-     * @param width  the width of the image.
+     * @param width the width of the image.
      * @return the interface of the image view object.
      */
     IImageViewObject makeImage(InputStream is, double height, double width);
@@ -131,5 +131,5 @@ public interface IGameObjects {
 
     int bubblesLeft();
 
-	Player getPlayer2();
+    Player getPlayer2();
 }

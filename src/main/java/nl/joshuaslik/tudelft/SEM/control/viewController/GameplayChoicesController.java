@@ -17,30 +17,30 @@ public class GameplayChoicesController implements IpopupController {
 
     @FXML
     private Label player2Label, gameModeLabel;
-    
-	@FXML
-	private ComboBox SingleMultiChoice, coopVersusChoice;
-        
-	@FXML
-	private TextField user1, user2;
 
-	private IviewController mainController;
-	private PopupControl popupControl;
-        
-	/**
-	 * Handles clicking of the start button
-	 */
-	@FXML
-	private void handleStartButton() {
-		GameLog.addInfoLog("Play button pressed from gameplay screen");
-		System.out.println("Play button pressed!");
-		prepareGame();
-	}
+    @FXML
+    private ComboBox SingleMultiChoice, coopVersusChoice;
 
-	/**
-	 * Handles the choices of the player for the instance of the game
-	 */
-	private void prepareGame() {
+    @FXML
+    private TextField user1, user2;
+
+    private IviewController mainController;
+    private PopupControl popupControl;
+
+    /**
+     * Handles clicking of the start button
+     */
+    @FXML
+    private void handleStartButton() {
+        GameLog.addInfoLog("Play button pressed from gameplay screen");
+        System.out.println("Play button pressed!");
+        prepareGame();
+    }
+
+    /**
+     * Handles the choices of the player for the instance of the game
+     */
+    private void prepareGame() {
         String username1 = user1.getText();
         String username2 = user2.getText();
         if (!(username1.equals(""))) {
@@ -74,43 +74,42 @@ public class GameplayChoicesController implements IpopupController {
         }
     }
 
-	/**
-	 * Load the Gameplay popup
-	 *
-	 * @param controller
-	 *            the controller class of the currently loaded view.
-	 */
-	public static void loadPopup(final IviewController controller) {
-            
-		Launcher.loadPopup(controller,
-				Class.class.getResource("/data/gui/pages/GameplayChoices.fxml"));
-	}
+    /**
+     * Load the Gameplay popup
+     *
+     * @param controller the controller class of the currently loaded view.
+     */
+    public static void loadPopup(final IviewController controller) {
 
-	@Override
-	public void setMainViewController(IviewController controller) {
-		mainController = controller;
+        Launcher.loadPopup(controller,
+                Class.class.getResource("/data/gui/pages/GameplayChoices.fxml"));
+    }
 
-	}
+    @Override
+    public void setMainViewController(IviewController controller) {
+        mainController = controller;
 
-	@Override
-	public void setPopupControl(PopupControl popupControl) {
-		this.popupControl = popupControl;
-		SingleMultiChoice.setItems(FXCollections.observableArrayList(
-				"Single Player", "Multiplayer"));
-		coopVersusChoice.setItems(FXCollections.observableArrayList("Co-op",
-				"Versus"));
-                SingleMultiChoice.addEventHandler(ActionEvent.ACTION, onSelected);
-                SingleMultiChoice.getSelectionModel().select(0);
-                coopVersusChoice.getSelectionModel().select(0);
-                user2.setVisible(false);
-                player2Label.setVisible(false);
-                gameModeLabel.setVisible(false);
-                coopVersusChoice.setVisible(false);
-	}
-        
-        /**
-     * This is an event handler class definition, which will be triggered when
-     * an items in the dropdown list is selected.
+    }
+
+    @Override
+    public void setPopupControl(PopupControl popupControl) {
+        this.popupControl = popupControl;
+        SingleMultiChoice.setItems(FXCollections.observableArrayList(
+                "Single Player", "Multiplayer"));
+        coopVersusChoice.setItems(FXCollections.observableArrayList("Co-op",
+                "Versus"));
+        SingleMultiChoice.addEventHandler(ActionEvent.ACTION, onSelected);
+        SingleMultiChoice.getSelectionModel().select(0);
+        coopVersusChoice.getSelectionModel().select(0);
+        user2.setVisible(false);
+        player2Label.setVisible(false);
+        gameModeLabel.setVisible(false);
+        coopVersusChoice.setVisible(false);
+    }
+
+    /**
+     * This is an event handler class definition, which will be triggered when an items in the
+     * dropdown list is selected.
      */
     private final EventHandler onSelected = (EventHandler<ActionEvent>) (ActionEvent t) -> {
         boolean visible = SingleMultiChoice.getSelectionModel().getSelectedIndex() == 1;

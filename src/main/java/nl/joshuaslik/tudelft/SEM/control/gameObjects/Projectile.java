@@ -25,13 +25,13 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
     /**
      * Create a projectile.
      *
-     * @param gameObjects   gameobjects reference.
-     * @param startX        start x coordinate of the projectile.
-     * @param startY        start y coordinate of the projectile.
-     * @param speed         the speed of the projectile.
-     * @param delay         the delay of the projectile upon hitting the ceiling.
+     * @param gameObjects gameobjects reference.
+     * @param startX start x coordinate of the projectile.
+     * @param startY start y coordinate of the projectile.
+     * @param speed the speed of the projectile.
+     * @param delay the delay of the projectile upon hitting the ceiling.
      */
-    public Projectile(final IGameObjects gameObjects, final double startX, final double startY, 
+    public Projectile(final IGameObjects gameObjects, final double startX, final double startY,
             final double speed, final int delay) {
         super(gameObjects, startX, startY - 2, startX, startY - 3);
         growSpeed = 1000 * speed;
@@ -42,7 +42,7 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
         line.setOpacity(0.8);
         GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) + ", " + Double.toString(startY) + ")");
     }
-    
+
     @Override
     public void destroy() {
         getGameObjects().removeProjectile(player.getP2());
@@ -68,6 +68,7 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
 
     /**
      * Check if the projectile should be destroyed.
+     *
      * @param nanoFrameTime the framerate (nanoseconds/frame).
      */
     private void checkDestroy(final long nanoFrameTime) {
@@ -76,8 +77,8 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
                 delay -= nanoFrameTime;
                 return;
             }
-            GameLog.addInfoLog("Projectile hit ceiling at: (" + Double.toString(line.getEndX()) + 
-                    ", " + Double.toString(line.getEndY()) + ")");
+            GameLog.addInfoLog("Projectile hit ceiling at: (" + Double.toString(line.getEndX())
+                    + ", " + Double.toString(line.getEndY()) + ")");
             destroy();
             isActive = false;
         }
@@ -94,7 +95,7 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
      * Called when a dynamic object collides with this projectile. If it is a bubble we will split
      * the bubble.
      *
-     * @param obj2          the dynamic object which collided with this projectile.
+     * @param obj2 the dynamic object which collided with this projectile.
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
@@ -103,8 +104,8 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
             player.addPoints(10);
-            GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX()) + 
-                    ", " + Double.toString(line.getEndY()) + ")");
+            GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX())
+                    + ", " + Double.toString(line.getEndY()) + ")");
             getGameObjects().removeProjectile(player.getP2());
             line.destroy();
             isActive = false;
@@ -113,6 +114,7 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
 
     /**
      * Get the delay of the projectile.
+     *
      * @return the delay.
      */
     public double getDelay() {
@@ -121,17 +123,18 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
 
     /**
      * Get the speed of the projectile.
+     *
      * @return the speed.
      */
     public double getGrowSpeed() {
         return growSpeed;
     }
-    
+
     public void setPlayer(Player player) {
-    	this.player = player;
+        this.player = player;
     }
-    
-    public Player getPlayer(){
-    	return player;
+
+    public Player getPlayer() {
+        return player;
     }
 }

@@ -12,6 +12,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 
 /**
  * A line which contains functionality to calculate an intersection point.
+ *
  * @author Faris
  */
 public abstract class AbstractLine extends AbstractPhysicsObject {
@@ -22,13 +23,14 @@ public abstract class AbstractLine extends AbstractPhysicsObject {
 
     /**
      * Create a line.
-     * @param gameObjects   gameobjects reference.
-     * @param startX        the x start coordinate.
-     * @param startY        the y start coordinate.
-     * @param endX          the x end coordinate.
-     * @param endY          the y end coordinate.
+     *
+     * @param gameObjects gameobjects reference.
+     * @param startX the x start coordinate.
+     * @param startY the y start coordinate.
+     * @param endX the x end coordinate.
+     * @param endY the y end coordinate.
      */
-    public AbstractLine(IGameObjects gameObjects, final double startX, final double startY, 
+    public AbstractLine(IGameObjects gameObjects, final double startX, final double startY,
             final double endX, final double endY) {
         super(gameObjects);
         this.p1 = new Point(startX, startY);
@@ -58,9 +60,10 @@ public abstract class AbstractLine extends AbstractPhysicsObject {
         intersection = applyBounds(intersection);
         return new IntersectionPoint(intersection.getxPos(), intersection.getyPos(), normal, distance);
     }
-    
+
     /**
      * Make sure the point isn't outside of the bounds.
+     *
      * @param intersection point.
      * @return point with bounds applied.
      */
@@ -100,8 +103,9 @@ public abstract class AbstractLine extends AbstractPhysicsObject {
         return p1.getyPos() < p2.getyPos() ? p2 : p1;
     }
 
-     /**
+    /**
      * Get point 1.
+     *
      * @return point 1.
      */
     public final Point getPoint1() {
@@ -110,6 +114,7 @@ public abstract class AbstractLine extends AbstractPhysicsObject {
 
     /**
      * Get point 2.
+     *
      * @return point 2.
      */
     public final Point getPoint2() {
@@ -136,14 +141,16 @@ public abstract class AbstractLine extends AbstractPhysicsObject {
 
     /**
      * Get the vector.
+     *
      * @return the vector.
      */
     public final Vector getVector() {
         return dir;
     }
-    
+
     /**
      * Update the points.
+     *
      * @param line the line.
      */
     public void updateLinePoints(ILineViewObject line) {

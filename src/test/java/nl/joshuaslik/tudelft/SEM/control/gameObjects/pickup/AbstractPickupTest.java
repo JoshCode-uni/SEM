@@ -37,7 +37,7 @@ public class AbstractPickupTest {
 
     @Mock
     private Player pl;
-    
+
     @Mock
     private Player pl2;
 

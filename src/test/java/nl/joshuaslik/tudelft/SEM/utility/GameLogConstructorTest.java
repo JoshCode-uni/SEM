@@ -29,7 +29,7 @@ public class GameLogConstructorTest {
     public void setup() throws Exception {
         pw = PowerMockito.mock(PrintWriter.class);
         PowerMockito.whenNew(PrintWriter.class).withParameterTypes(Writer.class)
-                    .withArguments(Mockito.any(Writer.class), Mockito.anyBoolean()).thenReturn(pw);
+                .withArguments(Mockito.any(Writer.class), Mockito.anyBoolean()).thenReturn(pw);
         Mockito.doCallRealMethod().when(pw).print(Mockito.any(Object.class));
         Mockito.doCallRealMethod().when(pw).println(Mockito.any(Object.class));
 

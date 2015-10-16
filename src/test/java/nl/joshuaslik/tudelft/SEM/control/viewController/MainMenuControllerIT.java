@@ -79,11 +79,10 @@ public class MainMenuControllerIT {
     }
 
     /**
-     * Test of handleQuitButton method, of class MainMenuController.
-     * System.exit(0) will be called, because we are using the "ExpectedSystemExit" rule, we expect 
-     * a runtime exception.
+     * Test of handleQuitButton method, of class MainMenuController. System.exit(0) will be called,
+     * because we are using the "ExpectedSystemExit" rule, we expect a runtime exception.
      */
-    @Test(expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public final void testHandleQuitButton() {
         exit.expectSystemExitWithStatus(0);
         controller.fireQuitButton();

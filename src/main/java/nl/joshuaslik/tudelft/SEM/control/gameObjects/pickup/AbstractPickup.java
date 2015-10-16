@@ -28,11 +28,11 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
     private final static double FALL_SPEED = 300;
     private double EXISTENCE_TIME = 5.0 * Time.SECOND_NANO;
 
-    protected AbstractPickup(IGameObjects gameObjects, InputStream is, double height, double width, 
+    protected AbstractPickup(IGameObjects gameObjects, InputStream is, double height, double width,
             double xCoordinate, double yCoordinate) {
         super(gameObjects);
         pickupImage = gameObjects.makeImage(is, height, width);
-        pickupImage.setBounds(getGameObjects().getLeftBorder(), getGameObjects().getTopBorder(), 
+        pickupImage.setBounds(getGameObjects().getLeftBorder(), getGameObjects().getTopBorder(),
                 getGameObjects().getRightBorder(), getGameObjects().getBottomBorder());
         pickupImage.setX(xCoordinate);
         pickupImage.setY(yCoordinate);
@@ -48,16 +48,16 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
         }
         pickupImage.setY(pickupImage.getStartY() + FALL_SPEED * nanoFrameTime / Time.SECOND_NANO);
         Player pl = getGameObjects().getPlayer();
-        
+
         if (pickupImage.intersects(pl.getImage())) {
             handlePlayerCollision();
             return;
         }
-        if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
-        	Player pl2 = getGameObjects().getPlayer2();
-        	if (pickupImage.intersects(pl2.getImage())) {
-        		handlePlayerCollision();
-        	}
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+            Player pl2 = getGameObjects().getPlayer2();
+            if (pickupImage.intersects(pl2.getImage())) {
+                handlePlayerCollision();
+            }
         }
     }
 

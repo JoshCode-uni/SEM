@@ -23,7 +23,7 @@ public class Line extends AbstractLine implements IIntersectable, IPhysicsObject
         line = getGameObjects().makeLine(startX, startY, endX, endY);
         line.setStrokeWidth(10);
     }
-    
+
     /**
      * Destroys the line object
      */

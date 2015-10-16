@@ -14,8 +14,7 @@ import javafx.scene.image.ImageView;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 
 /**
- * This class can be used to add a image to the view and update the properties
- * of that image.
+ * This class can be used to add a image to the view and update the properties of that image.
  *
  * @author faris
  */
@@ -28,10 +27,10 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
     /**
      * Create an image.
      *
-     * @param is     the input stream of the image file.
-     * @param width  the width of the image.
+     * @param is the input stream of the image file.
+     * @param width the width of the image.
      * @param height the height of the image.
-     * @param gc     a reference to the view in which this image will be drawn.
+     * @param gc a reference to the view in which this image will be drawn.
      */
     public ImageViewObject(InputStream is, double width, double height, GameController gc) {
         super(gc);
@@ -47,12 +46,13 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
     protected Node getNode() {
         return image;
     }
-    
+
     /**
      * Set the hsb.
-     * @param hue           hue.
-     * @param saturation    saturation.
-     * @param brightness    brightness.
+     *
+     * @param hue hue.
+     * @param saturation saturation.
+     * @param brightness brightness.
      */
     @Override
     public void adjustHSB(double hue, double saturation, double brightness) {
@@ -171,8 +171,8 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
      * Check if the x coordinate is outside of the set bounds.
      *
      * @param xCoordinate the x coordinate to check.
-     * @return the same as the parameter if inside, or on the bounds if otherwise
-     * outside of the bounds
+     * @return the same as the parameter if inside, or on the bounds if otherwise outside of the
+     * bounds
      */
     private double checkXBounds(double xCoordinate) {
         if (!bounds) {
@@ -191,8 +191,8 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
      * Check if the y coordinate is outside of the set bounds.
      *
      * @param yCoordinate the y coordinate to check.
-     * @return the same as the parameter if inside, or on the bounds if otherwise
-     * outside of the bounds
+     * @return the same as the parameter if inside, or on the bounds if otherwise outside of the
+     * bounds
      */
     private double checkYBounds(double yCoordinate) {
         if (!bounds) {

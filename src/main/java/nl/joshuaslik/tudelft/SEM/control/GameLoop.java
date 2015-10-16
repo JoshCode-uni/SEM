@@ -36,14 +36,14 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
     /**
      * @param gameController the controller of the game view.
-     * @param top            y value of the top border.
-     * @param right          x value of the right border.
-     * @param bottom         y value of the bottom border.
-     * @param left           x value of the left border.
-     * @param scene          the scene of the game (to add a keylistener to).
+     * @param top y value of the top border.
+     * @param right x value of the right border.
+     * @param bottom y value of the bottom border.
+     * @param left x value of the left border.
+     * @param scene the scene of the game (to add a keylistener to).
      */
     public GameLoop(final GameController gameController, final double top, final double right, final double bottom,
-                    final double left, final Scene scene) {
+            final double left, final Scene scene) {
         this.gameController = gameController;
         kb = new Keyboard(scene);
         gameObjects = new GameObjects((IDraw) this, top, right, bottom, left, kb);
@@ -88,16 +88,18 @@ public class GameLoop extends AnimationTimer implements IDraw {
         this.oldTime = time;
         updateGameObjects(frametime);
     }
-    
+
     /**
      * Update the game objects.
+     *
      * @param frametime the time of a frame in ns.
      */
     private void updateGameObjects(long frametime) {
         try {
             gameController.updateTime(frametime);
             gameObjects.update(frametime);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex) {
             stop();
             GameLog.addErrorLog("Exception in game loop");
             GameLog.addErrorLog(ex.getMessage());
@@ -122,23 +124,25 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public final int getScore() {
         return gameObjects.getScore();
     }
-    
+
     /**
      * Get the score of player 1.
+     *
      * @return the score.
      */
     public final int getPlayer1Score() {
-    	return gameObjects.getPlayer().getScore();
+        return gameObjects.getPlayer().getScore();
     }
 
     /**
      * Get the score of player 1.
+     *
      * @return the score.
      */
     public final int getPlayer2Score() {
         return gameObjects.getPlayer2().getScore();
     }
-	
+
     /**
      * Tells gameController the player has died
      */
@@ -153,7 +157,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      *
      * @param centerX the x coordinate of the center of the circle.
      * @param centerY the y coordinate of the center of the circle.
-     * @param radius  the radius of the circle.
+     * @param radius the radius of the circle.
      * @return the interface of the circle view object.
      */
     @Override
@@ -164,9 +168,9 @@ public class GameLoop extends AnimationTimer implements IDraw {
     /**
      * Create an image in the view.
      *
-     * @param is     the input stream of the image.
+     * @param is the input stream of the image.
      * @param height the height of the image.
-     * @param width  the width of the image.
+     * @param width the width of the image.
      * @return the interface of the image view object.
      */
     @Override
@@ -179,8 +183,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
      *
      * @param startX the x coordinate of the start point of the line.
      * @param startY the y coordinate of the start point of the line.
-     * @param endX   the x coordinate of the end point of the line.
-     * @param endY   the y coordinate of the end point of the line.
+     * @param endX the x coordinate of the end point of the line.
+     * @param endY the y coordinate of the end point of the line.
      * @return the interface of the line view object.
      */
     @Override

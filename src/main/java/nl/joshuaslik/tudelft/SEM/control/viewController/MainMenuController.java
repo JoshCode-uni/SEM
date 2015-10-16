@@ -24,7 +24,7 @@ public class MainMenuController implements IviewController {
 
     @FXML
     private HBox chooseLevelBox;
-    
+
     @FXML
     private VBox gameModeBox;
 
@@ -32,7 +32,7 @@ public class MainMenuController implements IviewController {
     private Pane optionsPane;
 
     @FXML
-    private Button playButton, chooseLevelButton, optionsButton, quitButton;
+    private Button playButton, chooseLevelButton, optionsButton, quitButton, classicButton;
 
     @FXML
     private Text totalScore, p1Score, p2Score;
@@ -53,7 +53,7 @@ public class MainMenuController implements IviewController {
         switch (Levels.getUnlockedLevel()) {
             case (4):
                 level5Button.setDisable(false);
-                // intended fallthrough
+            // intended fallthrough
             case 3:
                 level4Button.setDisable(false);
             case 2:
@@ -64,8 +64,7 @@ public class MainMenuController implements IviewController {
     }
 
     /**
-     * showGameModeButtons
-     * Let game mode buttons be only shown when play button is hovered over
+     * showGameModeButtons Let game mode buttons be only shown when play button is hovered over
      */
     private void showGameModeButtons() {
         gameModeBox.setVisible(false);
@@ -95,7 +94,7 @@ public class MainMenuController implements IviewController {
         System.out.println("Play button pressed!");
         gameModeBox.setVisible(!gameModeBox.isVisible());
     }
-    
+
     /**
      * Handles clicking of the classic mode button
      */
@@ -103,12 +102,12 @@ public class MainMenuController implements IviewController {
     protected void handleClassicButton() {
         GameLog.addInfoLog("Classic button pressed from main menu");
         System.out.println("Classic button pressed!");
-        
+
         GameInfo.getInstance().setClassicMode();
         GameController.loadView();
 
     }
-    
+
     /**
      * Handles clicking of the survival mode button
      */
@@ -116,14 +115,13 @@ public class MainMenuController implements IviewController {
     protected void handleSurvivalButton() {
         GameLog.addInfoLog("Survival button pressed from main menu");
         System.out.println("Survival button pressed!");
-        
+
         GameInfo.getInstance().setSurvivalMode();
         GameController.loadView();
     }
 
     /**
-     * Handles clicking of the choose level button. Toggles choose button
-     * visibility.
+     * Handles clicking of the choose level button. Toggles choose button visibility.
      */
     @FXML
     protected void handleChooseLevelButton() {
@@ -169,7 +167,7 @@ public class MainMenuController implements IviewController {
     @Override
     public void start(final Scene scene) {
         GameInfo gi = GameInfo.getInstance();
-        if(gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+        if (gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
             totalScore.setVisible(false);
             p1Score.setText("Score player 1: " + gi.getPlayer1Score());
             p2Score.setText("Score player 2: " + gi.getPlayer2Score());
@@ -270,7 +268,7 @@ public class MainMenuController implements IviewController {
      * FOR TESTING PURPOSES ONLY.
      */
     protected final void firePlayButton() {
-        playButton.fire();
+        classicButton.fire();
     }
 
     /**

@@ -51,7 +51,7 @@ public class GameInfo {
     public PlayerMode getPlayerMode() {
         return playerMode;
     }
-    
+
     /**
      * Get a copy of the game mode.
      *
@@ -198,36 +198,38 @@ public class GameInfo {
     public void resetLives() {
         lives = 3;
     }
-    
+
     /**
      * Ensure the size of list is at least equal to size.
+     *
      * @param list the list.
      * @param size the size.
      */
     private void ensureSize(final ArrayList<Integer> list, final int size) {
-        while(list.size() < size) {
+        while (list.size() < size) {
             list.add(0);
         }
     }
-    
+
     /**
      * Ensure the size of list is at least equal to size.
+     *
      * @param list the list.
      * @param size the size.
      */
     private void ensureStringSize(final ArrayList<String> list, final int size) {
-        while(list.size() < size) {
+        while (list.size() < size) {
             list.add("");
         }
     }
-    
+
     /**
      * Switch to the classical mode.
      */
     public void setClassicMode() {
         gameMode = GameMode.CLASSIC;
     }
-    
+
     /**
      * Switch to the survival mode.
      */

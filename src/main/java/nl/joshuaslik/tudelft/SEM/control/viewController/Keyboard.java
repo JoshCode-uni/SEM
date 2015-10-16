@@ -22,16 +22,15 @@ public class Keyboard implements IKeyboard {
     private static final KeyCode spLeftKey = KeyCode.LEFT;
     private static final KeyCode spRightKey = KeyCode.RIGHT;
     private static final KeyCode spShoot = KeyCode.SPACE;
-    private static final KeyCode mpLeftKey= KeyCode.A;
+    private static final KeyCode mpLeftKey = KeyCode.A;
     private static final KeyCode mpRightKey = KeyCode.D;
     private static final KeyCode mp2Shoot = KeyCode.W;
     private static final KeyCode mpShoot = KeyCode.UP;
-    
+
     private Scene scene;
 
     /**
-     * Create a keyboard which listens to keyboard events performed in the given
-     * scene.
+     * Create a keyboard which listens to keyboard events performed in the given scene.
      *
      * @param scene the scene to add the listeners to.
      */
@@ -117,12 +116,12 @@ public class Keyboard implements IKeyboard {
         }
         return false;
     }
-    
+
     Scene getScene() {
-    	return scene;
+        return scene;
     }
-        
+
     void setBitSet(BitSet kb) {
-      	keyboard = kb;
+        keyboard = kb;
     }
 }

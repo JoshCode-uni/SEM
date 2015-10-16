@@ -18,7 +18,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)
 public class YouWonControllerIT {
-    
+
     /**
      * Controller of the main menu.
      */
@@ -34,6 +34,7 @@ public class YouWonControllerIT {
         controller = (YouWonController) Launcher.getPopupController();
         assert controller != null;
     }
+
     /**
      * Test of handleMainMenuButton method, of class YouWonController.
      */

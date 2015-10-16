@@ -6,8 +6,7 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 
 /**
- * This interface defines the methods which should be implemented by the circle
- * object class.
+ * This interface defines the methods which should be implemented by the circle object class.
  *
  * @author faris
  */

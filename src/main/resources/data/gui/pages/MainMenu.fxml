@@ -89,29 +89,29 @@
                 </Label>
             </children>
         </Pane>
-      <VBox fx:id="gameModeBox" layoutX="650.0" layoutY="185.0" spacing="2.0">
-         <children>
-            <Button fx:id="classicButton" layoutX="290.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleClassicButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Classic">
-               <font>
-                  <Font size="42.0" />
-               </font>
-            </Button>
-            <Button fx:id="survivalButton" layoutX="290.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleSurvivalButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Survival mode">
-               <font>
-                  <Font size="42.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-      <Text fx:id="p1Score" layoutX="1413.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score player 1: 0" visible="false">
-         <font>
-            <Font name="Buxton Sketch" size="60.0" />
-         </font>
-      </Text>
-      <Text fx:id="p2Score" layoutX="1413.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score player 2: 0" visible="false">
-         <font>
-            <Font name="Buxton Sketch" size="60.0" />
-         </font>
-      </Text>
+        <VBox fx:id="gameModeBox" layoutX="650.0" layoutY="185.0" spacing="2.0">
+            <children>
+                <Button fx:id="classicButton" layoutX="290.0" layoutY="185.0" mnemonicParsing="false" onAction="#handleClassicButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Classic">
+                    <font>
+                        <Font size="42.0" />
+                    </font>
+                </Button>
+                <Button fx:id="survivalButton" layoutX="290.0" layoutY="320.0" mnemonicParsing="false" onAction="#handleSurvivalButton" prefHeight="135.0" prefWidth="360.0" stylesheets="@MainMenu.css" text="Survival mode">
+                    <font>
+                        <Font size="42.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+        <Text fx:id="p1Score" layoutX="1413.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score player 1: 0" visible="false">
+            <font>
+                <Font name="Buxton Sketch" size="60.0" />
+            </font>
+        </Text>
+        <Text fx:id="p2Score" layoutX="1413.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score player 2: 0" visible="false">
+            <font>
+                <Font name="Buxton Sketch" size="60.0" />
+            </font>
+        </Text>
     </children>
 </Pane>

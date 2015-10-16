@@ -34,6 +34,7 @@ public class CongratsController implements IpopupController {
 
     /**
      * Load the popup.
+     *
      * @param controller the main view controller.
      */
     public static void loadPopup(final IviewController controller) {
@@ -42,6 +43,7 @@ public class CongratsController implements IpopupController {
 
     /**
      * Set the main view controller.
+     *
      * @param controller the main view controller.
      */
     @Override
@@ -50,6 +52,7 @@ public class CongratsController implements IpopupController {
 
     /**
      * Set the popup controller.
+     *
      * @param popupControl the popup controller.
      */
     @Override

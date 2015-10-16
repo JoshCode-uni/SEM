@@ -6,7 +6,7 @@ public class BubbleDoor extends AbstractDoor {
 
     private final int bubblesOtherSide;
 
-    public BubbleDoor(final IGameObjects game, final Point upperLeft, final Point upperRight, 
+    public BubbleDoor(final IGameObjects game, final Point upperLeft, final Point upperRight,
             final Point bottomLeft, final Point bottomRight, final int bubblesOtherSide) {
         super(game, upperLeft, upperRight, bottomLeft, bottomRight);
         this.bubblesOtherSide = bubblesOtherSide;

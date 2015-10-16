@@ -24,15 +24,15 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
 public class GameObjectsTest {
-	
-	@Mock
-	GameLoop gl;
-	
-	@Mock
-	Keyboard kb;
-	
-	@Mock
-	ILineViewObject topL, botL, leftL, rightL;
+
+    @Mock
+    GameLoop gl;
+
+    @Mock
+    Keyboard kb;
+
+    @Mock
+    ILineViewObject topL, botL, leftL, rightL;
 
     private GameObjects gameObjects;
 
@@ -108,123 +108,123 @@ public class GameObjectsTest {
      */
 //    @Test
     public void testAddProjectile() {
-		spyGameObjects.addProjectile(pj);
-		verify(spyGameObjects).addObject(pj);
-	}
-	
-	/**
-	 * Tests if the projectile is removed correctly.
-	 */
+        spyGameObjects.addProjectile(pj);
+        verify(spyGameObjects).addObject(pj);
+    }
+
+    /**
+     * Tests if the projectile is removed correctly.
+     */
 //	@Test
-	public void testRemoveProjectile() {
-		spyGameObjects.addProjectile(pj);
-		spyGameObjects.removeProjectile(true);
-		verify(spyGameObjects).removeObject(isA(Projectile.class));
-	}
-	
-	/**
-	 *
-	 */
-	@Test
-	public void testHandleBubbleSplit() {
-		//TODO: Implement
-		//fail("Not yet implemented");
-	}
-	
-	/**
-	 * Tests if points are correctly added.
-	 */
-	@Test
-	public void testAddPoints() {
-		assertEquals(gameObjects.getScore(), 0);
-		gameObjects.addPoints(50);
-		assertEquals(gameObjects.getScore(), 50);
-	}
-	
-	/**
-	 * Tests if a life is added correctly.
-	 */
-	@Test
-	public void testAddLife() {
-		gameObjects.addLife();
-		verify(gl).addLife();
-	}
-	
-	/**
-	 * Tests if the bubbles left are updated correctly.
-	 */
-	@Test
-	public void testBubblesLeft() {
-		assertEquals(gameObjects.bubblesLeft(), 0);
-		gameObjects.addBubbles(bl);
-		assertEquals(gameObjects.bubblesLeft(), 1);
-	}
-	
-	/**
-	 * Tests if a circle is made correctly.
-	 */
-	@Test
-	public void testMakeCircle() {
-		gameObjects.makeCircle(100, 200, 25);
-		verify(gl).makeCircle(100, 200, 25);
-	}
-	
-	/**
-	 * Tests if a line is made correctly.
-	 */
-	@Test
-	public void testMakeLine() {
-		gameObjects.makeLine(25, 0, 100, 50);
-		verify(gl).makeLine(25, 0, 100, 50);
-	}
-	
-	/**
-	 * Tests if an iamge is created correctly.
-	 */
-	@Test
-	public void testMakeImage() {
-		gameObjects.makeImage(is, 75, 25);
-		verify(gl).makeImage(is, 25, 75);
-	}
-	
-	/**
-	 * Tests if it is correctly updated if the player dies.
-	 */
-	@Test
-	public void testPlayerDied() {
-		GameInfo.getInstance().setPlayerMode(PlayerMode.SINGLE_PLAYER);
-		gameObjects.playerDied();
-		verify(gl).playerDied();
-	}
-	
-	/**
-	 * Tests if the projectile is correctly updated.
-	 */
+    public void testRemoveProjectile() {
+        spyGameObjects.addProjectile(pj);
+        spyGameObjects.removeProjectile(true);
+        verify(spyGameObjects).removeObject(isA(Projectile.class));
+    }
+
+    /**
+     *
+     */
+    @Test
+    public void testHandleBubbleSplit() {
+        //TODO: Implement
+        //fail("Not yet implemented");
+    }
+
+    /**
+     * Tests if points are correctly added.
+     */
+    @Test
+    public void testAddPoints() {
+        assertEquals(gameObjects.getScore(), 0);
+        gameObjects.addPoints(50);
+        assertEquals(gameObjects.getScore(), 50);
+    }
+
+    /**
+     * Tests if a life is added correctly.
+     */
+    @Test
+    public void testAddLife() {
+        gameObjects.addLife();
+        verify(gl).addLife();
+    }
+
+    /**
+     * Tests if the bubbles left are updated correctly.
+     */
+    @Test
+    public void testBubblesLeft() {
+        assertEquals(gameObjects.bubblesLeft(), 0);
+        gameObjects.addBubbles(bl);
+        assertEquals(gameObjects.bubblesLeft(), 1);
+    }
+
+    /**
+     * Tests if a circle is made correctly.
+     */
+    @Test
+    public void testMakeCircle() {
+        gameObjects.makeCircle(100, 200, 25);
+        verify(gl).makeCircle(100, 200, 25);
+    }
+
+    /**
+     * Tests if a line is made correctly.
+     */
+    @Test
+    public void testMakeLine() {
+        gameObjects.makeLine(25, 0, 100, 50);
+        verify(gl).makeLine(25, 0, 100, 50);
+    }
+
+    /**
+     * Tests if an iamge is created correctly.
+     */
+    @Test
+    public void testMakeImage() {
+        gameObjects.makeImage(is, 75, 25);
+        verify(gl).makeImage(is, 25, 75);
+    }
+
+    /**
+     * Tests if it is correctly updated if the player dies.
+     */
+    @Test
+    public void testPlayerDied() {
+        GameInfo.getInstance().setPlayerMode(PlayerMode.SINGLE_PLAYER);
+        gameObjects.playerDied();
+        verify(gl).playerDied();
+    }
+
+    /**
+     * Tests if the projectile is correctly updated.
+     */
 //	@Test
-	public void testHasProjectile() {
-		assertFalse(gameObjects.hasProjectile(false));
-		gameObjects.addProjectile(pj);
-		assertTrue(gameObjects.hasProjectile(false));
-	}
-	
-	/**
-	 * Tests if the interacting objects are correctly added to the arrays in gameObjects
-	 */
-	@Test
-	public void objectCorrectlyAddedAndRemoved() {
-		gameObjects.addObject(bl);
-		gameObjects.update(0);
-		assertTrue(gameObjects.getUpdateable().contains(bl));
-		assertTrue(gameObjects.getCollider().contains(bl));
-		assertTrue(gameObjects.getPrepareUpdateable().contains(bl));
-		assertTrue(gameObjects.getIntersectable().contains(bl));
-		
-		gameObjects.removeObject(bl);
-		gameObjects.update(0);
-		assertFalse(gameObjects.getUpdateable().contains(bl));
-		assertFalse(gameObjects.getCollider().contains(bl));
-		assertFalse(gameObjects.getPrepareUpdateable().contains(bl));
-		assertFalse(gameObjects.getIntersectable().contains(bl));
-	}
-	
+    public void testHasProjectile() {
+        assertFalse(gameObjects.hasProjectile(false));
+        gameObjects.addProjectile(pj);
+        assertTrue(gameObjects.hasProjectile(false));
+    }
+
+    /**
+     * Tests if the interacting objects are correctly added to the arrays in gameObjects
+     */
+    @Test
+    public void objectCorrectlyAddedAndRemoved() {
+        gameObjects.addObject(bl);
+        gameObjects.update(0);
+        assertTrue(gameObjects.getUpdateable().contains(bl));
+        assertTrue(gameObjects.getCollider().contains(bl));
+        assertTrue(gameObjects.getPrepareUpdateable().contains(bl));
+        assertTrue(gameObjects.getIntersectable().contains(bl));
+
+        gameObjects.removeObject(bl);
+        gameObjects.update(0);
+        assertFalse(gameObjects.getUpdateable().contains(bl));
+        assertFalse(gameObjects.getCollider().contains(bl));
+        assertFalse(gameObjects.getPrepareUpdateable().contains(bl));
+        assertFalse(gameObjects.getIntersectable().contains(bl));
+    }
+
 }

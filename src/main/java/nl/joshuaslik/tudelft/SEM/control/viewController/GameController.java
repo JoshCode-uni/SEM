@@ -38,7 +38,7 @@ public class GameController implements IviewController {
 
     @FXML
     private Text levelText, scoreText, scoreTextPlayer2;
-    
+
     @FXML
     private ImageView background;
     @FXML
@@ -55,7 +55,6 @@ public class GameController implements IviewController {
     private GameLoop gl;
 
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
-
 
     private long timeLeft;
 
@@ -111,14 +110,14 @@ public class GameController implements IviewController {
     public void start(final Scene scene) {
         int lvl = Levels.getCurrentLevel() + 1;
         Image bg;
-        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
         } else {
             bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel1.jpg"));
         }
-        
-        assert(bg != null);
-        assert(background != null);
+
+        assert (bg != null);
+        assert (background != null);
         background.setImage(bg);
         levelText.setText("Level " + Integer.toString(lvl));
         timeLeft = MAX_TIME;
@@ -129,7 +128,7 @@ public class GameController implements IviewController {
     }
 
     private void resetLives() {
-        if(!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + GameInfo.getInstance().getLives() + ".png"));
             lives.setImage(image);
         } else {
@@ -172,7 +171,7 @@ public class GameController implements IviewController {
             timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft
                     / (double) MAX_TIME));
         }
-        if(!gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+        if (!gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
             scoreText.setText("Score: " + gl.getScore());
         } else {
             scoreText.setText("Score of " + gi.getPlayerNames().get(0) + ": " + gl.getPlayer1Score());
@@ -195,7 +194,7 @@ public class GameController implements IviewController {
             CongratsController.loadPopup(this);
         }
     }
-    
+
     /**
      * Log player completed level data.
      */
@@ -254,7 +253,7 @@ public class GameController implements IviewController {
      *
      * @param centerX the x coordinate of the center of the circle.
      * @param centerY the y coordinate of the center of the circle.
-     * @param radius  the radius of the circle.
+     * @param radius the radius of the circle.
      * @return the interface of the circle view object.
      */
     public ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
@@ -264,9 +263,9 @@ public class GameController implements IviewController {
     /**
      * Create an image in the view.
      *
-     * @param is     the input stream of the image.
+     * @param is the input stream of the image.
      * @param height the height of the image.
-     * @param width  the width of the image.
+     * @param width the width of the image.
      * @return the interface of the image view object.
      */
     public IImageViewObject makeImage(final InputStream is, final double width, final double height) {
@@ -278,8 +277,8 @@ public class GameController implements IviewController {
      *
      * @param startX the x coordinate of the start point of the line.
      * @param startY the y coordinate of the start point of the line.
-     * @param endX   the x coordinate of the end point of the line.
-     * @param endY   the y coordinate of the end point of the line.
+     * @param endX the x coordinate of the end point of the line.
+     * @param endY the y coordinate of the end point of the line.
      * @return the interface of the line view object.
      */
     public ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
@@ -305,6 +304,6 @@ public class GameController implements IviewController {
      * FOR TESTING PURPOSES ONLY.
      */
     protected final void fireMainMenuButton() {
-         mainMenuButton.fire();
+        mainMenuButton.fire();
     }
 }

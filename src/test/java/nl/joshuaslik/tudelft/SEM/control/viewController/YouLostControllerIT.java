@@ -34,7 +34,7 @@ public class YouLostControllerIT {
         controller = (YouLostController) Launcher.getPopupController();
         assert controller != null;
     }
-    
+
     /**
      * Test of handleMainMenuButton method, of class YouLostController.
      */

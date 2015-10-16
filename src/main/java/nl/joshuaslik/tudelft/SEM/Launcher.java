@@ -84,7 +84,8 @@ public class Launcher extends Application {
             BP.setCenter(pane);
             controller = res;
             return res;
-        } catch (IOException ex) {
+        }
+        catch (IOException ex) {
             GameLog.addErrorLog("Failed to load fxml file: " + fxmlURL.toString());
             GameLog.addErrorLog(ex.getMessage());
             Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "Failed to load fxml file: " + fxmlURL.toString(), ex);
@@ -96,7 +97,7 @@ public class Launcher extends Application {
      * Load a popup screen.
      *
      * @param mainViewController the controller of the current view.
-     * @param fxmlURL            the URL of the FXML file of the popup.
+     * @param fxmlURL the URL of the FXML file of the popup.
      */
     public static void loadPopup(final IviewController mainViewController, final URL fxmlURL) {
         FXMLLoader loader = new FXMLLoader();
@@ -111,10 +112,11 @@ public class Launcher extends Application {
             popupContrl.setPopupControl(popup);
             popupContrl.setMainViewController(mainViewController);
             Launcher.popupController = popupContrl;
-        } catch (IOException ex) {
+        }
+        catch (IOException ex) {
             GameLog.addErrorLog("Failed to load fxml file: " + fxmlURL.toString());
             GameLog.addErrorLog(ex.getMessage());
-            Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, 
+            Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE,
                     "Failed to load fxml file: " + fxmlURL.toString(), ex);
         }
     }
@@ -127,8 +129,7 @@ public class Launcher extends Application {
     }
 
     /**
-     * Get the controller of the last loaded view.
-     * FOR TESTING PURPSOSES ONLY!
+     * Get the controller of the last loaded view. FOR TESTING PURPSOSES ONLY!
      *
      * @return the view controller
      */
@@ -137,8 +138,7 @@ public class Launcher extends Application {
     }
 
     /**
-     * Get the controller of the last loaded popup.
-     * FOR TESTING PURPSOSES ONLY!
+     * Get the controller of the last loaded popup. FOR TESTING PURPSOSES ONLY!
      *
      * @return the popup controller
      */
@@ -147,8 +147,7 @@ public class Launcher extends Application {
     }
 
     /**
-     * Wait till the initial view is initialized.
-     * FOR TESTING PURPSOSES ONLY!
+     * Wait till the initial view is initialized. FOR TESTING PURPSOSES ONLY!
      */
     public static void waitTillInitialized() {
         while (true) {
@@ -159,15 +158,15 @@ public class Launcher extends Application {
             }
             try {
                 Thread.sleep(1);
-            } catch (InterruptedException ex) {
+            }
+            catch (InterruptedException ex) {
                 Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
     /**
-     * Hide the view for integration testing.
-     * FOR TESTING PURPSOSES ONLY!
+     * Hide the view for integration testing. FOR TESTING PURPSOSES ONLY!
      *
      * @param hideViewForTesting if the view must be hidden
      */

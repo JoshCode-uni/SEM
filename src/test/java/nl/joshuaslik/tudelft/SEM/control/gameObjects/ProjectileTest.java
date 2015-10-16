@@ -73,101 +73,101 @@ public class ProjectileTest {
         assertEquals(projectile.getPoint1().getyPos(), -1, 0);
         assertEquals(projectile.getPoint2().getxPos(), 0, 0);
         assertEquals(projectile.getPoint2().getyPos(), -2, 0);
-	}
-	
-	/**
-	 * Tests initialization.
-	 */
-	@Test
-	public void testVectorInitialized() {
-		assertEquals(projectile.getVector(), new Vector(0, -1));
-	}
-	
-	/**
-	 * Tests initialization.
-	 */
-	@Test
-	public void testVectorProperties() {
-		verify(line).setStrokeWidth(7);
-		verify(line).setColor(0.2, 0.1, 0.1);
-		verify(line).setOpacity(0.8);
-		assertEquals(projectile.getGrowSpeed(), 20_000, 0);
-		assertEquals(projectile.getDelay(), 0, 0);
-	}
-	
-	/**
-	 * Tests if the projectile is correctly updated.
-	 */
+    }
+
+    /**
+     * Tests initialization.
+     */
+    @Test
+    public void testVectorInitialized() {
+        assertEquals(projectile.getVector(), new Vector(0, -1));
+    }
+
+    /**
+     * Tests initialization.
+     */
+    @Test
+    public void testVectorProperties() {
+        verify(line).setStrokeWidth(7);
+        verify(line).setColor(0.2, 0.1, 0.1);
+        verify(line).setOpacity(0.8);
+        assertEquals(projectile.getGrowSpeed(), 20_000, 0);
+        assertEquals(projectile.getDelay(), 0, 0);
+    }
+
+    /**
+     * Tests if the projectile is correctly updated.
+     */
 //	@Test
-	public void testUpdate() {
-		projectile.update(1_000_000_000);
-		//UpdateLinePoints calls setEndY twice
-		verify(line, times(4)).setEndY(line.getEndY() - 750 * (1_000_000_000 / 1_000_000_000.0));
-	}
-	
-	/**
-	 * Tests if a projectile is correctly destroyed.
-	 */
+    public void testUpdate() {
+        projectile.update(1_000_000_000);
+        //UpdateLinePoints calls setEndY twice
+        verify(line, times(4)).setEndY(line.getEndY() - 750 * (1_000_000_000 / 1_000_000_000.0));
+    }
+
+    /**
+     * Tests if a projectile is correctly destroyed.
+     */
 //	@Test
-	public void testUpdateDestroyed() {
-		when(line.getEndY()).thenReturn(-1.0);
-		projectile.update(10_000);
-		verify(line).destroy();
-	}
-	
-	/**
-	 * Tests for closest instersection
-	 */
-	@Test
-	public void testGetClosestIntersectionLargeY() {
-		when(p.getxPos()).thenReturn(50d);
-		when(p.getyPos()).thenReturn(25d);
-		assertEquals(projectile.getClosestIntersection(p), new IntersectionPoint(0.0, -1.0, projectile.getVector().normal(), Double.MAX_VALUE));
-	}
-	
-	/**
-	 * Test method looking for the closest intersection with a point
-	 */
-	@Test
-	public void testGetClosestIntersectionSmallY() {
-		when(p.getxPos()).thenReturn(0d);
-		when(p.getyPos()).thenReturn(0d);
-		assertEquals(new IntersectionPoint(0, -1, projectile.getVector().normal(), 
-                        Double.MAX_VALUE), projectile.getClosestIntersection(p));
-	}
-	
-	/**
-	 * Tests if linepoints are correctly updated
-	 */
-	@Test
-	public void testUpdateLinePoints() {
-		projectile.updateLinePoints();
-		verify(line, times(1)).getStartX();
-		verify(line, times(1)).getEndX();
-		verify(line, times(1)).getStartY();
-		verify(line, times(1)).getEndY();
-	}
-	
-	/**
-	 * Tests bubble collision.
-	 */
+    public void testUpdateDestroyed() {
+        when(line.getEndY()).thenReturn(-1.0);
+        projectile.update(10_000);
+        verify(line).destroy();
+    }
+
+    /**
+     * Tests for closest instersection
+     */
+    @Test
+    public void testGetClosestIntersectionLargeY() {
+        when(p.getxPos()).thenReturn(50d);
+        when(p.getyPos()).thenReturn(25d);
+        assertEquals(projectile.getClosestIntersection(p), new IntersectionPoint(0.0, -1.0, projectile.getVector().normal(), Double.MAX_VALUE));
+    }
+
+    /**
+     * Test method looking for the closest intersection with a point
+     */
+    @Test
+    public void testGetClosestIntersectionSmallY() {
+        when(p.getxPos()).thenReturn(0d);
+        when(p.getyPos()).thenReturn(0d);
+        assertEquals(new IntersectionPoint(0, -1, projectile.getVector().normal(),
+                Double.MAX_VALUE), projectile.getClosestIntersection(p));
+    }
+
+    /**
+     * Tests if linepoints are correctly updated
+     */
+    @Test
+    public void testUpdateLinePoints() {
+        projectile.updateLinePoints();
+        verify(line, times(1)).getStartX();
+        verify(line, times(1)).getEndX();
+        verify(line, times(1)).getStartY();
+        verify(line, times(1)).getEndY();
+    }
+
+    /**
+     * Tests bubble collision.
+     */
 //	@Test
-	public void testCollideBubble() {
-		Bubble bubble = Mockito.mock(Bubble.class);
-		ICircleViewObject cvo = Mockito.mock(ICircleViewObject.class);
-		projectile.collide(bubble, 10);
-		verify(bubble, times(1)).splitBubble();
-		verify(line, times(1)).destroy();
-	}
-	
-	/**
-	 * Tests player collision.
-	 */
-	@Test
-	public void testCollidePlayer() {
-		Player player = Mockito.mock(Player.class);
-		projectile.collide(player, 10);
-		verify(line, times(0)).destroy();
-	}
-	
+    public void testCollideBubble() {
+        Bubble bubble = Mockito.mock(Bubble.class);
+        ICircleViewObject cvo = Mockito.mock(ICircleViewObject.class);
+        projectile.collide(bubble, 10);
+        verify(bubble, times(1)).splitBubble();
+        verify(line, times(1)).destroy();
+    }
+
+    /**
+     * Tests player collision.
+     */
+    @Test
+    public void testCollidePlayer() {
+        Player player = Mockito.mock(Player.class);
+        projectile.collide(player, 10);
+        verify(line, times(0)).destroy();
+    }
+
 }

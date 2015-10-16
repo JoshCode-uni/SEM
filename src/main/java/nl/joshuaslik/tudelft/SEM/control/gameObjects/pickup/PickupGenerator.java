@@ -14,6 +14,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
  * Useful to create a random pickup.
+ *
  * @author faris
  */
 public class PickupGenerator {
@@ -23,7 +24,7 @@ public class PickupGenerator {
     public PickupGenerator(IGameObjects gameObjects) {
         this.gameObjects = gameObjects;
     }
-    
+
     public void generatePickup(Point p) {
         generatePickup(p, new Random());
     }

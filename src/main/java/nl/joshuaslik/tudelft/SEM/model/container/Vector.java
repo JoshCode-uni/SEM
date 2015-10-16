@@ -47,11 +47,10 @@ public class Vector {
     }
 
     /**
-     * Check if point p is in front of the vector (== check if the vector will
-     * have positive length if it intersects with point p). This method doesn't
-     * say anything about 'if' the vector actually hits the point if it returns
-     * true. The only thing which you can be sure of is that the point is not
-     * hit when the method returns false.
+     * Check if point p is in front of the vector (== check if the vector will have positive length
+     * if it intersects with point p). This method doesn't say anything about 'if' the vector
+     * actually hits the point if it returns true. The only thing which you can be sure of is that
+     * the point is not hit when the method returns false.
      *
      * @param from
      * @param intersect

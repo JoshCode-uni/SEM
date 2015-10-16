@@ -37,8 +37,7 @@ public class Point {
     }
 
     /**
-     * Get the point which is this point translated of the distance deltaX and
-     * deltaY.
+     * Get the point which is this point translated of the distance deltaX and deltaY.
      *
      * @param deltaX delta X.
      * @param deltaY delta Y

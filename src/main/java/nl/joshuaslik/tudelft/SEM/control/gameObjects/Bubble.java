@@ -13,9 +13,8 @@ import nl.joshuaslik.tudelft.SEM.utility.Time;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
- * This class contains the position, speed and direction of a bubble. It
- * implements Dynamic object (because it can move) and PhysicsObject (so it can
- * collide with other objects).
+ * This class contains the position, speed and direction of a bubble. It implements Dynamic object
+ * (because it can move) and PhysicsObject (so it can collide with other objects).
  *
  * @author faris
  */
@@ -37,9 +36,9 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * Create a bubble.
      *
      * @param gameObjects
-     * @param p           Center x/y coordinates
-     * @param radius      Radius of the bubble
-     * @param dir         Moving direction of the bubble
+     * @param p Center x/y coordinates
+     * @param radius Radius of the bubble
+     * @param dir Moving direction of the bubble
      */
     public Bubble(final IGameObjects gameObjects, final Point p, final double radius, final Vector dir) {
         super(gameObjects);
@@ -47,10 +46,10 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         circle.setRadius(radius);
         this.dir = dir;
         this.newDir = dir;
-        circle.setBounds(getGameObjects().getLeftBorder(), getGameObjects().getTopBorder(), 
+        circle.setBounds(getGameObjects().getLeftBorder(), getGameObjects().getTopBorder(),
                 getGameObjects().getRightBorder(), getGameObjects().getBottomBorder());
-        GameLog.addInfoLog("Bubble created at: (" + Double.toString(circle.getCenterX()) + ", " +
-                Double.toString(circle.getCenterY()) + ")");
+        GameLog.addInfoLog("Bubble created at: (" + Double.toString(circle.getCenterX()) + ", "
+                + Double.toString(circle.getCenterY()) + ")");
     }
 
     /**
@@ -95,7 +94,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     /**
      * Check if the bubble collides with obj2.
      *
-     * @param obj2          a Phyisics object.
+     * @param obj2 a Phyisics object.
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     @Override
@@ -121,7 +120,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     /**
      * Method to calculate the position of this bubble after a collision.
      *
-     * @param ip            the intersection point (collision point).
+     * @param ip the intersection point (collision point).
      * @param nanoFrameTime the time which a frame takes.
      */
     private void collide(final IntersectionPoint ip, final long nanoFrameTime) {
@@ -141,7 +140,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         vX = MAX_X_SPEED * newDir.getXdirection();
         collideUpdateDirection(ip);
     }
-    
+
     private void collideUpdateDirection(IntersectionPoint ip) {
         if (ip.hasSpeedVec()) {
             Vector speedVecOtherObj = ip.getSpeedVec();
@@ -165,7 +164,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     /**
      * Called when a dynamic object collides with this Bubble.
      *
-     * @param obj2          the dynamic object which collided with this bubble.
+     * @param obj2 the dynamic object which collided with this bubble.
      * @param nanoFrameTime the time which a frame takes.
      */
     @Override
@@ -217,7 +216,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      */
     public void splitBubble() {
         GameLog.addInfoLog("Bubble hit by projectile at: (" + Double.toString(circle.getCenterX()) + Double.toString(circle.getCenterY())
-                           + ")");
+                + ")");
         getGameObjects().handleBubbleSplit(getPoint());
         double newRadius = circle.getRadius() / 2.0;
         if (newRadius < 10) {
@@ -233,11 +232,12 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         createSplitBubble(new Point(xPos + 1.1 * newRadius, yPos), newRadius, new Vector(2, -5));
         splitted(newRadius, new Point(xPos, yPos));
     }
-    
+
     /**
      * Adjust some variables so bubble is split correctly
+     *
      * @param newRadius the new radius.
-     * @param oldcenter    the old center point.
+     * @param oldcenter the old center point.
      */
     private void splitted(double newRadius, Point oldcenter) {
         circle.setCenterX(oldcenter.getxPos() - newRadius);
@@ -248,9 +248,10 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         this.vY = -Y_MAX_SPEED / 1.5;
         this.modifier = new BubbleBaseModifier();
     }
-    
+
     /**
      * Create a new bubble after splitting.
+     *
      * @param center the center of the bubble.
      * @param radius the radius of the bubble.
      * @param vector the vector of the direction of the bubble.
