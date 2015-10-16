@@ -9,6 +9,8 @@ import javafx.scene.Scene;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.GameObjects;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,6 +50,7 @@ public class GameLoopT {
         PowerMockito.whenNew(GameObjects.class).withAnyArguments().thenReturn(gameObjects);
         gl = new GameLoop(gameController, 25, 25, 0, 0, scene);
         spyGL = Mockito.spy(gl);
+        GameInfo.getInstance().setClassicMode();
     }
 
     /**

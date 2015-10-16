@@ -13,6 +13,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import org.junit.Before;
 import org.junit.Test;
@@ -62,6 +63,7 @@ public class GameObjectsConstructorTest {
                     .thenReturn(player);
         physicsObject.add(bubble);
         gameObjects = new GameObjects(null, 10.0, 20.0, 0.0, 5.0, null);
+        GameInfo.getInstance().setClassicMode();
 	}
 	
 	/**
