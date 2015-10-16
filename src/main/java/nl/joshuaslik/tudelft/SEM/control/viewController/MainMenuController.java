@@ -1,6 +1,5 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +11,7 @@ import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -35,7 +35,7 @@ public class MainMenuController implements IviewController {
     private Button playButton, chooseLevelButton, optionsButton, quitButton;
 
     @FXML
-    private Text totalScore;
+    private Text totalScore, p1Score, p2Score;
 
     @FXML
     private Button level1Button, level2Button, level3Button, level4Button, level5Button;
@@ -168,6 +168,14 @@ public class MainMenuController implements IviewController {
      */
     @Override
     public void start(final Scene scene) {
+        GameInfo gi = GameInfo.getInstance();
+        if(!gi.getPlayerMode().equals(PlayerMode.SINGLE_PLAYER)) {
+            totalScore.setVisible(false);
+            p1Score.setText("Score player 1: " + gi.getPlayer1Score());
+            p2Score.setText("Score player 2: " + gi.getPlayer2Score());
+            p1Score.setVisible(true);
+            p2Score.setVisible(true);
+        }
     }
 
     /**

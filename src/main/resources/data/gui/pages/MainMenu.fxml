@@ -103,5 +103,15 @@
             </Button>
          </children>
       </VBox>
+      <Text fx:id="p1Score" layoutX="1413.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score player 1: 0" visible="false">
+         <font>
+            <Font name="Buxton Sketch" size="60.0" />
+         </font>
+      </Text>
+      <Text fx:id="p2Score" layoutX="1413.0" layoutY="167.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score player 2: 0" visible="false">
+         <font>
+            <Font name="Buxton Sketch" size="60.0" />
+         </font>
+      </Text>
     </children>
 </Pane>
