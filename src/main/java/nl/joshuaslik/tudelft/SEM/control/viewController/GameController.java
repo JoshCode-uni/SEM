@@ -187,7 +187,13 @@ public class GameController implements IviewController {
     		GameLog.addInfoLog("Player 2 score:"+ gl.getPlayer2Score());
     		GameLog.addInfoLog("level score: " + totalScore);
     		GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
-    		GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+    		GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), totalScore);
+    	} else if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+    		GameLog.addInfoLog("Players completed level:" + Levels.getCurrentLevel());
+    		GameLog.addInfoLog("Player 1 score:"+ gl.getPlayer1Score());
+    		GameLog.addInfoLog("Player 2 score:"+ gl.getPlayer2Score());
+    		GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), gl.getPlayer1Score());
+    		GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), gl.getPlayer2Score());
     	}
         gl.stop();
         gl = null;
