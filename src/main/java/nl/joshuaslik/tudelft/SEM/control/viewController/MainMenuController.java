@@ -1,7 +1,5 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
-import java.util.ArrayList;
-
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -140,6 +138,7 @@ public class MainMenuController implements IviewController {
     protected void handleClassicButton() {
         GameLog.addInfoLog("Classic button pressed from main menu");
         System.out.println("Classic button pressed!");
+        GameInfo.getInstance().setClassicMode();
         GameController.loadView();
     }
     
@@ -150,8 +149,8 @@ public class MainMenuController implements IviewController {
     protected void handleSurvivalButton() {
         GameLog.addInfoLog("Survival button pressed from main menu");
         System.out.println("Survival button pressed!");
-        // ENTER SURVIVAL MODE
-        // NOT YET IMPLEMENTED!!!!!!!!!!!!
+        GameInfo.getInstance().setSurvivalMode();
+        GameController.loadView();
     }
 
     /**
