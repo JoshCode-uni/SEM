@@ -55,7 +55,6 @@ public class GameController implements IviewController {
 
     private static final long MAX_TIME = 60_000_000_000l; // 60 seconds in ns
 
-//    private static int currentlives = 5;
 
     private long timeLeft;
 
@@ -109,23 +108,16 @@ public class GameController implements IviewController {
      */
     @Override
     public void start(final Scene scene) {
-
         int lvl = Levels.getCurrentLevel() + 1;
         Image bg = new Image(Class.class.getResourceAsStream("/data/gui/img/BackgroundForLevel" + lvl + ".jpg"));
         assert(bg != null);
         assert(background != null);
         background.setImage(bg);
-
-        //currentlives = player.getLives();
         levelText.setText("Level " + Integer.toString(lvl));
         timeLeft = MAX_TIME;
-
         resetLives();
-
         gl = new GameLoop(this, top.getStartY(), top.getEndX(), bottom.getStartY(), top.getStartX(), scene);
-
         gl.setViewController(this);
-
         gl.start();
     }
 
@@ -158,13 +150,11 @@ public class GameController implements IviewController {
      * @param nanoTimePassed the framerate (nanoseconds/frame)
      */
     public void updateTime(final Long nanoTimePassed) {
-
         timeLeft -= nanoTimePassed;
         if (timeLeft <= 0) {
             died();
             return;
         }
-
         scoreText.setText("Score: " + gl.getScore());
         timeRectangle.setWidth(negativeTimeRectangle.getWidth() * ((double) timeLeft / (double) MAX_TIME));
 
@@ -174,21 +164,7 @@ public class GameController implements IviewController {
      * Called when a level is completed
      */
     public void levelCompleted() {
-    	if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER)){
-    		int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
-    		GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
-    		GameLog.addInfoLog("level score: " + totalScore);
-    		GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
-    	} else if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)) {
-
-    		int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
-    		GameLog.addInfoLog("Players completed level: " + Levels.getCurrentLevel());
-    		GameLog.addInfoLog("Player 1 score:"+ gl.getPlayer1Score());
-    		GameLog.addInfoLog("Player 2 score:"+ gl.getPlayer2Score());
-    		GameLog.addInfoLog("level score: " + totalScore);
-    		GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
-    		GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
-    	}
+        logLevelCompletedData();
         gl.stop();
         gl = null;
         Levels.nextLevel();
@@ -197,6 +173,26 @@ public class GameController implements IviewController {
             YouWonController.loadPopup(this);
         } else {
             CongratsController.loadPopup(this);
+        }
+    }
+    
+    /**
+     * Log player completed level data.
+     */
+    private void logLevelCompletedData() {
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER)) {
+            int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
+            GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
+            GameLog.addInfoLog("level score: " + totalScore);
+            GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
+        } else if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)) {
+            int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
+            GameLog.addInfoLog("Players completed level: " + Levels.getCurrentLevel());
+            GameLog.addInfoLog("Player 1 score:" + gl.getPlayer1Score());
+            GameLog.addInfoLog("Player 2 score:" + gl.getPlayer2Score());
+            GameLog.addInfoLog("level score: " + totalScore);
+            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
         }
     }
 
@@ -208,11 +204,9 @@ public class GameController implements IviewController {
         System.out.println("Player died");
         gl.stop();
         gl = null;
-
         GameInfo gi = GameInfo.getInstance();
         int ilives = gi.getLives() - 1;
         gi.loseLife();
-
         if (ilives >= 0) {
             GameController.loadView();
         } else {

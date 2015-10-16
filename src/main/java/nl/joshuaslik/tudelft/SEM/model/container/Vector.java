@@ -27,32 +27,22 @@ public class Vector {
      * @return
      */
     public Point getIntersectionPoint(Point from, Point to) {
-
         Vector vec2 = new Vector(to.getxPos() - from.getxPos(), to.getyPos() - from.getyPos());
-        // a * vec2 + <from> = b * this
-
         if (this.y != 0) {
             double divider = vec2.x - this.x / this.y * vec2.y;
-
             if (Math.abs(divider) < 0.01) {
                 return null;
             }
-
             double a = -(from.getxPos() - this.x / this.y * from.getyPos()) / divider;
-
             return new Point(vec2.x * a + from.getxPos(), vec2.y * a + from.getyPos());
         } else if (vec2.y != 0) {
             double divider = this.x - vec2.x / vec2.y * this.y;
-
             if (Math.abs(divider) < 0.01) {
                 return null;
             }
-
             double a = (from.getxPos() - vec2.x / vec2.y * from.getyPos()) / divider;
-
             return new Point(this.x * a, this.y * a);
         }
-
         return null;
     }
 
@@ -79,7 +69,6 @@ public class Vector {
      * @return
      */
     public double getXdirection() {
-        //		return x / (Math.abs(y) + Math.abs(x)); --> % direction
         return x < 0 ? -1 : 1;
     }
 

@@ -84,16 +84,11 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     @Override
     public void update(final long nanoFrameTime) {
-        // only add/remove objects at the beginning of each update
         addBufferedDynamicObjects();
         removeBufferedDynamicObjects();
-
-        // calculate next positions
         for (IPrepareable e : prepUpdateableObjects) {
             e.prepare(nanoFrameTime);
         }
-
-        // check for collisions
         for (ICollider collider : colliderObjects) {
             for (IIntersectable intersectable : intersectableObjects) {
                 if (intersectable != collider) {
@@ -101,9 +96,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
                 }
             }
         }
-
-        // update positions based on the calculated positions (which might've
-        // been changed by a collision)
         for (IUpdateable e : updateableObjects) {
             e.update(nanoFrameTime);
         }
@@ -118,21 +110,14 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * @param leftBorder   x value of the left border.
      */
     private void initializeBorders(final double topBorder, final double rightBorder, final double bottomBorder, final double leftBorder) {
-
-        // add top, left, right and bottom lines
         Line top = new Line((IGameObjects) this, leftBorder, topBorder, rightBorder, topBorder);
-
         Line left = new Line((IGameObjects) this, leftBorder, topBorder, leftBorder, bottomBorder);
-
         Line right = new Line((IGameObjects) this, rightBorder, topBorder, rightBorder, bottomBorder);
-
         Line bottom = new Line((IGameObjects) this, leftBorder, bottomBorder, rightBorder, bottomBorder);
-
         addObject(top);
         addObject(left);
         addObject(right);
         addObject(bottom);
-
         setGameBounds(topBorder, rightBorder, bottomBorder, leftBorder);
     }
 
@@ -140,8 +125,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
      * Initialize the player.
      */
     private void initializePlayer(final IKeyboard keyBoard) {
-        InputStream is;
-        InputStream is2;
+        InputStream is, is2;
         try {
             is = getClass().getResource("/data/gui/img/penguin.png").openStream();
             is2 = getClass().getResource("/data/gui/img/penguin.png").openStream();
@@ -152,11 +136,10 @@ public class GameObjects implements IUpdateable, IGameObjects {
         GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
        	player = new Player((IGameObjects) this, is, keyBoard, false);
        	addObject(player);
-        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
-        	
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || 
+                GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
         	player2 = new Player((IGameObjects) this, is2, keyBoard, true);
         	addObject(player2);
-        	
         }
     }
 
@@ -196,10 +179,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     private void addBufferedDynamicObjects() {
         for (IPhysicsObject object : addObjectBuffer) {
-
             if(object == null)
                 continue;
-            
             if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
                 updateableObjects.add((IUpdateable) object);
             }
@@ -212,7 +193,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
             if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
                 colliderObjects.add((ICollider) object);
             }
-
             if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.add((Bubble) object);
             }
@@ -225,10 +205,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     private void removeBufferedDynamicObjects() {
         for (IPhysicsObject object : removeObjectBuffer) {
-
             if(object == null)
                 continue;
-            
             if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
                 updateableObjects.remove((IUpdateable) object);
             }
@@ -241,7 +219,6 @@ public class GameObjects implements IUpdateable, IGameObjects {
             if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
                 colliderObjects.remove((ICollider) object);
             }
-
             if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.remove((Bubble) object);
                 score += 10;

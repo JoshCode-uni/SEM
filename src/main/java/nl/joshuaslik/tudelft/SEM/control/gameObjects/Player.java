@@ -81,7 +81,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             moveRight(nanoFrameTime);
         }
         if (keyboard.isShoot(p2) && !getGameObjects().hasProjectile(p2)) {
-            shoot(nanoFrameTime);
+            shoot();
         }
     }
     
@@ -117,9 +117,8 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     
     /**
      * Shoot.
-     * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
-    private void shoot(final long nanoFrameTime) {
+    private void shoot() {
         double bulletX = (image.getStartX() + image.getEndX()) / 2.0;
         double bulletY = image.getEndY();
         GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX) + ", " + Double.toString(bulletY) + ")");
@@ -170,7 +169,6 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     }
 
     public void setDoor(final double xCoordinate) {
-        //        System.out.println("add: xCoordinate = " + xCoordinate);
         if (xCoordinate > image.getStartX()) {
             rightDoor.add(xCoordinate);
         } else {
@@ -179,7 +177,6 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     }
 
     public void removeDoor(final double xCoordinate) {
-        //       System.out.println("remove: xCoordinate = " + xCoordinate);
         rightDoor.remove(xCoordinate);
         leftDoor.remove(xCoordinate);
     }
@@ -218,7 +215,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     	score+=n;
     }
 
-	public int getScore() {
-		return score;
-	}
+    public int getScore() {
+        return score;
+    }
 }
