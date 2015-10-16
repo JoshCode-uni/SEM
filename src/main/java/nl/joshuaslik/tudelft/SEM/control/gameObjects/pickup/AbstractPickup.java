@@ -51,10 +51,13 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
 
         // check collision with player:
         Player pl = getGameObjects().getPlayer();
+        Player pl2 = getGameObjects().getPlayer2();
         if (pickupImage.intersects(pl.getImage())) {
             handlePlayerCollision();
         }
-
+        if (pickupImage.intersects(pl2.getImage())) {
+            handlePlayerCollision();
+        }
     }
 
     public IImageViewObject getPickupImage() {

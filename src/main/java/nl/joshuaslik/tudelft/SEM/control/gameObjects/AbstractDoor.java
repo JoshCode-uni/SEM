@@ -44,6 +44,8 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
         xRight = ur.getxPos();
         gameObjects.getPlayer().setDoor(xLeft);
         gameObjects.getPlayer().setDoor(xRight);
+        gameObjects.getPlayer2().setDoor(xLeft);
+        gameObjects.getPlayer2().setDoor(xRight);
     }
 
     /**

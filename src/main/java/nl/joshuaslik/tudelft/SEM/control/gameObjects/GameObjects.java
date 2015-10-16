@@ -49,6 +49,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
     private boolean p1HasProjectile = false;
     private boolean p2HasProjectile = false;
+    private boolean isActive = true;
     private Projectile projectile = null;
     private Projectile projectile2 = null;
     private double topBorder, rightBorder, bottomBorder, leftBorder;
@@ -341,7 +342,10 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     @Override
     public void playerDied() {
-        draw.playerDied();
+    	if(isActive){
+    		draw.playerDied();
+    		isActive=false;
+    	}
     }
 
     /**
