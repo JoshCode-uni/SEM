@@ -31,6 +31,9 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private ArrayList<Double> leftDoor = new ArrayList<>();
     private ArrayList<Double> rightDoor = new ArrayList<>();
     private final double playerXstart;
+    private boolean p2;
+    private boolean isDead= false;
+    private int score = 0;
 
     /**
      * Create a player.
@@ -39,14 +42,18 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * @param is
      * @param kb          keyboard which controller the actions of the player.
      */
-    public Player(final IGameObjects gameObjects, final InputStream is, final IKeyboard kb) {
+    public Player(final IGameObjects gameObjects, final InputStream is, final IKeyboard kb, boolean p2) {
         super(gameObjects);
 
         image = getGameObjects().makeImage(is, 100, 100);
         image.setX((getGameObjects().getRightBorder() - getGameObjects().getLeftBorder()) / 2.0);
         image.setY(getGameObjects().getBottomBorder() - image.getHeight());
+        this.p2=p2;
         keyboard = kb;
         playerXstart = image.getStartX();
+        
+        if(p2)
+            image.adjustHSB(-0.30, 1.0, 0.35);
     }
 
     /**
@@ -61,6 +68,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             Bubble bubble = (Bubble) obj2;
             if (image.intersects(bubble.getCircleViewObject())) {
                 getGameObjects().playerDied();
+                isDead = true;
             }
         }
     }
@@ -72,7 +80,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      */
     @Override
     public void update(final long nanoFrameTime) {
-        if (keyboard.isMoveLeft()) {
+        if (keyboard.isMoveLeft(p2)) {
             // move left
             double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
             double leftBorder = getClosestLeftBorder();
@@ -82,7 +90,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
                 image.setX(leftBorder);
             }
             image.setScaleX(1);
-        } else if (keyboard.isMoveRight()) {
+        } else if (keyboard.isMoveRight(p2)) {
             // move right
             double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
             double rightBorder = getClosestRightBorder();
@@ -98,13 +106,15 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             image.setScaleX(-1);
         }
 
-        if (keyboard.isShoot() && !getGameObjects().hasProjectile()) {
+        if (keyboard.isShoot(p2) && !getGameObjects().hasProjectile(p2)) {
             double bulletX = (image.getStartX() + image.getEndX()) / 2.0;
             double bulletY = image.getEndY();
 
             //shoot
             GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX) + ", " + Double.toString(bulletY) + ")");
-            getGameObjects().addProjectile(makeProjectile(getGameObjects(), bulletX, bulletY));
+            Projectile proj = makeProjectile(getGameObjects(), bulletX, bulletY);
+            proj.setPlayer(this);
+            getGameObjects().addProjectile(proj);
         }
     }
 
@@ -189,4 +199,20 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     void setRightDoor(final ArrayList<Double> rightDoor) {
         this.rightDoor = rightDoor;
     }
+    
+    public boolean getP2(){
+    	return p2;
+    }
+    
+    public void addPoints(int n) {
+    	score+=n;
+    }
+
+	public int getScore() {
+		return score;
+	}
+	
+	public boolean isDead() {
+		return isDead;
+	}
 }

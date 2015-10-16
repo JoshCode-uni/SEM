@@ -1,5 +1,7 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
+import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
@@ -44,6 +46,10 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
         xRight = ur.getxPos();
         gameObjects.getPlayer().setDoor(xLeft);
         gameObjects.getPlayer().setDoor(xRight);
+        if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
+        	gameObjects.getPlayer2().setDoor(xLeft);
+        	gameObjects.getPlayer2().setDoor(xRight);
+        }
     }
 
     /**
@@ -66,7 +72,10 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
     public void destroy() {
         getGameObjects().getPlayer().removeDoor(xLeft);
         getGameObjects().getPlayer().removeDoor(xRight);
-
+        if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
+        	getGameObjects().getPlayer2().removeDoor(xLeft);
+        	getGameObjects().getPlayer2().removeDoor(xRight);
+        }
         up.destroy();
         left.destroy();
         right.destroy();
