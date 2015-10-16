@@ -32,6 +32,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private ArrayList<Double> rightDoor = new ArrayList<>();
     private final double playerXstart;
     private boolean p2;
+    private boolean isDead= false;
     private int score = 0;
 
     /**
@@ -67,6 +68,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             Bubble bubble = (Bubble) obj2;
             if (image.intersects(bubble.getCircleViewObject())) {
                 getGameObjects().playerDied();
+                isDead = true;
             }
         }
     }
@@ -208,5 +210,9 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
 	public int getScore() {
 		return score;
+	}
+	
+	public boolean isDead() {
+		return isDead;
 	}
 }

@@ -150,7 +150,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
             return;
         }
-        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
+        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_VERSUS);
        	player = new Player((IGameObjects) this, is, keyBoard, false);
        	addObject(player);
         if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
@@ -342,7 +342,24 @@ public class GameObjects implements IUpdateable, IGameObjects {
      */
     @Override
     public void playerDied() {
-    	if(isActive){
+    	if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
+    		if(player.isDead()&&player2.isDead()){
+    			draw.playerDied();
+    			isActive=false;
+    		}
+    		if(player.isDead()){
+    			removeObject(player);
+    			player.getImage().destroy();
+    			player.addPoints(-1000);
+    		}
+    		if(player2.isDead()){
+    			removeObject(player2);
+    			player2.getImage().destroy();
+    			player2.addPoints(-1000);
+    		}
+    		
+    	}
+    	else if(isActive){
     		draw.playerDied();
     		isActive=false;
     	}
