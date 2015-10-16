@@ -63,25 +63,24 @@ public class GameplayChoicesController implements IpopupController {
         String username1 = user1.getText();
         String username2 = user2.getText();
         
-        if (SingleMultiChoice.getValue().equals("Single Player")) {
+        if (SingleMultiChoice.getValue().equals("Single Player") && !(username1.equals("")) ) {
             popupControl.hide();
             mainController.setButtonsDisabled(false);
             GameController.loadView();
         }
         
-        if (SingleMultiChoice.getValue().equals("Multiplayer") && !(CoopVersusChoice.getValue()==(null))) {
+        if (SingleMultiChoice.getValue().equals("Multiplayer") && !(CoopVersusChoice.getValue()==(null))
+        		&& !(username1.equals("")) && !(username2.equals(""))) {
         	if (CoopVersusChoice.getValue().equals("Co-op")) {
-                popupControl.hide();
-                mainController.setButtonsDisabled(false);
                 GameController.loadView();
         		
         	}
         	if (CoopVersusChoice.getValue().equals("Versus")) {
-                popupControl.hide();
-                mainController.setButtonsDisabled(false);
                 GameController.loadView();
         		
         	}
+            popupControl.hide();
+            mainController.setButtonsDisabled(false);
         }
         
     }
