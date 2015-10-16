@@ -23,7 +23,6 @@ public class YouWonController implements IpopupController {
      * Start the pop-up when player has won
      */
     public void start() {
-
     }
 
     /**

@@ -34,16 +34,12 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
     public Projectile(final IGameObjects gameObjects, final double startX, final double startY, 
             final double speed, final int delay) {
         super(gameObjects, startX, startY - 2, startX, startY - 3);
-
         growSpeed = 1000 * speed;
         this.delay = delay * 1_000_000_000.0;
-
         line = getGameObjects().makeLine(startX, startY - 2, startX, startY - 3);
-
         line.setStrokeWidth(7);
         line.setColor(0.2, 0.1, 0.1);
         line.setOpacity(0.8);
-
         GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) + ", " + Double.toString(startY) + ")");
     }
     
@@ -60,6 +56,21 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
      */
     @Override
     public void update(final long nanoFrameTime) {
+        checkDestroy(nanoFrameTime);
+        double endY = line.getEndY() - growSpeed * (nanoFrameTime / 1_000_000_000.0);
+        if (endY < getGameObjects().getTopBorder() + 2) {
+            line.setEndY(getGameObjects().getTopBorder() + 2);
+        } else {
+            line.setEndY(endY);
+        }
+        updateLinePoints();
+    }
+
+    /**
+     * Check if the projectile should be destroyed.
+     * @param nanoFrameTime the framerate (nanoseconds/frame).
+     */
+    private void checkDestroy(final long nanoFrameTime) {
         if (line.getEndY() <= getGameObjects().getTopBorder() + 2) {
             if (delay > 0) {
                 delay -= nanoFrameTime;
@@ -70,13 +81,6 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
             destroy();
             isActive = false;
         }
-        double endY = line.getEndY() - growSpeed * (nanoFrameTime / 1_000_000_000.0);
-        if (endY < getGameObjects().getTopBorder() + 2) {
-            line.setEndY(getGameObjects().getTopBorder() + 2);
-        } else {
-            line.setEndY(endY);
-        }
-        updateLinePoints();
     }
 
     /**
@@ -99,8 +103,8 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
             Bubble bubble = (Bubble) obj2;
             bubble.splitBubble();
             player.addPoints(10);
-            GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX()) + ", " + Double.toString(line.getEndY())
-                               + ")");
+            GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX()) + 
+                    ", " + Double.toString(line.getEndY()) + ")");
             getGameObjects().removeProjectile(player.getP2());
             line.destroy();
             isActive = false;

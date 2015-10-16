@@ -43,6 +43,7 @@ public interface IGameObjects {
 
     /**
      * Remove a Projectile from the game.
+     * @param p2 if this is the projectile of player 2.
      */
     void removeProjectile(boolean p2);
 

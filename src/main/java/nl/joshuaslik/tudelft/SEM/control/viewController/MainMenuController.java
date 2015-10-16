@@ -40,23 +40,12 @@ public class MainMenuController implements IviewController {
     @FXML
     private Button level1Button, level2Button, level3Button, level4Button, level5Button;
 
-//    private static final ArrayList<Integer> scoresPerLevel = new ArrayList<>(Levels.amountOfLevels());
-//
-//    static {
-//        for (int i = 0; i < Levels.amountOfLevels() + 1; i++) {
-//            scoresPerLevel.add(0);
-//        }
-//    }
-
     /**
      * Initialize.
      */
     public void initialize() {
-    	
-		showGameModeButtons();
-
+        showGameModeButtons();
         totalScore.setText("Total Score: " + GameInfo.getInstance().getTotalScore());
-        
         level5Button.setDisable(true);
         level4Button.setDisable(true);
         level3Button.setDisable(true);
@@ -79,46 +68,23 @@ public class MainMenuController implements IviewController {
      * Let game mode buttons be only shown when play button is hovered over
      */
     private void showGameModeButtons() {
-    	gameModeBox.setVisible(false);
-    	
-		playButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent me) {
-				gameModeBox.setVisible(true);
-			}
-		});
-		playButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent me) {
-				gameModeBox.setVisible(true);
-			}
-		});
-		gameModeBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent me) {
-				gameModeBox.setVisible(true);
-			}
-		});
-		playButton.setOnMouseExited(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent me) {
-				gameModeBox.setVisible(false);
-			}
-		});
-		gameModeBox.setOnMouseExited(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent me) {
-				gameModeBox.setVisible(false);
-			}
-		});
-	}
-
-//    /**
-//     * Calculate the total score.
-//     * @return the total score.
-//     */
-//    private static int calculateTotalScore() {
-//        int score = 0;
-//        for (int e : scoresPerLevel) {
-//            score += e;
-//        }
-//        return score;
-//    }
+        gameModeBox.setVisible(false);
+        playButton.setOnMouseClicked((MouseEvent me) -> {
+            gameModeBox.setVisible(true);
+        });
+        playButton.setOnMouseEntered((MouseEvent me) -> {
+            gameModeBox.setVisible(true);
+        });
+        gameModeBox.setOnMouseEntered((MouseEvent me) -> {
+            gameModeBox.setVisible(true);
+        });
+        playButton.setOnMouseExited((MouseEvent me) -> {
+            gameModeBox.setVisible(false);
+        });
+        gameModeBox.setOnMouseExited((MouseEvent me) -> {
+            gameModeBox.setVisible(false);
+        });
+    }
 
     /**
      * Handles clicking of the start button
@@ -202,21 +168,7 @@ public class MainMenuController implements IviewController {
      */
     @Override
     public void start(final Scene scene) {
-
     }
-
-//    /**
-//     * Set the score of a level.
-//     *
-//     * @param score the score.
-//     * @param level the level.
-//     */
-//    public static void setScore(final int score, final int level) {
-//        if (scoresPerLevel.get(level) < score) {
-//            MainMenuController.scoresPerLevel.set(level, score);
-//        }
-//        GameLog.addInfoLog("new total score: " + calculateTotalScore());
-//    }
 
     /**
      * Disable the buttons of this view.

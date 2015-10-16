@@ -14,7 +14,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.AbstractPickup;
  */
 public class Powerup<T> extends AbstractPickup {
 
-    private T mod;
+    private final T mod;
     private final EnumPowerupTypes pickupType;
 
     public Powerup(IGameObjects gameObjects, EnumPowerupTypes pickupType, double xCoordinate, double yCoordinate) {
@@ -22,10 +22,6 @@ public class Powerup<T> extends AbstractPickup {
         this.pickupType = pickupType;
         mod = (T) pickupType.getDecor();
     }
-
-    //    public T decorateModifier(T currentMod) {
-    //        return (T) ((IDecorator) mod).decorate(currentMod);
-    //    }
 
     @Override
     public void handlePlayerCollision() {

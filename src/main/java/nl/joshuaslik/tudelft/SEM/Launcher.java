@@ -50,7 +50,6 @@ public class Launcher extends Application {
     public void start(final Stage primaryStage) {
         GameLog.constructor();
         loadView(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
-
         Scene scene = new Scene(BP);
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
@@ -59,7 +58,6 @@ public class Launcher extends Application {
             primaryStage.show();
         }
         Launcher.stage = primaryStage;
-
         synchronized (LOCK) {
             initialized = true;
         }
@@ -105,14 +103,15 @@ public class Launcher extends Application {
             PopupControl popup = new PopupControl();
             popup.getScene().setRoot(pane);
             popup.show(stage);
-            IpopupController popupController = (IpopupController) loader.getController();
-            popupController.setPopupControl(popup);
-            popupController.setMainViewController(mainViewController);
-            Launcher.popupController = popupController;
+            IpopupController popupContrl = (IpopupController) loader.getController();
+            popupContrl.setPopupControl(popup);
+            popupContrl.setMainViewController(mainViewController);
+            Launcher.popupController = popupContrl;
         } catch (IOException ex) {
             GameLog.addErrorLog("Failed to load fxml file: " + fxmlURL.toString());
             GameLog.addErrorLog(ex.getMessage());
-            Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "Failed to load fxml file: " + fxmlURL.toString(), ex);
+            Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, 
+                    "Failed to load fxml file: " + fxmlURL.toString(), ex);
         }
     }
 

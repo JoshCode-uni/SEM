@@ -31,10 +31,8 @@ public abstract class AbstractLine extends AbstractPhysicsObject {
     public AbstractLine(IGameObjects gameObjects, final double startX, final double startY, 
             final double endX, final double endY) {
         super(gameObjects);
-
         this.p1 = new Point(startX, startY);
         this.p2 = new Point(endX, endY);
-
         dir = new Vector(p2.getxPos() - p1.getxPos(), p2.getyPos() - p1.getyPos());
     }
 
@@ -57,21 +55,31 @@ public abstract class AbstractLine extends AbstractPhysicsObject {
         }
         double distance = intersection.distanceTo(new Point(0, 0));
         intersection = new Point(intersection.getxPos() + p.getxPos(), intersection.getyPos() + p.getyPos());
+        intersection = applyBounds(intersection);
+        return new IntersectionPoint(intersection.getxPos(), intersection.getyPos(), normal, distance);
+    }
+    
+    /**
+     * Make sure the point isn't outside of the bounds.
+     * @param intersection point.
+     * @return point with bounds applied.
+     */
+    private Point applyBounds(final Point intersection) {
+        Point res = intersection;
         Point smallestXpoint = getSmallestXpoint();
         Point smallestYpoint = getSmallestYpoint();
         Point largestXpoint = getLargestXpoint();
         Point largestYpoint = getLargestYpoint();
-
         if (intersection.getxPos() < smallestXpoint.getxPos()) {
-            intersection = smallestXpoint;
+            res = smallestXpoint;
         } else if (intersection.getxPos() > largestXpoint.getxPos()) {
-            intersection = largestXpoint;
+            res = largestXpoint;
         } else if (intersection.getyPos() < smallestYpoint.getyPos()) {
-            intersection = smallestYpoint;
+            res = smallestYpoint;
         } else if (intersection.getyPos() > largestYpoint.getyPos()) {
-            intersection = largestYpoint;
+            res = largestYpoint;
         }
-        return new IntersectionPoint(intersection.getxPos(), intersection.getyPos(), normal, distance);
+        return res;
     }
 
     /**

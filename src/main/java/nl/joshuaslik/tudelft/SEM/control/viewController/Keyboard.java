@@ -76,44 +76,46 @@ public class Keyboard implements IKeyboard {
      */
     @Override
     public boolean isMoveLeft(boolean p2) {
-    	if(!p2)
-    		return keyboard.get(spLeftKey.ordinal()) && !keyboard.get(spRightKey.ordinal());
-    	else if((GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS))&&p2){
-    		return keyboard.get(mpLeftKey.ordinal()) && !keyboard.get(mpRightKey.ordinal());
-    	}
-    	return false;
+        if (!p2) {
+            return keyboard.get(spLeftKey.ordinal()) && !keyboard.get(spRightKey.ordinal());
+        } else if ((GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) && p2) {
+            return keyboard.get(mpLeftKey.ordinal()) && !keyboard.get(mpRightKey.ordinal());
+        }
+        return false;
     }
 
     /**
      * Check if right arrow is pressed.
      *
+     * @param p2 if this is called by player 2.
      * @return true if right arrow is pressed, otherwise false.
      */
     @Override
     public boolean isMoveRight(boolean p2) {
-    	if(!p2)
-    		return keyboard.get(spRightKey.ordinal()) && !keyboard.get(spLeftKey.ordinal());
-    	else if((GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS))&&p2){
-    		return keyboard.get(mpRightKey.ordinal()) && !keyboard.get(mpLeftKey.ordinal());
-    	}
-    	return false;
+        if (!p2) {
+            return keyboard.get(spRightKey.ordinal()) && !keyboard.get(spLeftKey.ordinal());
+        } else if ((GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) && p2) {
+            return keyboard.get(mpRightKey.ordinal()) && !keyboard.get(mpLeftKey.ordinal());
+        }
+        return false;
     }
 
     /**
      * Check if spacebar is pressed.
      *
+     * @param p2 if this is called by player 2.
      * @return true if spacebar is pressed, otherwise false.
      */
     @Override
     public boolean isShoot(boolean p2) {
-    	if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER)&&!p2){
-    		return keyboard.get(spShoot.ordinal());
-    	} else if(!p2) {
-    		return keyboard.get(mpShoot.ordinal());
-    	} else if(p2) {
-    		return keyboard.get(mp2Shoot.ordinal());
-    	}
-    	return false;
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER) && !p2) {
+            return keyboard.get(spShoot.ordinal());
+        } else if (!p2) {
+            return keyboard.get(mpShoot.ordinal());
+        } else if (p2) {
+            return keyboard.get(mp2Shoot.ordinal());
+        }
+        return false;
     }
     
     Scene getScene() {
