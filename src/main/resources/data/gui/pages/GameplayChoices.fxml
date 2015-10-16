@@ -43,8 +43,8 @@
                     </font>
                 </Button>
             <Separator layoutX="319.0" layoutY="128.0" orientation="VERTICAL" prefHeight="230.0" prefWidth="5.0" />
-            <ChoiceBox fx:id="SingleMultiChoice" layoutX="36.0" layoutY="163.0" prefHeight="62.0" prefWidth="250.0" />
-            <ChoiceBox fx:id="CoopVersusChoice" layoutX="36.0" layoutY="272.0" prefHeight="62.0" prefWidth="250.0" />
+            <ChoiceBox fx:id="SingleMultiChoice" layoutX="52.0" layoutY="142.0" prefHeight="81.0" prefWidth="232.0" />
+            <ChoiceBox fx:id="CoopVersusChoice" layoutX="52.0" layoutY="258.0" prefHeight="81.0" prefWidth="232.0" />
             <TextField fx:id="user1" layoutX="364.0" layoutY="177.0" prefHeight="54.0" prefWidth="239.0" />
             <Label layoutX="364.0" layoutY="128.0" prefHeight="54.0" prefWidth="239.0" text="Name Player 1:" textAlignment="CENTER">
                <font>
@@ -53,6 +53,16 @@
             </Label>
             <TextField fx:id="user2" layoutX="364.0" layoutY="280.0" prefHeight="54.0" prefWidth="239.0" />
             <Label layoutX="364.0" layoutY="235.0" prefHeight="45.0" prefWidth="239.0" text="Name Player 2:">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Label>
+            <Label layoutX="52.0" layoutY="101.0" prefHeight="54.0" prefWidth="239.0" text="Players" textAlignment="CENTER">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Label>
+            <Label layoutX="52.0" layoutY="216.0" prefHeight="54.0" prefWidth="239.0" text="Gamemode" textAlignment="CENTER">
                <font>
                   <Font size="35.0" />
                </font>
