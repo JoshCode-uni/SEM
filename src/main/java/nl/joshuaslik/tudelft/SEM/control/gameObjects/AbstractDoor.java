@@ -72,7 +72,10 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
     public void destroy() {
         getGameObjects().getPlayer().removeDoor(xLeft);
         getGameObjects().getPlayer().removeDoor(xRight);
-
+        if(GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)){
+        	getGameObjects().getPlayer2().removeDoor(xLeft);
+        	getGameObjects().getPlayer2().removeDoor(xRight);
+        }
         up.destroy();
         left.destroy();
         right.destroy();
