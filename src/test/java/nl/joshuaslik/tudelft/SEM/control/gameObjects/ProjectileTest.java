@@ -156,7 +156,7 @@ public class ProjectileTest {
         Bubble bubble = Mockito.mock(Bubble.class);
         ICircleViewObject cvo = Mockito.mock(ICircleViewObject.class);
         projectile.collide(bubble, 10);
-        verify(bubble, times(1)).splitBubble();
+        verify(bubble, times(1)).splitBubble(Mockito.any(Long.class));
         verify(line, times(1)).destroy();
     }
 
