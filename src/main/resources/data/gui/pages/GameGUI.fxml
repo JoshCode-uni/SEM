@@ -55,11 +55,20 @@
                         <Font size="42.0" />
                     </font>
                 </Text>
-                <Text fx:id="scoreText" layoutX="1460.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" wrappingWidth="217.138671875">
-                    <font>
-                        <Font size="42.0" />
-                    </font>
-                </Text>
+                <VBox>
+                    <children>
+                        <Text fx:id="scoreText" layoutX="1460.0" layoutY="1000.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score: 0" wrappingWidth="477.0">
+                            <font>
+                                <Font size="42.0" />
+                            </font>
+                        </Text>
+                        <Text fx:id="scoreTextPlayer2" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="477.0">
+                            <font>
+                                <Font size="42.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </VBox>
             </children>
         </HBox>
         <HBox layoutX="25.0" layoutY="990.0" spacing="15.0">

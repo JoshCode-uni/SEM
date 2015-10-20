@@ -6,8 +6,7 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 
 /**
- * This interface defines the methods which should be implemented by the image
- * object class.
+ * This interface defines the methods which should be implemented by the image object class.
  *
  * @author faris
  */
@@ -82,4 +81,13 @@ public interface IImageViewObject extends IViewObject {
      * @param maxY maximum y coordinate value.
      */
     void setBounds(double minX, double minY, double maxX, double maxY);
+
+    /**
+     * Set the hsb.
+     *
+     * @param hue hue.
+     * @param saturation saturation.
+     * @param brightness brightness.
+     */
+    void adjustHSB(double hue, double saturation, double brightness);
 }

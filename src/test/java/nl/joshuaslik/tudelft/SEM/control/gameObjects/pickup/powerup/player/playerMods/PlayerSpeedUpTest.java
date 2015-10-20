@@ -8,21 +8,21 @@ import org.junit.Test;
 
 public class PlayerSpeedUpTest {
 
-	private final IPlayerModifier ipm = new PlayerBaseModifier();
-	IPlayerModifier speed = new PlayerSpeedUp().decorate(ipm);
-	
-	@Test
-	public void testGetMoveSpeedMultiplier() {
-		assertEquals(1.3, speed.getMoveSpeedMultiplier(), 0.001);
-	}
+    private final IPlayerModifier ipm = new PlayerBaseModifier();
+    IPlayerModifier speed = new PlayerSpeedUp().decorate(ipm);
 
-	@Test
-	public void testGetProjectileSpeedMultiplier() {
-		assertEquals(1, speed.getProjectileSpeedMultiplier(), 0.001);
-	}
-	
-	@Test
-	public void testGetProjectileSpikeDelay() {
-		assertEquals(0, speed.getProjectileSpikeDelay());
-	}
+    @Test
+    public void testGetMoveSpeedMultiplier() {
+        assertEquals(1.3, speed.getMoveSpeedMultiplier(), 0.001);
+    }
+
+    @Test
+    public void testGetProjectileSpeedMultiplier() {
+        assertEquals(1, speed.getProjectileSpeedMultiplier(), 0.001);
+    }
+
+    @Test
+    public void testGetProjectileSpikeDelay() {
+        assertEquals(0, speed.getProjectileSpikeDelay());
+    }
 }

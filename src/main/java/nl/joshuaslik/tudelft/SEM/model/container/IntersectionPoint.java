@@ -21,9 +21,9 @@ public class IntersectionPoint extends Point {
     /**
      * Create an intersection point.
      *
-     * @param xPos     x position.
-     * @param yPos     y position.
-     * @param normal   normal.
+     * @param xPos x position.
+     * @param yPos y position.
+     * @param normal normal.
      * @param distance distance.
      */
     public IntersectionPoint(double xPos, double yPos, Vector normal, double distance) {

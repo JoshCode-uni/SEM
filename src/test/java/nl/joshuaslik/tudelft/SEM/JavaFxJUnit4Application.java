@@ -5,7 +5,6 @@ package nl.joshuaslik.tudelft.SEM;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -15,8 +14,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 /**
- * Coppied from: http://awhite.blogspot.nl/2013/04/javafx-junit-testing.html 
- * This is the application which starts JavaFx. It is controlled through the startJavaFx() method.
+ * Coppied from: http://awhite.blogspot.nl/2013/04/javafx-junit-testing.html This is the application
+ * which starts JavaFx. It is controlled through the startJavaFx() method.
  */
 public class JavaFxJUnit4Application extends Launcher {
 
@@ -55,7 +54,8 @@ public class JavaFxJUnit4Application extends Launcher {
                 }
                 Launcher.waitTillInitialized();
             }
-        } finally {
+        }
+        finally {
             LOCK.unlock();
         }
     }

@@ -2,6 +2,9 @@ language: java
 jdk:
   - oraclejdk8
 
+before_install:
+  - '[ "$BUILD_PR_BRANCH" = "true" ] && { [ "$TRAVIS_PULL_REQUEST" != "false" ] || exit 1; } && git checkout HEAD^2 && echo "OCTOPULL_SHA=$(git rev-parse HEAD)"; true'
+
 install:
   - mvn install -DskipTests=false -B -V
 
@@ -12,9 +15,22 @@ before_deploy:
   - ls
   - cd ..
 
+env:
+  - BUILD_PR_BRANCH=true
+  - BUILD_PR_BRANCH=false
+
+matrix:
+  allow_failures:
+    - env: BUILD_PR_BRANCH=true
+
+after_script:
+  - echo "== CHECKSTYLE_RESULT =="; cat "target/checkstyle-result.xml"; echo "== END_CHECKSTYLE_RESULT =="
+  - echo "== PMD_RESULT =="; cat "target/pmd.xml"; echo "== END_PMD_RESULT =="
+  - echo "== FINDBUGS_RESULT =="; cat "target/findbugsXml.xml"; echo "== END_FINDBUGS_RESULT =="
+
 deploy:
   provider: releases
-  api-key: "53f68205c43474c5299559ba16431fa8520d94dd"
+  api-key: "bb7d1f0fd40912a9f042998255a3dcf5dc444ce1"
   file: "./target/SEM.zip"
   skip_cleanup: true
   on:
@@ -23,6 +39,8 @@ deploy:
     jdk: oraclejdk8
 
 notifications:
+  webhooks:
+    - http://octopull.rmhartog.me/api/travis/webhook
   email:
     recipients:
       - joshua.b.slik@gmail.com
@@ -30,6 +48,5 @@ notifications:
       - lisette_stella@hotmail.com
       - faris.elghlan@hotmail.com
       - m.houtman@student.tudelft.nl
-      - kasper_kooijman@live.nl
     on_success: change
     on_failure: always

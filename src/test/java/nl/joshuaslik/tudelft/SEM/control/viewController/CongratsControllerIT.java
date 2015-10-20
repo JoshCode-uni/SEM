@@ -17,7 +17,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)
 public class CongratsControllerIT {
-    
+
     /**
      * Test of handleMainMenuButton method, of class CongratsController.
      */
@@ -26,7 +26,7 @@ public class CongratsControllerIT {
         GameController.loadView();
         CongratsController.loadPopup(Launcher.getController());
         CongratsController controller = (CongratsController) Launcher.getPopupController();
-        controller.getMainMenuButton().fire();
+        controller.fireMainMenuButton();
         assertTrue(Launcher.getController() instanceof MainMenuController);
     }
 }

@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)
 public class GameControllerIT {
-    
+
     /**
      * Make sure system.exit() won't actually stop the application.
      */
@@ -38,21 +38,21 @@ public class GameControllerIT {
     @Before
     public final void startGame() {
         MainMenuController.loadView();
-        ((MainMenuController) Launcher.getController()).getPlayButton().fire();
+        ((MainMenuController) Launcher.getController()).firePlayButton();
         controller = (GameController) Launcher.getController();
         assert controller != null;
     }
 
     /**
-     * Test of handleQuitButton method, of class MainMenuController.
-     * System.exit(0) will be called, because we are using the "ExpectedSystemExit" rule, we expect
-     * a runtime exception.
+     * Test of handleQuitButton method, of class MainMenuController. System.exit(0) will be called,
+     * because we are using the "ExpectedSystemExit" rule, we expect a runtime exception.
+     *
      * @throws java.lang.InterruptedException ignore.
      */
-    @Test(expected=RuntimeException.class)
+    @Test(expected = RuntimeException.class)
     public void testHandleQuitButton() throws InterruptedException {
         exit.expectSystemExitWithStatus(0);
-        controller.getQuitButton().fire();
+        controller.fireQuitButton();
     }
 
     /**
@@ -60,7 +60,7 @@ public class GameControllerIT {
      */
     @Test
     public void testHandleMainMenuButton() {
-        controller.getMainMenuButton().fire();
+        controller.fireMainMenuButton();
         assertTrue(Launcher.getController() instanceof MainMenuController);
     }
 }

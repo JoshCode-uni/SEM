@@ -66,63 +66,63 @@ public class LineTest {
 
     /**
      * Test constructor
-	 */
-	@Test
-	public void testVectorSet() {
-		assertEquals(L.getVector().getX(), 15, 0);
-		assertEquals(L.getVector().getY(), 20, 0);
-	}
-	
-	/**
-	 * Test method looking for the closest intersection with a point
-	 */
-	@Test
-	public void testGetClosestIntersectionLargeX() {
-		when(p.getxPos()).thenReturn(50d);
-		when(p.getyPos()).thenReturn(25d);
-		assertEquals(L.getClosestIntersection(p), new IntersectionPoint(15.0, 25.0, L.getVector().normal(), Double.MAX_VALUE));
-	}
-	
-	/**
-	 * Test method looking for the closest intersection with a point
-	 */
-	@Test
-	public void testGetClosestIntersectionSmallX() {
-		when(p.getxPos()).thenReturn(0d);
-		when(p.getyPos()).thenReturn(0d);
-		assertEquals(L.getClosestIntersection(p), new IntersectionPoint(0, 5, L.getVector().normal(), Double.MAX_VALUE));
-	}
-	
-	/**
-	 * Test method looking for the closest intersection with a point
-	 */
-	@Test
-	public void testGetClosestIntersectionNull() {
-		when(gameObjects.makeLine(0.0, 5.0, 0.0, 5.0)).thenReturn(line);
-		L2 = new Line(gameObjects, 0.0, 5.0, 0.0, 5.0);
-		when(p.getxPos()).thenReturn(0.0);
-		when(p.getyPos()).thenReturn(0.0);
-		assertEquals(new IntersectionPoint(Double.MAX_VALUE, Double.MAX_VALUE, new Vector(1, 1), Double.MAX_VALUE), L2.getClosestIntersection(p));
-	}
-	
-	/**
-	 * Test method looking for the closest intersection with a point
-	 */
-	@Test
-	public void testGetClosestIntersectionExact() {
-		when(p.getxPos()).thenReturn(15d);
-		when(p.getyPos()).thenReturn(25d);
-		assertEquals(L.getClosestIntersection(p), new IntersectionPoint(15.0, 25.0, L.getVector().normal(), Double.MAX_VALUE));
-	}
-	
-	/**
-	 * Test removing the line from the gameObjects
-	 */
-	@Test
-	public void testDestroyLine() {
-		L.destroy();
-		verify(gameObjects).removeObject(L);
-		verify(line).destroy();
-	}
-	
+     */
+    @Test
+    public void testVectorSet() {
+        assertEquals(L.getVector().getX(), 15, 0);
+        assertEquals(L.getVector().getY(), 20, 0);
+    }
+
+    /**
+     * Test method looking for the closest intersection with a point
+     */
+    @Test
+    public void testGetClosestIntersectionLargeX() {
+        when(p.getxPos()).thenReturn(50d);
+        when(p.getyPos()).thenReturn(25d);
+        assertEquals(L.getClosestIntersection(p), new IntersectionPoint(15.0, 25.0, L.getVector().normal(), Double.MAX_VALUE));
+    }
+
+    /**
+     * Test method looking for the closest intersection with a point
+     */
+    @Test
+    public void testGetClosestIntersectionSmallX() {
+        when(p.getxPos()).thenReturn(0d);
+        when(p.getyPos()).thenReturn(0d);
+        assertEquals(L.getClosestIntersection(p), new IntersectionPoint(0, 5, L.getVector().normal(), Double.MAX_VALUE));
+    }
+
+    /**
+     * Test method looking for the closest intersection with a point
+     */
+    @Test
+    public void testGetClosestIntersectionNull() {
+        when(gameObjects.makeLine(0.0, 5.0, 0.0, 5.0)).thenReturn(line);
+        L2 = new Line(gameObjects, 0.0, 5.0, 0.0, 5.0);
+        when(p.getxPos()).thenReturn(0.0);
+        when(p.getyPos()).thenReturn(0.0);
+        assertEquals(new IntersectionPoint(Double.MAX_VALUE, Double.MAX_VALUE, new Vector(1, 1), Double.MAX_VALUE), L2.getClosestIntersection(p));
+    }
+
+    /**
+     * Test method looking for the closest intersection with a point
+     */
+    @Test
+    public void testGetClosestIntersectionExact() {
+        when(p.getxPos()).thenReturn(15d);
+        when(p.getyPos()).thenReturn(25d);
+        assertEquals(L.getClosestIntersection(p), new IntersectionPoint(15.0, 25.0, L.getVector().normal(), Double.MAX_VALUE));
+    }
+
+    /**
+     * Test removing the line from the gameObjects
+     */
+    @Test
+    public void testDestroyLine() {
+        L.destroy();
+        verify(gameObjects).removeObject(L);
+        verify(line).destroy();
+    }
+
 }
