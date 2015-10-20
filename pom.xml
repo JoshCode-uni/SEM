@@ -194,7 +194,7 @@
             </plugin> -->
 
             <!-- Generate CheckStyle reports -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.16</version>
@@ -205,7 +205,7 @@
                         </reports>
                     </reportSet>
                 </reportSets>
-            </plugin>
+            </plugin> -->
             <!-- Generate PMD reports -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
