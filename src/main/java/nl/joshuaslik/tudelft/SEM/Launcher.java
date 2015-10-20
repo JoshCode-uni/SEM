@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameplayChoicesController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
+import nl.joshuaslik.tudelft.SEM.sound.MusicLoop;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -53,6 +54,9 @@ public class Launcher extends Application {
     @Override
     public void start(final Stage primaryStage) {
         GameLog.constructor();
+        
+        
+        
         IviewController mainV = loadView(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
         Scene scene = new Scene(BP);
         primaryStage.setScene(scene);
@@ -60,6 +64,11 @@ public class Launcher extends Application {
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         scaleToScreenSize(BP);
         if (!hideViewForTesting) {
+//            Thread t2 = new Thread(new SoundEffect(getClass().
+//                    getResource("/data/sound/effects/MultiKill.wav").toExternalForm()));
+//            t2.start();
+            Thread t = new Thread(new MusicLoop());
+            t.start();
             primaryStage.show();
         }
         Launcher.stage = primaryStage;
