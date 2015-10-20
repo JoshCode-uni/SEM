@@ -30,7 +30,7 @@ after_script:
 
 deploy:
   provider: releases
-  api-key: "bb7d1f0fd40912a9f042998255a3dcf5dc444ce1"
+  api-key: "151c381016c22e3c9764361aa665e75a42eb065f"
   file: "./target/SEM.zip"
   skip_cleanup: true
   on:
