@@ -173,7 +173,7 @@
         <plugins>
             <!-- Generate Javadoc with public classes and methods
             For public use -->
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>2.10.1</version>
@@ -181,7 +181,7 @@
                     <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>
                     <show>public</show>
                 </configuration>
-            </plugin>
+            </plugin> -->
 
             <!-- Normally, we take off the dependency report, saves time. -->
             <!-- <plugin>
@@ -219,11 +219,11 @@
                 <version>3.0.2</version>
             </plugin>
             
-            <plugin>
+            <!-- <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
                 <version>2.7</version>
-            </plugin>
+            </plugin> -->
         </plugins>
     </reporting>
 
