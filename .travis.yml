@@ -30,7 +30,7 @@ after_script:
 
 deploy:
   provider: releases
-  api-key: "151c381016c22e3c9764361aa665e75a42eb065f"
+  api-key: "$GITHUB_TOKEN"
   file: "./target/SEM.zip"
   skip_cleanup: true
   on:
