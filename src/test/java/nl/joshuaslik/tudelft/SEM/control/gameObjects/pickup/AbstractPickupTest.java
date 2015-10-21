@@ -68,12 +68,8 @@ public class AbstractPickupTest {
     public void testUpdate() {
         when(gameObjects.getPlayer()).thenReturn(pl);
         when(gameObjects.getPlayer2()).thenReturn(pl2);
-        IImageViewObject image2 = Mockito.mock(IImageViewObject.class);
-        IImageViewObject image3 = Mockito.mock(IImageViewObject.class);
-        when(pl.getImage()).thenReturn(image2);
-        when(pl2.getImage()).thenReturn(image3);
-        when(image.intersects(image2)).thenReturn(false);
-        when(image.intersects(image3)).thenReturn(false);
+        when(pl.intersectsWith(image)).thenReturn(false);
+        when(pl2.intersectsWith(image)).thenReturn(false);
         pickup.update((long) Time.SECOND_NANO);
         verify(image).setY(300.0);
     }
@@ -85,12 +81,8 @@ public class AbstractPickupTest {
     public void testUpdateIntersection() {
         when(gameObjects.getPlayer()).thenReturn(pl);
         when(gameObjects.getPlayer2()).thenReturn(pl2);
-        IImageViewObject image2 = Mockito.mock(IImageViewObject.class);
-        IImageViewObject image3 = Mockito.mock(IImageViewObject.class);
-        when(pl.getImage()).thenReturn(image2);
-        when(pl2.getImage()).thenReturn(image3);
-        when(image.intersects(image2)).thenReturn(true);
-        when(image.intersects(image3)).thenReturn(false);
+        when(pl.intersectsWith(image)).thenReturn(true);
+        when(pl2.intersectsWith(image)).thenReturn(false);
         AbstractPickup spyPickup = Mockito.spy(pickup);
         spyPickup.update((long) Time.SECOND_NANO);
         verify(spyPickup).handlePlayerCollision();

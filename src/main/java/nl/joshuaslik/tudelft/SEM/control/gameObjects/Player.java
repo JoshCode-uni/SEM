@@ -160,26 +160,58 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         return new Projectile(gameObjects, startX, startY, getProjectileSpeedMultiplier(), getProjectileSpikeDelay());
     }
 
-    public IImageViewObject getImage() {
-        return image;
+    /**
+     * Destroy this player.
+     */
+    public void destroy() {
+        image.destroy();
+    }
+    
+    /**
+     * If the player intersects with the given image.
+     * @param otherimage an image.
+     * @return if the player image and other image intersect.
+     */
+    public boolean intersectsWith(IImageViewObject otherimage) {
+        return image.intersects(otherimage);
     }
 
+    /**
+     * Add a modifier.
+     * @param newmod a new modifier to add.
+     */
     public void addModifier(final AbstractPlayerDecorator newmod) {
         modifier = newmod.decorate(modifier);
     }
 
+    /**
+     * Get the speed multiplier of the player.
+     * @return the speed multiplier of the player.
+     */
     private double getMoveSpeedMultiplier() {
         return modifier.getMoveSpeedMultiplier();
     }
 
+    /**
+     * Get the speed multiplier of a projectile.
+     * @return the speed multiplier of a projectile.
+     */
     private double getProjectileSpeedMultiplier() {
         return modifier.getProjectileSpeedMultiplier();
     }
 
+    /**
+     * Get the delay of a projectile.
+     * @return the delay of a projectile.
+     */
     private int getProjectileSpikeDelay() {
         return modifier.getProjectileSpikeDelay();
     }
 
+    /**
+     * Add a door.
+     * @param xCoordinate the x coordinate.
+     */
     public void setDoor(final double xCoordinate) {
         if (xCoordinate > image.getStartX()) {
             rightDoor.add(xCoordinate);
@@ -188,11 +220,19 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         }
     }
 
+    /**
+     * Remove a door.
+     * @param xCoordinate the x coordinate.
+     */
     public void removeDoor(final double xCoordinate) {
         rightDoor.remove(xCoordinate);
         leftDoor.remove(xCoordinate);
     }
 
+    /**
+     * Get the closest left border.
+     * @return the closest left border.
+     */
     private double getClosestLeftBorder() {
         double res = getGameObjects().getLeftBorder();
         for (double e : leftDoor) {
@@ -203,6 +243,10 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         return res;
     }
 
+    /**
+     * Get the closest right border.
+     * @return the closest right border. 
+     */
     private double getClosestRightBorder() {
         double res = getGameObjects().getRightBorder();
         for (double e : rightDoor) {
@@ -213,30 +257,56 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         return res;
     }
 
+    /**
+     * Set a left door.
+     * @param leftDoor a left door.
+     */
     void setLeftDoor(final ArrayList<Double> leftDoor) {
         this.leftDoor = leftDoor;
     }
 
+    /**
+     * Set a right door.
+     * @param rightDoor a right door.
+     */
     void setRightDoor(final ArrayList<Double> rightDoor) {
         this.rightDoor = rightDoor;
     }
 
+    /**
+     * @return if this is player 2.
+     */
     public boolean getP2() {
         return p2;
     }
 
+    /**
+     * Add points to the score of this player.
+     * @param n the amount of points to add.
+     */
     public void addPoints(int n) {
         score += n;
     }
 
+    /**
+     * Get the score of the player.
+     * @return the score.
+     */
     public int getScore() {
         return score;
     }
 
+    /**
+     * @return if the player is dead.
+     */
     public boolean isDead() {
         return isDead;
     }
 
+    /**
+     * Add an observer to this observable object.
+     * @param o an observer.
+     */
     @Override
     public void addObserver(IObserver o) {
         if(o.sameClass(Player.class)) {
@@ -244,6 +314,10 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         }
     }
 
+    /**
+     * Delete an observer from this observable object.
+     * @param o an observer.
+     */
     @Override
     public void deleteObserver(IObserver o) {
         if(o.sameClass(Player.class)) {
@@ -251,13 +325,20 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         }
     }
 
+    /**
+     * Notify the observers of an event of this observable object.
+     * @param event an event.
+     */
     @Override
-    public void notifyObservers(EventType arg) {
+    public void notifyObservers(EventType event) {
         for (IObserver o : observers) {
-            o.update(this, arg);
+            o.update(this, event);
         }
     }
     
+    /**
+     * Enum containing all of the events which can be triggered by a player.
+     */
     public static enum EventType {
         SHOOT, WALK, DIED;
     }

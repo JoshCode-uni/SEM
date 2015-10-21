@@ -414,11 +414,11 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
             }
             if (player.isDead()) {
                 removeObject(player);
-                player.getImage().destroy();
+                player.destroy();
             }
             if (player2.isDead()) {
                 removeObject(player2);
-                player2.getImage().destroy();
+                player2.destroy();
             }
 
         } else if (isActive) {
