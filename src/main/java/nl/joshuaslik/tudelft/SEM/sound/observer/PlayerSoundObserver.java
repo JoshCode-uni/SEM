@@ -6,7 +6,6 @@
 package nl.joshuaslik.tudelft.SEM.sound.observer;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.events.player.EnumPlayerEvent;
 import nl.joshuaslik.tudelft.SEM.sound.EffectPlayer;
 import nl.joshuaslik.tudelft.SEM.sound.EnumAudioTypes;
 import nl.joshuaslik.tudelft.SEM.utility.IObserver;
@@ -15,7 +14,7 @@ import nl.joshuaslik.tudelft.SEM.utility.IObserver;
  *
  * @author Faris
  */
-public class PlayerSoundObserver implements IObserver<Player, EnumPlayerEvent> {
+public class PlayerSoundObserver implements IObserver<Player, Player.EventType> {
 
     private final EffectPlayer effectPlayer;
     
@@ -24,7 +23,7 @@ public class PlayerSoundObserver implements IObserver<Player, EnumPlayerEvent> {
     }
     
     @Override
-    public void update(Player player, EnumPlayerEvent event) {
+    public void update(Player player, Player.EventType event) {
         switch (event) {
             case DIED:
                 effectPlayer.play(EnumAudioTypes.HUMILIATING_DEFEAT);
@@ -41,9 +40,7 @@ public class PlayerSoundObserver implements IObserver<Player, EnumPlayerEvent> {
     }
 
     @Override
-    public boolean sameGenerics(Class observed, Class event) {
-        return observed.equals(Player.class) &&
-                event.equals(EnumPlayerEvent.class);
+    public boolean sameClass(Class observed) {
+        return observed.equals(Player.class);
     }
-    
 }

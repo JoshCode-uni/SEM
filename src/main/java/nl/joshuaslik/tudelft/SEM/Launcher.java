@@ -54,9 +54,6 @@ public class Launcher extends Application {
     @Override
     public void start(final Stage primaryStage) {
         GameLog.constructor();
-        
-        
-        
         IviewController mainV = loadView(getClass().getResource("/data/gui/pages/MainMenu.fxml"));
         Scene scene = new Scene(BP);
         primaryStage.setScene(scene);
@@ -64,11 +61,7 @@ public class Launcher extends Application {
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         scaleToScreenSize(BP);
         if (!hideViewForTesting) {
-//            Thread t2 = new Thread(new SoundEffect(getClass().
-//                    getResource("/data/sound/effects/MultiKill.wav").toExternalForm()));
-//            t2.start();
-            Thread t = new Thread(new MusicLoop());
-            t.start();
+            MusicLoop.getInstance().start();
             primaryStage.show();
         }
         Launcher.stage = primaryStage;

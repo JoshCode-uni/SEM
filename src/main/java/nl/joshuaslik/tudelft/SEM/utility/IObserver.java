@@ -13,5 +13,5 @@ package nl.joshuaslik.tudelft.SEM.utility;
  */
 public interface IObserver<OBSERVED, EVENT> {
     public void update(OBSERVED observed, EVENT event);
-    public boolean sameGenerics(Class observed, Class event);
+    public boolean sameClass(Class observed);
 }

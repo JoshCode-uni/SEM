@@ -6,7 +6,6 @@
 package nl.joshuaslik.tudelft.SEM.sound.observer;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.events.bubble.EnumBubbleEvent;
 import nl.joshuaslik.tudelft.SEM.sound.EffectPlayer;
 import nl.joshuaslik.tudelft.SEM.sound.EnumAudioTypes;
 import nl.joshuaslik.tudelft.SEM.utility.IObserver;
@@ -15,7 +14,7 @@ import nl.joshuaslik.tudelft.SEM.utility.IObserver;
  *
  * @author Faris
  */
-public class BubbleSoundObserver implements IObserver<Bubble, EnumBubbleEvent> {
+public class BubbleSoundObserver implements IObserver<Bubble, Bubble.EventType> {
 
     private final EffectPlayer effectPlayer;
     private long lastSplitTime = Long.MAX_VALUE;
@@ -27,7 +26,7 @@ public class BubbleSoundObserver implements IObserver<Bubble, EnumBubbleEvent> {
     }
 
     @Override
-    public void update(Bubble bubble, EnumBubbleEvent event) {
+    public void update(Bubble bubble, Bubble.EventType event) {
         switch (event) {
             case SPLIT:
                 handleKill(bubble);
@@ -83,8 +82,7 @@ public class BubbleSoundObserver implements IObserver<Bubble, EnumBubbleEvent> {
     }
 
     @Override
-    public boolean sameGenerics(Class observed, Class event) {
-        return observed.equals(Bubble.class)
-                && event.equals(EnumBubbleEvent.class);
+    public boolean sameClass(Class observed) {
+        return observed.equals(Bubble.class);
     }
 }

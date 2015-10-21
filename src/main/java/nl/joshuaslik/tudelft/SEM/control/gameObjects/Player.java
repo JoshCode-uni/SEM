@@ -7,7 +7,6 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.events.player.EnumPlayerEvent;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
@@ -24,7 +23,7 @@ import nl.joshuaslik.tudelft.SEM.utility.Time;
  *
  * @author faris
  */
-public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider, IObservable<Player, EnumPlayerEvent> {
+public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider, IObservable<Player, Player.EventType> {
 
     private IPlayerModifier modifier = new PlayerBaseModifier();
     private final IImageViewObject image;
@@ -36,7 +35,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private boolean p2;
     private boolean isDead = false;
     private int score = 0;
-    private final ArrayList<IObserver<Player, EnumPlayerEvent>> observers = new ArrayList<>();
+    private final ArrayList<IObserver<Player, EventType>> observers = new ArrayList<>();
 
     /**
      * Create a player.
@@ -71,7 +70,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             if (image.intersects(bubble.getCircleViewObject())) {
                 getGameObjects().playerDied();
                 isDead = true;
-                notifyObservers(EnumPlayerEvent.DIED);
+                notifyObservers(EventType.DIED);
             }
         }
     }
@@ -107,7 +106,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             image.setX(leftBorder);
         }
         image.setScaleX(1);
-        notifyObservers(EnumPlayerEvent.WALK);
+        notifyObservers(EventType.WALK);
     }
 
     /**
@@ -124,7 +123,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             image.setX(rightBorder - 100);
         }
         image.setScaleX(-1);
-        notifyObservers(EnumPlayerEvent.WALK);
+        notifyObservers(EventType.WALK);
     }
 
     /**
@@ -137,7 +136,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         Projectile proj = makeProjectile(getGameObjects(), bulletX, bulletY);
         proj.setPlayer(this);
         getGameObjects().addProjectile(proj);
-        notifyObservers(EnumPlayerEvent.SHOOT);
+        notifyObservers(EventType.SHOOT);
     }
 
     /**
@@ -240,22 +239,26 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     @Override
     public void addObserver(IObserver o) {
-        if(o.sameGenerics(Player.class, EnumPlayerEvent.class)) {
+        if(o.sameClass(Player.class)) {
             observers.add(o);
         }
     }
 
     @Override
     public void deleteObserver(IObserver o) {
-        if(o.sameGenerics(Player.class, EnumPlayerEvent.class)) {
+        if(o.sameClass(Player.class)) {
             observers.remove(o);
         }
     }
 
     @Override
-    public void notifyObservers(EnumPlayerEvent arg) {
+    public void notifyObservers(EventType arg) {
         for (IObserver o : observers) {
             o.update(this, arg);
         }
+    }
+    
+    public static enum EventType {
+        SHOOT, WALK, DIED;
     }
 }

@@ -8,6 +8,7 @@ package nl.joshuaslik.tudelft.SEM.utility;
 /**
  *
  * @author Faris
+ * @param <OBSERVED>
  * @param <EVENT> an event enum.
  */
 public interface IObservable<OBSERVED, EVENT> {

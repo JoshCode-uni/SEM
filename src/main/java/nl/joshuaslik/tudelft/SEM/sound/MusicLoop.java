@@ -21,40 +21,97 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  *
  * @author Faris
  */
-public class MusicLoop implements Runnable {
+public class MusicLoop {
 
     private final InputStream intro;
     private final InputStream loop;
     private final int LONG_FRAME_TIME = 1100;
+    private static MusicLoop musicLoop = null;
+    private boolean isPlaying = false;
+    private Clip introClip, loopClip;
 
     /**
      * Initialize input streams.
      */
-    public MusicLoop() {
+    private MusicLoop() {
         intro = getClass().getResourceAsStream("/data/sound/DYAMY - United Intro.wav");
         loop = getClass().getResourceAsStream("/data/sound/DYAMY - United Loop.wav");
     }
 
     /**
-     * Start the music intro and after the intro keep looping the loop music.
+     * Hide the actual music thread from the outside.
      */
-    @Override
-    public void run() {
-        try {
-            Clip clip = AudioSystem.getClip(), loopClip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(intro));
-            loopClip.open(AudioSystem.getAudioInputStream(loop));
-            
-            LineListener stopEvent = (LineEvent event) -> {
-                if(clip.getFrameLength() < clip.getLongFramePosition() + LONG_FRAME_TIME) {
+    private class Music implements Runnable {
+
+        private LineListener stopEvent;
+
+        /**
+         * Initialize the stop event.
+         */
+        private Music() {
+            stopEvent = (LineEvent event) -> {
+                if (introClip.getFrameLength() < introClip.getLongFramePosition()
+                        + LONG_FRAME_TIME) {
                     loopClip.loop(Clip.LOOP_CONTINUOUSLY);
                 }
+                if (event.getType().equals(LineEvent.Type.CLOSE)) {
+                    ((Clip) event.getSource()).removeLineListener(stopEvent);
+                }
             };
-            clip.addLineListener(stopEvent);
-            clip.start();
         }
-        catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
-            Logger.getLogger(MusicLoop.class.getName()).log(Level.SEVERE, null, ex);
+
+        /**
+         * Start the music intro and after the intro keep looping the loop music.
+         */
+        @Override
+        public void run() {
+            try {
+                introClip = AudioSystem.getClip();
+                loopClip = AudioSystem.getClip();
+                introClip.open(AudioSystem.getAudioInputStream(intro));
+                loopClip.open(AudioSystem.getAudioInputStream(loop));
+
+                introClip.addLineListener(stopEvent);
+                introClip.start();
+            }
+            catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+                Logger.getLogger(MusicLoop.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+    }
+
+    /**
+     * Start the music loop if it wasn't started yet.
+     */
+    public void start() {
+        if (isPlaying) {
+            return;
+        }
+        isPlaying = true;
+        Thread musicThread = new Thread(new Music());
+        musicThread.start();
+    }
+
+    public void stop() {
+        if (introClip != null) {
+            introClip.close();
+            introClip = null;
+        }
+        if (loopClip != null) {
+            loopClip.close();
+            loopClip = null;
+        }
+    }
+
+    /**
+     * Get the instance of MusicLoop.
+     *
+     * @return the MusicLoop.
+     */
+    public static MusicLoop getInstance() {
+        if (musicLoop == null) {
+            musicLoop = new MusicLoop();
+        }
+        return musicLoop;
     }
 }
