@@ -1,5 +1,4 @@
 <levels>
-
 	<!-- 
 	<level id="###">
 		<bubbles>
@@ -37,9 +36,9 @@
 		</bubbles>
 		<doors>
 		</doors>
-		<players>
+<!-- 		<players>
 			<spawnarea xl="0" xr="1920" />
-		</players>
+		</players> -->
 	</level>
 
 	<level id="l1">
@@ -64,18 +63,143 @@
 				</activate>
 			</door>
 		</doors>
-		<players>
+<!-- 		<players>
 			<spawnarea xl="0" xr="1920" />
-		</players>
+		</players> -->
 	</level>
 	
 	<level id="l2">
+		<bubbles>
+			<bubble id="b0" x="300" y="700">
+				<radius>40</radius>
+				<direction x="-2" y="-5" />
+			</bubble>
+			<bubble id="b1" x="1200" y="300">
+				<radius>20</radius>
+				<direction x="2" y="-5" />
+			</bubble>
+			<bubble id="b2" x="1400" y="620">
+				<radius>40</radius>
+				<direction x="2" y="-5" />
+			</bubble>
+		</bubbles>
+		<doors>
+			<door id="d0" type="bubble">
+				<position x="1050" y="30">
+					<width>100</width>
+					<height>821</height>
+				</position>
+				<activate>
+					<bubblelist>
+						<bubble id="b0" />
+						<bubble id="b1" />
+					</bubblelist>
+				</activate>
+			</door>
+		</doors>
 	</level>
 	
 	<level id="l3">
+		<bubbles>
+			<bubble id="b0" x="100" y="660">
+				<radius>40</radius>
+				<direction x="-2" y="-5" />
+			</bubble>
+			<bubble id="b1" x="500" y="620">
+				<radius>80</radius>
+				<direction x="2" y="-5" />
+			</bubble>
+			<bubble id="b2" x="1300" y="400">
+				<radius>40</radius>
+				<direction x="2" y="-5" />
+			</bubble>
+		</bubbles>
+		<doors>
+			<door id="d0" type="time">
+				<position x="250" y="30">
+					<width>100</width>
+					<height>821</height>
+				</position>
+				<activate>
+					<time_ns>10_000_000_000</time_ns>
+				</activate>
+			</door>
+			<door id="d1" type="bubble">
+				<position x="1050" y="30">
+					<width>100</width>
+					<height>821</height>
+				</position>
+				<activate>
+					<bubblelist>
+						<bubble id="b0" />
+						<bubble id="b1" />
+					</bubblelist>
+				</activate>
+			</door>
+		</doors>
 	</level>
 	
 	<level id="l4">
+		<bubbles>
+			<bubble id="b0" x="100" y="660">
+				<radius>80</radius>
+				<direction x="-2" y="-5" />
+			</bubble>
+			<bubble id="b1" x="400" y="700">
+				<radius>40</radius>
+				<direction x="-2" y="-5" />
+			</bubble>
+			<bubble id="b2" x="700" y="700">
+				<radius>20</radius>
+				<direction x="2" y="-5" />
+			</bubble>
+			<bubble id="b3" x="1300" y="600">
+				<radius>40</radius>
+				<direction x="2" y="-5" />
+			</bubble>
+			<bubble id="b4" x="1600" y="600">
+				<radius>80</radius>
+				<direction x="2" y="-5" />
+			</bubble>
+		</bubbles>
+		<doors>
+			<door id="d0" type="time">
+				<position x="200" y="30">
+					<width>100</width>
+					<height>821</height>
+				</position>
+				<activate>
+					<time_ns>6_000_000_000</time_ns>
+				</activate>
+			</door>
+			<door id="d1" type="time">
+				<position x="500" y="30">
+					<width>100</width>
+					<height>821</height>
+				</position>
+				<activate>
+					<time_ns>3_000_000_000</time_ns>
+				</activate>
+			</door>
+			<door id="d2" type="time">
+				<position x="1100" y="30">
+					<width>100</width>
+					<height>821</height>
+				</position>
+				<activate>
+					<time_ns>3_000_000_000</time_ns>
+				</activate>
+			</door>
+			<door id="d3" type="time">
+				<position x="1400" y="30">
+					<width>100</width>
+					<height>821</height>
+				</position>
+				<activate>
+					<time_ns>6_000_000_000</time_ns>
+				</activate>
+			</door>
+		</doors>
 	</level>
 	
 	<level id="lsurv">
