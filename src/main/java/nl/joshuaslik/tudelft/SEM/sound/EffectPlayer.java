@@ -14,21 +14,39 @@ import nl.joshuaslik.tudelft.SEM.sound.observer.PlayerSoundObserver;
  * @author Faris
  */
 public class EffectPlayer {
-    
-    public EffectPlayer(IOberservableGameObjectContainer ob) {
+
+    private static EffectPlayer effectPlayer = null;
+    private boolean playSound = true;
+
+    private EffectPlayer() {
+    }
+
+    public void addListenersTo(IOberservableGameObjectContainer ob) {
         ob.addObserver(new BubbleSoundObserver(this));
         ob.addObserver(new PlayerSoundObserver(this));
     }
-    
+
     public void play(EnumAudioTypes audioType) {
         play(audioType, 0);
     }
-    
+
     public void play(EnumAudioTypes audioType, double balance) {
-        audioType.getSound().play(balance);
+        if (playSound) {
+            audioType.getSound().play(balance);
+        }
     }
-    
-    public void destroy() {
-        
+
+    /**
+     * Toggle the sound effects.
+     */
+    public void toggleSound() {
+        playSound = !playSound;
+    }
+
+    public static EffectPlayer getInstace() {
+        if (effectPlayer == null) {
+            effectPlayer = new EffectPlayer();
+        }
+        return effectPlayer;
     }
 }

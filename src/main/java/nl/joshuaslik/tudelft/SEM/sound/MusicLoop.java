@@ -6,7 +6,6 @@
 package nl.joshuaslik.tudelft.SEM.sound;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioSystem;
@@ -23,19 +22,17 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  */
 public class MusicLoop {
 
-    private final InputStream intro;
-    private final InputStream loop;
+    private final String introPath = "/data/sound/DYAMY - United Intro.wav";
+    private final String loopPath = "/data/sound/DYAMY - United Loop.wav";
     private final int LONG_FRAME_TIME = 1100;
     private static MusicLoop musicLoop = null;
     private boolean isPlaying = false;
     private Clip introClip, loopClip;
 
     /**
-     * Initialize input streams.
+     * Private constructor to avoid initialization outside of getInstance method.
      */
     private MusicLoop() {
-        intro = getClass().getResourceAsStream("/data/sound/DYAMY - United Intro.wav");
-        loop = getClass().getResourceAsStream("/data/sound/DYAMY - United Loop.wav");
     }
 
     /**
@@ -68,8 +65,10 @@ public class MusicLoop {
             try {
                 introClip = AudioSystem.getClip();
                 loopClip = AudioSystem.getClip();
-                introClip.open(AudioSystem.getAudioInputStream(intro));
-                loopClip.open(AudioSystem.getAudioInputStream(loop));
+                introClip.open(AudioSystem.getAudioInputStream(getClass().
+                        getResourceAsStream(introPath)));
+                loopClip.open(AudioSystem.getAudioInputStream(getClass().
+                        getResourceAsStream(loopPath)));
 
                 introClip.addLineListener(stopEvent);
                 introClip.start();
@@ -103,6 +102,18 @@ public class MusicLoop {
         if (loopClip != null) {
             loopClip.close();
             loopClip = null;
+        }
+        isPlaying = false;
+    }
+    
+    /**
+     * Toggle the music.
+     */
+    public void toggleMusic() {
+        if(isPlaying) {
+            stop();
+        } else {
+            start();
         }
     }
 

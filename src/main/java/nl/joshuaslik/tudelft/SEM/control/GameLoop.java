@@ -34,7 +34,6 @@ public class GameLoop extends AnimationTimer implements IDraw {
     private GameController gameController;
     private final GameObjects gameObjects;
     private long oldTime = 0;
-    private EffectPlayer effectPlayer;
 
     /**
      * @param gameController the controller of the game view.
@@ -58,7 +57,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public final void start() {
         super.start();
         kb.addListeners();
-        effectPlayer = new EffectPlayer(gameObjects);
+        EffectPlayer.getInstace().addListenersTo(gameObjects);
     }
 
     /**
@@ -68,7 +67,6 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public void stop() {
         super.stop();
         kb.removeListeners();
-        effectPlayer.destroy();
     }
 
     /**
