@@ -23,7 +23,7 @@ import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
- *
+ * Test the abstract pickup class.
  * @author Faris
  */
 @RunWith(MockitoJUnitRunner.class)

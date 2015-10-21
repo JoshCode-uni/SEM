@@ -9,6 +9,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
+ * Defines the methods needed by an object which is intersectable.
  * @author faris
  */
 interface IIntersectable extends IPhysicsObject {

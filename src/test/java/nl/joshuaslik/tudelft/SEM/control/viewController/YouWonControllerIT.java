@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.runner.RunWith;
 
 /**
- *
+ * You won controller integration test class.
  * @author Faris
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)

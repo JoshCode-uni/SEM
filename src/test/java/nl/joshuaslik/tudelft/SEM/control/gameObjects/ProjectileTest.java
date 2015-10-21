@@ -19,6 +19,7 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
+ * Test the projectile class.
  * @author Bastijn
  */
 @RunWith(MockitoJUnitRunner.class)
@@ -48,7 +49,6 @@ public class ProjectileTest {
     @Before
     public void setup() {
         when(gameObjects.makeLine(0, -1, 0, -2)).thenReturn(line);
-        // the view will be a 10x10 square
         when(gameObjects.getLeftBorder()).thenReturn(0.0);
         when(gameObjects.getRightBorder()).thenReturn(10.0);
         when(gameObjects.getTopBorder()).thenReturn(0.0);
@@ -60,7 +60,6 @@ public class ProjectileTest {
         when(line.getStartY()).thenReturn(1.0);
         when(line.getEndX()).thenReturn(0.0);
         when(line.getEndY()).thenReturn(0.0);
-
         projectile = new Projectile(gameObjects, 0, 1, 20, 0);
     }
 
@@ -101,7 +100,6 @@ public class ProjectileTest {
 //	@Test
     public void testUpdate() {
         projectile.update(1_000_000_000);
-        //UpdateLinePoints calls setEndY twice
         verify(line, times(4)).setEndY(line.getEndY() - 750 * (1_000_000_000 / 1_000_000_000.0));
     }
 
@@ -122,7 +120,8 @@ public class ProjectileTest {
     public void testGetClosestIntersectionLargeY() {
         when(p.getxPos()).thenReturn(50d);
         when(p.getyPos()).thenReturn(25d);
-        assertEquals(projectile.getClosestIntersection(p), new IntersectionPoint(0.0, -1.0, projectile.getVector().normal(), Double.MAX_VALUE));
+        assertEquals(projectile.getClosestIntersection(p), new IntersectionPoint(0.0, -1.0, 
+                projectile.getVector().normal(), Double.MAX_VALUE));
     }
 
     /**

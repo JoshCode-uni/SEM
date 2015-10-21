@@ -18,6 +18,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Test the bubble door class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class BubbleDoorTest {
 

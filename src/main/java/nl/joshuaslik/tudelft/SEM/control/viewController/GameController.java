@@ -127,6 +127,9 @@ public class GameController implements IviewController {
         gl.start();
     }
 
+    /**
+     * Reset the lives of the player.
+     */
     private void resetLives() {
         if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             Image image = new Image(Class.class.getResourceAsStream("/data/gui/img/heart" + GameInfo.getInstance().getLives() + ".png"));

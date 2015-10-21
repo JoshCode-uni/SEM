@@ -6,6 +6,7 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 /**
+ * An interface defining all methods which are needed by the collide receiver objects.
  * @author faris
  */
 interface ICollideReceiver extends IPhysicsObject, IIntersectable {

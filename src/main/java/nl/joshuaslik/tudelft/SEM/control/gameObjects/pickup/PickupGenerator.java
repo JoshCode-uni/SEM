@@ -21,14 +21,27 @@ public class PickupGenerator {
 
     private final IGameObjects gameObjects;
 
+    /**
+     * Construct a pickup generator.
+     * @param gameObjects the gameobjects.
+     */
     public PickupGenerator(IGameObjects gameObjects) {
         this.gameObjects = gameObjects;
     }
 
+    /**
+     * Generate a random pickup.
+     * @param p the point of the pickup
+     */
     public void generatePickup(Point p) {
         generatePickup(p, new Random());
     }
 
+    /**
+     * Generate a random pickup.
+     * @param p the point of the pickup.
+     * @param rand an instace of random.
+     */
     public void generatePickup(Point p, Random rand) {
         if (!rand.nextBoolean()) {
             return;

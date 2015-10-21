@@ -14,6 +14,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import javafx.scene.shape.Circle;
 
+/**
+ * Test the circle view object class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class CircleViewObjectTest {
 

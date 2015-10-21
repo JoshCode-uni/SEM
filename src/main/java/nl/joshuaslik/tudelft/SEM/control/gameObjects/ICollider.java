@@ -6,6 +6,7 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 /**
+ * Defines the methods needed by an object which can collide with other objects.
  * @author faris
  */
 interface ICollider extends IPhysicsObject {

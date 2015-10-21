@@ -332,7 +332,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @return the speed modifier.
      */
     private double getSpeedModifier() {
-        return modifier.getBubbleSpeedModifier();
+        return modifier.getBubbleSpeedMultiplier();
     }
 
     /**

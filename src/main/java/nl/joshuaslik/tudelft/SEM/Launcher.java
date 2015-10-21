@@ -208,8 +208,16 @@ public class Launcher extends Application {
         private final double initWidth;
         private final Pane contentPane;
 
-        public SceneSizeChangeListener(final Scene scene, final double ratio, final double initHeight, 
-                final double initWidth, final Pane contentPane) {
+        /**
+         * Create a scene size listener.
+         * @param scene the scene.
+         * @param ratio the initial ratio.
+         * @param initHeight the initial height.
+         * @param initWidth the initial width
+         * @param contentPane the pane to listen to.
+         */
+        public SceneSizeChangeListener(final Scene scene, final double ratio, 
+                final double initHeight, final double initWidth, final Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;

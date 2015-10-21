@@ -20,6 +20,10 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+/**
+ * Test the game loop.
+ * @author Faris
+ */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameLoop.class)
 public class GameLoopT {

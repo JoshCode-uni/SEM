@@ -6,6 +6,10 @@ import javafx.scene.control.PopupControl;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
+/**
+ * The controller class of the view which is shown after winning a level.
+ * @author Faris
+ */
 public class CongratsController implements IpopupController {
 
     @FXML

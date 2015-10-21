@@ -132,6 +132,10 @@ public class Vector {
         return true;
     }
     
+    /**
+     * Get a clone of this vector.
+     * @return a clone of this vector.
+     */
     @Override
     public Vector clone() {
         Vector clone = new Vector(x, y);

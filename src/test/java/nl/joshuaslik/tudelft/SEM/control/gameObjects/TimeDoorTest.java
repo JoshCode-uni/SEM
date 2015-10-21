@@ -19,6 +19,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Test the time door class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class TimeDoorTest {
 

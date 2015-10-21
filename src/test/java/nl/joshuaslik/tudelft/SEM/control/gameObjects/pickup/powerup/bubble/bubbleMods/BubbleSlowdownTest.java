@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- *
+ * Test the bubble slow down class.
  * @author Faris
  */
 public class BubbleSlowdownTest {
@@ -24,7 +24,7 @@ public class BubbleSlowdownTest {
     @Test
     public void testGetBubbleSpeedMultiplierSingleInstance() {
         IBubbleModifier slowdownOnce = new BubbleSlowdown().decorate(bubbleBaseMod);
-        assertEquals(0.5, slowdownOnce.getBubbleSpeedModifier(), 0.001);
+        assertEquals(0.5, slowdownOnce.getBubbleSpeedMultiplier(), 0.001);
     }
 
     /**
@@ -32,11 +32,10 @@ public class BubbleSlowdownTest {
      */
     @Test
     public void testGetBubbleSpeedMultiplierMultipleSlowdowns() {
-        // decorate 3 times.
         IBubbleModifier slowdownOnce = new BubbleSlowdown().decorate(bubbleBaseMod);
         slowdownOnce = new BubbleSlowdown().decorate(slowdownOnce);
         slowdownOnce = new BubbleSlowdown().decorate(slowdownOnce);
-        assertEquals(0.5 * 0.5 * 0.5, slowdownOnce.getBubbleSpeedModifier(), 0.001);
+        assertEquals(0.5 * 0.5 * 0.5, slowdownOnce.getBubbleSpeedMultiplier(), 0.001);
     }
 
 }

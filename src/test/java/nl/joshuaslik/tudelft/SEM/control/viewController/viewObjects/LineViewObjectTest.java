@@ -16,6 +16,10 @@ import javafx.scene.shape.Line;
 
 import static org.mockito.Mockito.verify;
 
+/**
+ * Test the line view object class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class LineViewObjectTest {
 
@@ -41,7 +45,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests getter
+     * Tests getter.
      */
     @Test
     public void testGetStartX() {
@@ -49,7 +53,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests getter
+     * Tests getter.
      */
     @Test
     public void testGetStartY() {
@@ -57,7 +61,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests getter
+     * Tests getter.
      */
     @Test
     public void testGetEndX() {
@@ -65,7 +69,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests getter
+     * Tests getter.
      */
     @Test
     public void testGetEndY() {
@@ -73,7 +77,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests setter
+     * Tests setter.
      */
     @Test
     public void testSetStartX() {
@@ -82,7 +86,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests setter
+     * Tests setter.
      */
     @Test
     public void testSetStartY() {
@@ -91,7 +95,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests setter
+     * Tests setter.
      */
     @Test
     public void testSetEndX() {
@@ -100,7 +104,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests setter
+     * Tests setter.
      */
     @Test
     public void testSetEndY() {
@@ -109,7 +113,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests setter
+     * Tests setter.
      */
     @Test
     public void testSetStrokeWidth() {
@@ -118,7 +122,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests setter
+     * Tests setter.
      */
     @Test
     public void testSetColor() {
@@ -127,7 +131,7 @@ public class LineViewObjectTest {
     }
 
     /**
-     * Tests setter
+     * Tests setter.
      */
     @Test
     public void testSetOpacity() {

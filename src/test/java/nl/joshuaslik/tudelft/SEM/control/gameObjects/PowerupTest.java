@@ -1,7 +1,6 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
-import static javafx.scene.input.KeyCode.M;
 import static org.mockito.Mockito.verify;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.EnumPowerupTypes;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.Powerup;
@@ -15,6 +14,10 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Test the powerup class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class PowerupTest {
 
@@ -41,6 +44,9 @@ public class PowerupTest {
         powerup = new Powerup(igo, EnumPowerupTypes.PLAYER_SPEED_UP, 400, 400);
     }
 
+    /**
+     * Test the handlePlayerCollision method.
+     */
     @Test
     public void testHandlePlayerCollision() {
         Powerup spy = Mockito.spy(powerup);

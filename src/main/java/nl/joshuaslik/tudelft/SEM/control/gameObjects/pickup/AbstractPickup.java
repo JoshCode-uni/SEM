@@ -38,8 +38,15 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
         pickupImage.setY(yCoordinate);
     }
 
+    /**
+     * Abstract method which handles the collision with a player.
+     */
     protected abstract void handlePlayerCollision();
 
+    /**
+     * Update the position.
+     * @param nanoFrameTime the frame time in ns.
+     */
     @Override
     public void update(long nanoFrameTime) {
         EXISTENCE_TIME -= nanoFrameTime;
@@ -61,10 +68,17 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
         }
     }
 
+    /**
+     * Get the image of the pickup.
+     * @return the image of the pickup.
+     */
     public IImageViewObject getPickupImage() {
         return pickupImage;
     }
 
+    /**
+     * Destroy the pickup.
+     */
     public void destroy() {
         pickupImage.destroy();
         getGameObjects().removeObject(this);

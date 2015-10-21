@@ -64,7 +64,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     private final IDraw draw;
     
-    private ArrayList<IObserver> observerList = new ArrayList<>();
+    private final ArrayList<IObserver> observerList = new ArrayList<>();
 
     /**
      * Construct all required objects for the given level.
@@ -502,42 +502,72 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
         return draw.makeImage(is, width, height);
     }
 
+    /**
+     * Get the player.
+     * @return the player.
+     */
     @Override
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Get player 2.
+     * @return player 2.
+     */
     @Override
     public Player getPlayer2() {
         return player2;
     }
 
+    /**
+     * Handle modifier collision.
+     * @param mod the modifier.
+     * @param isPlayerModifier if it is a player modifier.
+     * @param isBubbleModifier if it is a bubble modifier.
+     */
     @Override
-    public void handleModifierCollision(final Object mod, final boolean isPlayerPickup, final boolean isBubblePickup) {
-        if (isPlayerPickup) {
+    public void handleModifierCollision(final Object mod, final boolean isPlayerModifier, 
+            final boolean isBubbleModifier) {
+        if (isPlayerModifier) {
             player.addModifier((AbstractPlayerDecorator) mod);
-        } else if (isBubblePickup) {
+        } else if (isBubbleModifier) {
             for (Bubble b : bubbles) {
                 b.addModifier((AbstractBubbleDecorator) mod);
             }
         }
     }
 
+    /**
+     * Handle pickup generation after bubble splitting.
+     * @param p point at which the split occured.
+     */
     @Override
     public void handleBubbleSplit(final Point p) {
         pickupGenerator.generatePickup(p);
     }
 
+    /**
+     * Add points.
+     * @param points amount of points to add.
+     */
     @Override
     public void addPoints(final int points) {
         score += points;
     }
 
+    /**
+     * Add a life.
+     */
     @Override
     public void addLife() {
         draw.addLife();
     }
 
+    /**
+     * The amount of bubbles left in the game.
+     * @return amount of bubbles left.
+     */
     @Override
     public int bubblesLeft() {
         return bubbles.size();
@@ -545,27 +575,51 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     //CHECKSTYLE.OFF
     //Methods for testing purposes
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @param draw gameobjects instance.
+     */
     GameObjects(final IDraw draw) {
         this.draw = draw;
         addBufferedDynamicObjects();
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @param bubble a bubble.
+     */
     protected void addBubbles(final Bubble bubble) {
         bubbles.add(bubble);
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return all prepareable objects.
+     */
     protected ArrayList<IPrepareable> getPrepareUpdateable() {
         return prepUpdateableObjects;
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return all updateable objects.
+     */
     protected ArrayList<IUpdateable> getUpdateable() {
         return updateableObjects;
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return all collider objects.
+     */
     protected ArrayList<ICollider> getCollider() {
         return colliderObjects;
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return all intersectable objects.
+     */
     protected ArrayList<IIntersectable> getIntersectable() {
         return intersectableObjects;
     }

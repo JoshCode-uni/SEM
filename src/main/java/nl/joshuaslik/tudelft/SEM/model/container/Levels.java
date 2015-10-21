@@ -46,6 +46,11 @@ public class Levels {
         return new Point(1800, 450);
     }
 
+    /**
+     * Get the survival level objects.
+     * @param gameObjects the game object storage class.
+     * @return the survival game objects.
+     */
     public static ArrayList<IPhysicsObject> getSurvivalLevelObjects(final IGameObjects gameObjects) {
         return createLevel0(gameObjects);
     }
@@ -153,10 +158,17 @@ public class Levels {
         return level4;
     }
 
+    /**
+     * Get the current level.
+     * @return the current level.
+     */
     public static int getCurrentLevel() {
         return currentLevel;
     }
 
+    /**
+     * Go to the next level.
+     */
     public static void nextLevel() {
         if (currentLevel < AMOUNT_OF_IMPLEMENTED_LEVELS) {
             currentLevel++;
@@ -166,6 +178,10 @@ public class Levels {
         }
     }
 
+    /**
+     * Set the current level.
+     * @param level the current level index.
+     */
     public static void setCurrentLevel(int level) {
         if (level < unlockedLevel) {
             Levels.currentLevel = level;
@@ -174,10 +190,18 @@ public class Levels {
         }
     }
 
+    /**
+     * Get the highest unlocked level.
+     * @return the highest unlocked level index.
+     */
     public static int getUnlockedLevel() {
         return unlockedLevel;
     }
 
+    /**
+     * Set the unlocked level index.
+     * @param unlocked the highest unlocked level index.
+     */
     public static void setUnlockedLevel(int unlocked) {
         unlockedLevel = unlocked;
     }
