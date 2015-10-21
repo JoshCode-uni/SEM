@@ -92,6 +92,9 @@ public class MusicLoop {
         musicThread.start();
     }
 
+    /**
+     * Stop the music.
+     */
     public void stop() {
         if (introClip != null) {
             introClip.close();

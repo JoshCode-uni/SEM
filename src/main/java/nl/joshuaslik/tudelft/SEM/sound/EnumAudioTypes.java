@@ -18,8 +18,8 @@ public enum EnumAudioTypes {
     MONSTER_KILL(new SoundEffect(EnumAudioTypes.class.getResource("/data/sound/effects/MonsterKill.wav").toExternalForm()), true),
     KILLING_SPREE(new SoundEffect(EnumAudioTypes.class.getResource("/data/sound/effects/Killing_Spree.wav").toExternalForm()), true),
     FIRST_BLOOD(new SoundEffect(EnumAudioTypes.class.getResource("/data/sound/effects/first_blood.wav").toExternalForm()), false),
-    BALL_OUT_OF_PLAY(new SoundEffect(EnumAudioTypes.class.getResource("/data/sound/effects/BallOutOfPlay.wav").toExternalForm()), false),
-    LAST_MAN_STANDING(new SoundEffect(EnumAudioTypes.class.getResource("/data/sound/effects/last_man_standing.wav").toExternalForm()), false),
+//    BALL_OUT_OF_PLAY(new SoundEffect(EnumAudioTypes.class.getResource("/data/sound/effects/BallOutOfPlay.wav").toExternalForm()), false),
+//    LAST_MAN_STANDING(new SoundEffect(EnumAudioTypes.class.getResource("/data/sound/effects/last_man_standing.wav").toExternalForm()), false),
     HUMILIATING_DEFEAT(new SoundEffect(EnumAudioTypes.class.getResource("/data/sound/effects/Humiliating_defeat.wav").toExternalForm()), false);
     
     private final SoundEffect sound;

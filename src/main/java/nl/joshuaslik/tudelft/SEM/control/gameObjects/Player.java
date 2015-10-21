@@ -32,7 +32,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private ArrayList<Double> leftDoor = new ArrayList<>();
     private ArrayList<Double> rightDoor = new ArrayList<>();
     private final double playerXstart;
-    private boolean p2;
+    private final boolean p2;
     private boolean isDead = false;
     private int score = 0;
     private final ArrayList<IObserver<Player, EventType>> observers = new ArrayList<>();

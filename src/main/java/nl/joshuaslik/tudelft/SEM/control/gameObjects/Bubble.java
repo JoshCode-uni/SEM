@@ -325,11 +325,11 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     }
 
     public final Vector getDir() {
-        return dir;
+        return dir.clone();
     }
 
     public final Vector getNewDir() {
-        return newDir;
+        return newDir.clone();
     }
 
     public final double getXvelocity() {
@@ -356,6 +356,10 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         return nextY;
     }
     
+    /**
+     * Get the relative x position of the bubble compared to the view.
+     * @return the relative x position of the bubble compared to the view.
+     */
     public double getRelativeXPos() {
         double xPos = getPoint().getxPos();
         return xPos / (rightBorder - leftBorder);

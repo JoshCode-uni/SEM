@@ -131,4 +131,10 @@ public class Vector {
         }
         return true;
     }
+    
+    @Override
+    public Vector clone() {
+        Vector clone = new Vector(x, y);
+        return clone;
+    }
 }
