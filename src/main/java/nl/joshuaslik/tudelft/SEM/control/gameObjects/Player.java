@@ -107,6 +107,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             image.setX(leftBorder);
         }
         image.setScaleX(1);
+        notifyObservers(EnumPlayerEvent.WALK);
     }
 
     /**
@@ -123,6 +124,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             image.setX(rightBorder - 100);
         }
         image.setScaleX(-1);
+        notifyObservers(EnumPlayerEvent.WALK);
     }
 
     /**
@@ -135,6 +137,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
         Projectile proj = makeProjectile(getGameObjects(), bulletX, bulletY);
         proj.setPlayer(this);
         getGameObjects().addProjectile(proj);
+        notifyObservers(EnumPlayerEvent.SHOOT);
     }
 
     /**
