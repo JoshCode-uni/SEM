@@ -7,6 +7,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.events.player.EnumPlayerEvent;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.IPlayerModifier;
@@ -14,6 +15,8 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.Playe
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.IObservable;
+import nl.joshuaslik.tudelft.SEM.utility.IObserver;
 import nl.joshuaslik.tudelft.SEM.utility.Time;
 
 /**
@@ -21,7 +24,7 @@ import nl.joshuaslik.tudelft.SEM.utility.Time;
  *
  * @author faris
  */
-public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider {
+public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider, IObservable<Player, EnumPlayerEvent> {
 
     private IPlayerModifier modifier = new PlayerBaseModifier();
     private final IImageViewObject image;
@@ -33,6 +36,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private boolean p2;
     private boolean isDead = false;
     private int score = 0;
+    private final ArrayList<IObserver<Player, EnumPlayerEvent>> observers = new ArrayList<>();
 
     /**
      * Create a player.
@@ -67,6 +71,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             if (image.intersects(bubble.getCircleViewObject())) {
                 getGameObjects().playerDied();
                 isDead = true;
+                notifyObservers(EnumPlayerEvent.DIED);
             }
         }
     }
@@ -228,5 +233,26 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     public boolean isDead() {
         return isDead;
+    }
+
+    @Override
+    public void addObserver(IObserver o) {
+        if(o.sameGenerics(Player.class, EnumPlayerEvent.class)) {
+            observers.add(o);
+        }
+    }
+
+    @Override
+    public void deleteObserver(IObserver o) {
+        if(o.sameGenerics(Player.class, EnumPlayerEvent.class)) {
+            observers.remove(o);
+        }
+    }
+
+    @Override
+    public void notifyObservers(EnumPlayerEvent arg) {
+        for (IObserver o : observers) {
+            o.update(this, arg);
+        }
     }
 }

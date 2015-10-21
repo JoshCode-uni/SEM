@@ -8,6 +8,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,6 +27,8 @@ import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
+import nl.joshuaslik.tudelft.SEM.utility.IObservable;
+import nl.joshuaslik.tudelft.SEM.utility.IObserver;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
@@ -34,12 +37,13 @@ import org.apache.commons.lang3.ClassUtils;
  *
  * @author faris
  */
-public class GameObjects implements IUpdateable, IGameObjects {
+public class GameObjects implements IUpdateable, IGameObjects, IOberservableGameObjectContainer {
 
     private final ArrayList<IUpdateable> updateableObjects = new ArrayList<>();
     private final ArrayList<IPrepareable> prepUpdateableObjects = new ArrayList<>();
     private final ArrayList<ICollider> colliderObjects = new ArrayList<>();
     private final ArrayList<IIntersectable> intersectableObjects = new ArrayList<>();
+    private final ArrayList<IObservable> oberservableObjects = new ArrayList<>();
 
     private final ArrayList<IPhysicsObject> addObjectBuffer = new ArrayList<>();
     private final ArrayList<IPhysicsObject> removeObjectBuffer = new ArrayList<>();
@@ -59,6 +63,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
     private int score = 0;
 
     private final IDraw draw;
+    
+    private ArrayList<IObserver> observerList = new ArrayList<>();
 
     /**
      * Construct all required objects for the given level.
@@ -248,20 +254,27 @@ public class GameObjects implements IUpdateable, IGameObjects {
             if (object == null) {
                 continue;
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
+            List<Class<?>> interfaces = ClassUtils.getAllInterfaces(object.getClass());
+            if (interfaces.contains(IUpdateable.class)) {
                 updateableObjects.add((IUpdateable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IPrepareable.class)) {
+            if (interfaces.contains(IPrepareable.class)) {
                 prepUpdateableObjects.add((IPrepareable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IIntersectable.class)) {
+            if (interfaces.contains(IIntersectable.class)) {
                 intersectableObjects.add((IIntersectable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
+            if (interfaces.contains(ICollider.class)) {
                 colliderObjects.add((ICollider) object);
             }
             if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.add((Bubble) object);
+            }
+            if (interfaces.contains(IObservable.class)) {
+                oberservableObjects.add((IObservable) object);
+                for(IObserver o : observerList) {
+                    ((IObservable) object).addObserver(o);
+                }
             }
         }
         addObjectBuffer.clear();
@@ -275,21 +288,28 @@ public class GameObjects implements IUpdateable, IGameObjects {
             if (object == null) {
                 continue;
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
+            List<Class<?>> interfaces = ClassUtils.getAllInterfaces(object.getClass());
+            if (interfaces.contains(IUpdateable.class)) {
                 updateableObjects.remove((IUpdateable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IPrepareable.class)) {
+            if (interfaces.contains(IPrepareable.class)) {
                 prepUpdateableObjects.remove((IPrepareable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IIntersectable.class)) {
+            if (interfaces.contains(IIntersectable.class)) {
                 intersectableObjects.remove((IIntersectable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
+            if (interfaces.contains(ICollider.class)) {
                 colliderObjects.remove((ICollider) object);
             }
             if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.remove((Bubble) object);
                 score += 10;
+            }
+            if (interfaces.contains(IObservable.class)) {
+                oberservableObjects.remove((IObservable) object);
+                for(IObserver o : observerList) {
+                    ((IObservable) object).deleteObserver(o);
+                }
             }
         }
         removeObjectBuffer.clear();
@@ -550,4 +570,17 @@ public class GameObjects implements IUpdateable, IGameObjects {
         return intersectableObjects;
     }
     //CHECKSTYLE.ON
+
+    /**
+     * Add observers to existing observable objects and make sure they are added to newly created
+     * observable objects.
+     * @param observer an observer.
+     */
+    @Override
+    public void addObserver(IObserver observer) {
+        observerList.add(observer);
+        for(IObservable o : oberservableObjects) {
+            o.addObserver(observer);
+        }
+    }
 }

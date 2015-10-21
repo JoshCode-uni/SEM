@@ -1,6 +1,8 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 
+import java.util.ArrayList;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.events.bubble.EnumBubbleEvent;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.BubbleBaseModifier;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.IBubbleModifier;
@@ -9,6 +11,8 @@ import nl.joshuaslik.tudelft.SEM.model.container.IntersectionPoint;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
+import nl.joshuaslik.tudelft.SEM.utility.IObservable;
+import nl.joshuaslik.tudelft.SEM.utility.IObserver;
 import nl.joshuaslik.tudelft.SEM.utility.Time;
 import org.apache.commons.lang3.ClassUtils;
 
@@ -18,7 +22,7 @@ import org.apache.commons.lang3.ClassUtils;
  *
  * @author faris
  */
-public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepareable, ICollider, ICollideReceiver {
+public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepareable, ICollider, ICollideReceiver, IObservable<Bubble, EnumBubbleEvent> {
 
     // Variables to keep track of the direction/speed/position
     private final ICircleViewObject circle;
@@ -30,7 +34,12 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
     private double vY = 0;
     private double nextX;
     private double nextY;
+    private final double leftBorder;
+    private final double rightBorder;
+    private final double topBorder;
+    private final double bottomBorder;
     private IBubbleModifier modifier = new BubbleBaseModifier();
+    private final ArrayList<IObserver<Bubble, EnumBubbleEvent>> observers = new ArrayList<>();
 
     /**
      * Create a bubble.
@@ -46,8 +55,11 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         circle.setRadius(radius);
         this.dir = dir;
         this.newDir = dir;
-        circle.setBounds(getGameObjects().getLeftBorder(), getGameObjects().getTopBorder(),
-                getGameObjects().getRightBorder(), getGameObjects().getBottomBorder());
+        this.topBorder = getGameObjects().getTopBorder();
+        this.bottomBorder = getGameObjects().getBottomBorder();
+        this.leftBorder = getGameObjects().getLeftBorder();
+        this.rightBorder = getGameObjects().getRightBorder();
+        circle.setBounds(leftBorder, topBorder,rightBorder, bottomBorder);
         GameLog.addInfoLog("Bubble created at: (" + Double.toString(circle.getCenterX()) + ", "
                 + Double.toString(circle.getCenterY()) + ")");
     }
@@ -78,15 +90,16 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      */
     @Override
     public void update(final long nanoFrameTime) {
-        if (nextY - circle.getRadius() - 10 < getGameObjects().getTopBorder()) {
+        if (nextY - circle.getRadius() - 10 < topBorder) {
             GameLog.addInfoLog("Bubble hit ceiling: (" + Double.toString(circle.getCenterX()) + Double.toString(circle.getCenterY()) + ")");
             GameLog.addInfoLog("Bubble is destroyed");
             getGameObjects().removeObject(getThis());
             circle.destroy();
+            notifyObservers(EnumBubbleEvent.KILLED_CEILING);
         }
         circle.setCenterX(nextX);
         circle.setCenterY(nextY);
-        if (circle.getCenterY() == getGameObjects().getBottomBorder()) {
+        if (circle.getCenterY() == bottomBorder) {
             vY = -Y_MAX_SPEED;
         }
     }
@@ -148,13 +161,9 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
             double ySpeedOtherObj = speedVecOtherObj.getY();
             if (xSpeedOtherObj * vX < 0) {
                 xSpeedOtherObj *= -1;
-            } else {
-                xSpeedOtherObj *= 1;
             }
             if (ySpeedOtherObj * vX < 0) {
                 ySpeedOtherObj *= -1;
-            } else {
-                ySpeedOtherObj *= 1;
             }
             vX = (vX + xSpeedOtherObj) / 2.0;
             vY = (vY + ySpeedOtherObj) / 2.0;
@@ -178,6 +187,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         if (newDist < curDist) {
             collide(ip, nanoFrameTime);
             calculateNextPosition(nanoFrameTime);
+            notifyObservers(EnumBubbleEvent.COLLIDE);
         }
     }
 
@@ -216,13 +226,13 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
      * @param nanoFrameTime
      */
     public void splitBubble(final long nanoFrameTime) {
-        GameLog.addInfoLog("Bubble hit by projectile at: (" + Double.toString(circle.getCenterX()) + Double.toString(circle.getCenterY())
-                + ")");
+        GameLog.addInfoLog("Bubble hit by projectile at: (" + Double.toString(circle.getCenterX()) + Double.toString(circle.getCenterY()) + ")");
         getGameObjects().handleBubbleSplit(getPoint());
         double newRadius = circle.getRadius() / 2.0;
         if (newRadius < 10) {
             getGameObjects().removeObject(this);
             circle.destroy();
+            notifyObservers(EnumBubbleEvent.KILLED_PROJECTILE);
             return;
         }
         if (newRadius < 20) {
@@ -234,6 +244,7 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
         createSplitBubble(new Point(xPos + 1.1 * newRadius, yPos), newRadius, new Vector(2, -5),
                 nanoFrameTime);
         calculateNextPosition(nanoFrameTime);
+        notifyObservers(EnumBubbleEvent.SPLIT);
     }
 
     /**
@@ -344,5 +355,31 @@ public class Bubble extends AbstractPhysicsObject implements IUpdateable, IPrepa
 
     public final double getNextY() {
         return nextY;
+    }
+    
+    public double getRelativeXPos() {
+        double xPos = getPoint().getxPos();
+        return xPos / (rightBorder - leftBorder);
+    }
+
+    @Override
+    public void addObserver(IObserver o) {
+        if (o.sameGenerics(Bubble.class, EnumBubbleEvent.class)) {
+            observers.add(o);
+        }
+    }
+
+    @Override
+    public void deleteObserver(IObserver o) {
+        if (o.sameGenerics(Bubble.class, EnumBubbleEvent.class)) {
+            observers.remove(o);
+        }
+    }
+
+    @Override
+    public void notifyObservers(EnumBubbleEvent arg) {
+        for (IObserver o : observers) {
+            o.update(this, arg);
+        }
     }
 }
