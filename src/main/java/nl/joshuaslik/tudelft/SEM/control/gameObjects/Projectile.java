@@ -102,7 +102,7 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
     public void collide(final ICollider obj2, final long nanoFrameTime) {
         if (isActive && Bubble.class.isAssignableFrom(obj2.getClass())) {
             Bubble bubble = (Bubble) obj2;
-            bubble.splitBubble();
+            bubble.splitBubble(nanoFrameTime);
             player.addPoints(10);
             GameLog.addInfoLog("Projectile hit bubble at: (" + Double.toString(line.getEndX())
                     + ", " + Double.toString(line.getEndY()) + ")");
