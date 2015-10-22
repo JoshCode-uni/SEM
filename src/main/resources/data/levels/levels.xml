@@ -94,6 +94,7 @@
 						<bubble id="b0" />
 						<bubble id="b1" />
 					</bubblelist>
+					<remaining>1</remaining>
 				</activate>
 			</door>
 		</doors>
@@ -134,6 +135,7 @@
 						<bubble id="b0" />
 						<bubble id="b1" />
 					</bubblelist>
+					<remaining>1</remaining>
 				</activate>
 			</door>
 		</doors>

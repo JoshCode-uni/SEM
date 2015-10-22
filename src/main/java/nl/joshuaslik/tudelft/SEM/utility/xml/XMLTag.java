@@ -192,6 +192,20 @@ public class XMLTag {
 		throw new NoSuchElementException(this.name + " does not have element '"
 				+ element + "'");
 	}
+	
+	public XMLTag getElementByAttribute(String attribute, String value) {
+		ArrayList<XMLTag> list = this.getElements();
+		
+		for (XMLTag x : list) {
+			LinkedHashMap<String, String> lhm = x.getAttributes();
+			if (lhm.containsKey(attribute)) {
+				if (lhm.get(attribute).equals(value)) {
+					return x;
+				}
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * get the content of the tag
