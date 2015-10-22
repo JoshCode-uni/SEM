@@ -59,7 +59,7 @@
 					<height>821</height>
 				</position>
 				<activate>
-					<time_ns>5_000_000_000</time_ns>
+					<time_ns>5000000000</time_ns>
 				</activate>
 			</door>
 		</doors>
@@ -122,7 +122,7 @@
 					<height>821</height>
 				</position>
 				<activate>
-					<time_ns>10_000_000_000</time_ns>
+					<time_ns>10000000000</time_ns>
 				</activate>
 			</door>
 			<door id="d1" type="bubble">
@@ -171,7 +171,7 @@
 					<height>821</height>
 				</position>
 				<activate>
-					<time_ns>6_000_000_000</time_ns>
+					<time_ns>6000000000</time_ns>
 				</activate>
 			</door>
 			<door id="d1" type="time">
@@ -180,7 +180,7 @@
 					<height>821</height>
 				</position>
 				<activate>
-					<time_ns>3_000_000_000</time_ns>
+					<time_ns>3000000000</time_ns>
 				</activate>
 			</door>
 			<door id="d2" type="time">
@@ -189,7 +189,7 @@
 					<height>821</height>
 				</position>
 				<activate>
-					<time_ns>3_000_000_000</time_ns>
+					<time_ns>3000000000</time_ns>
 				</activate>
 			</door>
 			<door id="d3" type="time">
@@ -198,7 +198,7 @@
 					<height>821</height>
 				</position>
 				<activate>
-					<time_ns>6_000_000_000</time_ns>
+					<time_ns>6000000000</time_ns>
 				</activate>
 			</door>
 		</doors>

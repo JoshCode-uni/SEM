@@ -216,7 +216,7 @@ public class Levels {
         Point p4 = new Point(x + width, y + height);
         
         if (door.getAttribute("type").equals("time")) {
-            Long time = Long.parseLong(door.getElement("activate.time_ns").getContent());
+            Long time = Long.parseLong(door.getElement("activate").getElement("time_ns").getContent());
             return new TimeDoor(gameObjects, p1, p2, p3, p4, 0, time);
         } else {
             Integer remaining = Integer.parseInt(door.getElement("activate.remaining").getContent());
