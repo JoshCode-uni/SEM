@@ -41,8 +41,9 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * Create a player.
      *
      * @param gameObjects
-     * @param is
+     * @param is the image of the player.
      * @param kb keyboard which controller the actions of the player.
+     * @param p2 if this is player 2.
      */
     public Player(final IGameObjects gameObjects, final InputStream is, final IKeyboard kb, boolean p2) {
         super(gameObjects);

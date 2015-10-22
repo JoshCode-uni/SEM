@@ -22,7 +22,7 @@ public class SoundEffect {
      * Create a sound effect.
      * @param audioPath the path of the audio file.
      */
-    public SoundEffect(String audioPath) {
+    protected SoundEffect(String audioPath) {
         this.audio = new AudioClip(audioPath);
     }
 

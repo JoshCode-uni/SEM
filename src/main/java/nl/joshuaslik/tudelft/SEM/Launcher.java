@@ -90,8 +90,7 @@ public class Launcher extends Application {
             BP.setCenter(pane);
             controller = res;
             return res;
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             GameLog.addErrorLog("Failed to load fxml file: " + fxmlURL.toString());
             GameLog.addErrorLog(ex.getMessage());
             Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "Failed to load fxml file: " + fxmlURL.toString(), ex);

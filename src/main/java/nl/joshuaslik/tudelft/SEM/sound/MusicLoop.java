@@ -28,6 +28,7 @@ public class MusicLoop {
     private static MusicLoop musicLoop = null;
     private boolean isPlaying = false;
     private Clip introClip, loopClip;
+    private static final Object LOCK = new Object();
 
     /**
      * Private constructor to avoid initialization outside of getInstance method.
@@ -83,18 +84,20 @@ public class MusicLoop {
      * Start the music loop if it wasn't started yet.
      */
     public void start() {
-        if (isPlaying) {
-            return;
+        synchronized (LOCK) {
+            if (isPlaying) {
+                return;
+            }
+            isPlaying = true;
+            Thread musicThread = new Thread(new Music());
+            musicThread.start();
         }
-        isPlaying = true;
-        Thread musicThread = new Thread(new Music());
-        musicThread.start();
     }
 
     /**
      * Stop the music.
      */
-    public void stop() {
+    private void stop() {
         if (introClip != null) {
             introClip.close();
             introClip = null;
@@ -105,15 +108,23 @@ public class MusicLoop {
         }
         isPlaying = false;
     }
-    
+
     /**
      * Toggle the music.
      */
     public void toggleMusic() {
-        if(isPlaying) {
-            stop();
-        } else {
-            start();
+        synchronized (LOCK) {
+            if (isPlaying) {
+                stop();
+            } else {
+                start();
+            }
+        }
+    }
+    
+    public boolean isPlaying() {
+        synchronized (LOCK) {
+            return isPlaying;
         }
     }
 
@@ -123,9 +134,11 @@ public class MusicLoop {
      * @return the MusicLoop.
      */
     public static MusicLoop getInstance() {
-        if (musicLoop == null) {
-            musicLoop = new MusicLoop();
+        synchronized (LOCK) {
+            if (musicLoop == null) {
+                musicLoop = new MusicLoop();
+            }
+            return musicLoop;
         }
-        return musicLoop;
     }
 }
