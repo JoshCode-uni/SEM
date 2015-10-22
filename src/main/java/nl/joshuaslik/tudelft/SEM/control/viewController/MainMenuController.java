@@ -32,7 +32,7 @@ public class MainMenuController implements IviewController {
     private Pane optionsPane;
 
     @FXML
-    private Button playButton, chooseLevelButton, optionsButton, quitButton, classicButton;
+    private Button playButton, chooseLevelButton, highscoresButton, optionsButton, quitButton, classicButton;
 
     @FXML
     private Text totalScore, p1Score, p2Score;
@@ -129,7 +129,17 @@ public class MainMenuController implements IviewController {
         System.out.println("Choose Level button pressed!");
         chooseLevelBox.setVisible(!chooseLevelBox.isVisible());
     }
-
+    
+    /**
+     * Handles clicking of the highscores button.
+     */
+    @FXML
+    protected void handleHighscoresButton() {
+        GameLog.addInfoLog("Highscores button pressed from main menu");
+        System.out.println("Highscores button pressed!");
+        highscoresController.loadPopup(this);
+    }
+    
     /**
      * Handles clicking of the options button
      */
@@ -185,6 +195,7 @@ public class MainMenuController implements IviewController {
     public void setButtonsDisabled(final boolean disabled) {
         playButton.setDisable(disabled);
         chooseLevelButton.setDisable(disabled);
+        highscoresButton.setDisable(disabled);
         optionsButton.setDisable(disabled);
         quitButton.setDisable(disabled);
     }
