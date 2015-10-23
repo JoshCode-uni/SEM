@@ -11,12 +11,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.PopupControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameplayChoicesController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
@@ -55,6 +58,7 @@ public class Launcher extends Application {
         primaryStage.setScene(scene);
         primaryStage.setFullScreen(true);
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+        scaleToScreenSize(BP);
         if (!hideViewForTesting) {
             primaryStage.show();
         }
@@ -172,5 +176,67 @@ public class Launcher extends Application {
      */
     public static void setHideViewForTesting(boolean hideViewForTesting) {
         Launcher.hideViewForTesting = hideViewForTesting;
+    }
+
+    /**
+     * Scale the size of the given stage.
+     *
+     * @param contentPane the stage to resize
+     */
+    private void scaleToScreenSize(final Pane contentPane) {
+        Scene scene = contentPane.getScene();
+        final double initWidth = 1920;
+        final double initHeight = 1080;
+        final double ratio = initWidth / initHeight;
+
+        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, 
+                initHeight, initWidth, contentPane);
+        scene.widthProperty().addListener(sizeListener);
+        scene.heightProperty().addListener(sizeListener);
+    }
+
+    /**
+     * When the user resizes the screen the method changed() in this class will be called.
+     */
+    private static class SceneSizeChangeListener implements ChangeListener<Number> {
+
+        private final Scene scene;
+        private final double ratio;
+        private final double initHeight;
+        private final double initWidth;
+        private final Pane contentPane;
+
+        public SceneSizeChangeListener(final Scene scene, final double ratio, final double initHeight, 
+                final double initWidth, final Pane contentPane) {
+            this.scene = scene;
+            this.ratio = ratio;
+            this.initHeight = initHeight;
+            this.initWidth = initWidth;
+            this.contentPane = contentPane;
+        }
+
+        /**
+         * Listen for size changes and change the scene accordingly.
+         *
+         * @param observableValue the value being observed
+         * @param oldValue old size
+         * @param newValue new size
+         */
+        @Override
+        public void changed(final ObservableValue<? extends Number> observableValue, 
+                final Number oldValue, final Number newValue) {
+            final double newWidth = scene.getWidth();
+            final double newHeight = scene.getHeight();
+            double scaleFactor = newWidth / newHeight > ratio ?
+                    newHeight / initHeight :
+                    newWidth / initWidth;
+            Scale scale = new Scale(scaleFactor, scaleFactor);
+            scale.setPivotX(0);
+            scale.setPivotY(0);
+            scene.getRoot().getTransforms().setAll(scale);
+            contentPane.setPrefWidth(newWidth / scaleFactor);
+            contentPane.setPrefHeight(newHeight / scaleFactor);
+            BP.autosize();
+        }
     }
 }

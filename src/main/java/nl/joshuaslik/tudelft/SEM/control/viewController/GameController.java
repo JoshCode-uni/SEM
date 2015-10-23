@@ -174,8 +174,8 @@ public class GameController implements IviewController {
         if (!gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
             scoreText.setText("Score: " + gl.getScore());
         } else {
-            scoreText.setText("Score of " + gi.getPlayerNames().get(0) + ": " + gl.getPlayer1Score());
-            scoreTextPlayer2.setText("Score of " + gi.getPlayerNames().get(1) + ": " + gl.getPlayer2Score());
+            scoreText.setText("Score of " + gl.getUser1().getName() + ": " + gl.getPlayer1Score());
+            scoreTextPlayer2.setText("Score of " + gl.getUser2().getName() + ": " + gl.getPlayer2Score());
         }
     }
 
@@ -203,18 +203,23 @@ public class GameController implements IviewController {
             int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
             GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
             GameLog.addInfoLog("level score: " + totalScore);
-            GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
+            gl.getUser1().setSinglePlayerScore();
+    //        GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
         } else if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)) {
             int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
             GameLog.addInfoLog("Players completed level: " + Levels.getCurrentLevel());
             GameLog.addInfoLog("Player 1 score:" + gl.getPlayer1Score());
             GameLog.addInfoLog("Player 2 score:" + gl.getPlayer2Score());
             GameLog.addInfoLog("level score: " + totalScore);
-            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
-            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+            gl.getUser1().setCoopScore();
+            gl.getUser2().setCoopScore();
+        //    GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
+         //   GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
         } else {
-            GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), gl.getPlayer1Score());
-            GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), gl.getPlayer2Score());
+ //           GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), gl.getPlayer1Score());
+ //           GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), gl.getPlayer2Score());
+            gl.getUser1().setVsScore();
+            gl.getUser2().setVsScore();
         }
     }
 
