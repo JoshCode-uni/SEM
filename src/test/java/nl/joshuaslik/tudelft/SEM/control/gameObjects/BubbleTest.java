@@ -135,7 +135,7 @@ public class BubbleTest {
     @Test
     public void testSplitBubble() {
         when(gameObjects.makeCircle(250 + 1.1 * 25, 100, 25)).thenReturn(circle2);
-        bubble.splitBubble();
+        bubble.splitBubble(1);
         verify(gameObjects).handleBubbleSplit(new Point(250, 100));
         verify(circle).setCenterX(250 - 25);
         verify(circle).setRadius(25);
@@ -149,7 +149,7 @@ public class BubbleTest {
     @Test
     public void testDestroySmallBubble() {
         when(circle.getRadius()).thenReturn(9.0);
-        bubble.splitBubble();
+        bubble.splitBubble(1);
         verify(circle).destroy();
     }
 
@@ -160,7 +160,7 @@ public class BubbleTest {
     public void testSplitBubble25() {
         when(circle.getRadius()).thenReturn(25.0);
         when(gameObjects.makeCircle(250 + 1.1 * 10, 100, 10)).thenReturn(circle2);
-        bubble.splitBubble();
+        bubble.splitBubble(1);
         verify(gameObjects).handleBubbleSplit(new Point(250, 100));
         verify(circle).setCenterX(250 - 10);
         verify(circle).setRadius(10);
