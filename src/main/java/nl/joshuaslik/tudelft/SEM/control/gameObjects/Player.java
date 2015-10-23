@@ -87,6 +87,8 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             moveLeft(nanoFrameTime);
         } else if (keyboard.isMoveRight(p2)) {
             moveRight(nanoFrameTime);
+        } else {
+            notifyObservers(EventType.NOT_WALKING);
         }
         if (keyboard.isShoot(p2) && !getGameObjects().hasProjectile(p2)) {
             shoot();
@@ -303,6 +305,15 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     public boolean isDead() {
         return isDead;
     }
+    
+    /**
+     * Get the relative x position of the bubble compared to the view.
+     * @return the relative x position of the bubble compared to the view.
+     */
+    public double getRelativeXPos() {
+        double xPos = image.getStartX();
+        return xPos / (getGameObjects().getRightBorder() - getGameObjects().getLeftBorder());
+    }
 
     /**
      * Add an observer to this observable object.
@@ -341,6 +352,6 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * Enum containing all of the events which can be triggered by a player.
      */
     public static enum EventType {
-        SHOOT, WALK, DIED;
+        SHOOT, WALK, DIED, NOT_WALKING;
     }
 }

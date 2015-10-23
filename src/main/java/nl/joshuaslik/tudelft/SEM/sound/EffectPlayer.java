@@ -7,6 +7,7 @@ package nl.joshuaslik.tudelft.SEM.sound;
 
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IOberservableGameObjectContainer;
 import nl.joshuaslik.tudelft.SEM.sound.observer.BubbleSoundObserver;
+import nl.joshuaslik.tudelft.SEM.sound.observer.PickupSoundObserver;
 import nl.joshuaslik.tudelft.SEM.sound.observer.PlayerSoundObserver;
 
 /**
@@ -33,6 +34,7 @@ public class EffectPlayer {
     public void addListenersTo(IOberservableGameObjectContainer ob) {
         ob.addObserver(new BubbleSoundObserver(this));
         ob.addObserver(new PlayerSoundObserver(this));
+        ob.addObserver(new PickupSoundObserver(this));
     }
 
     /**
@@ -53,6 +55,27 @@ public class EffectPlayer {
             audioType.getSound().play(balance);
         }
     }
+    
+    /**
+     * Play a sound loop.
+     * @param audioType enum object containing a sound effect.
+     * @param balance the balance of the sound (between -1 and 1).
+     */
+    public void playLoop(EnumAudioTypes audioType, double balance) {
+        if (playSound) {
+            audioType.getSound().playLoop(balance);
+        }
+    }
+    
+    /**
+     * Stop a sound loop.
+     * @param audioType enum object containing a sound effect.
+     */
+    public void stopLoop(EnumAudioTypes audioType) {
+        if (playSound) {
+            audioType.getSound().stopLoop();
+        }
+    }
 
     /**
      * Toggle the sound effects.
@@ -70,5 +93,9 @@ public class EffectPlayer {
             effectPlayer = new EffectPlayer();
         }
         return effectPlayer;
+    }
+    
+    public void destroy() {
+        stopLoop(EnumAudioTypes.WALK_LOOP);
     }
 }

@@ -67,6 +67,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public void stop() {
         super.stop();
         kb.removeListeners();
+        EffectPlayer.getInstace().destroy();
     }
 
     /**

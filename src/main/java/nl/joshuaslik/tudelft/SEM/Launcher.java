@@ -24,7 +24,6 @@ import javafx.stage.Stage;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameplayChoicesController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
-import nl.joshuaslik.tudelft.SEM.sound.MusicLoop;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -61,7 +60,7 @@ public class Launcher extends Application {
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         scaleToScreenSize(BP);
         if (!hideViewForTesting) {
-            MusicLoop.getInstance().start();
+//            MusicLoop.getInstance().start();
             primaryStage.show();
         }
         Launcher.stage = primaryStage;

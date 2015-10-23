@@ -45,6 +45,7 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
 
     /**
      * Update the position.
+     *
      * @param nanoFrameTime the frame time in ns.
      */
     @Override
@@ -70,10 +71,21 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
 
     /**
      * Get the image of the pickup.
+     *
      * @return the image of the pickup.
      */
     public IImageViewObject getPickupImage() {
         return pickupImage;
+    }
+
+    /**
+     * Get the relative x position of the bubble compared to the view.
+     *
+     * @return the relative x position of the bubble compared to the view.
+     */
+    public double getRelativeXPos() {
+        double xPos = pickupImage.getStartX();
+        return xPos / (getGameObjects().getRightBorder() - getGameObjects().getLeftBorder());
     }
 
     /**

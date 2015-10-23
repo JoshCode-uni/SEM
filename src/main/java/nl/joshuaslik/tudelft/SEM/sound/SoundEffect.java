@@ -37,6 +37,21 @@ public class SoundEffect {
             createEcho(balance);
         }
     }
+    
+    /**
+     * Play a sound effect loop.
+     * @param balance the balance of the sound.
+     */
+    protected void playLoop(double balance) {
+        playAudioLoop(1, balance);
+    }
+    
+    /**
+     * Stop a sound effect loop.
+     */
+    protected synchronized void stopLoop() {
+        audio.stop();
+    }
 
     /**
      * Create an echo.
@@ -77,7 +92,17 @@ public class SoundEffect {
      * @param balance the balance.
      */
     private synchronized void playAudio(double volume, double balance) {
-        audio.play(2 * volume, balance, 1, 1, 1);
+        audio.play(volume, balance, 1, 1, 1);
+    }
+    
+    /**
+     * Play the sound effect in a loop.
+     * @param volume the volume.
+     * @param balance the balance.
+     */
+    private synchronized void playAudioLoop(double volume, double balance) {
+        audio.setCycleCount(Integer.MAX_VALUE);
+        audio.play(volume, balance, 1, 1, 1);
     }
 
     /**
