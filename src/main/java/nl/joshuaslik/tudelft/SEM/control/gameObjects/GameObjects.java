@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
+import nl.joshuaslik.tudelft.SEM.control.User;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
@@ -50,6 +51,8 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     private final PickupGenerator pickupGenerator = new PickupGenerator((IGameObjects) this);
     private final ArrayList<Bubble> bubbles = new ArrayList<>();
+    private User user1;
+    private User user2;
     private Player player;
     private Player player2;
 
@@ -200,11 +203,16 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
             return;
         }
+        String[] users = User.getUsers();
+        user1 = new User(users[0]);
         player = new Player((IGameObjects) this, is, keyBoard, false);
+        user1.initializePlayer(player);
         addObject(player);
         if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)
                 || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
-            player2 = new Player((IGameObjects) this, is2, keyBoard, true);
+            user2 = new User(users[1]);
+        	player2 = new Player((IGameObjects) this, is2, keyBoard, true);
+        	user2.initializePlayer(player2);
             addObject(player2);
         }
     }
@@ -625,6 +633,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
     }
     //CHECKSTYLE.ON
 
+<<<<<<< HEAD
     /**
      * Add observers to existing observable objects and make sure they are added to newly created
      * observable objects.
@@ -637,4 +646,13 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
             o.addObserver(observer);
         }
     }
+=======
+	public User getUser() {
+		return user1;
+	}
+	
+	public User getUser2() {
+		return user2;
+	}
+>>>>>>> dev
 }
