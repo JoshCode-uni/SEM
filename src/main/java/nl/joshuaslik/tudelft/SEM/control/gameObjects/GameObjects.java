@@ -633,7 +633,6 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
     }
     //CHECKSTYLE.ON
 
-<<<<<<< HEAD
     /**
      * Add observers to existing observable objects and make sure they are added to newly created
      * observable objects.
@@ -646,7 +645,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
             o.addObserver(observer);
         }
     }
-=======
+    
 	public User getUser() {
 		return user1;
 	}
@@ -654,5 +653,4 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 	public User getUser2() {
 		return user2;
 	}
->>>>>>> dev
 }
