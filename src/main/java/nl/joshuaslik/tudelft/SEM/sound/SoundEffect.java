@@ -118,9 +118,11 @@ public class SoundEffect {
                     control.setValue((float) this.balance);
                 } catch (Exception e) {
                 }
-
+                try {
                 FloatControl control2 = (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
                 control2.setValue(-6);
+                } catch (Exception e) {
+                }
                 soundClip.start();
             }
             catch (InterruptedException ex) {
@@ -148,8 +150,11 @@ public class SoundEffect {
                 control.setValue((float) this.balance);
             } catch (Exception e) {
             }
-            FloatControl control2 = (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
-            control2.setValue((float) (this.volume - 1) * 4);
+            try {
+                FloatControl control2 = (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
+                control2.setValue((float) (this.volume - 1) * 4);
+            } catch (Exception e) {
+            }
             soundClip.loop(loop);
             soundClip.start();
         }
