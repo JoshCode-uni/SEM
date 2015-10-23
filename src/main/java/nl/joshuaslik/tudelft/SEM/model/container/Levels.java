@@ -219,7 +219,7 @@ public class Levels {
             Long time = Long.parseLong(door.getElement("activate").getElement("time_ns").getContent());
             return new TimeDoor(gameObjects, p1, p2, p3, p4, 0, time);
         } else {
-            Integer remaining = Integer.parseInt(door.getElement("activate.remaining").getContent());
+            Integer remaining = Integer.parseInt(door.getElement("activate").getElement("remaining").getContent());
             return new BubbleDoor(gameObjects, p1, p2, p3, p4, remaining);
         }
         
