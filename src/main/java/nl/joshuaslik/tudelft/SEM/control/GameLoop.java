@@ -208,4 +208,12 @@ public class GameLoop extends AnimationTimer implements IDraw {
     final GameController getGameController() {
         return gameController;
     }
+
+	public User getUser1() {
+		return gameObjects.getUser();
+	}
+	
+	public User getUser2() {
+		return gameObjects.getUser2();
+	}
 }
