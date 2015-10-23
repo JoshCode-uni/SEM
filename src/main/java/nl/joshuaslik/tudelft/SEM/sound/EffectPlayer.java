@@ -68,6 +68,17 @@ public class EffectPlayer {
     }
     
     /**
+     * Play a sound loop.
+     * @param audioType enum object containing a sound effect.
+     * @param balance the balance of the sound (between -1 and 1).
+     */
+    public void playLoop(EnumAudioTypes audioType, double balance, double volume) {
+        if (playSound) {
+            audioType.getSound().playLoop(volume, balance);
+        }
+    }
+    
+    /**
      * Stop a sound loop.
      * @param audioType enum object containing a sound effect.
      */

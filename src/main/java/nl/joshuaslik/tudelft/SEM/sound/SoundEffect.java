@@ -20,9 +20,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author Faris
  */
 public class SoundEffect {
-
+    
     private final String audioPath;
-//    private final AudioClip audio;
     private Clip soundClip;
     private boolean echo = true;
     private int loop = 0;
@@ -33,7 +32,6 @@ public class SoundEffect {
      * @param audioPath the path of the audio file.
      */
     protected SoundEffect(String audioPath) {
-//        this.audio = new AudioClip(audioPath);
         this.audioPath = audioPath;
     }
 
@@ -68,6 +66,16 @@ public class SoundEffect {
      */
     protected void playLoop(double balance) {
         playAudioLoop(1, balance);
+    }
+    
+    /**
+     * Play a sound effect loop.
+     *
+     * @param volume the volume.
+     * @param balance the balance of the sound.
+     */
+    protected void playLoop(double volume, double balance) {
+        playAudioLoop(volume, balance);
     }
 
     /**
@@ -104,7 +112,6 @@ public class SoundEffect {
         public void run() {
             try {
                 Thread.sleep(300);
-//                audio.play(0.3, this.balance, 1, 1, 1);
                 initializeClip();
                 try {
                     FloatControl control = (FloatControl) soundClip.getControl(FloatControl.Type.PAN);
@@ -169,7 +176,6 @@ public class SoundEffect {
      * @param balance the balance.
      */
     private synchronized void playAudioLoop(double volume, double balance) {
-//        soundClip.loop(Integer.MAX_VALUE);
         loop = Integer.MAX_VALUE;
         RegularPlayer soundPlayer = new RegularPlayer();
         soundPlayer.volume = volume;

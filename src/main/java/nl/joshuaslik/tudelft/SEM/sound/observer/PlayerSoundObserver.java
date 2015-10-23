@@ -69,7 +69,7 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
     private void handleWalk() {
         if(!walkLoopPlaying) {
             walkLoopPlaying = true;
-            effectPlayer.playLoop(EnumAudioTypes.WALK_LOOP, 0);
+            effectPlayer.playLoop(EnumAudioTypes.WALK_LOOP, 0, 0.2);
         }
     }
     

@@ -86,9 +86,9 @@ public class MusicLoop {
          */
         private void adjustAudio() {
             FloatControl control = (FloatControl) introClip.getControl(FloatControl.Type.MASTER_GAIN);
-            control.setValue(-10f);
+            control.setValue(-25f);
             control = (FloatControl) loopClip.getControl(FloatControl.Type.MASTER_GAIN);
-            control.setValue(-10f);
+            control.setValue(-25f);
         }
     }
 
