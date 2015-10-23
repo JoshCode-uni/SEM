@@ -5,9 +5,14 @@
  */
 package nl.joshuaslik.tudelft.SEM.sound;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.scene.media.AudioClip;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
  * The Sound Effect class can be used to play sound effects like, for example, voices.
@@ -16,8 +21,11 @@ import javafx.scene.media.AudioClip;
  */
 public class SoundEffect {
 
-    private final AudioClip audio;
+    private final String audioPath;
+//    private final AudioClip audio;
+    private Clip soundClip;
     private boolean echo = true;
+    private int loop = 0;
 
     /**
      * Create a sound effect.
@@ -25,7 +33,19 @@ public class SoundEffect {
      * @param audioPath the path of the audio file.
      */
     protected SoundEffect(String audioPath) {
-        this.audio = new AudioClip(audioPath);
+//        this.audio = new AudioClip(audioPath);
+        this.audioPath = audioPath;
+    }
+
+    private void initializeClip() {
+        try {
+            soundClip = AudioSystem.getClip();
+            soundClip.open(AudioSystem.getAudioInputStream(getClass().
+                    getResourceAsStream(audioPath)));
+        }
+        catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
+            Logger.getLogger(SoundEffect.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -54,7 +74,9 @@ public class SoundEffect {
      * Stop a sound effect loop.
      */
     protected synchronized void stopLoop() {
-        audio.stop();
+        if (soundClip != null) {
+            soundClip.stop();
+        }
     }
 
     /**
@@ -82,7 +104,17 @@ public class SoundEffect {
         public void run() {
             try {
                 Thread.sleep(300);
-                audio.play(0.3, this.balance, 1, 1, 1);
+//                audio.play(0.3, this.balance, 1, 1, 1);
+                initializeClip();
+                try {
+                    FloatControl control = (FloatControl) soundClip.getControl(FloatControl.Type.PAN);
+                    control.setValue((float) this.balance);
+                } catch (Exception e) {
+                }
+
+                FloatControl control2 = (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
+                control2.setValue(-6);
+                soundClip.start();
             }
             catch (InterruptedException ex) {
                 Logger.getLogger(SoundEffect.class.getName()).log(Level.SEVERE, null, ex);
@@ -103,7 +135,16 @@ public class SoundEffect {
          */
         @Override
         public void run() {
-            audio.play(this.volume, this.balance, 1, 1, 1);
+            initializeClip();
+            try {
+                FloatControl control = (FloatControl) soundClip.getControl(FloatControl.Type.PAN);
+                control.setValue((float) this.balance);
+            } catch (Exception e) {
+            }
+            FloatControl control2 = (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
+            control2.setValue((float) (this.volume - 1) * 4);
+            soundClip.loop(loop);
+            soundClip.start();
         }
     }
 
@@ -120,7 +161,7 @@ public class SoundEffect {
         Thread t = new Thread(soundPlayer);
         t.start();
     }
-    
+
     /**
      * Play the sound effect in a loop.
      *
@@ -128,7 +169,8 @@ public class SoundEffect {
      * @param balance the balance.
      */
     private synchronized void playAudioLoop(double volume, double balance) {
-        audio.setCycleCount(Integer.MAX_VALUE);
+//        soundClip.loop(Integer.MAX_VALUE);
+        loop = Integer.MAX_VALUE;
         RegularPlayer soundPlayer = new RegularPlayer();
         soundPlayer.volume = volume;
         soundPlayer.balance = balance;
