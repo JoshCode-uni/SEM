@@ -11,6 +11,7 @@ import javafx.scene.media.AudioClip;
 
 /**
  * The Sound Effect class can be used to play sound effects like, for example, voices.
+ *
  * @author Faris
  */
 public class SoundEffect {
@@ -20,6 +21,7 @@ public class SoundEffect {
 
     /**
      * Create a sound effect.
+     *
      * @param audioPath the path of the audio file.
      */
     protected SoundEffect(String audioPath) {
@@ -28,6 +30,7 @@ public class SoundEffect {
 
     /**
      * Play a sound effect.
+     *
      * @param balance the balance of the sound.
      */
     protected void play(double balance) {
@@ -37,15 +40,16 @@ public class SoundEffect {
             createEcho(balance);
         }
     }
-    
+
     /**
      * Play a sound effect loop.
+     *
      * @param balance the balance of the sound.
      */
     protected void playLoop(double balance) {
         playAudioLoop(1, balance);
     }
-    
+
     /**
      * Stop a sound effect loop.
      */
@@ -55,6 +59,7 @@ public class SoundEffect {
 
     /**
      * Create an echo.
+     *
      * @param balance the balance of the sound.
      */
     private void createEcho(double balance) {
@@ -71,14 +76,13 @@ public class SoundEffect {
         private double balance;
 
         /**
-         * The run method of the runnable interface.
-         * Wait 300 milliseconds and then play the echo.
+         * The run method of the runnable interface. Wait 300 milliseconds and then play the echo.
          */
         @Override
         public void run() {
             try {
                 Thread.sleep(300);
-                playAudio(0.25, balance);
+                audio.play(0.3, this.balance, 1, 1, 1);
             }
             catch (InterruptedException ex) {
                 Logger.getLogger(SoundEffect.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,26 +91,54 @@ public class SoundEffect {
     }
 
     /**
+     * A regular sound playing runnable class.
+     */
+    private class RegularPlayer implements Runnable {
+
+        private double volume;
+        private double balance;
+
+        /**
+         * Play the sound.
+         */
+        @Override
+        public void run() {
+            audio.play(this.volume, this.balance, 1, 1, 1);
+        }
+    }
+
+    /**
      * Play the sound effect.
+     *
      * @param volume the volume.
      * @param balance the balance.
      */
     private synchronized void playAudio(double volume, double balance) {
-        audio.play(volume, balance, 1, 1, 1);
+        RegularPlayer soundPlayer = new RegularPlayer();
+        soundPlayer.volume = volume;
+        soundPlayer.balance = balance;
+        Thread t = new Thread(soundPlayer);
+        t.start();
     }
     
     /**
      * Play the sound effect in a loop.
+     *
      * @param volume the volume.
      * @param balance the balance.
      */
     private synchronized void playAudioLoop(double volume, double balance) {
         audio.setCycleCount(Integer.MAX_VALUE);
-        audio.play(volume, balance, 1, 1, 1);
+        RegularPlayer soundPlayer = new RegularPlayer();
+        soundPlayer.volume = volume;
+        soundPlayer.balance = balance;
+        Thread t = new Thread(soundPlayer);
+        t.start();
     }
 
     /**
      * Set the 'should echo' value to true or false.
+     *
      * @param echo if an echo should be played.
      */
     protected void setEcho(boolean echo) {

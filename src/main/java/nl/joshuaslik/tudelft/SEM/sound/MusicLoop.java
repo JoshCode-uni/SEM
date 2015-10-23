@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineEvent;
 import javax.sound.sampled.LineListener;
 import javax.sound.sampled.LineUnavailableException;
@@ -70,6 +71,7 @@ public class MusicLoop {
                         getResourceAsStream(introPath)));
                 loopClip.open(AudioSystem.getAudioInputStream(getClass().
                         getResourceAsStream(loopPath)));
+                adjustAudio();
 
                 introClip.addLineListener(stopEvent);
                 introClip.start();
@@ -77,6 +79,16 @@ public class MusicLoop {
             catch (LineUnavailableException | UnsupportedAudioFileException | IOException ex) {
                 Logger.getLogger(MusicLoop.class.getName()).log(Level.SEVERE, null, ex);
             }
+        }
+
+        /**
+         * Set the audio a bit lower.
+         */
+        private void adjustAudio() {
+            FloatControl control = (FloatControl) introClip.getControl(FloatControl.Type.MASTER_GAIN);
+            control.setValue(-10f);
+            control = (FloatControl) loopClip.getControl(FloatControl.Type.MASTER_GAIN);
+            control.setValue(-10f);
         }
     }
 
@@ -121,7 +133,7 @@ public class MusicLoop {
             }
         }
     }
-    
+
     public boolean isPlaying() {
         synchronized (LOCK) {
             return isPlaying;
