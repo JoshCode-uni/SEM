@@ -23,15 +23,17 @@ public class BubbleSoundObserver implements IObserver<Bubble, Bubble.EventType> 
     private int killingSpree = 0;
     private boolean firstKill = true;
     private final Random rand = new Random();
-    private final boolean utSound = rand.nextBoolean();
+    private final boolean utSounds;
 
     /**
      * Create a bubble observer.
      *
      * @param effectPlayer the effect player which can play the sound.
+     * @param utSounds
      */
-    public BubbleSoundObserver(EffectPlayer effectPlayer) {
+    public BubbleSoundObserver(EffectPlayer effectPlayer, boolean utSounds) {
         this.effectPlayer = effectPlayer;
+        this.utSounds = utSounds;
     }
 
     /**
@@ -86,7 +88,7 @@ public class BubbleSoundObserver implements IObserver<Bubble, Bubble.EventType> 
      * @param balance the balance of the sound.
      */
     private void playFirstBlood(double balance) {
-        if (utSound) {
+        if (utSounds) {
             effectPlayer.play(EnumAudioTypes.UT_FIRST_BLOOD, balance);
         } else {
             effectPlayer.play(EnumAudioTypes.GLADOS_FIRSTBLOOD, balance);
@@ -99,7 +101,7 @@ public class BubbleSoundObserver implements IObserver<Bubble, Bubble.EventType> 
      * @param balance the balance of the sound.
      */
     private void decideKillSound(double balance) {
-        if (utSound) {
+        if (utSounds) {
             decideUtKillSound(balance);
         } else {
             decideGladdosKillSound(balance);

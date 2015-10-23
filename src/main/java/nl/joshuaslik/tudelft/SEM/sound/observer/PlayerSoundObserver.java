@@ -21,14 +21,17 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
     private final EffectPlayer effectPlayer;
     private final Random rand = new Random();
     private boolean walkLoopPlaying = false;
+    private final boolean utSounds;
 
     /**
      * Create a player observer.
      *
      * @param effectPlayer the effect player which can play the sound.
+     * @param utSounds if the UT sounds should be used (else gladdos is used).
      */
-    public PlayerSoundObserver(EffectPlayer effectPlayer) {
+    public PlayerSoundObserver(EffectPlayer effectPlayer, boolean utSounds) {
         this.effectPlayer = effectPlayer;
+        this.utSounds = utSounds;
     }
 
     /**
@@ -42,7 +45,7 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
         double balance = player.getRelativeXPos() * 1.8 - 0.9;
         switch (event) {
             case DIED:
-                effectPlayer.play(EnumAudioTypes.UT_HUMILIATING_DEFEAT);
+                handleDiedSound();
                 break;
             case SHOOT:
                 handleShoot(balance);
@@ -57,7 +60,22 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
                 throw new AssertionError();
         }
     }
+    
+    /**
+     * Play sound: the player died.
+     */
+    private void handleDiedSound() {
+        if (utSounds) {
+            effectPlayer.play(EnumAudioTypes.UT_HUMILIATING_DEFEAT);
+        } else {
+            effectPlayer.play(EnumAudioTypes.GLADOS_UNCATEGORIZED);
+        }
+    }
 
+    /**
+     * Play sound: the player shoots.
+     * @param balance the balance of the sound.
+     */
     private void handleShoot(double balance) {
         if (rand.nextBoolean()) {
             effectPlayer.play(EnumAudioTypes.SHOOT_1, balance);
@@ -66,6 +84,9 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
         }
     }
 
+    /**
+     * Play sound: the player is walking.
+     */
     private void handleWalk() {
         if(!walkLoopPlaying) {
             walkLoopPlaying = true;
@@ -73,6 +94,9 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
         }
     }
     
+    /**
+     * Stop playing sound: the player is walking.
+     */
     private void handleNotWalking() {
         if(walkLoopPlaying) {
             walkLoopPlaying = false;

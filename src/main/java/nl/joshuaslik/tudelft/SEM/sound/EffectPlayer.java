@@ -5,6 +5,7 @@
  */
 package nl.joshuaslik.tudelft.SEM.sound;
 
+import java.util.Random;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IOberservableGameObjectContainer;
 import nl.joshuaslik.tudelft.SEM.sound.observer.BubbleSoundObserver;
 import nl.joshuaslik.tudelft.SEM.sound.observer.PickupSoundObserver;
@@ -32,8 +33,9 @@ public class EffectPlayer {
      * @param ob the object to add observers to.
      */
     public void addListenersTo(IOberservableGameObjectContainer ob) {
-        ob.addObserver(new BubbleSoundObserver(this));
-        ob.addObserver(new PlayerSoundObserver(this));
+        boolean utSounds = new Random().nextBoolean();
+        ob.addObserver(new BubbleSoundObserver(this, utSounds));
+        ob.addObserver(new PlayerSoundObserver(this, utSounds));
         ob.addObserver(new PickupSoundObserver(this));
     }
 
