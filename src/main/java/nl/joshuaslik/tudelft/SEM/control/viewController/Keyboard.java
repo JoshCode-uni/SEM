@@ -1,5 +1,6 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
+import java.util.ArrayList;
 import java.util.BitSet;
 
 import javafx.event.EventHandler;
@@ -19,9 +20,9 @@ public class Keyboard implements IKeyboard {
 
     private BitSet keyboard = new BitSet();
 
-    private static final KeyCode spLeftKey = KeyCode.LEFT;
-    private static final KeyCode spRightKey = KeyCode.RIGHT;
-    private static final KeyCode spShoot = KeyCode.SPACE;
+    private static KeyCode leftKey = KeyCode.LEFT;
+    private static KeyCode rightKey = KeyCode.RIGHT;
+    private static KeyCode shoot = KeyCode.SPACE;
     private static final KeyCode mpLeftKey = KeyCode.A;
     private static final KeyCode mpRightKey = KeyCode.D;
     private static final KeyCode mp2Shoot = KeyCode.W;
@@ -76,7 +77,7 @@ public class Keyboard implements IKeyboard {
     @Override
     public boolean isMoveLeft(boolean p2) {
         if (!p2) {
-            return keyboard.get(spLeftKey.ordinal()) && !keyboard.get(spRightKey.ordinal());
+            return keyboard.get(leftKey.ordinal()) && !keyboard.get(rightKey.ordinal());
         } else if ((GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) && p2) {
             return keyboard.get(mpLeftKey.ordinal()) && !keyboard.get(mpRightKey.ordinal());
         }
@@ -92,7 +93,7 @@ public class Keyboard implements IKeyboard {
     @Override
     public boolean isMoveRight(boolean p2) {
         if (!p2) {
-            return keyboard.get(spRightKey.ordinal()) && !keyboard.get(spLeftKey.ordinal());
+            return keyboard.get(rightKey.ordinal()) && !keyboard.get(leftKey.ordinal());
         } else if ((GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) && p2) {
             return keyboard.get(mpRightKey.ordinal()) && !keyboard.get(mpLeftKey.ordinal());
         }
@@ -108,7 +109,7 @@ public class Keyboard implements IKeyboard {
     @Override
     public boolean isShoot(boolean p2) {
         if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER) && !p2) {
-            return keyboard.get(spShoot.ordinal());
+            return keyboard.get(shoot.ordinal());
         } else if (!p2) {
             return keyboard.get(mpShoot.ordinal());
         } else if (p2) {
@@ -123,5 +124,11 @@ public class Keyboard implements IKeyboard {
 
     void setBitSet(BitSet kb) {
         keyboard = kb;
+    }
+    
+    void setKeyCode(ArrayList<KeyCode> keyCodes){
+    	leftKey = keyCodes.get(0);
+    	rightKey = keyCodes.get(1);
+    	shoot = keyCodes.get(2);
     }
 }
