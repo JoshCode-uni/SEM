@@ -15,7 +15,7 @@ import javafx.scene.media.AudioClip;
  * @author Faris
  */
 public class SoundEffect {
-
+    
     private final AudioClip audio;
     private boolean echo = true;
 
