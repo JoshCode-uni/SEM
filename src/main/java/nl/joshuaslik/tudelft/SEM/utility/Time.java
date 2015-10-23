@@ -1,7 +1,8 @@
 package nl.joshuaslik.tudelft.SEM.utility;
 
 /**
- * Created by Joshua on 09/10/2015.
+ * Store public time variables. 
+ * @Author Joshua
  */
 public class Time {
 

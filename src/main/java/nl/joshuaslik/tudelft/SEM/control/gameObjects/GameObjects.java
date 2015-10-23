@@ -8,6 +8,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +28,8 @@ import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import nl.joshuaslik.tudelft.SEM.model.container.Vector;
+import nl.joshuaslik.tudelft.SEM.utility.IObservable;
+import nl.joshuaslik.tudelft.SEM.utility.IObserver;
 import org.apache.commons.lang3.ClassUtils;
 
 /**
@@ -35,12 +38,13 @@ import org.apache.commons.lang3.ClassUtils;
  *
  * @author faris
  */
-public class GameObjects implements IUpdateable, IGameObjects {
+public class GameObjects implements IUpdateable, IGameObjects, IOberservableGameObjectContainer {
 
     private final ArrayList<IUpdateable> updateableObjects = new ArrayList<>();
     private final ArrayList<IPrepareable> prepUpdateableObjects = new ArrayList<>();
     private final ArrayList<ICollider> colliderObjects = new ArrayList<>();
     private final ArrayList<IIntersectable> intersectableObjects = new ArrayList<>();
+    private final ArrayList<IObservable> oberservableObjects = new ArrayList<>();
 
     private final ArrayList<IPhysicsObject> addObjectBuffer = new ArrayList<>();
     private final ArrayList<IPhysicsObject> removeObjectBuffer = new ArrayList<>();
@@ -62,6 +66,8 @@ public class GameObjects implements IUpdateable, IGameObjects {
     private int score = 0;
 
     private final IDraw draw;
+    
+    private final ArrayList<IObserver> observerList = new ArrayList<>();
 
     /**
      * Construct all required objects for the given level.
@@ -256,20 +262,27 @@ public class GameObjects implements IUpdateable, IGameObjects {
             if (object == null) {
                 continue;
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
+            List<Class<?>> interfaces = ClassUtils.getAllInterfaces(object.getClass());
+            if (interfaces.contains(IUpdateable.class)) {
                 updateableObjects.add((IUpdateable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IPrepareable.class)) {
+            if (interfaces.contains(IPrepareable.class)) {
                 prepUpdateableObjects.add((IPrepareable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IIntersectable.class)) {
+            if (interfaces.contains(IIntersectable.class)) {
                 intersectableObjects.add((IIntersectable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
+            if (interfaces.contains(ICollider.class)) {
                 colliderObjects.add((ICollider) object);
             }
             if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.add((Bubble) object);
+            }
+            if (interfaces.contains(IObservable.class)) {
+                oberservableObjects.add((IObservable) object);
+                for(IObserver o : observerList) {
+                    ((IObservable) object).addObserver(o);
+                }
             }
         }
         addObjectBuffer.clear();
@@ -283,21 +296,28 @@ public class GameObjects implements IUpdateable, IGameObjects {
             if (object == null) {
                 continue;
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IUpdateable.class)) {
+            List<Class<?>> interfaces = ClassUtils.getAllInterfaces(object.getClass());
+            if (interfaces.contains(IUpdateable.class)) {
                 updateableObjects.remove((IUpdateable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IPrepareable.class)) {
+            if (interfaces.contains(IPrepareable.class)) {
                 prepUpdateableObjects.remove((IPrepareable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(IIntersectable.class)) {
+            if (interfaces.contains(IIntersectable.class)) {
                 intersectableObjects.remove((IIntersectable) object);
             }
-            if (ClassUtils.getAllInterfaces(object.getClass()).contains(ICollider.class)) {
+            if (interfaces.contains(ICollider.class)) {
                 colliderObjects.remove((ICollider) object);
             }
             if (Bubble.class.isAssignableFrom(object.getClass())) {
                 bubbles.remove((Bubble) object);
                 score += 10;
+            }
+            if (interfaces.contains(IObservable.class)) {
+                oberservableObjects.remove((IObservable) object);
+                for(IObserver o : observerList) {
+                    ((IObservable) object).deleteObserver(o);
+                }
             }
         }
         removeObjectBuffer.clear();
@@ -402,11 +422,11 @@ public class GameObjects implements IUpdateable, IGameObjects {
             }
             if (player.isDead()) {
                 removeObject(player);
-                player.getImage().destroy();
+                player.destroy();
             }
             if (player2.isDead()) {
                 removeObject(player2);
-                player2.getImage().destroy();
+                player2.destroy();
             }
 
         } else if (isActive) {
@@ -490,42 +510,72 @@ public class GameObjects implements IUpdateable, IGameObjects {
         return draw.makeImage(is, width, height);
     }
 
+    /**
+     * Get the player.
+     * @return the player.
+     */
     @Override
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Get player 2.
+     * @return player 2.
+     */
     @Override
     public Player getPlayer2() {
         return player2;
     }
 
+    /**
+     * Handle modifier collision.
+     * @param mod the modifier.
+     * @param isPlayerModifier if it is a player modifier.
+     * @param isBubbleModifier if it is a bubble modifier.
+     */
     @Override
-    public void handleModifierCollision(final Object mod, final boolean isPlayerPickup, final boolean isBubblePickup) {
-        if (isPlayerPickup) {
+    public void handleModifierCollision(final Object mod, final boolean isPlayerModifier, 
+            final boolean isBubbleModifier) {
+        if (isPlayerModifier) {
             player.addModifier((AbstractPlayerDecorator) mod);
-        } else if (isBubblePickup) {
+        } else if (isBubbleModifier) {
             for (Bubble b : bubbles) {
                 b.addModifier((AbstractBubbleDecorator) mod);
             }
         }
     }
 
+    /**
+     * Handle pickup generation after bubble splitting.
+     * @param p point at which the split occured.
+     */
     @Override
     public void handleBubbleSplit(final Point p) {
         pickupGenerator.generatePickup(p);
     }
 
+    /**
+     * Add points.
+     * @param points amount of points to add.
+     */
     @Override
     public void addPoints(final int points) {
         score += points;
     }
 
+    /**
+     * Add a life.
+     */
     @Override
     public void addLife() {
         draw.addLife();
     }
 
+    /**
+     * The amount of bubbles left in the game.
+     * @return amount of bubbles left.
+     */
     @Override
     public int bubblesLeft() {
         return bubbles.size();
@@ -533,32 +583,69 @@ public class GameObjects implements IUpdateable, IGameObjects {
 
     //CHECKSTYLE.OFF
     //Methods for testing purposes
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @param draw gameobjects instance.
+     */
     GameObjects(final IDraw draw) {
         this.draw = draw;
         addBufferedDynamicObjects();
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @param bubble a bubble.
+     */
     protected void addBubbles(final Bubble bubble) {
         bubbles.add(bubble);
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return all prepareable objects.
+     */
     protected ArrayList<IPrepareable> getPrepareUpdateable() {
         return prepUpdateableObjects;
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return all updateable objects.
+     */
     protected ArrayList<IUpdateable> getUpdateable() {
         return updateableObjects;
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return all collider objects.
+     */
     protected ArrayList<ICollider> getCollider() {
         return colliderObjects;
     }
 
+    /**
+     * FOR TESTING PURPOSES ONLY.
+     * @return all intersectable objects.
+     */
     protected ArrayList<IIntersectable> getIntersectable() {
         return intersectableObjects;
     }
     //CHECKSTYLE.ON
 
+    /**
+     * Add observers to existing observable objects and make sure they are added to newly created
+     * observable objects.
+     * @param observer an observer.
+     */
+    @Override
+    public void addObserver(IObserver observer) {
+        observerList.add(observer);
+        for(IObservable o : oberservableObjects) {
+            o.addObserver(observer);
+        }
+    }
+    
 	public User getUser() {
 		return user1;
 	}

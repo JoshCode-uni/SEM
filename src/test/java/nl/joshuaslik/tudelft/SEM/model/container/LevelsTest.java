@@ -12,6 +12,10 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import static org.mockito.Mockito.when;
 
+/**
+ * Test the levels class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class LevelsTest {
 
@@ -30,22 +34,27 @@ public class LevelsTest {
         Levels.setUnlockedLevel(0);
     }
 
+    /**
+     * Test the amountOfLevels method.
+     */
     @Test
     public void testAmountOfLevels() {
         assertEquals(Levels.amountOfLevels(), 4);
         assertNotEquals(Levels.amountOfLevels(), 7);
     }
 
+    /**
+     * Test the getLevel [0] method.
+     */
     @Test
     public void testGetLevel0() {
         when(gameObjects.makeCircle(200, 500, 20)).thenReturn(circle);
         assertEquals(Levels.getLevelObjects(gameObjects).size(), 1);
     }
 
-    @Test
-    public void testGetLevel1() {
-    }
-
+    /**
+     * Test the next level method.
+     */
     @Test
     public void testNextLevel() {
         Levels.setCurrentLevel(0);
@@ -53,6 +62,9 @@ public class LevelsTest {
         assertEquals(Levels.getCurrentLevel(), 1);
     }
 
+    /**
+     * Test the last level.
+     */
     @Test
     public void testLastLevel() {
         Levels.setCurrentLevel(4);
@@ -60,6 +72,9 @@ public class LevelsTest {
         assertEquals(Levels.getCurrentLevel(), 1);
     }
 
+    /**
+     * Test theunlockedLevels method.
+     */
     @Test
     public void testUnlockedLevel() {
         assertEquals(0, Levels.getUnlockedLevel());

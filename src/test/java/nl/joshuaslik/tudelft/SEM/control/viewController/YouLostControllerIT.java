@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 /**
- *
+ * Test the you lost view controller class with an integration test.
  * @author Faris
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)

@@ -6,6 +6,10 @@ import javafx.scene.control.PopupControl;
 import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
+/**
+ * Controller class of the view which is shown when you've lost a level.
+ * @author Faris
+ */
 public class YouLostController implements IpopupController {
 
     @FXML

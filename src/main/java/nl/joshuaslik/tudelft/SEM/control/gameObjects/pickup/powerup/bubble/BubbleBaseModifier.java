@@ -6,12 +6,17 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble;
 
 /**
+ * The base modifier of all bubbles.
  * @author faris
  */
 public class BubbleBaseModifier implements IBubbleModifier {
 
+    /**
+     * Default speed modifier.
+     * @return the default speed modifier.
+     */
     @Override
-    public double getBubbleSpeedModifier() {
+    public double getBubbleSpeedMultiplier() {
         return 1.0;
     }
 }

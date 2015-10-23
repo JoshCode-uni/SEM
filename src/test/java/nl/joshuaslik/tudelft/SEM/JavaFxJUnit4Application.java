@@ -27,7 +27,7 @@ public class JavaFxJUnit4Application extends Launcher {
     /**
      * Started flag.
      */
-    private static AtomicBoolean started = new AtomicBoolean();
+    private static final AtomicBoolean started = new AtomicBoolean();
 
     /**
      * Start JavaFx.
@@ -35,20 +35,12 @@ public class JavaFxJUnit4Application extends Launcher {
     public static void startJavaFx() {
         setHideViewForTesting(true);
         try {
-            // Lock or wait. This gives another call to this method time to finish
-            // and release the lock before another one has a go
             LOCK.lock();
-
             if (!started.get()) {
-                // start the JavaFX application
                 final ExecutorService executor = Executors.newSingleThreadExecutor();
-                executor.execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        JavaFxJUnit4Application.launch();
-                    }
+                executor.execute(() -> {
+                    JavaFxJUnit4Application.launch();
                 });
-
                 while (!started.get()) {
                     Thread.yield();
                 }

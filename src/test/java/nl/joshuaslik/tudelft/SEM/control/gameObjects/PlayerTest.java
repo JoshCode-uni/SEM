@@ -314,15 +314,5 @@ public class PlayerTest {
         doNothing().when(lv).setOpacity(0.8);
         when(gameObjects.makeLine(0.0, -2.0, 0.0, -3.0)).thenReturn(lv);
         player.makeProjectile(gameObjects, 0.0, 0.0);
-
-    }
-
-    /**
-     * Tests if the correct image is returned by the getter
-     */
-    @Test
-    public void testGetImage() {
-        assertEquals(image, player.getImage());
-
     }
 }

@@ -39,7 +39,6 @@ public class YouWonController implements IpopupController {
     /**
      * Handles clicking of the next level button
      */
-    //Needs to change
     @FXML
     private void handleNextLevelButton() {
         GameLog.addInfoLog("Next level button pressed from you won screen");
@@ -49,15 +48,27 @@ public class YouWonController implements IpopupController {
         GameController.loadView();
     }
 
+    /**
+     * Load a popup.
+     * @param controller the controller of the view which want to load the popup.
+     */
     public static void loadPopup(final IviewController controller) {
         Launcher.loadPopup(controller, Class.class.getResource("/data/gui/pages/YouWon.fxml"));
     }
 
+    /**
+     * Set the main view controller.
+     * @param controller the controller of the main view.
+     */
     @Override
     public void setMainViewController(final IviewController controller) {
         mainController = controller;
     }
 
+    /**
+     * Set the popup controller.
+     * @param popupControl the controller of the popup view.
+     */
     @Override
     public void setPopupControl(final PopupControl popupControl) {
         this.popupControl = popupControl;

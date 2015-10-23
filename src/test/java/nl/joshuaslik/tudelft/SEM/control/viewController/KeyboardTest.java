@@ -2,8 +2,6 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import static org.junit.Assert.*;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
@@ -11,12 +9,10 @@ import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 
 import java.util.BitSet;
@@ -24,6 +20,10 @@ import java.util.BitSet;
 import org.mockito.runners.MockitoJUnitRunner;
 import javafx.scene.Scene;
 
+/**
+ * Keyboard test class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class KeyboardTest {
 

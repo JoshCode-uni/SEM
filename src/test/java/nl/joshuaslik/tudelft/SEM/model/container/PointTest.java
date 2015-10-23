@@ -6,19 +6,29 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test the point class.
+ * @author Faris
+ */
 public class PointTest {
 
     private Point point1;
     private Point point2;
     private Point point3;
 
+    /**
+     * Initialize the variables.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         point1 = new Point(20, 20);
         point2 = new Point(25, 25);
         point3 = new Point(20, 20);
     }
 
+    /**
+     * Test the constructor and equals.
+     */
     @Test
     public void testPoint() {
         assertEquals(point1, point3);

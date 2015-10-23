@@ -14,6 +14,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Test the line class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class LineTest {
 

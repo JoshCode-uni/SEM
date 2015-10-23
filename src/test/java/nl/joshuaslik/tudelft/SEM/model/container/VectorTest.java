@@ -8,6 +8,10 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test the vector class.
+ * @author Faris
+ */
 public class VectorTest {
 
     private Vector vec1;
@@ -19,8 +23,11 @@ public class VectorTest {
     private Point p1;
     private Point p2;
 
+    /**
+     * Initialize the variables.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         vec1 = new Vector(5, 2);
         vec2 = new Vector(5, 3);
         vec3 = new Vector(5, 2);
@@ -32,7 +39,7 @@ public class VectorTest {
     }
 
     /**
-     * Test initialization
+     * Test initialization.
      */
     @Test
     public void testVector() {
@@ -43,7 +50,7 @@ public class VectorTest {
     }
 
     /**
-     * Test correctly calculated intersectionpoint
+     * Test correctly calculated intersectionpoint.
      */
     @Test
     public void testGetIntersectionPoint() {

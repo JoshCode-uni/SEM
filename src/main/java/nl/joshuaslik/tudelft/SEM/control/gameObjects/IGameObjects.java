@@ -119,17 +119,46 @@ public interface IGameObjects {
      */
     IImageViewObject makeImage(InputStream is, double height, double width);
 
+    /**
+     * Get the player.
+     * @return the player.
+     */
     Player getPlayer();
 
-    void handleModifierCollision(Object pickup, boolean isPlayerPickup, boolean isBubblePickup);
+    /**
+     * Handle modifier collision.
+     * @param modifier the modifier.
+     * @param isPlayerPickup if it is a player modifier.
+     * @param isBubblePickup if it is a bubble modifier
+     */
+    void handleModifierCollision(Object modifier, boolean isPlayerPickup, boolean isBubblePickup);
 
+    /**
+     * Hand;e bubble splitting.
+     * @param p the point at which the bubble was split.
+     */
     void handleBubbleSplit(Point p);
 
+    /**
+     * Add point.
+     * @param points amount of points to add.
+     */
     void addPoints(int points);
 
+    /**
+     * Add a life.
+     */
     void addLife();
 
+    /**
+     * Amount of bubbles left.
+     * @return amount of bubbles left.s
+     */
     int bubblesLeft();
 
+    /**
+     * Get player 2.
+     * @return player 2.
+     */
     Player getPlayer2();
 }

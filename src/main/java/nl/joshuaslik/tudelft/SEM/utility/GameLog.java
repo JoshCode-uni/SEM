@@ -7,6 +7,10 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * The logger class.
+ * @author Faris
+ */
 public class GameLog {
 
     private static PrintWriter pw;

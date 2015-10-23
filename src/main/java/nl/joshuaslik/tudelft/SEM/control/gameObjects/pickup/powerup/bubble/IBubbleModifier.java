@@ -6,9 +6,14 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble;
 
 /**
+ * The buble modifier interface.
  * @author faris
  */
 public interface IBubbleModifier {
 
-    double getBubbleSpeedModifier();
+    /**
+     * Get the speed multiplier of the bubble.
+     * @return the speed multiplier.
+     */
+    double getBubbleSpeedMultiplier();
 }

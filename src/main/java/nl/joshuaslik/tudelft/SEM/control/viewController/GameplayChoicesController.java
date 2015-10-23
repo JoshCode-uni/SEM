@@ -13,6 +13,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PopupControl;
 import javafx.scene.control.TextField;
 
+/**
+ * Controller of the popup which allows you to choose names, game mode, etc.
+ * @author Faris
+ */
 public class GameplayChoicesController implements IpopupController {
 
     @FXML
@@ -56,7 +60,6 @@ public class GameplayChoicesController implements IpopupController {
                         GameInfo.getInstance().setPlayerName(1, username2);
                         if (coopVersusChoice.getValue().equals("Co-op")) {
                             GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
-
                         }
                         if (coopVersusChoice.getValue().equals("Versus")) {
                             GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_VERSUS);
@@ -85,12 +88,20 @@ public class GameplayChoicesController implements IpopupController {
                 Class.class.getResource("/data/gui/pages/GameplayChoices.fxml"));
     }
 
+    /**
+     * Set the controller of the main view.
+     * @param controller the controller of the main view.
+     */
     @Override
     public void setMainViewController(IviewController controller) {
         mainController = controller;
 
     }
 
+    /**
+     * Set the controller of the popup.
+     * @param popupControl the controller of the popup.
+     */
     @Override
     public void setPopupControl(PopupControl popupControl) {
         this.popupControl = popupControl;
@@ -118,5 +129,4 @@ public class GameplayChoicesController implements IpopupController {
         gameModeLabel.setVisible(visible);
         coopVersusChoice.setVisible(visible);
     };
-
 }
