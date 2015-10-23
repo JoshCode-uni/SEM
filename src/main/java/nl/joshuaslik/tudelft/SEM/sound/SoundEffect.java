@@ -49,6 +49,15 @@ public class SoundEffect {
     protected void playLoop(double balance) {
         playAudioLoop(1, balance);
     }
+    
+    /**
+     * Play a sound effect loop.
+     *
+     * @param balance the balance of the sound.
+     */
+    protected void playLoop(double volume, double balance) {
+        playAudioLoop(volume, balance);
+    }
 
     /**
      * Stop a sound effect loop.
