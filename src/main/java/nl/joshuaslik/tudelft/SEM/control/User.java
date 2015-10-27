@@ -11,7 +11,7 @@ public class User {
 	private static String user1;
 	private static String user2;
 	private String name;
-	private int Score = 0;
+	private int score = 0;
 	private Player player;
 	private int survivalScore;
 	private final ArrayList<Integer> singlePlayerScore;
@@ -70,7 +70,7 @@ public class User {
 		for (int score: multiPlayerVsScore){
 			scores+=score;
 		}
-		Score = scores;
+		score = scores;
 	}
 	
 	public static void setUsers(String user1a, String user2a) {

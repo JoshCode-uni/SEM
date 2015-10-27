@@ -1,28 +1,38 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PopupControl;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import nl.joshuaslik.tudelft.SEM.control.Highscore;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
-public class highscoresController implements IpopupController{
+public class HighscoresController implements IpopupController{
 
     @FXML
     private Button returnButton;
 
-	//@FXML
-	//private TableView<User> highscoresTable;
-	//@FXML
-	//private TableColumn<User, Int> score;
-	//@FXML
-	//private TableColumn<User, String> name;
+	@FXML
+	private TableView<Highscore> highscoresTable;
+	@FXML
+	private TableColumn<Highscore, Number> score;
+	@FXML
+	private TableColumn<Highscore, String> name;
     
     private IviewController mainController;
     private PopupControl popupControl;
 
+	@FXML
+	private void initialize() {
+		score.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getTotalScore()));
+        name.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+//		highscoresTable.setItems(null);
+	}
+	
     /**
      * Handles clicking of the return button
      */

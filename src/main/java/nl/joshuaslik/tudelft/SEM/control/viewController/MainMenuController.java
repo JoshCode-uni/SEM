@@ -137,7 +137,7 @@ public class MainMenuController implements IviewController {
     protected void handleHighscoresButton() {
         GameLog.addInfoLog("Highscores button pressed from main menu");
         System.out.println("Highscores button pressed!");
-        highscoresController.loadPopup(this);
+        HighscoresController.loadPopup(this);
     }
     
     /**
