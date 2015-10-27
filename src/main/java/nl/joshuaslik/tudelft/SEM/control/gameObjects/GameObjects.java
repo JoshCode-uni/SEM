@@ -17,6 +17,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameplayChoicesController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
@@ -76,6 +77,7 @@ public class GameObjects implements IUpdateable, IGameObjects {
     public GameObjects(final IDraw draw, final double topBorder, final double rightBorder, final double bottomBorder,
             final double leftBorder, final IKeyboard keyBoard) {
         this.draw = draw;
+        setUsers();
         initializeBorders(topBorder, rightBorder, bottomBorder, leftBorder);
         initializePlayer(keyBoard);
         initializeLevel();
@@ -197,14 +199,11 @@ public class GameObjects implements IUpdateable, IGameObjects {
             Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
             return;
         }
-        String[] users = User.getUsers();
-        user1 = new User(users[0]);
         player = new Player((IGameObjects) this, is, keyBoard, false);
         user1.initializePlayer(player);
         addObject(player);
         if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)
                 || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
-            user2 = new User(users[1]);
         	player2 = new Player((IGameObjects) this, is2, keyBoard, true);
         	user2.initializePlayer(player2);
             addObject(player2);
@@ -559,6 +558,24 @@ public class GameObjects implements IUpdateable, IGameObjects {
     }
     //CHECKSTYLE.ON
 
+    /**
+     * Add observers to existing observable objects and make sure they are added to newly created
+     * observable objects.
+     * @param observer an observer.
+     */
+    @Override
+    public void addObserver(IObserver observer) {
+        observerList.add(observer);
+        for(IObservable o : oberservableObjects) {
+            o.addObserver(observer);
+        }
+    }
+    private void setUsers() {
+    	user1 = GameplayChoicesController.getUser();
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)||GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)) {
+        	user2 = GameplayChoicesController.getUser2();
+        }
+    }
 	public User getUser() {
 		return user1;
 	}

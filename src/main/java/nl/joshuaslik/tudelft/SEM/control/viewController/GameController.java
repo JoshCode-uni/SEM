@@ -204,6 +204,7 @@ public class GameController implements IviewController {
             GameLog.addInfoLog("Player completed level: " + Levels.getCurrentLevel());
             GameLog.addInfoLog("level score: " + totalScore);
             gl.getUser1().setSinglePlayerScore();
+            gl.getUser1().calculateTotalScore();
     //        GameInfo.getInstance().setLevelScore(Levels.getCurrentLevel(), totalScore);
         } else if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)) {
             int totalScore = gl.getScore() + (int) (timeLeft / 100_000_000.0);
@@ -213,12 +214,14 @@ public class GameController implements IviewController {
             GameLog.addInfoLog("level score: " + totalScore);
             gl.getUser1().setCoopScore();
             gl.getUser2().setCoopScore();
+            gl.getUser1().calculateTotalScore();
         //    GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
          //   GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), totalScore);
         } else {
  //           GameInfo.getInstance().setPlayer1LevelScore(Levels.getCurrentLevel(), gl.getPlayer1Score());
  //           GameInfo.getInstance().setPlayer2LevelScore(Levels.getCurrentLevel(), gl.getPlayer2Score());
             gl.getUser1().setVsScore();
+            gl.getUser1().calculateTotalScore();
             gl.getUser2().setVsScore();
         }
     }

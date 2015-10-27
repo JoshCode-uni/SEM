@@ -11,7 +11,7 @@ public class User {
 	private static String user1;
 	private static String user2;
 	private String name;
-	private int score = 0;
+	private static int score = 0;
 	private Player player;
 	private int survivalScore;
 	private final ArrayList<Integer> singlePlayerScore;
@@ -73,16 +73,8 @@ public class User {
 		score = scores;
 	}
 	
-	public static void setUsers(String user1a, String user2a) {
-		user1=user1a;
-		user2=user2a;
-	}
-	
-	public static String[] getUsers() {
-		String[] users = new String[2];
-		users[0]=user1;
-		users[1]=user2;
-		return users;
+	public static int getTotalScore(){
+		return score;
 	}
 
 	public String getName() {

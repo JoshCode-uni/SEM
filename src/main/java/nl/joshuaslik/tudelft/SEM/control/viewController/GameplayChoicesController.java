@@ -1,6 +1,7 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
+import nl.joshuaslik.tudelft.SEM.control.User;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
@@ -26,6 +27,8 @@ public class GameplayChoicesController implements IpopupController {
 
     private IviewController mainController;
     private PopupControl popupControl;
+    
+    private static User gUser1, gUser2;
 
     /**
      * Handles clicking of the start button
@@ -44,6 +47,7 @@ public class GameplayChoicesController implements IpopupController {
         String username1 = user1.getText();
         String username2 = user2.getText();
         if (!(username1.equals(""))) {
+        	gUser1 = new User(username1);
             if ((username1.equals(""))) {
                 return;
             }
@@ -56,7 +60,7 @@ public class GameplayChoicesController implements IpopupController {
                         GameInfo.getInstance().setPlayerName(1, username2);
                         if (coopVersusChoice.getValue().equals("Co-op")) {
                             GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
-
+                            gUser2 = new User(username2);
                         }
                         if (coopVersusChoice.getValue().equals("Versus")) {
                             GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_VERSUS);
@@ -118,5 +122,12 @@ public class GameplayChoicesController implements IpopupController {
         gameModeLabel.setVisible(visible);
         coopVersusChoice.setVisible(visible);
     };
-
+    
+    public static User getUser() {
+    	return gUser1;
+    }
+    
+    public static User getUser2() {
+    	return gUser2;
+    }
 }
