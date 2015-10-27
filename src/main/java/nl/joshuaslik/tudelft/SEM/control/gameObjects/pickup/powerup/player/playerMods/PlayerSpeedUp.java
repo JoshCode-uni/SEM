@@ -9,12 +9,14 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.Abstr
 
 /**
  * Speed up modifier of the player.
+ *
  * @author faris
  */
 public class PlayerSpeedUp extends AbstractPlayerDecorator {
 
     /**
      * Increase the speed of the player.
+     *
      * @return increased speed of the player.
      */
     @Override
@@ -24,6 +26,7 @@ public class PlayerSpeedUp extends AbstractPlayerDecorator {
 
     /**
      * Default speed of the projectile.
+     *
      * @return speed of the projectile.
      */
     @Override
@@ -33,6 +36,7 @@ public class PlayerSpeedUp extends AbstractPlayerDecorator {
 
     /**
      * Default delay of the projectile.
+     *
      * @return delay of the projectile.
      */
     @Override

@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -28,33 +30,23 @@ public class SAXParser extends DefaultHandler {
     private final ArrayList<XMLTag> tagstack = new ArrayList<>();
     private boolean inElement = false;
 
-    /*
-     * public SAXParser() { }
-     */
     /**
      * parsing a file as an xml file
      *
-     * @param filename is a string for the name of the xml file
+     * @param is is a input stream of the xml file
      * @return the xml file
      */
-    public static XMLFile parseFile(String filename) {
-        filename = filename.replace("\\", "/");
+    public static XMLFile parseFile(InputStream is) {
         XMLReader xr;
         SAXParser handler = new SAXParser();
         try {
             xr = XMLReaderFactory.createXMLReader();
             xr.setContentHandler(handler);
             xr.setErrorHandler(handler);
-            InputStream is = Class.class.getResourceAsStream(filename);
             xr.parse(new InputSource(is));
         }
-        catch (IOException | NullPointerException e) {
-            System.err.println("File \"" + filename + "\" does not exist");
-        }
-        catch (SAXException e) {
-            System.err.println("Something went wrong parsing the file: \""
-                    + filename + "\"");
-            System.err.println(e.getMessage());
+        catch (IOException | NullPointerException | SAXException e) {
+            Logger.getLogger(SAXParser.class.getName()).log(Level.SEVERE, null, e);
         }
         return handler.getXMLFile();
     }
@@ -113,32 +105,46 @@ public class SAXParser extends DefaultHandler {
         return handler.getXMLFile();
     }
 
-    // //////////////////////////////////////////////////////////////////
-    // Event handlers.
-    // //////////////////////////////////////////////////////////////////
+    /**
+     * Start of document: do nothing.
+     */
     @Override
     public void startDocument() {
     }
 
+    /**
+     * End of document: create xml file.
+     */
     @Override
     public void endDocument() {
         this.file = new XMLFile(tagstack.get(0));
     }
 
+    /**
+     * Start of element.
+     * @param uri the path.
+     * @param name the name.
+     * @param qName the q name.
+     * @param atts the attributes.
+     */
     @Override
     public void startElement(String uri, String name, String qName,
             Attributes atts) {
         this.inElement = true;
-        // Generate HashMap for the attributes
         LinkedHashMap<String, String> attributes = new LinkedHashMap<>();
         for (int i = 0; i < atts.getLength(); i++) {
             attributes.put(atts.getQName(i), atts.getValue(i));
         }
-        // Create new XMLTag and push it onto the stack
         XMLTag current = new XMLTag(qName, attributes);
         tagstack.add(current);
     }
 
+    /**
+     * End of element.
+     * @param uri the path.
+     * @param name the name.
+     * @param qName the q name.
+     */
     @Override
     public void endElement(String uri, String name, String qName) {
         this.inElement = false;
@@ -148,13 +154,19 @@ public class SAXParser extends DefaultHandler {
         }
     }
 
+    /**
+     * Override of characters methods.
+     * @param ch the characters.
+     * @param start the start.
+     * @param length the length.
+     */
     @Override
     public void characters(char ch[], int start, int length) {
         if (this.inElement == true) {
             String content = "";
             for (int i = start; i < start + length; i++) {
-                if (ch[i] != '\\' && ch[i] != '"' && ch[i] != '\n' && ch[i] != '\r' && 
-                        ch[i] != '\t') {
+                if (ch[i] != '\\' && ch[i] != '"' && ch[i] != '\n' && ch[i] != '\r'
+                        && ch[i] != '\t') {
                     content = content + ch[i];
                 }
             }
@@ -162,6 +174,10 @@ public class SAXParser extends DefaultHandler {
         }
     }
 
+    /**
+     * Get the xml file.
+     * @return xml file.
+     */
     private XMLFile getXMLFile() {
         return file;
     }

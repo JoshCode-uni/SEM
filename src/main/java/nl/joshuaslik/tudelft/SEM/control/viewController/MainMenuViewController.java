@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.sound.EffectPlayer;
@@ -22,7 +22,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  * @author Bastijn
  * @author Faris
  */
-public class MainMenuController implements IviewController {
+public class MainMenuViewController implements IviewController {
 
     @FXML
     private HBox chooseLevelBox;
@@ -34,20 +34,21 @@ public class MainMenuController implements IviewController {
     private Pane optionsPane;
 
     @FXML
-    private Button playButton, chooseLevelButton, highscoresButton, optionsButton, quitButton, classicButton;
+    private Button playButton, chooseLevelButton, highscoresButton, optionsButton, quitButton, 
+            classicButton;
 
     @FXML
     private Text totalScore, p1Score, p2Score;
 
     @FXML
     private Button level1Button, level2Button, level3Button, level4Button, level5Button;
-    
+
     /**
      * Initialize.
      */
     public void initialize() {
         showGameModeButtons();
-        totalScore.setText("Total Score: " + GameInfo.getInstance().getTotalScore());
+        totalScore.setText("Total Score: " + Users.getInstance().getTotalScore());
         level5Button.setDisable(true);
         level4Button.setDisable(true);
         level3Button.setDisable(true);
@@ -93,7 +94,6 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handlePlayButton() {
         GameLog.addInfoLog("Play button pressed from main menu");
-        System.out.println("Play button pressed!");
         gameModeBox.setVisible(!gameModeBox.isVisible());
     }
 
@@ -103,10 +103,8 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handleClassicButton() {
         GameLog.addInfoLog("Classic button pressed from main menu");
-        System.out.println("Classic button pressed!");
-
-        GameInfo.getInstance().setClassicMode();
-        GameController.loadView();
+        Users.getInstance().setClassicMode();
+        GameViewController.loadView();
 
     }
 
@@ -116,10 +114,8 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handleSurvivalButton() {
         GameLog.addInfoLog("Survival button pressed from main menu");
-        System.out.println("Survival button pressed!");
-
-        GameInfo.getInstance().setSurvivalMode();
-        GameController.loadView();
+        Users.getInstance().setSurvivalMode();
+        GameViewController.loadView();
     }
 
     /**
@@ -128,27 +124,24 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handleChooseLevelButton() {
         GameLog.addInfoLog("Choose level button pressed from main menu");
-        System.out.println("Choose Level button pressed!");
         chooseLevelBox.setVisible(!chooseLevelBox.isVisible());
     }
-    
+
     /**
      * Handles clicking of the highscores button.
      */
     @FXML
     protected void handleHighscoresButton() {
         GameLog.addInfoLog("Highscores button pressed from main menu");
-        System.out.println("Highscores button pressed!");
-        HighscoresController.loadPopup(this);
+        HighscoresViewController.loadPopup(this);
     }
-    
+
     /**
      * Handles clicking of the options button
      */
     @FXML
     protected void handleOptionsButton() {
         GameLog.addInfoLog("Options button pressed from main menu");
-        System.out.println("Options button pressed!");
         optionsPane.setVisible(!optionsPane.isVisible());
     }
 
@@ -158,7 +151,6 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handleQuitButton() {
         GameLog.addInfoLog("Quit button pressed from main menu");
-        System.out.println("Quit button pressed!");
         System.exit(0);
     }
 
@@ -178,7 +170,7 @@ public class MainMenuController implements IviewController {
      */
     @Override
     public void start(final Scene scene) {
-        GameInfo gi = GameInfo.getInstance();
+        Users gi = Users.getInstance();
         if (gi.getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
             totalScore.setVisible(false);
             p1Score.setText("Score player 1: " + gi.getPlayer1Score());
@@ -208,9 +200,8 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handleLevel1Button() {
         GameLog.addInfoLog("Level 1 button pressed");
-        System.out.println("Level 1 button pressed!");
         Levels.setCurrentLevel(0);
-        GameController.loadView();
+        GameViewController.loadView();
 
     }
 
@@ -220,9 +211,8 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handleLevel2Button() {
         GameLog.addInfoLog("Level 2 button pressed");
-        System.out.println("Level 2 button pressed!");
         Levels.setCurrentLevel(1);
-        GameController.loadView();
+        GameViewController.loadView();
     }
 
     /**
@@ -231,9 +221,8 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handleLevel3Button() {
         GameLog.addInfoLog("Level 3 button pressed");
-        System.out.println("Level 3 button pressed!");
         Levels.setCurrentLevel(2);
-        GameController.loadView();
+        GameViewController.loadView();
 
     }
 
@@ -243,9 +232,8 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handleLevel4Button() {
         GameLog.addInfoLog("Level 4 button pressed");
-        System.out.println("Level 4 button pressed!");
         Levels.setCurrentLevel(3);
-        GameController.loadView();
+        GameViewController.loadView();
     }
 
     /**
@@ -254,11 +242,10 @@ public class MainMenuController implements IviewController {
     @FXML
     protected void handleLevel5Button() {
         GameLog.addInfoLog("Level 5 button pressed");
-        System.out.println("Level 5 button pressed!");
         Levels.setCurrentLevel(4);
-        GameController.loadView();
+        GameViewController.loadView();
     }
-    
+
     /**
      * Toggle the sound.
      */

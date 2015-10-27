@@ -12,12 +12,12 @@ import java.util.logging.Logger;
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.GameObjects;
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 import nl.joshuaslik.tudelft.SEM.model.container.GameMode;
 import nl.joshuaslik.tudelft.SEM.sound.EffectPlayer;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
@@ -31,11 +31,10 @@ public class GameLoop extends AnimationTimer implements IDraw {
 
     private final Keyboard kb;
     private static final int FIRST_FRAME_TIME = 165_000_000;
-    private GameController gameController;
+    private GameViewController gameController;
     private final GameObjects gameObjects;
     private long oldTime = 0;
-	private final Highscore highscore;
-	
+
     /**
      * @param gameController the controller of the game view.
      * @param top y value of the top border.
@@ -44,13 +43,12 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * @param left x value of the left border.
      * @param scene the scene of the game (to add a keylistener to).
      */
-    public GameLoop(final GameController gameController, final double top, final double right, final double bottom,
+    public GameLoop(final GameViewController gameController, final double top, final double right,
+            final double bottom,
             final double left, final Scene scene) {
         this.gameController = gameController;
         kb = new Keyboard(scene);
         gameObjects = new GameObjects((IDraw) this, top, right, bottom, left, kb);
-    
-        highscore = new Highscore();
     }
 
     /**
@@ -80,9 +78,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
      */
     @Override
     public final void handle(final long time) {
-        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())
+        if (!GameMode.SURVIVAL.equals(Users.getInstance().getGameMode())
                 && gameObjects.allBubblesDestroyed()) {
-            highscore.addScore(getUser1().toString(), getPlayer1Score());
             gameController.levelCompleted();
             return;
         }
@@ -110,7 +107,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
             stop();
             GameLog.addErrorLog("Exception in game loop");
             GameLog.addErrorLog(ex.getMessage());
-            Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, "Exception in game loop", ex);
+            Logger.getLogger(GameLoop.class.getName()).log(Level.SEVERE, "Exception in game loop",
+                    ex);
         }
     }
 
@@ -119,7 +117,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      *
      * @param gameController the view controller class.
      */
-    public final void setViewController(final GameController gameController) {
+    public final void setViewController(final GameViewController gameController) {
         this.gameController = gameController;
     }
 
@@ -156,7 +154,6 @@ public class GameLoop extends AnimationTimer implements IDraw {
     @Override
     public void playerDied() {
         stop();
-        highscore.addScore(getUser1().toString(), getPlayer1Score());
         gameController.died();
     }
 
@@ -169,7 +166,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * @return the interface of the circle view object.
      */
     @Override
-    public ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
+    public ICircleViewObject makeCircle(final double centerX, final double centerY,
+            final double radius) {
         return gameController.makeCircle(centerX, centerY, radius);
     }
 
@@ -182,7 +180,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * @return the interface of the image view object.
      */
     @Override
-    public IImageViewObject makeImage(final InputStream is, final double width, final double height) {
+    public IImageViewObject makeImage(final InputStream is, final double width,
+            final double height) {
         return gameController.makeImage(is, width, height);
     }
 
@@ -196,7 +195,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
      * @return the interface of the line view object.
      */
     @Override
-    public ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
+    public ILineViewObject makeLine(final double startX, final double startY, final double endX,
+            final double endY) {
         return gameController.makeLine(startX, startY, endX, endY);
     }
 
@@ -213,15 +213,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
      *
      * @return gameController
      */
-    final GameController getGameController() {
+    final GameViewController getGameController() {
         return gameController;
     }
-
-	public User getUser1() {
-		return gameObjects.getUser();
-	}
-	
-	public User getUser2() {
-		return gameObjects.getUser2();
-	}
 }

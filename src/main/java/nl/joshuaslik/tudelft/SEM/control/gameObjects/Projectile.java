@@ -40,9 +40,13 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
         line.setStrokeWidth(7);
         line.setColor(0.2, 0.1, 0.1);
         line.setOpacity(0.8);
-        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) + ", " + Double.toString(startY) + ")");
+        GameLog.addInfoLog("Projectile created at: (" + Double.toString(startX) + ", " + 
+                Double.toString(startY) + ")");
     }
 
+    /**
+     * Destroy the projectle.
+     */
     @Override
     public void destroy() {
         getGameObjects().removeProjectile(player.getP2());
@@ -132,6 +136,7 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
 
     /**
      * Set the player.
+     *
      * @param player the player.
      */
     public void setPlayer(Player player) {
@@ -140,6 +145,7 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
 
     /**
      * Get the player.
+     *
      * @return the player.
      */
     public Player getPlayer() {

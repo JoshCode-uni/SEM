@@ -9,12 +9,14 @@ import nl.joshuaslik.tudelft.SEM.utility.IObserver;
 
 /**
  * Interface for gameobjects to give access to the addObserver method.
+ *
  * @author Faris
  */
 public interface IOberservableGameObjectContainer {
-    
+
     /**
      * Add an observer to all game objects and yet to be made game objects.
+     *
      * @param observer an observer.
      */
     public void addObserver(IObserver observer);

@@ -51,14 +51,18 @@ public abstract class AbstractLine extends AbstractPhysicsObject {
      */
     public final IntersectionPoint getClosestIntersection(final Point p) {
         Vector normal = dir.normal();
-        Point intersection = normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()), p2.translate(-p.getxPos(), -p.getyPos()));
+        Point intersection = normal.getIntersectionPoint(p1.translate(-p.getxPos(), -p.getyPos()),
+                p2.translate(-p.getxPos(), -p.getyPos()));
         if (intersection == null) {
-            return new IntersectionPoint(Double.MAX_VALUE, Double.MAX_VALUE, new Vector(1, 1), Double.MAX_VALUE);
+            return new IntersectionPoint(Double.MAX_VALUE, Double.MAX_VALUE, new Vector(1, 1),
+                    Double.MAX_VALUE);
         }
         double distance = intersection.distanceTo(new Point(0, 0));
-        intersection = new Point(intersection.getxPos() + p.getxPos(), intersection.getyPos() + p.getyPos());
+        intersection = new Point(intersection.getxPos() + p.getxPos(), intersection.getyPos() +
+                p.getyPos());
         intersection = applyBounds(intersection);
-        return new IntersectionPoint(intersection.getxPos(), intersection.getyPos(), normal, distance);
+        return new IntersectionPoint(intersection.getxPos(), intersection.getyPos(), normal,
+                distance);
     }
 
     /**

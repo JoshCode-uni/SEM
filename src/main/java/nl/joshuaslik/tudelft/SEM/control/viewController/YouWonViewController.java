@@ -11,7 +11,7 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
  *
  * @author Bastijn
  */
-public class YouWonController implements IpopupController {
+public class YouWonViewController implements IpopupController {
 
     @FXML
     private Button mainMenuButton, nextLevelButton;
@@ -31,9 +31,8 @@ public class YouWonController implements IpopupController {
     @FXML
     private void handleMainMenuButton() {
         GameLog.addInfoLog("Main menu button pressed from you won screen");
-        System.out.println("Main Menu button pressed!");
         popupControl.hide();
-        MainMenuController.loadView();
+        MainMenuViewController.loadView();
     }
 
     /**
@@ -42,14 +41,14 @@ public class YouWonController implements IpopupController {
     @FXML
     private void handleNextLevelButton() {
         GameLog.addInfoLog("Next level button pressed from you won screen");
-        System.out.println("Next level button pressed!");
         popupControl.hide();
         mainController.setButtonsDisabled(false);
-        GameController.loadView();
+        GameViewController.loadView();
     }
 
     /**
      * Load a popup.
+     *
      * @param controller the controller of the view which want to load the popup.
      */
     public static void loadPopup(final IviewController controller) {
@@ -58,6 +57,7 @@ public class YouWonController implements IpopupController {
 
     /**
      * Set the main view controller.
+     *
      * @param controller the controller of the main view.
      */
     @Override
@@ -67,6 +67,7 @@ public class YouWonController implements IpopupController {
 
     /**
      * Set the popup controller.
+     *
      * @param popupControl the controller of the popup view.
      */
     @Override

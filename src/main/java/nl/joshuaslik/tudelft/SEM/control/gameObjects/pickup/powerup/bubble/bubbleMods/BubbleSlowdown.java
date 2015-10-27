@@ -9,12 +9,14 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.Abstr
 
 /**
  * Slow down a bubble.
+ *
  * @author faris
  */
 public class BubbleSlowdown extends AbstractBubbleDecorator {
 
     /**
      * Lower the speed.
+     *
      * @return a lower speed multiplier.
      */
     @Override

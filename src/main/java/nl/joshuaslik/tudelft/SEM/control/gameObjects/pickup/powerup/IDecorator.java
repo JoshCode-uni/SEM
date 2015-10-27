@@ -6,7 +6,8 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup;
 
 /**
- * @param <T>
+ * A decorator.
+ * @param <T> the type of the decorator.
  * @author faris
  */
 public interface IDecorator<T> {
