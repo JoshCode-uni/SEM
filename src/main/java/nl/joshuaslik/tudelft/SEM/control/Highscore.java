@@ -87,5 +87,13 @@ public class Highscore {
 		pw.flush();
 		pw.close();
 	}
+
+	public ArrayList<String> getUsers() {
+		return users;
+	}
+
+	public ArrayList<Integer> getScores() {
+		return scores;
+	}
 	
 }
