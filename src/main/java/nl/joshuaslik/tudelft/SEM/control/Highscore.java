@@ -43,6 +43,14 @@ public class Highscore {
 		}
 	}
 	
+	public ArrayList<String> getUsers() {
+		return users;
+	}
+	
+	public ArrayList<Integer> getScores() {
+		return scores;
+	}
+	
 	private void read() {
 		XMLFile file = SAXParser.parseFile(highscore_file);
 		XMLTag root = file.getElement("highscores");

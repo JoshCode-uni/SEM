@@ -33,7 +33,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     private GameController gameController;
     private final GameObjects gameObjects;
     private long oldTime = 0;
-	private final Highscore highscore = new Highscore();
+	private final Highscore highscore;
 	
     /**
      * @param gameController the controller of the game view.
@@ -48,6 +48,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
         this.gameController = gameController;
         kb = new Keyboard(scene);
         gameObjects = new GameObjects((IDraw) this, top, right, bottom, left, kb);
+    
+        highscore = new Highscore();
     }
 
     /**
