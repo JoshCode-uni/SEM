@@ -33,7 +33,8 @@ public class GameLoop extends AnimationTimer implements IDraw {
     private GameController gameController;
     private final GameObjects gameObjects;
     private long oldTime = 0;
-
+	private final Highscore highscore = new Highscore();
+	
     /**
      * @param gameController the controller of the game view.
      * @param top y value of the top border.
@@ -76,6 +77,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public final void handle(final long time) {
         if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())
                 && gameObjects.allBubblesDestroyed()) {
+            highscore.addScore(getUser1().toString(), getPlayer1Score());
             gameController.levelCompleted();
             return;
         }
@@ -149,6 +151,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     @Override
     public void playerDied() {
         stop();
+        highscore.addScore(getUser1().toString(), getPlayer1Score());
         gameController.died();
     }
 
