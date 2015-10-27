@@ -130,10 +130,18 @@ public class Projectile extends AbstractLine implements IUpdateable, ICollideRec
         return growSpeed;
     }
 
+    /**
+     * Set the player.
+     * @param player the player.
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
 
+    /**
+     * Get the player.
+     * @return the player.
+     */
     public Player getPlayer() {
         return player;
     }

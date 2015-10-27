@@ -24,11 +24,15 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+/**
+ * Test the game objects contructor.
+ * @author Faris
+ */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameObjects.class)
 public class GameObjectsConstructorTest {
 
-    private GameObjects gameObjects;
+    private GameObjects go;
     PickupGenerator pg;
     private Line l1;
     private Line l2;
@@ -36,7 +40,6 @@ public class GameObjectsConstructorTest {
     private Line l4;
     private ArrayList<IPhysicsObject> physicsObject = new ArrayList<>();
     private Bubble bubble;
-    //	Keyboard kb;
     private Player player;
     Point p = new Point(0, 0);
 
@@ -48,23 +51,17 @@ public class GameObjectsConstructorTest {
         l2 = PowerMockito.mock(Line.class);
         l3 = PowerMockito.mock(Line.class);
         l4 = PowerMockito.mock(Line.class);
-
-        /*		TODO: Fix TestInitializedLevel
- 
-         PowerMockito.mockStatic(Levels.class);		
-         PowerMockito.when(Levels.getLevelObjects(Mockito.anyInt(), Mockito.any(GameObjects.class))).thenReturn(physicsObject);
-         */
         player = PowerMockito.mock(Player.class);
         bubble = PowerMockito.mock(Bubble.class);
-        PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 10.0, 20.0, 5.0).thenReturn(l1);
-        PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 10.0, 5.0, 0.0).thenReturn(l2);
-        PowerMockito.whenNew(Line.class).withArguments(gameObjects, 20.0, 10.0, 20.0, 0.0).thenReturn(l3);
-        PowerMockito.whenNew(Line.class).withArguments(gameObjects, 5.0, 0.0, 20.0, 0.0).thenReturn(l4);
-        PowerMockito.whenNew(Player.class)
-                .withArguments(Mockito.any(GameObjects.class), Mockito.any(InputStream.class), Mockito.any(Keyboard.class), Mockito.anyBoolean())
+        PowerMockito.whenNew(Line.class).withArguments(go, 5.0, 10.0, 20.0, 5.0).thenReturn(l1);
+        PowerMockito.whenNew(Line.class).withArguments(go, 5.0, 10.0, 5.0, 0.0).thenReturn(l2);
+        PowerMockito.whenNew(Line.class).withArguments(go, 20.0, 10.0, 20.0, 0.0).thenReturn(l3);
+        PowerMockito.whenNew(Line.class).withArguments(go, 5.0, 0.0, 20.0, 0.0).thenReturn(l4);
+        PowerMockito.whenNew(Player.class).withArguments(Mockito.any(GameObjects.class), 
+                Mockito.any(InputStream.class), Mockito.any(Keyboard.class), Mockito.anyBoolean())
                 .thenReturn(player);
         physicsObject.add(bubble);
-        gameObjects = new GameObjects(null, 10.0, 20.0, 0.0, 5.0, null);
+        go = new GameObjects(null, 10.0, 20.0, 0.0, 5.0, null);
     }
 
     /**
@@ -73,10 +70,10 @@ public class GameObjectsConstructorTest {
     @Test
     public void testConstructor() {
 
-        assertEquals(0, gameObjects.getScore());
-        assertEquals(0, gameObjects.bubblesLeft());
-        assertFalse(gameObjects.hasProjectile(false));
-        assertFalse(gameObjects.hasProjectile(true));
+        assertEquals(0, go.getScore());
+        assertEquals(0, go.bubblesLeft());
+        assertFalse(go.hasProjectile(false));
+        assertFalse(go.hasProjectile(true));
     }
 
     /**
@@ -84,10 +81,10 @@ public class GameObjectsConstructorTest {
      */
     @Test
     public void testInitializeBorders() {
-        assertEquals(gameObjects.getTopBorder(), 10, 0);
-        assertEquals(gameObjects.getBottomBorder(), 0, 0);
-        assertEquals(gameObjects.getLeftBorder(), 5, 0);
-        assertEquals(gameObjects.getRightBorder(), 20, 0);
+        assertEquals(go.getTopBorder(), 10, 0);
+        assertEquals(go.getBottomBorder(), 0, 0);
+        assertEquals(go.getLeftBorder(), 5, 0);
+        assertEquals(go.getRightBorder(), 20, 0);
     }
 
     /**
@@ -95,7 +92,7 @@ public class GameObjectsConstructorTest {
      */
     @Test
     public void testInitializedPlayer() {
-        assertEquals(gameObjects.getPlayer(), player);
+        assertEquals(go.getPlayer(), player);
     }
 
     /**
@@ -103,8 +100,9 @@ public class GameObjectsConstructorTest {
      */
     @Test
     public void testhandleModifierCollision() {
-        PowerMockito.doNothing().when(player).addModifier(Mockito.any(AbstractPlayerDecorator.class));
-        gameObjects.handleModifierCollision(null, true, false);
+        PowerMockito.doNothing().when(player).
+                addModifier(Mockito.any(AbstractPlayerDecorator.class));
+        go.handleModifierCollision(null, true, false);
         Mockito.verify(player, times(1)).addModifier(Mockito.any(AbstractPlayerDecorator.class));
         Mockito.verify(bubble, times(0)).addModifier(Mockito.any(AbstractBubbleDecorator.class));
     }
@@ -114,29 +112,25 @@ public class GameObjectsConstructorTest {
      */
     @Test
     public void testHandleModifierCollisionBubble() {
-        gameObjects.addBubbles(bubble);
-        PowerMockito.doNothing().when(bubble).addModifier(Mockito.any(AbstractBubbleDecorator.class));
-        gameObjects.handleModifierCollision(null, false, true);
+        go.addBubbles(bubble);
+        PowerMockito.doNothing().when(bubble).
+                addModifier(Mockito.any(AbstractBubbleDecorator.class));
+        go.handleModifierCollision(null, false, true);
         Mockito.verify(bubble, times(1)).addModifier(Mockito.any(AbstractBubbleDecorator.class));
         Mockito.verify(player, times(0)).addModifier(Mockito.any(AbstractPlayerDecorator.class));
     }
 
-    @Test
-    public void testHandleModifierCollisionNone() {
-        PowerMockito.doNothing().when(bubble).addModifier(Mockito.any(AbstractBubbleDecorator.class));
-        PowerMockito.doNothing().when(player).addModifier(Mockito.any(AbstractPlayerDecorator.class));
-        gameObjects.handleModifierCollision(null, false, false);
-        Mockito.verify(bubble, times(0)).addModifier(Mockito.any(AbstractBubbleDecorator.class));
-        Mockito.verify(player, times(0)).addModifier(Mockito.any(AbstractPlayerDecorator.class));
-
-    }
-
     /**
-     *
+     * Test the handleModifierCollision method with no collsion.
      */
     @Test
-    public void testInitializedLevel() {
-        //TODO: Fix test.
-        //gameObjects.getAddObjectBuffer().contains(bubble);
+    public void testHandleModifierCollisionNone() {
+        PowerMockito.doNothing().when(bubble).
+                addModifier(Mockito.any(AbstractBubbleDecorator.class));
+        PowerMockito.doNothing().when(player).
+                addModifier(Mockito.any(AbstractPlayerDecorator.class));
+        go.handleModifierCollision(null, false, false);
+        Mockito.verify(bubble, times(0)).addModifier(Mockito.any(AbstractBubbleDecorator.class));
+        Mockito.verify(player, times(0)).addModifier(Mockito.any(AbstractPlayerDecorator.class));
     }
 }

@@ -6,6 +6,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import nl.joshuaslik.tudelft.SEM.utility.xml.SAXParser;
 import nl.joshuaslik.tudelft.SEM.utility.xml.XMLFile;
@@ -52,6 +54,12 @@ public class Highscore {
 	}
 	
 	private void read() {
+            try {
+                new File(highscore_file).createNewFile();
+            }
+            catch (IOException ex) {
+                Logger.getLogger(Highscore.class.getName()).log(Level.SEVERE, null, ex);
+            }
 		XMLFile file = SAXParser.parseFile(highscore_file);
 		XMLTag root = file.getElement("highscores");
 		
@@ -87,13 +95,4 @@ public class Highscore {
 		pw.flush();
 		pw.close();
 	}
-
-	public ArrayList<String> getUsers() {
-		return users;
-	}
-
-	public ArrayList<Integer> getScores() {
-		return scores;
-	}
-	
 }

@@ -19,6 +19,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewOb
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.GameMode;
+import nl.joshuaslik.tudelft.SEM.sound.EffectPlayer;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -59,6 +60,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public final void start() {
         super.start();
         kb.addListeners();
+        EffectPlayer.getInstace().addListenersTo(gameObjects);
     }
 
     /**
@@ -68,6 +70,7 @@ public class GameLoop extends AnimationTimer implements IDraw {
     public void stop() {
         super.stop();
         kb.removeListeners();
+        EffectPlayer.getInstace().destroy();
     }
 
     /**

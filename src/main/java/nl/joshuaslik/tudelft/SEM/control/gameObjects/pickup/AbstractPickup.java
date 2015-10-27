@@ -38,8 +38,16 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
         pickupImage.setY(yCoordinate);
     }
 
+    /**
+     * Abstract method which handles the collision with a player.
+     */
     protected abstract void handlePlayerCollision();
 
+    /**
+     * Update the position.
+     *
+     * @param nanoFrameTime the frame time in ns.
+     */
     @Override
     public void update(long nanoFrameTime) {
         EXISTENCE_TIME -= nanoFrameTime;
@@ -49,22 +57,40 @@ public abstract class AbstractPickup extends AbstractPhysicsObject implements IU
         pickupImage.setY(pickupImage.getStartY() + FALL_SPEED * nanoFrameTime / Time.SECOND_NANO);
         Player pl = getGameObjects().getPlayer();
 
-        if (pickupImage.intersects(pl.getImage())) {
+        if (pl.intersectsWith(pickupImage)) {
             handlePlayerCollision();
             return;
         }
         if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
             Player pl2 = getGameObjects().getPlayer2();
-            if (pickupImage.intersects(pl2.getImage())) {
+            if (pl2.intersectsWith(pickupImage)) {
                 handlePlayerCollision();
             }
         }
     }
 
+    /**
+     * Get the image of the pickup.
+     *
+     * @return the image of the pickup.
+     */
     public IImageViewObject getPickupImage() {
         return pickupImage;
     }
 
+    /**
+     * Get the relative x position of the bubble compared to the view.
+     *
+     * @return the relative x position of the bubble compared to the view.
+     */
+    public double getRelativeXPos() {
+        double xPos = pickupImage.getStartX();
+        return xPos / (getGameObjects().getRightBorder() - getGameObjects().getLeftBorder());
+    }
+
+    /**
+     * Destroy the pickup.
+     */
     public void destroy() {
         pickupImage.destroy();
         getGameObjects().removeObject(this);

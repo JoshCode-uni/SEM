@@ -12,6 +12,8 @@ import nl.joshuaslik.tudelft.SEM.Launcher;
 import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
+import nl.joshuaslik.tudelft.SEM.sound.EffectPlayer;
+import nl.joshuaslik.tudelft.SEM.sound.MusicLoop;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -39,7 +41,7 @@ public class MainMenuController implements IviewController {
 
     @FXML
     private Button level1Button, level2Button, level3Button, level4Button, level5Button;
-
+    
     /**
      * Initialize.
      */
@@ -255,6 +257,15 @@ public class MainMenuController implements IviewController {
         System.out.println("Level 5 button pressed!");
         Levels.setCurrentLevel(4);
         GameController.loadView();
+    }
+    
+    /**
+     * Toggle the sound.
+     */
+    @FXML
+    private void toggleSoundButton() {
+        MusicLoop.getInstance().toggleMusic();
+        EffectPlayer.getInstace().toggleSound();
     }
 
     /**

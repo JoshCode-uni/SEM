@@ -20,6 +20,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Test the bubble class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class BubbleTest {
 
@@ -48,10 +52,12 @@ public class BubbleTest {
 
     Bubble spyBubble;
 
+    /**
+     * Initialize test variables.
+     */
     @Before
     public void setUp() {
         when(gameObjects.makeCircle(250, 100, 50)).thenReturn(circle);
-
         when(gameObjects.getLeftBorder()).thenReturn(0.0);
         when(gameObjects.getRightBorder()).thenReturn(500.0);
         when(gameObjects.getTopBorder()).thenReturn(0.0);
@@ -63,7 +69,7 @@ public class BubbleTest {
     }
 
     /**
-     * Test constructor
+     * Test constructor.
      */
     @Test
     public void testBubbleCircle() {
@@ -72,7 +78,7 @@ public class BubbleTest {
     }
 
     /**
-     * Test constructor
+     * Test constructor.
      */
     @Test
     public void testBubbleVector() {
@@ -122,7 +128,8 @@ public class BubbleTest {
      */
     @Test
     public void testCheckSuccesfulBubbleCollision() {
-        when(bubble2.getClosestIntersection(isA(Point.class))).thenReturn(new IntersectionPoint(300, 100, new Vector(5, -2), 0));
+        when(bubble2.getClosestIntersection(isA(Point.class))).
+                thenReturn(new IntersectionPoint(300, 100, new Vector(5, -2), 0));
         bubble.setNextX(275);
         bubble.setNextY(100);
         bubble.checkCollision(bubble2, 1_000_000_000l);
@@ -198,7 +205,8 @@ public class BubbleTest {
         IntersectionPoint a = bubble.getClosestIntersection(p);
         verify(circle).getRadius();
         Point b = new Point(5.0, 5.0);
-        assertEquals(new IntersectionPoint(-245.0, -245.0, new Vector(-250.0, -250.0), b.distanceTo(p)), a);
+        assertEquals(new IntersectionPoint(-245.0, -245.0, new Vector(-250.0, -250.0), 
+                b.distanceTo(p)), a);
     }
 
     /**
@@ -209,7 +217,8 @@ public class BubbleTest {
         //  	fail("Not yet implemented");
         bubble.setNextX(255.0);
         bubble.setNextY(100.0);
-        doReturn(new IntersectionPoint(300.0, 100.0, new Vector(-300.0, -300.0), 0)).when(bubble2).getClosestIntersection(new Point(250, 100));
+        doReturn(new IntersectionPoint(300.0, 100.0, new Vector(-300.0, -300.0), 0)).
+                when(bubble2).getClosestIntersection(new Point(250, 100));
         bubble.collide(bubble2, 0l);
         verify(circle, times(4)).getCenterX();
         verify(circle, times(4)).getCenterY();
@@ -225,7 +234,8 @@ public class BubbleTest {
     public void testNoCollide() {
         bubble.setNextX(245.0);
         bubble.setNextY(100.0);
-        doReturn(new IntersectionPoint(300.0, 100.0, new Vector(-300.0, -300.0), 0)).when(bubble2).getClosestIntersection(new Point(250, 100));
+        doReturn(new IntersectionPoint(300.0, 100.0, new Vector(-300.0, -300.0), 0)).
+                when(bubble2).getClosestIntersection(new Point(250, 100));
         bubble.collide(bubble2, 0l);
         verify(circle, times(3)).getCenterX();
         verify(circle, times(3)).getCenterY();

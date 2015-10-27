@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 
 /**
+ * Abstract class of a view object containing some basic functionality.
  * @author faris
  */
 public abstract class AbstractViewObject implements IViewObject {

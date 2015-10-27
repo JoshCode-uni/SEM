@@ -9,8 +9,6 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
  */
 public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpdateable {
 
-    //    private int MAX_OPEN_SPEED;
-    //    private ImageViewObject texture;
     private final Line up;
     private final Line left;
     private final Line right;
@@ -42,7 +40,8 @@ public abstract class AbstractDoor extends AbstractPhysicsObject implements IUpd
         xRight = ur.getxPos();
         gameObjects.getPlayer().setDoor(xLeft);
         gameObjects.getPlayer().setDoor(xRight);
-        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || 
+                GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
             gameObjects.getPlayer2().setDoor(xLeft);
             gameObjects.getPlayer2().setDoor(xRight);
         }

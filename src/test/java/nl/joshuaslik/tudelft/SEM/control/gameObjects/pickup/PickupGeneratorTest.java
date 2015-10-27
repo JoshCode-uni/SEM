@@ -6,11 +6,6 @@ import static org.mockito.Mockito.times;
 
 import java.util.Random;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.AbstractPickup;
-
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.Coin;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.Life;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.Powerup;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
@@ -23,6 +18,10 @@ import org.mockito.Mockito;
 import static org.mockito.Mockito.when;
 import org.mockito.runners.MockitoJUnit44Runner;
 
+/**
+ * Test the pickup generator class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnit44Runner.class)
 public class PickupGeneratorTest {
 

@@ -14,6 +14,10 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.verify;
 
+/**
+ * Test the coin class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class CoinTest {
 
@@ -25,6 +29,9 @@ public class CoinTest {
 
     Coin coin;
 
+    /**
+     * Initialize test variables.
+     */
     @Before
     public void setup() {
         Mockito.when(go.makeImage(Mockito.any(InputStream.class), Mockito.anyDouble(),
@@ -36,6 +43,9 @@ public class CoinTest {
         coin = new Coin(go, 400, 400);
     }
 
+    /**
+     * Test the player collision.
+     */
     @Test
     public void testHandlePlayerCollision() {
         Coin spyCoin = Mockito.spy(coin);
@@ -43,5 +53,4 @@ public class CoinTest {
         verify(spyCoin).destroy();
         verify(go).addPoints(10);
     }
-
 }

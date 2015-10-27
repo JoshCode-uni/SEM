@@ -28,7 +28,7 @@ public class Keyboard implements IKeyboard {
     private static final KeyCode mp2Shoot = KeyCode.W;
     private static final KeyCode mpShoot = KeyCode.UP;
 
-    private Scene scene;
+    private final Scene scene;
 
     /**
      * Create a keyboard which listens to keyboard events performed in the given scene.
@@ -118,10 +118,18 @@ public class Keyboard implements IKeyboard {
         return false;
     }
 
+    /**
+     * Get the scene.
+     * @return the scene.
+     */
     Scene getScene() {
         return scene;
     }
 
+    /**
+     * Set the bit set.
+     * @param kb the bit set.
+     */
     void setBitSet(BitSet kb) {
         keyboard = kb;
     }

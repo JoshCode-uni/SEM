@@ -16,6 +16,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playe
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.ProjectileSpikeDelayUp;
 
 /**
+ * Store all kinds of powerups and their images.
  * @author faris
  */
 public enum EnumPowerupTypes {
@@ -31,6 +32,13 @@ public enum EnumPowerupTypes {
     private final static double imageHeight = 50;
     private final static double imageWidth = 50;
 
+    /**
+     * Private enum constructor.
+     * @param mod the modifier.
+     * @param imageName the image path.
+     * @param playerPickup if it is a player pickup.
+     * @param bubblePickup if it is a bubble pickup.
+     */
     private EnumPowerupTypes(Class mod, String imageName, boolean playerPickup, boolean bubblePickup) {
         this.mod = mod;
         this.imageName = imageName;
@@ -38,6 +46,10 @@ public enum EnumPowerupTypes {
         this.bubblePickup = bubblePickup;
     }
 
+    /**
+     * Get a random enum powerup.
+     * @return an enum powerup.
+     */
     public static EnumPowerupTypes getRandomPowerup() {
         EnumPowerupTypes[] mods = EnumPowerupTypes.values();
         int AMOUNT_OF_MOD_TYPES = mods.length;
@@ -46,26 +58,48 @@ public enum EnumPowerupTypes {
         return mods[selectedType];
     }
 
+    /**
+     * Get the stream of the image.
+     * @return stream of the image.
+     */
     public InputStream getImageStream() {
         return getClass().getResourceAsStream(imageName);
     }
 
+    /**
+     * @return if this is a player pickup.
+     */
     public boolean isPlayerPickup() {
         return playerPickup;
     }
 
+    /**
+     * @return if this is a bubble pickup.
+     */
     public boolean isBubblePickup() {
         return bubblePickup;
     }
 
+    /**
+     * Get the height of the image.
+     * @return the height of the image.
+     */
     public double getImageHeight() {
         return imageHeight;
     }
 
+    /**
+     * Get the width of the image.
+     * @return the width of the image.
+     */
     public double getImageWidth() {
         return imageWidth;
     }
 
+    /**
+     * Get the decorator.
+     * @return the decorator.
+     */
     public IDecorator getDecor() {
         try {
             return (IDecorator) mod.newInstance();

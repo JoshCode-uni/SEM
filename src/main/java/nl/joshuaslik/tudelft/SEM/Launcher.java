@@ -24,6 +24,7 @@ import javafx.stage.Stage;
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameplayChoicesController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IpopupController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IviewController;
+import nl.joshuaslik.tudelft.SEM.sound.MusicLoop;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
@@ -60,6 +61,7 @@ public class Launcher extends Application {
         primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         scaleToScreenSize(BP);
         if (!hideViewForTesting) {
+            MusicLoop.getInstance().start();
             primaryStage.show();
         }
         Launcher.stage = primaryStage;
@@ -88,8 +90,7 @@ public class Launcher extends Application {
             BP.setCenter(pane);
             controller = res;
             return res;
-        }
-        catch (IOException ex) {
+        } catch (IOException ex) {
             GameLog.addErrorLog("Failed to load fxml file: " + fxmlURL.toString());
             GameLog.addErrorLog(ex.getMessage());
             Logger.getLogger(Launcher.class.getName()).log(Level.SEVERE, "Failed to load fxml file: " + fxmlURL.toString(), ex);
@@ -206,8 +207,16 @@ public class Launcher extends Application {
         private final double initWidth;
         private final Pane contentPane;
 
-        public SceneSizeChangeListener(final Scene scene, final double ratio, final double initHeight, 
-                final double initWidth, final Pane contentPane) {
+        /**
+         * Create a scene size listener.
+         * @param scene the scene.
+         * @param ratio the initial ratio.
+         * @param initHeight the initial height.
+         * @param initWidth the initial width
+         * @param contentPane the pane to listen to.
+         */
+        public SceneSizeChangeListener(final Scene scene, final double ratio, 
+                final double initHeight, final double initWidth, final Pane contentPane) {
             this.scene = scene;
             this.ratio = ratio;
             this.initHeight = initHeight;

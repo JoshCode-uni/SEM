@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 import java.io.InputStream;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 
 import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
 
@@ -16,6 +15,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Image view object test class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class ImageViewObjectTest {
 

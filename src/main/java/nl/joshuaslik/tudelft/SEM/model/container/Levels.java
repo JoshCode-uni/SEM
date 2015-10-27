@@ -49,6 +49,11 @@ public class Levels {
         return new Point(1800, 450);
     }
 
+    /**
+     * Get the survival level objects.
+     * @param gameObjects the game object storage class.
+     * @return the survival game objects.
+     */
     public static ArrayList<IPhysicsObject> getSurvivalLevelObjects(final IGameObjects gameObjects) {
         return createLevel0(gameObjects);
     }
@@ -83,9 +88,6 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel0(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 0);
-        //ArrayList<IPhysicsObject> level0 = new ArrayList<>();
-        //level0.add(new Bubble(gameObjects, new Point(200, 500), 20, new Vector(-2, -5)));
-        //return level0;
     }
 
     /**
@@ -95,12 +97,6 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel1(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 1);
-        //ArrayList<IPhysicsObject> level1 = new ArrayList<>();
-        //level1.add(new Bubble(gameObjects, new Point(300, 200), 20, new Vector(-2, -5)));
-        //level1.add(new Bubble(gameObjects, new Point(1300, 650), 40, new Vector(2, -5)));
-        //level1.add(new TimeDoor(gameObjects, new Point(1050, 30), new Point(1150, 30),
-        //        new Point(1050, 851), new Point(1150, 851), 0, 5_000_000_000l));
-        //return level1;
     }
 
     /**
@@ -110,13 +106,6 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel2(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 2);
-        //ArrayList<IPhysicsObject> level2 = new ArrayList<>();
-        //level2.add(new Bubble(gameObjects, new Point(300, 700), 40, new Vector(-2, -5)));
-        //level2.add(new Bubble(gameObjects, new Point(1200, 300), 20, new Vector(2, -5)));
-        //level2.add(new Bubble(gameObjects, new Point(1400, 620), 40, new Vector(2, -5)));
-        //level2.add(new BubbleDoor(gameObjects, new Point(1050, 30),
-        //        new Point(1150, 30), new Point(1050, 851), new Point(1150, 851), 2));
-        //return level2;
     }
 
     /**
@@ -126,15 +115,6 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel3(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 3);
-        //ArrayList<IPhysicsObject> level3 = new ArrayList<>();
-        //level3.add(new Bubble(gameObjects, new Point(100, 660), 40, new Vector(-2, -5)));
-        //level3.add(new Bubble(gameObjects, new Point(500, 620), 80, new Vector(2, -5)));
-        //level3.add(new Bubble(gameObjects, new Point(1300, 400), 40, new Vector(2, -5)));
-        //level3.add(new TimeDoor(gameObjects, new Point(250, 30), new Point(350, 30),
-        //        new Point(250, 851), new Point(350, 851), 0, 10_000_000_000l));
-        //level3.add(new BubbleDoor(gameObjects, new Point(1050, 30), new Point(1150, 30),
-        //        new Point(1050, 851), new Point(1150, 851), 1));
-        //return level3;
     }
 
     /**
@@ -144,21 +124,14 @@ public class Levels {
      */
     private static ArrayList<IPhysicsObject> createLevel4(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 4);
-        //ArrayList<IPhysicsObject> level4 = new ArrayList<>();
-        //level4.add(new Bubble(gameObjects, new Point(100, 600), 80, new Vector(-2, -5)));
-        //level4.add(new Bubble(gameObjects, new Point(400, 700), 40, new Vector(-2, -5)));
-        //level4.add(new Bubble(gameObjects, new Point(700, 700), 20, new Vector(2, -5)));
-        //level4.add(new Bubble(gameObjects, new Point(1300, 600), 40, new Vector(2, -5)));
-        //level4.add(new Bubble(gameObjects, new Point(1600, 600), 80, new Vector(2, -5)));
-        //level4.add(new TimeDoor(gameObjects, new Point(200, 30), new Point(300, 30),
-        //        new Point(200, 851), new Point(300, 851), 0, 6_000_000_000l));
-        //level4.add(new TimeDoor(gameObjects, new Point(500, 30), new Point(600, 30),
-        //        new Point(500, 851), new Point(600, 851), 0, 3_000_000_000l));
-        //level4.add(new TimeDoor(gameObjects, new Point(1100, 30), new Point(1200, 30), new Point(1100, 851), new Point(1200, 851), 0, 3_000_000_000l));
-        //level4.add(new TimeDoor(gameObjects, new Point(1400, 30), new Point(1500, 30), new Point(1400, 851), new Point(1500, 851), 0, 6_000_000_000l));
-        //return level4;
     }
     
+    /**
+     * Create a level.
+     * @param gameObjects the gameobjects.
+     * @param lvl the level to create.
+     * @return an array list containing all objects of the level.
+     */
     private static ArrayList<IPhysicsObject> createLevel(final IGameObjects gameObjects, int lvl) {
         ArrayList<IPhysicsObject> result = new ArrayList<>();
     
@@ -171,6 +144,12 @@ public class Levels {
         return result;
     }
     
+    /**
+     * Create the bubbles of a level.
+     * @param gameObjects the game objects.
+     * @param level the level.
+     * @return an array list containing all bubbles of the level.
+     */
     private static ArrayList<IPhysicsObject> createBubbles(final IGameObjects gameObjects, XMLTag level) {
         ArrayList<IPhysicsObject> result = new ArrayList<>();
         
@@ -183,6 +162,12 @@ public class Levels {
         return result;
     }
     
+    /**
+     * Create all doors of the level.
+     * @param gameObjects the gameobjects.
+     * @param level the level
+     * @return an array list containing all doors of the level.
+     */
     private static ArrayList<IPhysicsObject> createDoors(final IGameObjects gameObjects, XMLTag level) {
         ArrayList<IPhysicsObject> result = new ArrayList<>();
     
@@ -195,6 +180,12 @@ public class Levels {
         return result;
     }
     
+    /**
+     * Create a bubble of a level.
+     * @param gameObjects the gameobjects.
+     * @param bubble the xml bubble to parse.
+     * @return the bubble.
+     */
     private static Bubble createBubble(final IGameObjects gameObjects, XMLTag bubble) {
         Point p = new Point(Double.parseDouble(bubble.getAttribute("x")), Double.parseDouble(bubble.getAttribute("y")));
         Vector dir = new Vector(Double.parseDouble(bubble.getElement("direction").getAttribute("x")),
@@ -202,6 +193,12 @@ public class Levels {
         return new Bubble(gameObjects, p, Double.parseDouble(bubble.getElement("radius").getContent()), dir);
     }
     
+    /**
+     * Create a door of a level.
+     * @param gameObjects the gameobjects.
+     * @param door the xml door to parse.
+     * @return the door.
+     */
     private static IPhysicsObject createDoor(final IGameObjects gameObjects, XMLTag door) {
         XMLTag position = door.getElement("position");
         
@@ -225,10 +222,17 @@ public class Levels {
         
     }
     
+    /**
+     * Get the current level.
+     * @return the current level.
+     */
     public static int getCurrentLevel() {
         return currentLevel;
     }
 
+    /**
+     * Go to the next level.
+     */
     public static void nextLevel() {
         if (currentLevel < AMOUNT_OF_IMPLEMENTED_LEVELS) {
             currentLevel++;
@@ -238,6 +242,10 @@ public class Levels {
         }
     }
 
+    /**
+     * Set the current level.
+     * @param level the current level index.
+     */
     public static void setCurrentLevel(int level) {
         if (level < unlockedLevel) {
             Levels.currentLevel = level;
@@ -246,10 +254,18 @@ public class Levels {
         }
     }
 
+    /**
+     * Get the highest unlocked level.
+     * @return the highest unlocked level index.
+     */
     public static int getUnlockedLevel() {
         return unlockedLevel;
     }
 
+    /**
+     * Set the unlocked level index.
+     * @param unlocked the highest unlocked level index.
+     */
     public static void setUnlockedLevel(int unlocked) {
         unlockedLevel = unlocked;
     }

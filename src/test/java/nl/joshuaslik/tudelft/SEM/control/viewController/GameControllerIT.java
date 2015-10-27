@@ -16,6 +16,7 @@ import org.junit.contrib.java.lang.system.ExpectedSystemExit;
 import org.junit.runner.RunWith;
 
 /**
+ * Test the game controller class with an integration test.
  * @author Faris
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)

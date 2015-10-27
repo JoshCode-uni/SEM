@@ -22,6 +22,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+/**
+ * Game objects test class.
+ * @author Faris
+ */
 @RunWith(MockitoJUnitRunner.class)
 public class GameObjectsTest {
 
@@ -120,15 +124,6 @@ public class GameObjectsTest {
         spyGameObjects.addProjectile(pj);
         spyGameObjects.removeProjectile(true);
         verify(spyGameObjects).removeObject(isA(Projectile.class));
-    }
-
-    /**
-     *
-     */
-    @Test
-    public void testHandleBubbleSplit() {
-        //TODO: Implement
-        //fail("Not yet implemented");
     }
 
     /**

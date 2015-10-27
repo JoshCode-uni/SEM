@@ -15,6 +15,10 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
+/**
+ * Test the gamelog class.
+ * @author Faris
+ */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameLog.class)
 public class GameLogTest {
@@ -26,7 +30,7 @@ public class GameLogTest {
     /**
      * Setup the test.
      *
-     * @throws Exception
+     * @throws Exception an exception is expected.
      */
     @Before
     public void setup() throws Exception {

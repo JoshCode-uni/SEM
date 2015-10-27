@@ -7,6 +7,10 @@ import static org.junit.Assert.assertNotEquals;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Test the intersection point class.
+ * @author Faris
+ */
 public class IntersectionPointTest {
 
     private IntersectionPoint point1;
@@ -15,6 +19,9 @@ public class IntersectionPointTest {
     private IntersectionPoint point4;
     private Point point5;
 
+    /**
+     * Initialize test variables.
+     */
     @Before
     public void beforeTest() {
         point1 = new IntersectionPoint(20, 20, new Vector(5, 2), 50);
