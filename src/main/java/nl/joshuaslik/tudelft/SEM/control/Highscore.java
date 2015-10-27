@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import nl.joshuaslik.tudelft.SEM.utility.ArrayMap;
 import nl.joshuaslik.tudelft.SEM.utility.xml.SAXParser;
 import nl.joshuaslik.tudelft.SEM.utility.xml.XMLFile;
 import nl.joshuaslik.tudelft.SEM.utility.xml.XMLTag;
@@ -27,8 +26,21 @@ public class Highscore {
 		read();
 	}
 	
+	/**
+	 * Add score if one of the highest 10
+	 *
+	 * @param name  is the name of the player
+	 * @param score is the score achieved
+	 */
 	public void addScore(String name, Integer score) {
-		
+		for (int i = 0; i < 10; i--) {
+			if (score > scores.get(i)) {
+				scores.add(i, score);
+				scores.remove(10);
+				users.add(i, name);
+				users.remove(10);
+			}
+		}
 	}
 	
 	private void read() {
