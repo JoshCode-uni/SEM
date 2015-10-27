@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Bubble;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.BubbleDoor;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.IGameObjects;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.IPhysicsObject;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.TimeDoor;
 import nl.joshuaslik.tudelft.SEM.utility.xml.SAXParser;
 import nl.joshuaslik.tudelft.SEM.utility.xml.XMLFile;
@@ -54,7 +53,7 @@ public class Levels {
      * @param gameObjects the game object storage class.
      * @return the survival game objects.
      */
-    public static ArrayList<IPhysicsObject> getSurvivalLevelObjects(final IGameObjects gameObjects) {
+    public static ArrayList<Object> getSurvivalLevelObjects(final IGameObjects gameObjects) {
         return createLevel0(gameObjects);
     }
 
@@ -64,7 +63,7 @@ public class Levels {
      * @param gameObjects
      * @return the level.
      */
-    public static ArrayList<IPhysicsObject> getLevelObjects(final IGameObjects gameObjects) {
+    public static ArrayList<Object> getLevelObjects(final IGameObjects gameObjects) {
         switch (currentLevel) {
             case 0:
                 return createLevel0(gameObjects);
@@ -86,7 +85,7 @@ public class Levels {
      *
      * @return level 1.
      */
-    private static ArrayList<IPhysicsObject> createLevel0(final IGameObjects gameObjects) {
+    private static ArrayList<Object> createLevel0(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 0);
     }
 
@@ -95,7 +94,7 @@ public class Levels {
      *
      * @return level 2.
      */
-    private static ArrayList<IPhysicsObject> createLevel1(final IGameObjects gameObjects) {
+    private static ArrayList<Object> createLevel1(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 1);
     }
 
@@ -104,7 +103,7 @@ public class Levels {
      *
      * @return level 3.
      */
-    private static ArrayList<IPhysicsObject> createLevel2(final IGameObjects gameObjects) {
+    private static ArrayList<Object> createLevel2(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 2);
     }
 
@@ -113,7 +112,7 @@ public class Levels {
      *
      * @return level 4.
      */
-    private static ArrayList<IPhysicsObject> createLevel3(final IGameObjects gameObjects) {
+    private static ArrayList<Object> createLevel3(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 3);
     }
 
@@ -122,7 +121,7 @@ public class Levels {
      *
      * @return level 5.
      */
-    private static ArrayList<IPhysicsObject> createLevel4(final IGameObjects gameObjects) {
+    private static ArrayList<Object> createLevel4(final IGameObjects gameObjects) {
         return createLevel(gameObjects, 4);
     }
     
@@ -132,8 +131,8 @@ public class Levels {
      * @param lvl the level to create.
      * @return an array list containing all objects of the level.
      */
-    private static ArrayList<IPhysicsObject> createLevel(final IGameObjects gameObjects, int lvl) {
-        ArrayList<IPhysicsObject> result = new ArrayList<>();
+    private static ArrayList<Object> createLevel(final IGameObjects gameObjects, int lvl) {
+        ArrayList<Object> result = new ArrayList<>();
     
         XMLFile file = SAXParser.parseFile("/data/levels/levels.xml");
         XMLTag level = file.getElement("levels").getElementByAttribute("id", "l" + lvl);
@@ -150,8 +149,8 @@ public class Levels {
      * @param level the level.
      * @return an array list containing all bubbles of the level.
      */
-    private static ArrayList<IPhysicsObject> createBubbles(final IGameObjects gameObjects, XMLTag level) {
-        ArrayList<IPhysicsObject> result = new ArrayList<>();
+    private static ArrayList<Object> createBubbles(final IGameObjects gameObjects, XMLTag level) {
+        ArrayList<Object> result = new ArrayList<>();
         
         XMLTag bubbles = level.getElement("bubbles");
         
@@ -168,8 +167,8 @@ public class Levels {
      * @param level the level
      * @return an array list containing all doors of the level.
      */
-    private static ArrayList<IPhysicsObject> createDoors(final IGameObjects gameObjects, XMLTag level) {
-        ArrayList<IPhysicsObject> result = new ArrayList<>();
+    private static ArrayList<Object> createDoors(final IGameObjects gameObjects, XMLTag level) {
+        ArrayList<Object> result = new ArrayList<>();
     
         XMLTag doors = level.getElement("doors");
         
@@ -199,7 +198,7 @@ public class Levels {
      * @param door the xml door to parse.
      * @return the door.
      */
-    private static IPhysicsObject createDoor(final IGameObjects gameObjects, XMLTag door) {
+    private static Object createDoor(final IGameObjects gameObjects, XMLTag door) {
         XMLTag position = door.getElement("position");
         
         Double x = Double.parseDouble(position.getAttribute("x"));

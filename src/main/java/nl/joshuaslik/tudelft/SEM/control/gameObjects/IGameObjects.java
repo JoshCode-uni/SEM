@@ -25,7 +25,7 @@ public interface IGameObjects {
      *
      * @param object the Dynamic Object to add to the scene.
      */
-    void addObject(IPhysicsObject object);
+    void addObject(Object object);
 
     /**
      * Add a Projectile to the game.
@@ -39,7 +39,7 @@ public interface IGameObjects {
      *
      * @param object the Dynamic Object to remove from the game.
      */
-    void removeObject(IPhysicsObject object);
+    void removeObject(Object object);
 
     /**
      * Remove a Projectile from the game.
@@ -79,6 +79,7 @@ public interface IGameObjects {
     /**
      * Check if there is currently a projectile spawned in the game.
      *
+	 * @param p2 player 2.
      * @return if there is currently a projectile spawned in the game.
      */
     boolean hasProjectile(boolean p2);
