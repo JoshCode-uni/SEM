@@ -6,9 +6,10 @@
 package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup;
 
 /**
- *
+ * The pickup event enum.
  * @author Faris
  */
 public enum PickupEventType {
+
     COIN, LIFE;
 }

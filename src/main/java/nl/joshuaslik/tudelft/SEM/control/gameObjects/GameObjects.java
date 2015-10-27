@@ -13,16 +13,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import nl.joshuaslik.tudelft.SEM.control.IDraw;
-import nl.joshuaslik.tudelft.SEM.control.User;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.IKeyboard;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ICircleViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 import nl.joshuaslik.tudelft.SEM.model.container.GameMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Levels;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
@@ -51,8 +50,6 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     private final PickupGenerator pickupGenerator = new PickupGenerator((IGameObjects) this);
     private final ArrayList<Bubble> bubbles = new ArrayList<>();
-    private User user1;
-    private User user2;
     private Player player;
     private Player player2;
 
@@ -66,7 +63,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
     private int score = 0;
 
     private final IDraw draw;
-    
+
     private final ArrayList<IObserver> observerList = new ArrayList<>();
 
     /**
@@ -79,8 +76,8 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @param leftBorder x value of the left border.
      * @param keyBoard
      */
-    public GameObjects(final IDraw draw, final double topBorder, final double rightBorder, final double bottomBorder,
-            final double leftBorder, final IKeyboard keyBoard) {
+    public GameObjects(final IDraw draw, final double topBorder, final double rightBorder, 
+            final double bottomBorder, final double leftBorder, final IKeyboard keyBoard) {
         this.draw = draw;
         initializeBorders(topBorder, rightBorder, bottomBorder, leftBorder);
         initializePlayer(keyBoard);
@@ -117,7 +114,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * Add a random bubble with a chance of 1/300 (~once every 5 seconds) at a random location.
      */
     private void checkSurvivalMode() {
-        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
+        if (!GameMode.SURVIVAL.equals(Users.getInstance().getGameMode())) {
             return;
         }
         if (allBubblesDestroyed() || (Math.random() < 1.0 / 300.0 && bubblesLeft() < 10)) {
@@ -178,11 +175,14 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @param bottomBorder y value of the bottom border.
      * @param leftBorder x value of the left border.
      */
-    private void initializeBorders(final double topBorder, final double rightBorder, final double bottomBorder, final double leftBorder) {
+    private void initializeBorders(final double topBorder, final double rightBorder, 
+            final double bottomBorder, final double leftBorder) {
         Line top = new Line((IGameObjects) this, leftBorder, topBorder, rightBorder, topBorder);
         Line left = new Line((IGameObjects) this, leftBorder, topBorder, leftBorder, bottomBorder);
-        Line right = new Line((IGameObjects) this, rightBorder, topBorder, rightBorder, bottomBorder);
-        Line bottom = new Line((IGameObjects) this, leftBorder, bottomBorder, rightBorder, bottomBorder);
+        Line right = new Line((IGameObjects) this, rightBorder, topBorder, rightBorder, 
+                bottomBorder);
+        Line bottom = new Line((IGameObjects) this, leftBorder, bottomBorder, rightBorder, 
+                bottomBorder);
         addObject(top);
         addObject(left);
         addObject(right);
@@ -200,19 +200,15 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
             is2 = getClass().getResource("/data/gui/img/penguin.png").openStream();
         }
         catch (IOException ex) {
-            Logger.getLogger(GameController.class.getName()).log(Level.SEVERE, "Couldn't load player image", ex);
+            Logger.getLogger(GameViewController.class.getName()).log(Level.SEVERE, 
+                    "Couldn't load player image", ex);
             return;
         }
-        String[] users = User.getUsers();
-        user1 = new User(users[0]);
         player = new Player((IGameObjects) this, is, keyBoard, false);
-        user1.initializePlayer(player);
         addObject(player);
-        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)
-                || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
-            user2 = new User(users[1]);
-        	player2 = new Player((IGameObjects) this, is2, keyBoard, true);
-        	user2.initializePlayer(player2);
+        if (Users.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP)
+                || Users.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+            player2 = new Player((IGameObjects) this, is2, keyBoard, true);
             addObject(player2);
         }
     }
@@ -223,8 +219,13 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @param level the level to initialize.
      */
     private void initializeLevel() {
+<<<<<<< HEAD
         if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
             for (Object e : Levels.getLevelObjects((IGameObjects) this)) {
+=======
+        if (!GameMode.SURVIVAL.equals(Users.getInstance().getGameMode())) {
+            for (IPhysicsObject e : Levels.getLevelObjects((IGameObjects) this)) {
+>>>>>>> highscores
                 addObject(e);
             }
         } else {
@@ -280,7 +281,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
             }
             if (interfaces.contains(IObservable.class)) {
                 oberservableObjects.add((IObservable) object);
-                for(IObserver o : observerList) {
+                for (IObserver o : observerList) {
                     ((IObservable) object).addObserver(o);
                 }
             }
@@ -315,7 +316,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
             }
             if (interfaces.contains(IObservable.class)) {
                 oberservableObjects.remove((IObservable) object);
-                for(IObserver o : observerList) {
+                for (IObserver o : observerList) {
                     ((IObservable) object).deleteObserver(o);
                 }
             }
@@ -331,7 +332,8 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @param bottom max y value.
      * @param left min x value.
      */
-    private void setGameBounds(final double top, final double right, final double bottom, final double left) {
+    private void setGameBounds(final double top, final double right, final double bottom, 
+            final double left) {
         topBorder = top;
         rightBorder = right;
         bottomBorder = bottom;
@@ -415,7 +417,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      */
     @Override
     public void playerDied() {
-        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
+        if (Users.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) {
             if (player.isDead() && player2.isDead()) {
                 draw.playerDied();
                 isActive = false;
@@ -479,7 +481,8 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @return the interface of the circle view object.
      */
     @Override
-    public ICircleViewObject makeCircle(final double centerX, final double centerY, final double radius) {
+    public ICircleViewObject makeCircle(final double centerX, final double centerY, 
+            final double radius) {
         return draw.makeCircle(centerX, centerY, radius);
     }
 
@@ -493,7 +496,8 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @return the interface of the line view object.
      */
     @Override
-    public ILineViewObject makeLine(final double startX, final double startY, final double endX, final double endY) {
+    public ILineViewObject makeLine(final double startX, final double startY, final double endX, 
+            final double endY) {
         return draw.makeLine(startX, startY, endX, endY);
     }
 
@@ -506,12 +510,14 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @return the interface of the image view object.
      */
     @Override
-    public IImageViewObject makeImage(final InputStream is, final double height, final double width) {
+    public IImageViewObject makeImage(final InputStream is, final double height, 
+            final double width) {
         return draw.makeImage(is, width, height);
     }
 
     /**
      * Get the player.
+     *
      * @return the player.
      */
     @Override
@@ -521,6 +527,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * Get player 2.
+     *
      * @return player 2.
      */
     @Override
@@ -530,12 +537,13 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * Handle modifier collision.
+     *
      * @param mod the modifier.
      * @param isPlayerModifier if it is a player modifier.
      * @param isBubbleModifier if it is a bubble modifier.
      */
     @Override
-    public void handleModifierCollision(final Object mod, final boolean isPlayerModifier, 
+    public void handleModifierCollision(final Object mod, final boolean isPlayerModifier,
             final boolean isBubbleModifier) {
         if (isPlayerModifier) {
             player.addModifier((AbstractPlayerDecorator) mod);
@@ -548,6 +556,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * Handle pickup generation after bubble splitting.
+     *
      * @param p point at which the split occured.
      */
     @Override
@@ -557,6 +566,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * Add points.
+     *
      * @param points amount of points to add.
      */
     @Override
@@ -574,6 +584,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * The amount of bubbles left in the game.
+     *
      * @return amount of bubbles left.
      */
     @Override
@@ -585,6 +596,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
     //Methods for testing purposes
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @param draw gameobjects instance.
      */
     GameObjects(final IDraw draw) {
@@ -594,6 +606,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @param bubble a bubble.
      */
     protected void addBubbles(final Bubble bubble) {
@@ -602,6 +615,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return all prepareable objects.
      */
     protected ArrayList<IPrepareable> getPrepareUpdateable() {
@@ -610,6 +624,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return all updateable objects.
      */
     protected ArrayList<IUpdateable> getUpdateable() {
@@ -618,6 +633,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return all collider objects.
      */
     protected ArrayList<ICollider> getCollider() {
@@ -626,6 +642,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
 
     /**
      * FOR TESTING PURPOSES ONLY.
+     *
      * @return all intersectable objects.
      */
     protected ArrayList<IIntersectable> getIntersectable() {
@@ -636,21 +653,14 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
     /**
      * Add observers to existing observable objects and make sure they are added to newly created
      * observable objects.
+     *
      * @param observer an observer.
      */
     @Override
     public void addObserver(IObserver observer) {
         observerList.add(observer);
-        for(IObservable o : oberservableObjects) {
+        for (IObservable o : oberservableObjects) {
             o.addObserver(observer);
         }
     }
-    
-	public User getUser() {
-		return user1;
-	}
-	
-	public User getUser2() {
-		return user2;
-	}
 }

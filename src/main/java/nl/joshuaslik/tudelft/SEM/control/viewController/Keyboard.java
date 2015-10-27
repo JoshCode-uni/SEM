@@ -7,7 +7,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 
 /**
@@ -78,7 +78,8 @@ public class Keyboard implements IKeyboard {
     public boolean isMoveLeft(boolean p2) {
         if (!p2) {
             return keyboard.get(leftKey.ordinal()) && !keyboard.get(rightKey.ordinal());
-        } else if ((GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) && p2) {
+        } else if ((Users.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || 
+                Users.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) && p2) {
             return keyboard.get(mpLeftKey.ordinal()) && !keyboard.get(mpRightKey.ordinal());
         }
         return false;
@@ -94,7 +95,8 @@ public class Keyboard implements IKeyboard {
     public boolean isMoveRight(boolean p2) {
         if (!p2) {
             return keyboard.get(rightKey.ordinal()) && !keyboard.get(leftKey.ordinal());
-        } else if ((GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || GameInfo.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) && p2) {
+        } else if ((Users.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_COOP) || 
+                Users.getInstance().getPlayerMode().equals(PlayerMode.MULTI_PLAYER_VERSUS)) && p2) {
             return keyboard.get(mpRightKey.ordinal()) && !keyboard.get(mpLeftKey.ordinal());
         }
         return false;
@@ -108,7 +110,7 @@ public class Keyboard implements IKeyboard {
      */
     @Override
     public boolean isShoot(boolean p2) {
-        if (GameInfo.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER) && !p2) {
+        if (Users.getInstance().getPlayerMode().equals(PlayerMode.SINGLE_PLAYER) && !p2) {
             return keyboard.get(shoot.ordinal());
         } else if (!p2) {
             return keyboard.get(mpShoot.ordinal());
@@ -120,6 +122,7 @@ public class Keyboard implements IKeyboard {
 
     /**
      * Get the scene.
+     *
      * @return the scene.
      */
     Scene getScene() {
@@ -128,15 +131,16 @@ public class Keyboard implements IKeyboard {
 
     /**
      * Set the bit set.
+     *
      * @param kb the bit set.
      */
     void setBitSet(BitSet kb) {
         keyboard = kb;
     }
-    
-    void setKeyCode(ArrayList<KeyCode> keyCodes){
-    	leftKey = keyCodes.get(0);
-    	rightKey = keyCodes.get(1);
-    	shoot = keyCodes.get(2);
+
+    void setKeyCode(ArrayList<KeyCode> keyCodes) {
+        leftKey = keyCodes.get(0);
+        rightKey = keyCodes.get(1);
+        shoot = keyCodes.get(2);
     }
 }

@@ -1,7 +1,7 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 import nl.joshuaslik.tudelft.SEM.Launcher;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 import javafx.collections.FXCollections;
@@ -15,9 +15,10 @@ import javafx.scene.control.TextField;
 
 /**
  * Controller of the popup which allows you to choose names, game mode, etc.
+ *
  * @author Faris
  */
-public class GameplayChoicesController implements IpopupController {
+public class GameplayChoicesViewController implements IpopupController {
 
     @FXML
     private Label player2Label, gameModeLabel;
@@ -37,7 +38,6 @@ public class GameplayChoicesController implements IpopupController {
     @FXML
     private void handleStartButton() {
         GameLog.addInfoLog("Play button pressed from gameplay screen");
-        System.out.println("Play button pressed!");
         prepareGame();
     }
 
@@ -48,21 +48,23 @@ public class GameplayChoicesController implements IpopupController {
         String username1 = user1.getText();
         String username2 = user2.getText();
         if (!(username1.equals(""))) {
+            Users.getInstance().setPlayerName(0, username1);
             if ((username1.equals(""))) {
                 return;
             }
             switch (SingleMultiChoice.getSelectionModel().getSelectedIndex()) {
                 case 0:
-                    GameInfo.getInstance().setPlayerMode(PlayerMode.SINGLE_PLAYER);
+                    Users.getInstance().setPlayerMode(PlayerMode.SINGLE_PLAYER);
                     break;
                 case 1:
                     if (!username2.equals("")) {
-                        GameInfo.getInstance().setPlayerName(1, username2);
+                        Users.getInstance().setPlayerName(1, username2);
                         if (coopVersusChoice.getValue().equals("Co-op")) {
-                            GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
+                            Users.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
+                            Users.getInstance().setPlayerName(1, username2);
                         }
                         if (coopVersusChoice.getValue().equals("Versus")) {
-                            GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_VERSUS);
+                            Users.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_VERSUS);
                         }
                     } else {
                         return;
@@ -71,7 +73,7 @@ public class GameplayChoicesController implements IpopupController {
                 default:
                     throw new AssertionError();
             }
-            GameInfo.getInstance().setPlayerName(0, username1);
+            Users.getInstance().setPlayerName(0, username1);
             popupControl.hide();
             mainController.setButtonsDisabled(false);
         }
@@ -90,6 +92,7 @@ public class GameplayChoicesController implements IpopupController {
 
     /**
      * Set the controller of the main view.
+     *
      * @param controller the controller of the main view.
      */
     @Override
@@ -100,6 +103,7 @@ public class GameplayChoicesController implements IpopupController {
 
     /**
      * Set the controller of the popup.
+     *
      * @param popupControl the controller of the popup.
      */
     @Override

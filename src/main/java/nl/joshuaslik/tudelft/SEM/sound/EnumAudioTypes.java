@@ -5,14 +5,14 @@
  */
 package nl.joshuaslik.tudelft.SEM.sound;
 
-
 /**
  * An enum which stores the paths to the files containing the sound effects.
+ *
  * @author Faris
  */
 public enum EnumAudioTypes {
-    
-        UT_DOUBLE_KILL(new SoundEffect("/data/sound/announcer/Double_Kill.wav"), false),
+
+    UT_DOUBLE_KILL(new SoundEffect("/data/sound/announcer/Double_Kill.wav"), false),
     UT_MULTI_KILL(new SoundEffect("/data/sound/announcer/MultiKill.wav"), false),
     UT_MEGA_KILL(new SoundEffect("/data/sound/announcer/MegaKill.wav"), false),
     UT_MONSTER_KILL(new SoundEffect("/data/sound/announcer/MonsterKill.wav"), true),
@@ -50,11 +50,12 @@ public enum EnumAudioTypes {
     SHOOT_2(new SoundEffect("/data/sound/effects/shoot-2.wav"), false),
     WALK_LOOP(new SoundEffect("/data/sound/effects/walk-loop.wav"), false),
     COIN(new SoundEffect("/data/sound/effects/coin.wav"), false);
-    
+
     private final SoundEffect sound;
-    
+
     /**
      * Private enum contructor.
+     *
      * @param sound SoundEffect object with the path to the sound file set.
      * @param echo if an echo should be played.
      */
@@ -62,9 +63,10 @@ public enum EnumAudioTypes {
         this.sound = sound;
         sound.setEcho(echo);
     }
-    
+
     /**
      * Get the sound effect of this enum instance.
+     *
      * @return a SoundEffect object.
      */
     protected SoundEffect getSound() {

@@ -2,7 +2,7 @@ package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 
 import static org.junit.Assert.*;
 
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.verify;
 public class LineViewObjectTest {
 
     @Mock
-    GameController gc;
+    GameViewController gc;
 
     LineViewObject lvo;
 

@@ -14,6 +14,7 @@ import nl.joshuaslik.tudelft.SEM.utility.IObserver;
 
 /**
  * A event listener which plays sounds every time there is a pickup event.
+ *
  * @author Faris
  */
 public class PickupSoundObserver implements IObserver<AbstractPickup, PickupEventType> {

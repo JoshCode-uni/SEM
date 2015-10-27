@@ -23,6 +23,7 @@ public class PickupGenerator {
 
     /**
      * Construct a pickup generator.
+     *
      * @param gameObjects the gameobjects.
      */
     public PickupGenerator(IGameObjects gameObjects) {
@@ -31,6 +32,7 @@ public class PickupGenerator {
 
     /**
      * Generate a random pickup.
+     *
      * @param p the point of the pickup
      */
     public void generatePickup(Point p) {
@@ -39,6 +41,7 @@ public class PickupGenerator {
 
     /**
      * Generate a random pickup.
+     *
      * @param p the point of the pickup.
      * @param rand an instace of random.
      */
@@ -47,7 +50,8 @@ public class PickupGenerator {
             return;
         }
         if (rand.nextDouble() < 0.6) {
-            Powerup powerup = new Powerup(gameObjects, EnumPowerupTypes.getRandomPowerup(), p.getxPos(), p.getyPos());
+            Powerup powerup = new Powerup(gameObjects, EnumPowerupTypes.getRandomPowerup(), 
+                    p.getxPos(), p.getyPos());
             gameObjects.addObject(powerup);
         } else {
             if (rand.nextDouble() < 0.9) {

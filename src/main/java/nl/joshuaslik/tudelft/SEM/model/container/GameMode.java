@@ -7,8 +7,10 @@ package nl.joshuaslik.tudelft.SEM.model.container;
 
 /**
  * The game mode enum.
+ *
  * @author Faris
  */
 public enum GameMode {
+
     CLASSIC, SURVIVAL;
 }

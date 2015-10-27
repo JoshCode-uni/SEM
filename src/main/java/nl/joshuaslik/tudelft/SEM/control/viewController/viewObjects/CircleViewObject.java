@@ -7,7 +7,7 @@ package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 
 import javafx.scene.Node;
 import javafx.scene.shape.Circle;
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 
 /**
  * This class can be used to add a circle to the view and update the properties of that circle.
@@ -28,7 +28,7 @@ public class CircleViewObject extends AbstractViewObject implements ICircleViewO
      * @param radius the radius of the circle.
      * @param gc a reference to the view in which this circle should be drawn.
      */
-    public CircleViewObject(double centerX, double centerY, double radius, GameController gc) {
+    public CircleViewObject(double centerX, double centerY, double radius, GameViewController gc) {
         super(gc);
         this.circle = new Circle(centerX, centerY, radius);
         gc.drawNode(circle);

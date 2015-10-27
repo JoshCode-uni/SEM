@@ -9,7 +9,7 @@ import java.io.InputStream;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.GameObjects;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.Player;
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.IImageViewObject;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.utility.Time;
 import static org.junit.Assert.assertEquals;
@@ -51,7 +51,7 @@ public class AbstractPickupTest {
         when(gameObjects.makeImage(Mockito.any(InputStream.class), Mockito.anyDouble(),
                 Mockito.anyDouble())).thenReturn(image);
         pickup = new Coin(gameObjects, 0, 0);
-        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
+        Users.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
     }
 
     /**

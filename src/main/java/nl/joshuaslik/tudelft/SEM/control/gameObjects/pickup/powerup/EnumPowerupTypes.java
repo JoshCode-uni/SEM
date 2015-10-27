@@ -10,19 +10,25 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.bubbleMods.BubbleSlowdown;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.PlayerSpeedUp;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.ProjectileSpeedUp;
-import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.ProjectileSpikeDelayUp;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.bubbleMods.
+        BubbleSlowdown;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.
+        PlayerSpeedUp;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods.
+        ProjectileSpeedUp;
+import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.playerMods
+        .ProjectileSpikeDelayUp;
 
 /**
  * Store all kinds of powerups and their images.
+ *
  * @author faris
  */
 public enum EnumPowerupTypes {
 
     PLAYER_SPEED_UP(PlayerSpeedUp.class, "/data/gui/img/speedup.png", true, false),
-    PROJECTILE_SPEED_UP(ProjectileSpeedUp.class, "/data/gui/img/projectilespeedup.png", true, false),
+    PROJECTILE_SPEED_UP(ProjectileSpeedUp.class, "/data/gui/img/projectilespeedup.png", true, 
+            false),
     PROJECTILE_DELAY(ProjectileSpikeDelayUp.class, "/data/gui/img/spike.png", true, false),
     BUBBLE_SLOW_DOWN(BubbleSlowdown.class, "/data/gui/img/slowdown.png", false, true);
 
@@ -34,12 +40,14 @@ public enum EnumPowerupTypes {
 
     /**
      * Private enum constructor.
+     *
      * @param mod the modifier.
      * @param imageName the image path.
      * @param playerPickup if it is a player pickup.
      * @param bubblePickup if it is a bubble pickup.
      */
-    private EnumPowerupTypes(Class mod, String imageName, boolean playerPickup, boolean bubblePickup) {
+    private EnumPowerupTypes(Class mod, String imageName, boolean playerPickup,
+            boolean bubblePickup) {
         this.mod = mod;
         this.imageName = imageName;
         this.playerPickup = playerPickup;
@@ -48,6 +56,7 @@ public enum EnumPowerupTypes {
 
     /**
      * Get a random enum powerup.
+     *
      * @return an enum powerup.
      */
     public static EnumPowerupTypes getRandomPowerup() {
@@ -60,6 +69,7 @@ public enum EnumPowerupTypes {
 
     /**
      * Get the stream of the image.
+     *
      * @return stream of the image.
      */
     public InputStream getImageStream() {
@@ -82,6 +92,7 @@ public enum EnumPowerupTypes {
 
     /**
      * Get the height of the image.
+     *
      * @return the height of the image.
      */
     public double getImageHeight() {
@@ -90,6 +101,7 @@ public enum EnumPowerupTypes {
 
     /**
      * Get the width of the image.
+     *
      * @return the width of the image.
      */
     public double getImageWidth() {
@@ -98,6 +110,7 @@ public enum EnumPowerupTypes {
 
     /**
      * Get the decorator.
+     *
      * @return the decorator.
      */
     public IDecorator getDecor() {

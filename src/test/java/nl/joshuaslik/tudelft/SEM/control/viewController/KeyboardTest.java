@@ -3,7 +3,7 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 import static org.junit.Assert.*;
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyEvent;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 
 import org.junit.Before;
@@ -52,7 +52,7 @@ public class KeyboardTest {
         MockitoAnnotations.initMocks(this);
         keyboard = new Keyboard(scene);
         keyboard.setBitSet(kb);
-        GameInfo.getInstance().setPlayerMode(PlayerMode.SINGLE_PLAYER);
+        Users.getInstance().setPlayerMode(PlayerMode.SINGLE_PLAYER);
     }
 
     /**

@@ -20,7 +20,7 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
 
     private final EffectPlayer effectPlayer;
     private final Random rand = new Random();
-    private boolean walkLoopPlaying = false;
+    private static boolean walkLoopPlaying = false;
     private final boolean utSounds;
 
     /**
@@ -51,16 +51,16 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
                 handleShoot(balance);
                 break;
             case WALK:
-                handleWalk();
+                handleWalk(player);
                 break;
             case NOT_WALKING:
-                handleNotWalking();
+                handleNotWalking(player);
                 break;
             default:
                 throw new AssertionError();
         }
     }
-    
+
     /**
      * Play sound: the player died.
      */
@@ -74,6 +74,7 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
 
     /**
      * Play sound: the player shoots.
+     *
      * @param balance the balance of the sound.
      */
     private void handleShoot(double balance) {
@@ -87,18 +88,18 @@ public class PlayerSoundObserver implements IObserver<Player, Player.EventType> 
     /**
      * Play sound: the player is walking.
      */
-    private void handleWalk() {
-        if(!walkLoopPlaying) {
+    private void handleWalk(Player player) {
+        if (!walkLoopPlaying && !player.getP2()) {
             walkLoopPlaying = true;
             effectPlayer.playLoop(EnumAudioTypes.WALK_LOOP, 0, 0.2);
         }
     }
-    
+
     /**
      * Stop playing sound: the player is walking.
      */
-    private void handleNotWalking() {
-        if(walkLoopPlaying) {
+    private void handleNotWalking(Player player) {
+        if (walkLoopPlaying && !player.getP2()) {
             walkLoopPlaying = false;
             effectPlayer.stopLoop(EnumAudioTypes.WALK_LOOP);
         }

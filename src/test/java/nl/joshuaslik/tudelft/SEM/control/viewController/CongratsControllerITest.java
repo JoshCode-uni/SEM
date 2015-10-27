@@ -16,17 +16,17 @@ import org.junit.runner.RunWith;
  * @author Faris
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)
-public class CongratsControllerIT {
+public class CongratsControllerITest {
 
     /**
-     * Test of handleMainMenuButton method, of class CongratsController.
+     * Test of handleMainMenuButton method, of class CongratsViewController.
      */
     @Test
     public void handleMainMenuButton() {
-        GameController.loadView();
-        CongratsController.loadPopup(Launcher.getController());
-        CongratsController controller = (CongratsController) Launcher.getPopupController();
+        GameViewController.loadView();
+        CongratsViewController.loadPopup(Launcher.getController());
+        CongratsViewController controller = (CongratsViewController) Launcher.getPopupController();
         controller.fireMainMenuButton();
-        assertTrue(Launcher.getController() instanceof MainMenuController);
+        assertTrue(Launcher.getController() instanceof MainMenuViewController);
     }
 }

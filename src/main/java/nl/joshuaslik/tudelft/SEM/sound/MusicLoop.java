@@ -85,7 +85,8 @@ public class MusicLoop {
          * Set the audio a bit lower.
          */
         private void adjustAudio() {
-            FloatControl control = (FloatControl) introClip.getControl(FloatControl.Type.MASTER_GAIN);
+            FloatControl control =
+                    (FloatControl) introClip.getControl(FloatControl.Type.MASTER_GAIN);
             control.setValue(-20f);
             control = (FloatControl) loopClip.getControl(FloatControl.Type.MASTER_GAIN);
             control.setValue(-20f);

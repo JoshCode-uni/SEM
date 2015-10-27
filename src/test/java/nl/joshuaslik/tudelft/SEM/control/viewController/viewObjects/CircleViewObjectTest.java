@@ -2,7 +2,7 @@ package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 
 import static org.junit.Assert.*;
 
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +22,7 @@ import javafx.scene.shape.Circle;
 public class CircleViewObjectTest {
 
     @Mock
-    GameController gc;
+    GameViewController gc;
 
     CircleViewObject cvo;
 

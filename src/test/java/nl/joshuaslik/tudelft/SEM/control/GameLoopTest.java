@@ -7,9 +7,9 @@ import java.io.InputStream;
 
 import javafx.scene.Scene;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.GameObjects;
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,10 +26,10 @@ import org.powermock.modules.junit4.PowerMockRunner;
  */
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(GameLoop.class)
-public class GameLoopT {
+public class GameLoopTest {
 
     @Mock
-    GameController gameController;
+    GameViewController gameController;
 
     @Mock
     Scene scene;
@@ -54,7 +54,7 @@ public class GameLoopT {
         PowerMockito.whenNew(GameObjects.class).withAnyArguments().thenReturn(gameObjects);
         gl = new GameLoop(gameController, 25, 25, 0, 0, scene);
         spyGL = Mockito.spy(gl);
-        GameInfo.getInstance().setClassicMode();
+        Users.getInstance().setClassicMode();
     }
 
     /**
@@ -123,7 +123,7 @@ public class GameLoopT {
      */
     @Test
     public void testSetViewController() {
-        GameController gameController2 = Mockito.mock(GameController.class);
+        GameViewController gameController2 = Mockito.mock(GameViewController.class);
         assertEquals(gl.getGameController(), gameController);
         assertNotEquals(gl.getGameController(), gameController2);
         gl.setViewController(gameController2);

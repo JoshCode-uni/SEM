@@ -8,7 +8,7 @@ package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 
 /**
  * This class can be used to add a line to the view and update the properties of that line.
@@ -28,7 +28,8 @@ public class LineViewObject extends AbstractViewObject implements ILineViewObjec
      * @param endY y coordinate of the end position of the line.
      * @param gc a reference to the controller of the view of this line.
      */
-    public LineViewObject(double startX, double startY, double endX, double endY, GameController gc) {
+    public LineViewObject(double startX, double startY, double endX, double endY,
+            GameViewController gc) {
         super(gc);
         this.line = new Line(startX, startY, endX, endY);
         gc.drawNode(line);

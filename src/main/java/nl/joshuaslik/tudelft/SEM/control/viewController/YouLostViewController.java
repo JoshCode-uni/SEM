@@ -8,9 +8,10 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * Controller class of the view which is shown when you've lost a level.
+ *
  * @author Faris
  */
-public class YouLostController implements IpopupController {
+public class YouLostViewController implements IpopupController {
 
     @FXML
     private Button mainMenuButton, tryAgainButton;
@@ -24,9 +25,8 @@ public class YouLostController implements IpopupController {
     @FXML
     private void handleMainMenuButton() {
         GameLog.addInfoLog("Retry button pressed from you lost screen");
-        System.out.println("Retry button pressed!");
         popupControl.hide();
-        MainMenuController.loadView();
+        MainMenuViewController.loadView();
     }
 
     /**
@@ -35,10 +35,9 @@ public class YouLostController implements IpopupController {
     @FXML
     private void handleTryAgainButton() {
         GameLog.addInfoLog("Main menu button pressed from you lost screen");
-        System.out.println("Main Menu button pressed!");
         popupControl.hide();
         mainController.setButtonsDisabled(false);
-        GameController.loadView();
+        GameViewController.loadView();
     }
 
     /**

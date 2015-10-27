@@ -1,7 +1,8 @@
 package nl.joshuaslik.tudelft.SEM.utility;
 
 /**
- * Store public time variables. 
+ * Store public time variables.
+ *
  * @Author Joshua
  */
 public class Time {

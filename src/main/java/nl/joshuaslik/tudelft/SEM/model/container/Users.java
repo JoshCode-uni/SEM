@@ -12,21 +12,21 @@ import java.util.ArrayList;
  *
  * @author Faris
  */
-public class GameInfo {
+public class Users {
 
-    private static GameInfo gameInfo;
+    private static Users gameInfo;
     private PlayerMode playerMode = PlayerMode.SINGLE_PLAYER;
     private GameMode gameMode = GameMode.CLASSIC;
     private int lives = 3;
-    private final ArrayList<Integer> levelScoresplayer1;
+    private final ArrayList<Integer> levelScoresPlayer1;
     private final ArrayList<Integer> levelScoresPlayer2;
     private final ArrayList<String> playerNames;
 
     /**
      * Private constructor to ensure singleton.
      */
-    private GameInfo() {
-        levelScoresplayer1 = new ArrayList<>();
+    private Users() {
+        levelScoresPlayer1 = new ArrayList<>();
         playerNames = new ArrayList<>();
         levelScoresPlayer2 = new ArrayList<>();
     }
@@ -36,9 +36,9 @@ public class GameInfo {
      *
      * @return gameinfo instance.
      */
-    public static GameInfo getInstance() {
+    public static Users getInstance() {
         if (gameInfo == null) {
-            gameInfo = new GameInfo();
+            gameInfo = new Users();
         }
         return gameInfo;
     }
@@ -91,9 +91,9 @@ public class GameInfo {
      * @param score the score.
      */
     public void setPlayer1LevelScore(int level, int score) {
-        ensureSize(levelScoresplayer1, level + 1);
-        if (levelScoresplayer1.get(level) < score) {
-            levelScoresplayer1.set(level, score);
+        ensureSize(levelScoresPlayer1, level + 1);
+        if (levelScoresPlayer1.get(level) < score) {
+            levelScoresPlayer1.set(level, score);
         }
     }
 
@@ -126,7 +126,7 @@ public class GameInfo {
      */
     public int getPlayer1Score() {
         int sum = 0;
-        for (int i : levelScoresplayer1) {
+        for (int i : levelScoresPlayer1) {
             sum += i;
         }
         return sum;
@@ -195,7 +195,9 @@ public class GameInfo {
     /**
      * Reset the amount of lives.
      */
-    public void resetLives() {
+    public void reset() {
+        levelScoresPlayer1.clear();
+        levelScoresPlayer2.clear();
         lives = 3;
     }
 

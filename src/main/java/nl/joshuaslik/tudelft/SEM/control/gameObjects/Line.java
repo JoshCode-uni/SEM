@@ -18,7 +18,8 @@ public class Line extends AbstractLine implements IIntersectable {
      * @param endX
      * @param endY
      */
-    public Line(final IGameObjects gameObjects, final double startX, final double startY, final double endX, final double endY) {
+    public Line(final IGameObjects gameObjects, final double startX, final double startY, 
+            final double endX, final double endY) {
         super(gameObjects, startX, startY, endX, endY);
         line = getGameObjects().makeLine(startX, startY, endX, endY);
         line.setStrokeWidth(10);

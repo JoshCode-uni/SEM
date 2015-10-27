@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObject;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import org.junit.Before;
@@ -49,7 +49,7 @@ public class BubbleDoorTest {
      */
     @Before
     public void setUp() {
-        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);;
+        Users.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);;
         when(p1.getxPos()).thenReturn(0.0);
         when(p1.getyPos()).thenReturn(10.0);
         when(p2.getxPos()).thenReturn(5.0);
