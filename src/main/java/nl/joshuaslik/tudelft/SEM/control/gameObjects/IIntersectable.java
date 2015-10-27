@@ -10,9 +10,10 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
  * Defines the methods needed by an object which is intersectable.
+ *
  * @author faris
  */
-interface IIntersectable extends IPhysicsObject {
+interface IIntersectable {
 
     /**
      * Get the closest point of this object to point p.

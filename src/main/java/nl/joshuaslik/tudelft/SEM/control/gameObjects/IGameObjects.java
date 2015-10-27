@@ -25,68 +25,81 @@ public interface IGameObjects {
      *
      * @param object the Dynamic Object to add to the scene.
      */
-    void addObject(IPhysicsObject object);
+<<<<<<< HEAD
+    void addObject(Object object);
+=======
+    public void addObject(IPhysicsObject object);
+>>>>>>> highscores
 
     /**
      * Add a Projectile to the game.
      *
      * @param projectile the Projectile to add to the scene.
      */
-    void addProjectile(Projectile projectile);
+    public void addProjectile(Projectile projectile);
 
     /**
      * Remove a Dynamic Object from the game.
      *
      * @param object the Dynamic Object to remove from the game.
      */
-    void removeObject(IPhysicsObject object);
+<<<<<<< HEAD
+    void removeObject(Object object);
+=======
+    public void removeObject(IPhysicsObject object);
+>>>>>>> highscores
 
     /**
      * Remove a Projectile from the game.
      *
      * @param p2 if this is the projectile of player 2.
      */
-    void removeProjectile(boolean p2);
+    public void removeProjectile(boolean p2);
 
     /**
      * Get the min y value.
      *
      * @return min y value.
      */
-    double getTopBorder();
+    public double getTopBorder();
 
     /**
      * Get the maximum x value.
      *
      * @return max x value.
      */
-    double getRightBorder();
+    public double getRightBorder();
 
     /**
      * Get the maximum y value.
      *
      * @return max y value.
      */
-    double getBottomBorder();
+    public double getBottomBorder();
 
     /**
      * Get the minimum x value.
      *
      * @return min x value.
      */
-    double getLeftBorder();
+    public double getLeftBorder();
 
     /**
      * Check if there is currently a projectile spawned in the game.
      *
+<<<<<<< HEAD
+	 * @param p2 player 2.
+=======
+     * @param p2
+>>>>>>> highscores
      * @return if there is currently a projectile spawned in the game.
      */
-    boolean hasProjectile(boolean p2);
+    public boolean hasProjectile(boolean p2);
 
     /**
      * Called when the player dies. Handles quiting the game and reducing the amount of lives by 1.
      */
-    void playerDied();
+    public void playerDied();
 
     /**
      * Create a circle in the view.
@@ -96,7 +109,7 @@ public interface IGameObjects {
      * @param radius the radius of the circle.
      * @return the interface of the circle view object.
      */
-    ICircleViewObject makeCircle(double centerX, double centerY, double radius);
+    public ICircleViewObject makeCircle(double centerX, double centerY, double radius);
 
     /**
      * Create a line in the view.
@@ -107,7 +120,7 @@ public interface IGameObjects {
      * @param endY the y coordinate of the end point of the line.
      * @return the interface of the line view object.
      */
-    ILineViewObject makeLine(double startX, double startY, double endX, double endY);
+    public ILineViewObject makeLine(double startX, double startY, double endX, double endY);
 
     /**
      * Create an image in the view.
@@ -117,48 +130,54 @@ public interface IGameObjects {
      * @param width the width of the image.
      * @return the interface of the image view object.
      */
-    IImageViewObject makeImage(InputStream is, double height, double width);
+    public IImageViewObject makeImage(InputStream is, double height, double width);
 
     /**
      * Get the player.
+     *
      * @return the player.
      */
-    Player getPlayer();
+    public Player getPlayer();
 
     /**
      * Handle modifier collision.
+     *
      * @param modifier the modifier.
      * @param isPlayerPickup if it is a player modifier.
      * @param isBubblePickup if it is a bubble modifier
      */
-    void handleModifierCollision(Object modifier, boolean isPlayerPickup, boolean isBubblePickup);
+    public void handleModifierCollision(Object modifier, boolean isPlayerPickup, boolean isBubblePickup);
 
     /**
      * Hand;e bubble splitting.
+     *
      * @param p the point at which the bubble was split.
      */
-    void handleBubbleSplit(Point p);
+    public void handleBubbleSplit(Point p);
 
     /**
      * Add point.
+     *
      * @param points amount of points to add.
      */
-    void addPoints(int points);
+    public void addPoints(int points);
 
     /**
      * Add a life.
      */
-    void addLife();
+    public void addLife();
 
     /**
      * Amount of bubbles left.
+     *
      * @return amount of bubbles left.s
      */
-    int bubblesLeft();
+    public int bubblesLeft();
 
     /**
      * Get player 2.
+     *
      * @return player 2.
      */
-    Player getPlayer2();
+    public Player getPlayer2();
 }

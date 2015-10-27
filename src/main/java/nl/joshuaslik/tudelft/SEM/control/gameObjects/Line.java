@@ -7,7 +7,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObj
  *
  * @author faris
  */
-public class Line extends AbstractLine implements IIntersectable, IPhysicsObject {
+public class Line extends AbstractLine implements IIntersectable {
 
     private final ILineViewObject line;
 
@@ -18,7 +18,8 @@ public class Line extends AbstractLine implements IIntersectable, IPhysicsObject
      * @param endX
      * @param endY
      */
-    public Line(final IGameObjects gameObjects, final double startX, final double startY, final double endX, final double endY) {
+    public Line(final IGameObjects gameObjects, final double startX, final double startY, 
+            final double endX, final double endY) {
         super(gameObjects, startX, startY, endX, endY);
         line = getGameObjects().makeLine(startX, startY, endX, endY);
         line.setStrokeWidth(10);

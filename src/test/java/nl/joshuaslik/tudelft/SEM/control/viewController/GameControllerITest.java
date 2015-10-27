@@ -20,7 +20,7 @@ import org.junit.runner.RunWith;
  * @author Faris
  */
 @RunWith(JavaFxJUnit4ClassRunner.class)
-public class GameControllerIT {
+public class GameControllerITest {
 
     /**
      * Make sure system.exit() won't actually stop the application.
@@ -31,21 +31,21 @@ public class GameControllerIT {
     /**
      * Controller of the main menu.
      */
-    private GameController controller;
+    private GameViewController controller;
 
     /**
      * Make sure the main menu is always loaded first and set the right controller.
      */
     @Before
     public final void startGame() {
-        MainMenuController.loadView();
-        ((MainMenuController) Launcher.getController()).firePlayButton();
-        controller = (GameController) Launcher.getController();
+        MainMenuViewController.loadView();
+        ((MainMenuViewController) Launcher.getController()).firePlayButton();
+        controller = (GameViewController) Launcher.getController();
         assert controller != null;
     }
 
     /**
-     * Test of handleQuitButton method, of class MainMenuController. System.exit(0) will be called,
+     * Test of handleQuitButton method, of class MainMenuViewController. System.exit(0) will be called,
      * because we are using the "ExpectedSystemExit" rule, we expect a runtime exception.
      *
      * @throws java.lang.InterruptedException ignore.
@@ -57,11 +57,11 @@ public class GameControllerIT {
     }
 
     /**
-     * Test of handleMainMenuButton method, of class GameController.
+     * Test of handleMainMenuButton method, of class GameViewController.
      */
     @Test
     public void testHandleMainMenuButton() {
         controller.fireMainMenuButton();
-        assertTrue(Launcher.getController() instanceof MainMenuController);
+        assertTrue(Launcher.getController() instanceof MainMenuViewController);
     }
 }

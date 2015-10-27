@@ -9,12 +9,14 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.Abstr
 
 /**
  * Projectile spike delay increase modifier.
+ *
  * @author faris
  */
 public class ProjectileSpikeDelayUp extends AbstractPlayerDecorator {
 
     /**
      * Increase the projectile spike delay.
+     *
      * @return increased projectile spike delay.
      */
     @Override
@@ -24,6 +26,7 @@ public class ProjectileSpikeDelayUp extends AbstractPlayerDecorator {
 
     /**
      * Default player speed multiplier.
+     *
      * @return player speed multiplier.
      */
     @Override
@@ -33,6 +36,7 @@ public class ProjectileSpikeDelayUp extends AbstractPlayerDecorator {
 
     /**
      * Default projectile speed multiplier.
+     *
      * @return the projectile speed multiplier.
      */
     @Override

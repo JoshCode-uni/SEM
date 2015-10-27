@@ -14,6 +14,7 @@ import nl.joshuaslik.tudelft.SEM.sound.observer.PlayerSoundObserver;
 /**
  * A sound effect player. Can be used to add listeners to game objects and will play a sound effect
  * when one of those listeners gets an event from one of the game objects.
+ *
  * @author Faris
  */
 public class EffectPlayer {
@@ -30,6 +31,7 @@ public class EffectPlayer {
 
     /**
      * Add observers/listeners to gameobjects.
+     *
      * @param ob the object to add observers to.
      */
     public void addListenersTo(IOberservableGameObjectContainer ob) {
@@ -41,6 +43,7 @@ public class EffectPlayer {
 
     /**
      * Play a sound.
+     *
      * @param audioType enum object containing a sound effect.
      */
     public void play(EnumAudioTypes audioType) {
@@ -49,6 +52,7 @@ public class EffectPlayer {
 
     /**
      * Play a sound.
+     *
      * @param audioType enum object containing a sound effect.
      * @param balance the balance of the sound (between -1 and 1).
      */
@@ -57,9 +61,10 @@ public class EffectPlayer {
             audioType.getSound().play(balance);
         }
     }
-    
+
     /**
      * Play a sound loop.
+     *
      * @param audioType enum object containing a sound effect.
      * @param balance the balance of the sound (between -1 and 1).
      */
@@ -68,20 +73,23 @@ public class EffectPlayer {
             audioType.getSound().playLoop(balance);
         }
     }
-    
+
     /**
      * Play a sound loop.
+     *
      * @param audioType enum object containing a sound effect.
      * @param balance the balance of the sound (between -1 and 1).
+     * @param volume the volume.
      */
     public void playLoop(EnumAudioTypes audioType, double balance, double volume) {
         if (playSound) {
             audioType.getSound().playLoop(volume, balance);
         }
     }
-    
+
     /**
      * Stop a sound loop.
+     *
      * @param audioType enum object containing a sound effect.
      */
     public void stopLoop(EnumAudioTypes audioType) {
@@ -99,6 +107,7 @@ public class EffectPlayer {
 
     /**
      * Get the instance of this effect player. This class is a singleton.
+     *
      * @return the effect player.
      */
     public static EffectPlayer getInstace() {
@@ -107,7 +116,10 @@ public class EffectPlayer {
         }
         return effectPlayer;
     }
-    
+
+    /**
+     * Destroy the player effect.
+     */
     public void destroy() {
         stopLoop(EnumAudioTypes.WALK_LOOP);
     }

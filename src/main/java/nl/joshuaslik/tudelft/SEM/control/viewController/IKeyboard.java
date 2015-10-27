@@ -7,6 +7,7 @@ package nl.joshuaslik.tudelft.SEM.control.viewController;
 
 /**
  * The keyboard listener interface.
+ *
  * @author faris
  */
 public interface IKeyboard {

@@ -13,7 +13,7 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.PickupGenerator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.bubble.AbstractBubbleDecorator;
 import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player.AbstractPlayerDecorator;
 import nl.joshuaslik.tudelft.SEM.control.viewController.Keyboard;
-import nl.joshuaslik.tudelft.SEM.model.container.GameInfo;
+import nl.joshuaslik.tudelft.SEM.model.container.Users;
 import nl.joshuaslik.tudelft.SEM.model.container.PlayerMode;
 import nl.joshuaslik.tudelft.SEM.model.container.Point;
 import org.junit.Before;
@@ -38,14 +38,14 @@ public class GameObjectsConstructorTest {
     private Line l2;
     private Line l3;
     private Line l4;
-    private ArrayList<IPhysicsObject> physicsObject = new ArrayList<>();
+    private ArrayList<Object> physicsObject = new ArrayList<>();
     private Bubble bubble;
     private Player player;
     Point p = new Point(0, 0);
 
     @Before
     public void setUp() throws Exception {
-        GameInfo.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
+        Users.getInstance().setPlayerMode(PlayerMode.MULTI_PLAYER_COOP);
         suppress(methods(GameObjects.class, "initializeLevel"));
         l1 = PowerMockito.mock(Line.class);
         l2 = PowerMockito.mock(Line.class);

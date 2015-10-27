@@ -85,6 +85,7 @@ public class BubbleSoundObserver implements IObserver<Bubble, Bubble.EventType> 
 
     /**
      * Play the first blood sound.
+     *
      * @param balance the balance of the sound.
      */
     private void playFirstBlood(double balance) {
@@ -170,6 +171,7 @@ public class BubbleSoundObserver implements IObserver<Bubble, Bubble.EventType> 
 
     /**
      * Play the one of the multi kill sounds with the gladdos voice.
+     *
      * @param balance the balance of the sound.
      */
     private void playRandomGladdosMultiKillSound(double balance) {
@@ -187,6 +189,7 @@ public class BubbleSoundObserver implements IObserver<Bubble, Bubble.EventType> 
 
     /**
      * Play one of the mega kill sounds with the gladdos voice.
+     *
      * @param balance the balance of the sound.
      */
     private void playRandomGladdosMegaKillSound(double balance) {
@@ -202,6 +205,7 @@ public class BubbleSoundObserver implements IObserver<Bubble, Bubble.EventType> 
 
     /**
      * Play one of the monster kill sounds with the gladdos voice.
+     *
      * @param balance the balance of the sound.
      */
     private void playRandomGladdosMonsterKillSound(double balance) {
@@ -217,6 +221,7 @@ public class BubbleSoundObserver implements IObserver<Bubble, Bubble.EventType> 
 
     /**
      * Play one of the killing spree sounds with the gladdos voice.
+     *
      * @param balance the balance of the sound.
      */
     private void playRandomGladdosKillingSpreeSound(double balance) {

@@ -20,7 +20,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  * @author Faris
  */
 public class SoundEffect {
-    
+
     private final String audioPath;
     private Clip soundClip;
     private boolean echo = true;
@@ -67,7 +67,7 @@ public class SoundEffect {
     protected void playLoop(double balance) {
         playAudioLoop(1, balance);
     }
-    
+
     /**
      * Play a sound effect loop.
      *
@@ -114,15 +114,15 @@ public class SoundEffect {
                 Thread.sleep(300);
                 initializeClip();
                 try {
-                    FloatControl control = (FloatControl) soundClip.getControl(FloatControl.Type.PAN);
+                    FloatControl control = 
+                            (FloatControl) soundClip.getControl(FloatControl.Type.PAN);
                     control.setValue((float) this.balance);
-                } catch (Exception e) {
-                }
+                } catch (Exception e) { }
                 try {
-                FloatControl control2 = (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
-                control2.setValue(-6);
-                } catch (Exception e) {
-                }
+                    FloatControl control2 = 
+                            (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
+                    control2.setValue(-6);
+                } catch (Exception e) { }
                 soundClip.start();
             }
             catch (InterruptedException ex) {
@@ -148,12 +148,15 @@ public class SoundEffect {
             try {
                 FloatControl control = (FloatControl) soundClip.getControl(FloatControl.Type.PAN);
                 control.setValue((float) this.balance);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
             }
             try {
-                FloatControl control2 = (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
+                FloatControl control2 = 
+                        (FloatControl) soundClip.getControl(FloatControl.Type.MASTER_GAIN);
                 control2.setValue((float) (this.volume - 1) * 4);
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
             }
             soundClip.loop(loop);
             soundClip.start();

@@ -6,22 +6,23 @@
 package nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects;
 
 import javafx.scene.Node;
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 
 /**
  * Abstract class of a view object containing some basic functionality.
+ *
  * @author faris
  */
 public abstract class AbstractViewObject implements IViewObject {
 
-    private final GameController gameController;
+    private final GameViewController gameController;
 
     /**
      * Store the reference to the view in which this object will be drawn.
      *
      * @param gc reference to the view in which this object will be drawn.
      */
-    AbstractViewObject(GameController gc) {
+    AbstractViewObject(GameViewController gc) {
         this.gameController = gc;
     }
 

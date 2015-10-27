@@ -103,9 +103,6 @@ public class Point {
         if (Double.doubleToLongBits(this.xPos) != Double.doubleToLongBits(other.xPos)) {
             return false;
         }
-        if (Double.doubleToLongBits(this.yPos) != Double.doubleToLongBits(other.yPos)) {
-            return false;
-        }
-        return true;
+        return Double.doubleToLongBits(this.yPos) == Double.doubleToLongBits(other.yPos);
     }
 }

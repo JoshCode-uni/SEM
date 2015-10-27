@@ -7,12 +7,14 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.player;
 
 /**
  * The base player modifier.
+ *
  * @author faris
  */
 public class PlayerBaseModifier implements IPlayerModifier {
 
     /**
      * The speed multiplier.
+     *
      * @return speed multiplier.
      */
     @Override
@@ -22,6 +24,7 @@ public class PlayerBaseModifier implements IPlayerModifier {
 
     /**
      * The projectile speed multiplier.
+     *
      * @return projectile speed multiplier.
      */
     @Override
@@ -31,6 +34,7 @@ public class PlayerBaseModifier implements IPlayerModifier {
 
     /**
      * The projectile delay.
+     *
      * @return projectile delay.
      */
     @Override

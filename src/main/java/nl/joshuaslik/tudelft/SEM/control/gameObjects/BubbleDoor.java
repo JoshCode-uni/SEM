@@ -4,6 +4,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
  * A door which is opened when all bubbles at the side of the player are destroyed.
+ *
  * @author Faris
  */
 public class BubbleDoor extends AbstractDoor {
@@ -12,6 +13,7 @@ public class BubbleDoor extends AbstractDoor {
 
     /**
      * Create a bubble door.
+     *
      * @param game the game objects.
      * @param upperLeft the upper left point.
      * @param upperRight the upper right point.

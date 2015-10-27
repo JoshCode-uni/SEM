@@ -9,14 +9,17 @@ import nl.joshuaslik.tudelft.SEM.control.gameObjects.pickup.powerup.IDecorator;
 
 /**
  * Abstract player decorator.
+ *
  * @author faris
  */
-public abstract class AbstractPlayerDecorator implements IPlayerModifier, IDecorator<IPlayerModifier> {
+public abstract class AbstractPlayerDecorator implements IPlayerModifier, 
+        IDecorator<IPlayerModifier> {
 
     private IPlayerModifier child;
 
     /**
      * Decorate a modifier.
+     *
      * @param mod the modifier to decorate.
      * @return the decorated modifier.
      */
@@ -28,6 +31,7 @@ public abstract class AbstractPlayerDecorator implements IPlayerModifier, IDecor
 
     /**
      * Get the child modifier.
+     *
      * @return the child modifier.
      */
     protected IPlayerModifier getChild() {

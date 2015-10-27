@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import javafx.scene.image.ImageView;
 
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class ImageViewObjectTest {
     InputStream is;
 
     @Mock
-    GameController gc;
+    GameViewController gc;
 
     ImageView imageSpy;
 

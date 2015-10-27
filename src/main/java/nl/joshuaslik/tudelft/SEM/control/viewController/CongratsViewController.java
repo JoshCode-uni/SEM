@@ -8,9 +8,10 @@ import nl.joshuaslik.tudelft.SEM.utility.GameLog;
 
 /**
  * The controller class of the view which is shown after winning a level.
+ *
  * @author Faris
  */
-public class CongratsController implements IpopupController {
+public class CongratsViewController implements IpopupController {
 
     @FXML
     private Button mainMenuButton;
@@ -31,9 +32,8 @@ public class CongratsController implements IpopupController {
     @FXML
     private void handleMainMenuButton() {
         GameLog.addInfoLog("Main menu button pressed from congrats screen");
-        System.out.println("Main Menu button pressed!");
         popupControl.hide();
-        MainMenuController.loadView();
+        MainMenuViewController.loadView();
     }
 
     /**

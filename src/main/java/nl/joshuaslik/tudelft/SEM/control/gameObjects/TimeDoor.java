@@ -4,6 +4,7 @@ import nl.joshuaslik.tudelft.SEM.model.container.Point;
 
 /**
  * A door which opens after a certain amount of time.
+ *
  * @author Faris
  */
 public class TimeDoor extends AbstractDoor {
@@ -12,6 +13,7 @@ public class TimeDoor extends AbstractDoor {
 
     /**
      * Constructor of the time door.
+     *
      * @param game the game objects.
      * @param upperLeft the upper left point.
      * @param upperRight the upper right point.
@@ -20,7 +22,7 @@ public class TimeDoor extends AbstractDoor {
      * @param starttime the start time.
      * @param delay the time after which the door must open.
      */
-    public TimeDoor(IGameObjects game, Point upperLeft, Point upperRight, Point bottomLeft, 
+    public TimeDoor(IGameObjects game, Point upperLeft, Point upperRight, Point bottomLeft,
             Point bottomRight, long starttime, long delay) {
         super(game, upperLeft, upperRight, bottomLeft, bottomRight);
         waitTime = delay - starttime;
@@ -28,6 +30,7 @@ public class TimeDoor extends AbstractDoor {
 
     /**
      * Update the door.
+     *
      * @param nanoFrameTime the time of a frame in ns.
      */
     @Override

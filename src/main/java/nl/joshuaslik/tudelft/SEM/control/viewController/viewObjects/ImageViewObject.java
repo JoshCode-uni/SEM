@@ -11,7 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import nl.joshuaslik.tudelft.SEM.control.viewController.GameController;
+import nl.joshuaslik.tudelft.SEM.control.viewController.GameViewController;
 
 /**
  * This class can be used to add a image to the view and update the properties of that image.
@@ -32,7 +32,7 @@ public class ImageViewObject extends AbstractViewObject implements IImageViewObj
      * @param height the height of the image.
      * @param gc a reference to the view in which this image will be drawn.
      */
-    public ImageViewObject(InputStream is, double width, double height, GameController gc) {
+    public ImageViewObject(InputStream is, double width, double height, GameViewController gc) {
         super(gc);
         Image img = new Image(is, width, height, true, true);
         this.image = new ImageView(img);

@@ -23,7 +23,8 @@ import nl.joshuaslik.tudelft.SEM.utility.Time;
  *
  * @author faris
  */
-public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider, IObservable<Player, Player.EventType> {
+public class Player extends AbstractPhysicsObject implements IUpdateable, ICollider,
+        IObservable<Player, Player.EventType> {
 
     private IPlayerModifier modifier = new PlayerBaseModifier();
     private final IImageViewObject image;
@@ -45,7 +46,8 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * @param kb keyboard which controller the actions of the player.
      * @param p2 if this is player 2.
      */
-    public Player(final IGameObjects gameObjects, final InputStream is, final IKeyboard kb, boolean p2) {
+    public Player(final IGameObjects gameObjects, final InputStream is, final IKeyboard kb,
+            boolean p2) {
         super(gameObjects);
         image = getGameObjects().makeImage(is, 100, 100);
         image.setX((getGameObjects().getRightBorder() - getGameObjects().getLeftBorder()) / 2.0);
@@ -101,7 +103,8 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     private void moveLeft(final long nanoFrameTime) {
-        double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
+        double leftPos = image.getStartX() + -MAX_SPEED * nanoFrameTime / Time.SECOND_NANO *
+                getMoveSpeedMultiplier();
         double leftBorder = getClosestLeftBorder();
         if (leftBorder < leftPos) {
             image.setX(leftPos);
@@ -118,7 +121,8 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * @param nanoFrameTime the framerate (nanoseconds/frame)
      */
     private void moveRight(final long nanoFrameTime) {
-        double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / Time.SECOND_NANO * getMoveSpeedMultiplier();
+        double rightPos = image.getStartX() + MAX_SPEED * nanoFrameTime / Time.SECOND_NANO *
+                getMoveSpeedMultiplier();
         double rightBorder = getClosestRightBorder();
         if (rightBorder - 100 > rightPos) {
             image.setX(rightPos);
@@ -135,7 +139,8 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     private void shoot() {
         double bulletX = (image.getStartX() + image.getEndX()) / 2.0;
         double bulletY = image.getEndY();
-        GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX) + ", " + Double.toString(bulletY) + ")");
+        GameLog.addInfoLog("Player shoots at: (" + Double.toString(bulletX) + ", " +
+                Double.toString(bulletY) + ")");
         Projectile proj = makeProjectile(getGameObjects(), bulletX, bulletY);
         proj.setPlayer(this);
         getGameObjects().addProjectile(proj);
@@ -159,8 +164,10 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
      * @param startY start Y.
      * @return the requested projectile.
      */
-    public Projectile makeProjectile(final IGameObjects gameObjects, final double startX, final double startY) {
-        return new Projectile(gameObjects, startX, startY, getProjectileSpeedMultiplier(), getProjectileSpikeDelay());
+    public Projectile makeProjectile(final IGameObjects gameObjects, final double startX,
+            final double startY) {
+        return new Projectile(gameObjects, startX, startY, getProjectileSpeedMultiplier(),
+                getProjectileSpikeDelay());
     }
 
     /**
@@ -169,9 +176,10 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     public void destroy() {
         image.destroy();
     }
-    
+
     /**
      * If the player intersects with the given image.
+     *
      * @param otherimage an image.
      * @return if the player image and other image intersect.
      */
@@ -181,6 +189,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Add a modifier.
+     *
      * @param newmod a new modifier to add.
      */
     public void addModifier(final AbstractPlayerDecorator newmod) {
@@ -189,6 +198,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Get the speed multiplier of the player.
+     *
      * @return the speed multiplier of the player.
      */
     private double getMoveSpeedMultiplier() {
@@ -197,6 +207,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Get the speed multiplier of a projectile.
+     *
      * @return the speed multiplier of a projectile.
      */
     private double getProjectileSpeedMultiplier() {
@@ -205,6 +216,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Get the delay of a projectile.
+     *
      * @return the delay of a projectile.
      */
     private int getProjectileSpikeDelay() {
@@ -213,6 +225,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Add a door.
+     *
      * @param xCoordinate the x coordinate.
      */
     public void setDoor(final double xCoordinate) {
@@ -225,6 +238,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Remove a door.
+     *
      * @param xCoordinate the x coordinate.
      */
     public void removeDoor(final double xCoordinate) {
@@ -234,6 +248,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Get the closest left border.
+     *
      * @return the closest left border.
      */
     private double getClosestLeftBorder() {
@@ -248,7 +263,8 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Get the closest right border.
-     * @return the closest right border. 
+     *
+     * @return the closest right border.
      */
     private double getClosestRightBorder() {
         double res = getGameObjects().getRightBorder();
@@ -262,6 +278,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Set a left door.
+     *
      * @param leftDoor a left door.
      */
     void setLeftDoor(final ArrayList<Double> leftDoor) {
@@ -270,6 +287,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Set a right door.
+     *
      * @param rightDoor a right door.
      */
     void setRightDoor(final ArrayList<Double> rightDoor) {
@@ -285,6 +303,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Add points to the score of this player.
+     *
      * @param n the amount of points to add.
      */
     public void addPoints(int n) {
@@ -293,6 +312,7 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Get the score of the player.
+     *
      * @return the score.
      */
     public int getScore() {
@@ -305,9 +325,10 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
     public boolean isDead() {
         return isDead;
     }
-    
+
     /**
      * Get the relative x position of the bubble compared to the view.
+     *
      * @return the relative x position of the bubble compared to the view.
      */
     public double getRelativeXPos() {
@@ -317,28 +338,31 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
 
     /**
      * Add an observer to this observable object.
+     *
      * @param o an observer.
      */
     @Override
     public void addObserver(IObserver o) {
-        if(o.sameClass(Player.class)) {
+        if (o.sameClass(Player.class)) {
             observers.add(o);
         }
     }
 
     /**
      * Delete an observer from this observable object.
+     *
      * @param o an observer.
      */
     @Override
     public void deleteObserver(IObserver o) {
-        if(o.sameClass(Player.class)) {
+        if (o.sameClass(Player.class)) {
             observers.remove(o);
         }
     }
 
     /**
      * Notify the observers of an event of this observable object.
+     *
      * @param event an event.
      */
     @Override
@@ -347,11 +371,12 @@ public class Player extends AbstractPhysicsObject implements IUpdateable, IColli
             o.update(this, event);
         }
     }
-    
+
     /**
      * Enum containing all of the events which can be triggered by a player.
      */
     public static enum EventType {
+
         SHOOT, WALK, DIED, NOT_WALKING;
     }
 }
