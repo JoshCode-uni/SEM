@@ -38,7 +38,7 @@ public class GameObjectsConstructorTest {
     private Line l2;
     private Line l3;
     private Line l4;
-    private ArrayList<IPhysicsObject> physicsObject = new ArrayList<>();
+    private ArrayList<Object> physicsObject = new ArrayList<>();
     private Bubble bubble;
     private Player player;
     Point p = new Point(0, 0);

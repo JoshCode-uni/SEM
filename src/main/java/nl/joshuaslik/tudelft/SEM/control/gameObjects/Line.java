@@ -7,7 +7,7 @@ import nl.joshuaslik.tudelft.SEM.control.viewController.viewObjects.ILineViewObj
  *
  * @author faris
  */
-public class Line extends AbstractLine implements IIntersectable, IPhysicsObject {
+public class Line extends AbstractLine implements IIntersectable {
 
     private final ILineViewObject line;
 
