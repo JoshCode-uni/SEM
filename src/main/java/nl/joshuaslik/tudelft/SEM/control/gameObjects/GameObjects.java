@@ -46,8 +46,8 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
     private final ArrayList<IIntersectable> intersectableObjects = new ArrayList<>();
     private final ArrayList<IObservable> oberservableObjects = new ArrayList<>();
 
-    private final ArrayList<IPhysicsObject> addObjectBuffer = new ArrayList<>();
-    private final ArrayList<IPhysicsObject> removeObjectBuffer = new ArrayList<>();
+    private final ArrayList<Object> addObjectBuffer = new ArrayList<>();
+    private final ArrayList<Object> removeObjectBuffer = new ArrayList<>();
 
     private final PickupGenerator pickupGenerator = new PickupGenerator((IGameObjects) this);
     private final ArrayList<Bubble> bubbles = new ArrayList<>();
@@ -224,11 +224,11 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      */
     private void initializeLevel() {
         if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
-            for (IPhysicsObject e : Levels.getLevelObjects((IGameObjects) this)) {
+            for (Object e : Levels.getLevelObjects((IGameObjects) this)) {
                 addObject(e);
             }
         } else {
-            for (IPhysicsObject e : Levels.getSurvivalLevelObjects((IGameObjects) this)) {
+            for (Object e : Levels.getSurvivalLevelObjects((IGameObjects) this)) {
                 addObject(e);
             }
         }
@@ -240,7 +240,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @param object the Dynamic Object to add to the scene.
      */
     @Override
-    public void addObject(final IPhysicsObject object) {
+    public void addObject(final Object object) {
         addObjectBuffer.add(object);
     }
 
@@ -250,7 +250,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @param object the Dynamic Object to remove from the game.
      */
     @Override
-    public void removeObject(final IPhysicsObject object) {
+    public void removeObject(final Object object) {
         removeObjectBuffer.add(object);
     }
 
@@ -258,7 +258,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * Add all buffered dynamic objects to the scene.
      */
     private void addBufferedDynamicObjects() {
-        for (IPhysicsObject object : addObjectBuffer) {
+        for (Object object : addObjectBuffer) {
             if (object == null) {
                 continue;
             }
@@ -292,7 +292,7 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * Remove all buffered dynamic objects from the game.
      */
     private void removeBufferedDynamicObjects() {
-        for (IPhysicsObject object : removeObjectBuffer) {
+        for (Object object : removeObjectBuffer) {
             if (object == null) {
                 continue;
             }

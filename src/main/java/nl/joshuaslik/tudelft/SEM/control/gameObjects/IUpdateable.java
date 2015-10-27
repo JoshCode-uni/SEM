@@ -10,7 +10,7 @@ package nl.joshuaslik.tudelft.SEM.control.gameObjects;
  *
  * @author faris
  */
-public interface IUpdateable extends IPhysicsObject {
+public interface IUpdateable {
 
     /**
      * Update the object.
