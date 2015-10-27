@@ -219,13 +219,8 @@ public class GameObjects implements IUpdateable, IGameObjects, IOberservableGame
      * @param level the level to initialize.
      */
     private void initializeLevel() {
-<<<<<<< HEAD
-        if (!GameMode.SURVIVAL.equals(GameInfo.getInstance().getGameMode())) {
-            for (Object e : Levels.getLevelObjects((IGameObjects) this)) {
-=======
         if (!GameMode.SURVIVAL.equals(Users.getInstance().getGameMode())) {
-            for (IPhysicsObject e : Levels.getLevelObjects((IGameObjects) this)) {
->>>>>>> highscores
+            for (Object e : Levels.getLevelObjects((IGameObjects) this)) {
                 addObject(e);
             }
         } else {

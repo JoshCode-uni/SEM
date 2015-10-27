@@ -25,11 +25,7 @@ public interface IGameObjects {
      *
      * @param object the Dynamic Object to add to the scene.
      */
-<<<<<<< HEAD
-    void addObject(Object object);
-=======
-    public void addObject(IPhysicsObject object);
->>>>>>> highscores
+    public void addObject(Object object);
 
     /**
      * Add a Projectile to the game.
@@ -43,11 +39,7 @@ public interface IGameObjects {
      *
      * @param object the Dynamic Object to remove from the game.
      */
-<<<<<<< HEAD
-    void removeObject(Object object);
-=======
-    public void removeObject(IPhysicsObject object);
->>>>>>> highscores
+    public void removeObject(Object object);
 
     /**
      * Remove a Projectile from the game.

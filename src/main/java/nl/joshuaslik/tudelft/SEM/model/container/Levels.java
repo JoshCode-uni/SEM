@@ -133,16 +133,9 @@ public class Levels {
      * @param lvl the level to create.
      * @return an array list containing all objects of the level.
      */
-<<<<<<< HEAD
     private static ArrayList<Object> createLevel(final IGameObjects gameObjects, int lvl) {
         ArrayList<Object> result = new ArrayList<>();
-    
-        XMLFile file = SAXParser.parseFile("/data/levels/levels.xml");
-=======
-    private static ArrayList<IPhysicsObject> createLevel(final IGameObjects gameObjects, int lvl) {
-        ArrayList<IPhysicsObject> result = new ArrayList<>();
         XMLFile file = SAXParser.parseFile(Levels.class.getResourceAsStream("/data/levels/levels.xml"));
->>>>>>> highscores
         XMLTag level = file.getElement("levels").getElementByAttribute("id", "l" + lvl);
         result.addAll(createBubbles(gameObjects, level));
         result.addAll(createDoors(gameObjects, level));
@@ -156,14 +149,8 @@ public class Levels {
      * @param level the level.
      * @return an array list containing all bubbles of the level.
      */
-<<<<<<< HEAD
     private static ArrayList<Object> createBubbles(final IGameObjects gameObjects, XMLTag level) {
         ArrayList<Object> result = new ArrayList<>();
-        
-=======
-    private static ArrayList<IPhysicsObject> createBubbles(final IGameObjects gameObjects, XMLTag level) {
-        ArrayList<IPhysicsObject> result = new ArrayList<>();
->>>>>>> highscores
         XMLTag bubbles = level.getElement("bubbles");
         for (XMLTag bubble : bubbles.getElements()) {
             result.add(createBubble(gameObjects, bubble));
@@ -178,14 +165,8 @@ public class Levels {
      * @param level the level
      * @return an array list containing all doors of the level.
      */
-<<<<<<< HEAD
     private static ArrayList<Object> createDoors(final IGameObjects gameObjects, XMLTag level) {
         ArrayList<Object> result = new ArrayList<>();
-    
-=======
-    private static ArrayList<IPhysicsObject> createDoors(final IGameObjects gameObjects, XMLTag level) {
-        ArrayList<IPhysicsObject> result = new ArrayList<>();
->>>>>>> highscores
         XMLTag doors = level.getElement("doors");
         for (XMLTag door : doors.getElements()) {
             result.add(createDoor(gameObjects, door));
